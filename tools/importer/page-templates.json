@@ -1,0 +1,52 @@
+{
+  "metadata": {
+    "projectType": "da"
+  },
+  "templates": [
+    {
+      "name": "en-landing",
+      "urls": [
+        "https://www.skoda-storyboard.com/en/"
+      ],
+      "description": "Škoda Storyboard English landing/home page (WordPress front page). Hero/featured promo grid + thematic teaser rails (Latest Stories, Social media, Models, eMobility, Lifestyle, Škoda World, Series, Latest News). Dynamic systems (media-cart add hooks, promo banners, newsletter, social feed, load-more) are omitted or rendered as static stubs.",
+      "blocks": [
+        {
+          "name": "cards-overlay",
+          "instances": [
+            "main.main > section.promo-box",
+            "div.cover-box .search-results.latest-articles"
+          ]
+        },
+        {
+          "name": "cards-media",
+          "instances": [
+            "div.cover-box.dark.socials-static .search-results.type-social",
+            "div.cover-box .search-results.type-skoda_model",
+            "div.cover-box.dark .search-results.type-skoda_series",
+            "div.cover-box .search-results.type-press_release"
+          ]
+        },
+        {
+          "name": "cards-toolbar",
+          "instances": [
+            "div.cover-box .search-results.type-post"
+          ]
+        },
+        {
+          "name": "section-social-dark",
+          "instances": [
+            "div.cover-box.dark.socials-static"
+          ],
+          "section": "dark"
+        },
+        {
+          "name": "section-series-dark",
+          "instances": [
+            "div.cover-box.dark .search-results.type-skoda_series"
+          ],
+          "section": "dark"
+        }
+      ]
+    }
+  ]
+}

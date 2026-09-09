@@ -1,0 +1,32 @@
+{
+  "variantName": "cards-toolbar",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-09-09T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.skoda-storyboard.com/en/",
+    "originPage": "Škoda Storyboard English landing/home page",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "teaser",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "image + (heading, text) + static toolbar (links)",
+    "buttonCount": 1,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": ["teaser cards that carry an action/link row beneath the body"],
+    "notSuitableFor": ["plain cards with no toolbar (use cards-media/cards-overlay)"],
+    "notes": "Source media-cart 'add' hooks (data-event-type/data-action/data-id) are omitted at import; toolbar renders remaining links only, statically."
+  },
+  "usage": {
+    "pagesUsing": ["/en/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-09-09T00:00:00.000Z"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "sites": {
+    "skoda-storyboard": {
+      "previewOrg": "larsauffarth",
+      "previewSite": "skoda-storyboard",
+      "contentHostUrl": "https://content.da.live/larsauffarth/skoda-storyboard/"
+    }
+  }
+}
