@@ -59,6 +59,54 @@ function toTime(entry) {
   return Number.isNaN(t) ? 0 : t;
 }
 
+/** Last non-empty path segment of a path or absolute URL (its story slug). */
+function slugOf(pathOrHref) {
+  return (pathOrHref || '')
+    .replace(/[#?].*$/, '')
+    .replace(/\/$/, '')
+    .split('/')
+    .pop() || '';
+}
+
+/**
+ * Wait until an element reports EDS block-status "loaded" (or a timeout).
+ * The Latest Stories (`stories`) block populates asynchronously; we must read
+ * its rendered links AFTER it finishes, else we'd exclude nothing.
+ */
+async function waitForLoaded(el, timeout = 3000) {
+  if (!el || el.dataset.blockStatus === 'loaded') return;
+  const start = performance.now();
+  // eslint-disable-next-line no-await-in-loop
+  while (el.dataset.blockStatus !== 'loaded' && performance.now() - start < timeout) {
+    // eslint-disable-next-line no-await-in-loop
+    await new Promise((r) => { setTimeout(r, 60); });
+  }
+}
+
+/**
+ * Collect the slugs of every story already shown ABOVE the rails — the Featured
+ * promo box and the Latest Stories grid — so the category rails don't repeat
+ * them (matches the source, where each story appears once). The featured promo
+ * is static markup present immediately; the Latest Stories block is dynamic, so
+ * we wait for it to load before reading its links.
+ */
+async function collectShownSlugs() {
+  const slugs = new Set();
+  // Featured promo box: a cards-overlay that is NOT the stories block itself
+  // (the stories block also carries cards-overlay classes).
+  document.querySelectorAll('main .cards-overlay:not(.stories) a[href]')
+    .forEach((a) => slugs.add(slugOf(a.getAttribute('href'))));
+  // Latest Stories grid (wait for it to finish populating).
+  const stories = document.querySelector('main .stories');
+  if (stories) {
+    await waitForLoaded(stories);
+    stories.querySelectorAll('a[href]')
+      .forEach((a) => slugs.add(slugOf(a.getAttribute('href'))));
+  }
+  slugs.delete('');
+  return slugs;
+}
+
 /**
  * Format an ISO date (YYYY-MM-DD) as the source's "D. M. YYYY" (e.g. 3. 9. 2026),
  * no leading zeros, to match every other rail on the page.
@@ -99,6 +147,10 @@ export default async function decorate(block) {
   // A rail with no pre-selected tag is a config error — degrade silently.
   if (!config.category) return;
 
+  // Stories already shown in the Featured promo + Latest Stories above the rails
+  // are dropped here so each story appears once on the page (source behaviour).
+  const shownSlugs = await collectShownSlugs();
+
   let entries = [];
   try {
     const all = await ffetch(config.index).all();
@@ -106,6 +158,8 @@ export default async function decorate(block) {
       .filter((e) => (e.template ? e.template === 'story' : true))
       .filter((e) => (e.category || '').toLowerCase() === config.category)
       .filter((e) => !config.excludeList.some((frag) => (e.path || '').includes(frag)))
+      // drop stories already rendered above (featured promo / Latest Stories)
+      .filter((e) => !shownSlugs.has(slugOf(e.path)))
       .sort((a, b) => toTime(b) - toTime(a))
       .slice(0, config.limit);
   } catch (e) {
