@@ -301,24 +301,20 @@ header nav .nav-sections ul > li > ul > li {
     margin: 0;
   }
 
+  /* spacing lives on the li (links are wrapped in <p> by EDS, so pad the cell):
+     symmetric 20px sides = source rhythm; drop items reserve 40px right for the caret */
   header nav .nav-sections .default-content-wrapper > ul > li {
     flex: 0 1 auto;
     position: relative;
     font-size: var(--body-font-size-m);
-  }
-
-  /* top-level links: 16px/400 ink, 20px side padding (source rhythm) */
-  header nav .nav-sections .default-content-wrapper > ul > li > a {
-    display: block;
     padding: 0 20px;
   }
 
-  /* drop items reserve room on the right for the chevron */
-  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop > a {
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop {
     padding-right: 40px;
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li > a:hover {
+  header nav .nav-sections .default-content-wrapper > ul > li a:hover {
     color: var(--skoda-green);
     text-decoration: none;
   }
