@@ -17,6 +17,7 @@ header .nav-topbar {
 
 @media (width >= 900px) {
   header .nav-topbar {
+    display: block;
     box-sizing: border-box;
     max-width: 1264px;
     min-height: 44px;
