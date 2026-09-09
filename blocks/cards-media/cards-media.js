@@ -25,9 +25,11 @@ export default function decorate(block) {
     [...li.children].forEach((div) => {
       if (div.children.length === 1 && div.querySelector('picture')) {
         div.className = 'cards-media-card-image';
-      } else if (iconTokenToSpan(div)) {
+      } else if (div.querySelector('span.icon') || iconTokenToSpan(div)) {
+        // icon cell: either already a decorated icon span (DA converts :name: server-side)
+        // or a raw :name: token we convert here.
         div.className = 'cards-media-card-icon';
-      } else if (!div.textContent.trim() && !div.querySelector('picture')) {
+      } else if (!div.textContent.trim() && !div.querySelector('picture') && !div.querySelector('span.icon')) {
         div.remove(); // drop empty image cell (e.g. dropped social icons)
       } else {
         div.className = 'cards-media-card-body';
