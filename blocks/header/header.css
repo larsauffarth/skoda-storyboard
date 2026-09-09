@@ -267,19 +267,21 @@ header nav .nav-sections ul > li > ul > li {
     align-self: unset;
   }
 
-  /* dropdown chevron: thin caret to the right of the label, matching source */
+  /* Spacing model mirrors the source: no flex gap — each top-level link carries
+     symmetric 20px side padding so the rhythm scales with the label and the
+     hit/hover area is the whole cell. */
   header nav .nav-sections .nav-drop {
     position: relative;
-    padding-right: 18px;
     cursor: pointer;
   }
 
+  /* chevron sits inside the link's right padding */
   header nav .nav-sections .nav-drop::after {
     content: '';
     display: inline-block;
     position: absolute;
     top: 0.35em;
-    right: 2px;
+    right: 20px;
     transform: rotate(135deg);
     width: 7px;
     height: 7px;
@@ -295,15 +297,25 @@ header nav .nav-sections ul > li > ul > li {
 
   header nav .nav-sections ul {
     display: flex;
-    gap: 32px;
+    gap: 0;
     margin: 0;
   }
 
-  /* top-level links: 16px/400 ink, full-height hit area */
   header nav .nav-sections .default-content-wrapper > ul > li {
     flex: 0 1 auto;
     position: relative;
     font-size: var(--body-font-size-m);
+  }
+
+  /* top-level links: 16px/400 ink, 20px side padding (source rhythm) */
+  header nav .nav-sections .default-content-wrapper > ul > li > a {
+    display: block;
+    padding: 0 20px;
+  }
+
+  /* drop items reserve room on the right for the chevron */
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop > a {
+    padding-right: 40px;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li > a:hover {
@@ -321,7 +333,7 @@ header nav .nav-sections ul > li > ul > li {
   header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul {
     display: block;
     position: absolute;
-    left: -12px;
+    left: 8px;
     min-width: 200px;
     top: calc(100% + 8px);
     padding: 8px 0;
