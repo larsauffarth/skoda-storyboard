@@ -13,7 +13,16 @@ export default function decorate(block) {
     });
     ul.append(li);
   });
-  ul.querySelectorAll('picture > img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])));
+  // Eager-load the first card's image: on the landing page the first featured
+  // card is the LCP element, so build it high-priority (eager + fetchpriority)
+  // and lazy-load the rest. Discovering the LCP image late (blocks decorate
+  // after fetch) is the main mobile-throttled score cost, so hint it hard.
+  ul.querySelectorAll('picture > img').forEach((img, i) => {
+    const eager = i === 0;
+    const optimized = createOptimizedPicture(img.src, img.alt, eager, [{ width: '750' }]);
+    if (eager) optimized.querySelector('img')?.setAttribute('fetchpriority', 'high');
+    img.closest('picture').replaceWith(optimized);
+  });
 
   // Featured-grid layouts (match the source's promo-box / latest-articles):
   //  - 3 items  -> promo grid: 1 large (left) + 2 stacked (right)
