@@ -18,17 +18,17 @@
           ]
         },
         {
-          "name": "cards-media",
+          "name": "cards-social",
           "instances": [
-            "div.cover-box.dark.socials-static .search-results.type-social",
-            "div.cover-box .search-results.type-skoda_model",
-            "div.cover-box.dark .search-results.type-skoda_series",
-            "div.cover-box .search-results.type-press_release"
+            "div.cover-box.dark.socials-static .search-results.type-social"
           ]
         },
         {
-          "name": "cards-toolbar",
+          "name": "carousel",
           "instances": [
+            "div.cover-box .search-results.type-skoda_model",
+            "div.cover-box.dark .search-results.type-skoda_series",
+            "div.cover-box .search-results.type-press_release",
             "div.cover-box .search-results.type-post"
           ]
         },

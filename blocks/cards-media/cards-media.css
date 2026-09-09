@@ -1,3 +1,8 @@
+/* cards-media: image-above / title-below teaser cards.
+   The source renders these FRAMELESS — the card sits directly on the section
+   (no white panel, no shadow, square image corners); only the image + text show.
+   Text color is inherited from the section (ink on light rails, white on the two
+   dark-green sections: Social media, Series). */
 .cards-media > ul {
   list-style: none;
   margin: 0;
@@ -8,9 +13,7 @@
 }
 
 .cards-media > ul > li {
-  background-color: var(--background-color);
-  border-radius: var(--card-radius);
-  box-shadow: var(--card-shadow);
+  background-color: transparent;
   overflow: hidden;
 }
 
@@ -22,30 +25,77 @@
   width: 100%;
   aspect-ratio: 3 / 2;
   object-fit: cover;
+  border-radius: 0;
 }
 
 .cards-media .cards-media-card-body {
-  margin: 16px;
+  margin: 12px 0 0;
 }
 
 .cards-media .cards-media-card-body h2,
 .cards-media .cards-media-card-body h3 {
-  margin: 0 0 8px;
-  font-size: var(--heading-font-size-s); /* teaser title 18px, not the section 26px */
+  margin: 0 0 4px;
+  font-size: var(--heading-font-size-xs); /* teaser title 16px, matches source */
   font-weight: var(--weight-regular);
-  line-height: 1.2;
+  line-height: 1.3;
 
   /* CSS line-clamp for long titles */
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
+.cards-media .cards-media-card-body h2 a,
+.cards-media .cards-media-card-body h3 a {
+  color: inherit;
+}
+
 .cards-media .cards-media-card-body p {
+  margin: 0 0 4px;
+  font-size: var(--body-font-size-xs);
+  color: inherit;
+  opacity: 0.8;
+}
+
+/* ---- Social variant: icon above a centered @handle, on the dark green section ---- */
+.cards-media.social > ul {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.cards-media.social > ul > li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.cards-media.social .cards-media-card-icon {
+  line-height: 0;
+}
+
+.cards-media.social .cards-media-card-icon .icon {
+  width: 48px;
+  height: 48px;
+}
+
+.cards-media.social .cards-media-card-icon .icon img {
+  width: 100%;
+  height: 100%;
+}
+
+.cards-media.social .cards-media-card-body {
   margin: 0;
-  font-size: var(--body-font-size-s);
-  color: var(--dark-color);
+}
+
+.cards-media.social .cards-media-card-body h2,
+.cards-media.social .cards-media-card-body h3 {
+  margin: 0;
+  font-size: var(--heading-font-size-s);
+  -webkit-line-clamp: 1;
 }
 
 /* text-only cards (e.g. social channel handles whose icons were dropped):
@@ -69,6 +119,7 @@
 .cards-media > ul > li.cards-media-card-textonly .cards-media-card-body h2,
 .cards-media > ul > li.cards-media-card-textonly .cards-media-card-body h3 {
   font-size: var(--heading-font-size-m);
+  -webkit-line-clamp: 2;
 }
 
 .cards-media > ul > li.cards-media-card-textonly a {

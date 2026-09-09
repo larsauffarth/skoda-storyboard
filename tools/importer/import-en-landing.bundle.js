@@ -163,6 +163,100 @@ var CustomImportScript = (() => {
     element.replaceWith(block);
   }
 
+  // tools/importer/parsers/cards-social.js
+  var ICON_BY_HOST = [
+    { match: /facebook\./i, icon: "facebook" },
+    { match: /instagram\./i, icon: "instagram" },
+    { match: /youtube\.|youtu\.be/i, icon: "youtube" }
+  ];
+  function iconTokenFor(href) {
+    const found = ICON_BY_HOST.find((m) => m.match.test(href || ""));
+    return found ? `:${found.icon}:` : "";
+  }
+  function parse4(element, { document: document2 }) {
+    const items = Array.from(element.querySelectorAll(".search-results-item"));
+    const list = items.length ? items : Array.from(element.querySelectorAll("article"));
+    const cells = [];
+    list.forEach((item) => {
+      const scope = item.querySelector("article") || item;
+      const link = scope.querySelector('a.article-teaser-media[href], a[href]:not([href="#"]):not([href=""])');
+      const href = link ? link.getAttribute("href") : "";
+      const heading = scope.querySelector("h3.entry-title, .entry-title");
+      const handle = heading ? heading.textContent.trim() : "";
+      const iconCell = document2.createElement("div");
+      const token = iconTokenFor(href);
+      if (token) iconCell.textContent = token;
+      const bodyCell = [];
+      const h = document2.createElement("h3");
+      if (href) {
+        const a = document2.createElement("a");
+        a.setAttribute("href", href);
+        a.textContent = handle;
+        h.append(a);
+      } else {
+        h.textContent = handle;
+      }
+      bodyCell.push(h);
+      if (handle) cells.push([iconCell, bodyCell]);
+    });
+    if (!cells.length) {
+      element.replaceWith(...element.childNodes);
+      return;
+    }
+    const block = WebImporter.Blocks.createBlock(document2, { name: "cards-media (social)", cells });
+    element.replaceWith(block);
+  }
+
+  // tools/importer/parsers/carousel.js
+  function parse5(element, { document: document2 }) {
+    const items = Array.from(element.querySelectorAll(".search-results-item, article"));
+    const wrappers = items.filter((el) => el.matches(".search-results-item"));
+    const list = wrappers.length ? wrappers : items.filter((el) => el.matches("article"));
+    const cells = [];
+    list.forEach((item) => {
+      const article = item.matches("article") ? item : item.querySelector("article");
+      const scope = article || item;
+      const img = scope.querySelector(".entry-thumbnail img, .article-teaser-media img, img");
+      const imageCell = document2.createElement("div");
+      if (img) imageCell.append(img);
+      const textCell = [];
+      const date = scope.querySelector(".entry-meta .entry-published, .entry-published");
+      if (date && date.textContent.trim()) {
+        const dateP = document2.createElement("p");
+        dateP.textContent = date.textContent.trim();
+        textCell.push(dateP);
+      }
+      const heading = scope.querySelector("h3.entry-title, .entry-title");
+      if (heading) {
+        const innerLink = heading.querySelector("a[href]");
+        if (innerLink) {
+          textCell.push(heading);
+        } else {
+          const wrapLink = scope.querySelector('a.article-teaser-media[href], a[href]:not([href="#"]):not([href=""])');
+          const h = document2.createElement("h3");
+          if (wrapLink && wrapLink.getAttribute("href")) {
+            const a = document2.createElement("a");
+            a.setAttribute("href", wrapLink.getAttribute("href"));
+            a.textContent = heading.textContent.trim();
+            h.append(a);
+          } else {
+            h.textContent = heading.textContent.trim();
+          }
+          textCell.push(h);
+        }
+      }
+      if (img || textCell.length) {
+        cells.push([imageCell, textCell]);
+      }
+    });
+    if (!cells.length) {
+      element.replaceWith(...element.childNodes);
+      return;
+    }
+    const block = WebImporter.Blocks.createBlock(document2, { name: "carousel", cells });
+    element.replaceWith(block);
+  }
+
   // tools/importer/transformers/skoda-cleanup.js
   var H = { before: "beforeTransform", after: "afterTransform" };
   function transform(hookName, element, payload) {
@@ -264,7 +358,9 @@ var CustomImportScript = (() => {
   var parsers = {
     "cards-overlay": parse,
     "cards-media": parse2,
-    "cards-toolbar": parse3
+    "cards-toolbar": parse3,
+    "cards-social": parse4,
+    carousel: parse5
   };
   var PAGE_TEMPLATE = {
     name: "en-landing",
@@ -281,17 +377,17 @@ var CustomImportScript = (() => {
         ]
       },
       {
-        name: "cards-media",
+        name: "cards-social",
         instances: [
-          "div.cover-box.dark.socials-static .search-results.type-social",
-          "div.cover-box .search-results.type-skoda_model",
-          "div.cover-box.dark .search-results.type-skoda_series",
-          "div.cover-box .search-results.type-press_release"
+          "div.cover-box.dark.socials-static .search-results.type-social"
         ]
       },
       {
-        name: "cards-toolbar",
+        name: "carousel",
         instances: [
+          "div.cover-box .search-results.type-skoda_model",
+          "div.cover-box.dark .search-results.type-skoda_series",
+          "div.cover-box .search-results.type-press_release",
           "div.cover-box .search-results.type-post"
         ]
       }
