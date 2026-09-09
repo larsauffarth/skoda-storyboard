@@ -143,23 +143,23 @@ footer .footer-nav .default-content-wrapper > ul > li > a {
 }
 
 /* submenu items */
-footer .footer-nav ul ul {
+footer .footer-nav .default-content-wrapper > ul ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-footer .footer-nav ul ul li {
+footer .footer-nav .default-content-wrapper > ul ul li {
   margin-bottom: 8px;
 }
 
-footer .footer-nav ul ul a {
+footer .footer-nav .default-content-wrapper > ul ul a {
   font-size: var(--body-font-size-s);
   font-weight: var(--weight-regular);
   opacity: 0.85;
 }
 
-footer .footer-nav ul ul a:hover {
+footer .footer-nav .default-content-wrapper > ul ul a:hover {
   opacity: 1;
 }
 
