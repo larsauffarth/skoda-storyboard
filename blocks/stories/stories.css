@@ -59,7 +59,7 @@
 .stories .cards-overlay-card-body h3 {
   margin: 0;
   color: var(--skoda-white);
-  font-size: var(--heading-font-size-m);
+  font-size: var(--heading-font-size-s); /* 18px teaser title (source) */
   font-weight: var(--weight-regular);
   line-height: 1.2;
 
