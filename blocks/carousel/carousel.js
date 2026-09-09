@@ -68,6 +68,16 @@ export default function decorate(block) {
   });
   ul.querySelectorAll('picture > img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])));
 
+  // Two source card styles, distinguished by whether a card carries a date:
+  //  - POST rails (eMobility / Lifestyle / Škoda World / Latest News): dated teasers
+  //    with the title OVERLAID white on the image (like cards-overlay).
+  //  - TAXONOMY rails (Models / Series): no date, title sits BELOW the image in bold.
+  // Detect by presence of a date paragraph in any card body, then tag the block so
+  // CSS can render the matching layout.
+  const hasDate = [...ul.querySelectorAll('.carousel-card-body')]
+    .some((body) => body.querySelector('p') && body.querySelector('p').textContent.trim());
+  block.classList.add(hasDate ? 'carousel-overlay' : 'carousel-caption');
+
   // structure: viewport > track(ul) + arrows
   const viewport = document.createElement('div');
   viewport.className = 'carousel-viewport';

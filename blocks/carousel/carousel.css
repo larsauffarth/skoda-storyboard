@@ -45,19 +45,61 @@
   width: 100%;
   aspect-ratio: 3 / 2;
   object-fit: cover;
-  border-radius: 0;
+  border-radius: var(--card-radius);
   pointer-events: none; /* let drag capture the gesture, not image drag */
 }
 
-.carousel .carousel-card-body {
+/* ---- POST rails (eMobility / Lifestyle / Škoda World / Latest News):
+   white title overlaid on the image, with date, like cards-overlay. ---- */
+.carousel-overlay .carousel-track > ul > li {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--card-radius);
+}
+
+.carousel-overlay .carousel-card-body {
+  position: absolute;
+  inset: auto 0 0;
+  margin: 0;
+  padding: 16px;
+  color: var(--skoda-white);
+  background: linear-gradient(rgb(0 0 0 / 0%) 0%, rgb(0 0 0 / 20%) 40%, rgb(0 0 0 / 80%) 100%);
+}
+
+.carousel-overlay .carousel-card-body h2,
+.carousel-overlay .carousel-card-body h3 {
+  margin: 0;
+  color: var(--skoda-white);
+  font-size: var(--heading-font-size-s); /* 18px overlaid title (source) */
+  font-weight: var(--weight-regular);
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.carousel-overlay .carousel-card-body a:any-link,
+.carousel-overlay .carousel-card-body p {
+  color: var(--skoda-white);
+}
+
+.carousel-overlay .carousel-card-body p {
+  margin: 0 0 4px;
+  font-size: var(--body-font-size-m); /* 16px date (source) */
+}
+
+/* ---- TAXONOMY rails (Models / Series): bold title BELOW a wide letterbox image,
+   no date. ---- */
+.carousel-caption .carousel-card-body {
   margin: 12px 0 0;
 }
 
-.carousel .carousel-card-body h2,
-.carousel .carousel-card-body h3 {
+.carousel-caption .carousel-card-body h2,
+.carousel-caption .carousel-card-body h3 {
   margin: 0 0 4px;
-  font-size: var(--heading-font-size-xs); /* 16px teaser title */
-  font-weight: var(--weight-regular);
+  font-size: var(--heading-font-size-xs); /* 16px */
+  font-weight: var(--weight-semibold); /* source uses 600 */
   line-height: 1.3;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -65,16 +107,17 @@
   overflow: hidden;
 }
 
-.carousel .carousel-card-body h2 a,
-.carousel .carousel-card-body h3 a {
+/* stylelint-disable no-descending-specificity */
+.carousel-caption .carousel-card-body h2 a,
+.carousel-caption .carousel-card-body h3 a {
   color: inherit;
 }
+/* stylelint-enable no-descending-specificity */
 
-.carousel .carousel-card-body p {
-  margin: 0 0 4px;
-  font-size: var(--body-font-size-xs);
-  color: inherit;
-  opacity: 0.8;
+/* Models rail uses a wide letterbox crop (source ratio ≈ 2.55). Series (the dark
+   caption rail) keeps the default 3:2, so scope the wide crop to light sections. */
+main .section:not(.dark) .carousel-caption .carousel-track > ul > li img {
+  aspect-ratio: 383 / 150;
 }
 
 /* prev/next arrows — 40px round, over the rail edges */
