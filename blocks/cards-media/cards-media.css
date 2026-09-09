@@ -8,8 +8,9 @@
 }
 
 .cards-media > ul > li {
-  border: 1px solid #dadada;
   background-color: var(--background-color);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
   overflow: hidden;
 }
 
@@ -19,7 +20,7 @@
 
 .cards-media > ul > li img {
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 3 / 2;
   object-fit: cover;
 }
 
@@ -30,10 +31,46 @@
 .cards-media .cards-media-card-body h2,
 .cards-media .cards-media-card-body h3 {
   margin: 0 0 8px;
+  font-size: var(--heading-font-size-s); /* teaser title 18px, not the section 26px */
+  font-weight: var(--weight-regular);
+  line-height: 1.2;
 
   /* CSS line-clamp for long titles */
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.cards-media .cards-media-card-body p {
+  margin: 0;
+  font-size: var(--body-font-size-s);
+  color: var(--dark-color);
+}
+
+/* text-only cards (e.g. social channel handles whose icons were dropped):
+   no media-card frame, blend into the section, inherit its text color */
+.cards-media > ul > li.cards-media-card-textonly {
+  background-color: transparent;
+  box-shadow: none;
+  border: 1px solid currentcolor;
+  border-radius: var(--card-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 96px;
+}
+
+.cards-media > ul > li.cards-media-card-textonly .cards-media-card-body {
+  margin: 16px;
+  text-align: center;
+}
+
+.cards-media > ul > li.cards-media-card-textonly .cards-media-card-body h2,
+.cards-media > ul > li.cards-media-card-textonly .cards-media-card-body h3 {
+  font-size: var(--heading-font-size-m);
+}
+
+.cards-media > ul > li.cards-media-card-textonly a {
+  color: inherit;
 }

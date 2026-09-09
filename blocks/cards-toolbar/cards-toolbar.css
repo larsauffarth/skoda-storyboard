@@ -10,8 +10,9 @@
 .cards-toolbar > ul > li {
   display: flex;
   flex-direction: column;
-  border: 1px solid #dadada;
   background-color: var(--background-color);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
   overflow: hidden;
 }
 
@@ -21,7 +22,7 @@
 
 .cards-toolbar > ul > li img {
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 3 / 2;
   object-fit: cover;
 }
 
@@ -33,10 +34,19 @@
 .cards-toolbar .cards-toolbar-card-body h2,
 .cards-toolbar .cards-toolbar-card-body h3 {
   margin: 0 0 8px;
+  font-size: var(--heading-font-size-s);
+  font-weight: var(--weight-regular);
+  line-height: 1.2;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.cards-toolbar .cards-toolbar-card-body p {
+  margin: 0;
+  font-size: var(--body-font-size-s);
+  color: var(--dark-color);
 }
 
 /* static toolbar row (media-cart hooks omitted at import) */

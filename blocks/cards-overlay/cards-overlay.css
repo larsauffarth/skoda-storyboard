@@ -10,6 +10,7 @@
 .cards-overlay > ul > li {
   position: relative;
   overflow: hidden;
+  border-radius: var(--card-radius);
   background-color: var(--background-color);
 }
 
@@ -19,7 +20,7 @@
 
 .cards-overlay > ul > li img {
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 3 / 2;
   object-fit: cover;
 }
 
@@ -28,14 +29,23 @@
   position: absolute;
   inset: auto 0 0;
   margin: 0;
-  padding: 16px;
-  color: #fff;
-  background: linear-gradient(transparent, rgb(0 0 0 / 70%));
+  padding: 20px;
+  color: var(--skoda-white);
+  background: linear-gradient(transparent, rgb(0 0 0 / 75%));
+}
+
+.cards-overlay .cards-overlay-card-body p {
+  margin: 0 0 4px;
+  font-size: var(--body-font-size-s);
 }
 
 .cards-overlay .cards-overlay-card-body h2,
 .cards-overlay .cards-overlay-card-body h3 {
   margin: 0;
+  color: var(--skoda-white);
+  font-size: var(--heading-font-size-m);
+  font-weight: var(--weight-regular);
+  line-height: 1.2;
 
   /* clamp long teaser titles via CSS (not dotdotdot) */
   display: -webkit-box;

@@ -143,6 +143,35 @@ function decorateButtons(main) {
 }
 
 /**
+ * Applies Section Metadata blocks as section classes/styles.
+ * The vendored aem.js decorateSections() does not process section-metadata, so
+ * this restores the standard behavior: read each section's `.section-metadata`
+ * block, turn its `Style` value(s) into classes on the section, then remove it.
+ * @param {Element} main The main element
+ */
+function decorateSectionMetadata(main) {
+  main.querySelectorAll('.section .section-metadata').forEach((meta) => {
+    const section = meta.closest('.section');
+    if (!section) return;
+    [...meta.children].forEach((row) => {
+      if (row.children.length < 2) return;
+      const key = row.children[0].textContent.trim().toLowerCase();
+      const valEl = row.children[1];
+      if (key === 'style') {
+        valEl.textContent.split(',').map((s) => s.trim()).filter(Boolean)
+          .forEach((style) => section.classList.add(style.toLowerCase().replace(/\s+/g, '-')));
+      } else {
+        section.dataset[key] = valEl.textContent.trim();
+      }
+    });
+    // remove the metadata block and its wrapper so it neither renders nor loads as a block
+    const wrapper = meta.closest('.section-metadata-wrapper');
+    (wrapper || meta).remove();
+    section.classList.remove('section-metadata-container');
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -151,6 +180,7 @@ export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
+  decorateSectionMetadata(main);
   decorateBlocks(main);
   decorateButtons(main);
 }
