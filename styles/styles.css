@@ -292,15 +292,17 @@ main .section.highlight {
 }
 
 /* dark sections (Social media, Series) — Škoda brand green.
-   Source box model: the green band has 32px top / 12px bottom INTERNAL padding,
-   and sits 36px below the preceding rail / 24px above the following one. Our
-   generic sections carry a 40px vertical margin, so use small negative margins
-   here to pull the outer gaps to the source's 36/24 (40 + −4 = 36 above,
-   40 + −16 = 24 below) while the padding gives the band its 32/12 height. */
+   Source box model: green band with 32px top / 12px bottom INTERNAL padding,
+   sitting 36px below the preceding rail and 24px above the following one.
+   The adjacent light sections each contribute a 40px margin that does NOT
+   collapse across the dark band's padding, so the outer gap = 40 + padding +
+   this margin. Solve for the source gaps:
+     into dark : 40 + 32(pad-top) + mt = 36  → mt = -36
+     out of dark: 12(pad-bottom) + mb + 40 = 24 → mb = -28 */
 main .section.dark {
   background-color: var(--dark-color);
   color: var(--skoda-white);
-  margin: -4px 0 -16px;
+  margin: -36px 0 -28px;
   padding: 32px 0 12px;
 }
 
