@@ -24,14 +24,16 @@
   object-fit: cover;
 }
 
-/* text overlaid on the image, anchored to the bottom */
+/* text overlaid on the image, anchored to the bottom.
+   Gradient fades from transparent (top) to near-opaque (bottom) so overlaid
+   white text stays legible over any photo. */
 .cards-overlay .cards-overlay-card-body {
   position: absolute;
   inset: auto 0 0;
   margin: 0;
   padding: 20px;
   color: var(--skoda-white);
-  background: linear-gradient(transparent, rgb(0 0 0 / 75%));
+  background: linear-gradient(rgb(0 0 0 / 0%) 0%, rgb(0 0 0 / 20%) 40%, rgb(0 0 0 / 80%) 100%);
 }
 
 .cards-overlay .cards-overlay-card-body p {
@@ -52,4 +54,71 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* ---- Featured grids (match the source promo-box / latest-articles) ---- */
+
+/* In featured layouts a card fills its grid cell, so the image stretches to
+   cover the full cell height instead of holding a fixed 3:2 ratio. */
+.cards-overlay-featured > ul > li {
+  display: flex;
+}
+
+.cards-overlay-featured > ul > li .cards-overlay-card-image,
+.cards-overlay-featured > ul > li picture {
+  width: 100%;
+  height: 100%;
+}
+
+.cards-overlay-featured > ul > li img {
+  height: 100%;
+  aspect-ratio: auto;
+}
+
+/* Promo box: 1 large (left, ~67%) + 2 stacked (right). Container ≈ 467px tall.
+   Source at 1248px: large 812 + 20 gap + small 400 → large ≈ 812/1212. */
+@media (width >= 900px) {
+  .cards-overlay-promo > ul {
+    grid-template:
+      'big small1' 1fr
+      'big small2' 1fr
+      / 812fr 400fr;
+    gap: 20px;
+    aspect-ratio: 1248 / 467;
+  }
+
+  .cards-overlay-promo > ul > li:nth-child(1) { grid-area: big; }
+  .cards-overlay-promo > ul > li:nth-child(2) { grid-area: small1; }
+  .cards-overlay-promo > ul > li:nth-child(3) { grid-area: small2; }
+
+  /* only the large teaser shows its summary; hide summaries on the small ones */
+  .cards-overlay-promo > ul > li:nth-child(n+2) .cards-overlay-card-body p {
+    display: none;
+  }
+
+  .cards-overlay-promo > ul > li:nth-child(1) .cards-overlay-card-body h2,
+  .cards-overlay-promo > ul > li:nth-child(1) .cards-overlay-card-body h3 {
+    font-size: var(--heading-font-size-l);
+  }
+}
+
+/* Latest Stories: 2 large (top) + 3 medium (bottom). */
+@media (width >= 900px) {
+  .cards-overlay-latest > ul {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 24px;
+  }
+
+  .cards-overlay-latest > ul > li:nth-child(1),
+  .cards-overlay-latest > ul > li:nth-child(2) {
+    grid-column: span 3;
+    aspect-ratio: 604 / 340;
+  }
+
+  .cards-overlay-latest > ul > li:nth-child(3),
+  .cards-overlay-latest > ul > li:nth-child(4),
+  .cards-overlay-latest > ul > li:nth-child(5) {
+    grid-column: span 2;
+    aspect-ratio: 396 / 223;
+  }
 }
