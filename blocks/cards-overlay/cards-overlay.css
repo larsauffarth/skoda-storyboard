@@ -64,6 +64,13 @@
 
 /* ---- Featured grids (match the source promo-box / latest-articles) ---- */
 
+/* Promo box carries the source's own outer spacing: 16px above (below the nav)
+   and 32px below (gap down to the Latest Stories block that follows it in the
+   same section). The section wrapper adds no margin of its own here. */
+.cards-overlay-promo {
+  margin: 16px 0 32px;
+}
+
 /* In featured layouts a card fills its grid cell, so the image stretches to
    cover the full cell height instead of holding a fixed 3:2 ratio. */
 .cards-overlay-featured > ul > li {
