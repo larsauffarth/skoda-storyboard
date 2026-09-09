@@ -1,14 +1,62 @@
-# Škoda Storyboard EN story articles — 3 featured promo + 5 Latest Stories + 5 extra (for Load-more)
-https://www.skoda-storyboard.com/en/skoda-world/skoda-classic-tour-through-the-eyes-of-a-spectator/
+# Škoda Storyboard EN story/rail articles.
+#
+# Every page imports to /en/stories/<slug> with a `category` derived from its
+# source URL folder (emobility / lifestyle / skoda-world / press-releases). The
+# homepage rails auto-populate from the query-index filtered on that category.
+# The featured promo box + Latest Stories reuse the emobility/skoda-world entries.
+
+# --- eMobility rail ---
 https://www.skoda-storyboard.com/en/emobility/an-electric-car-approaching-says-the-license-plate-but-only-in-some-countries/
 https://www.skoda-storyboard.com/en/emobility/peaq-sets-a-record-from-the-heart-of-europe-to-the-sea-without-recharging/
-https://www.skoda-storyboard.com/en/lifestyle/ouninpohja-finlands-roller-coaster-stage/
 https://www.skoda-storyboard.com/en/emobility/spacious-comfortable-and-striking-five-reasons-to-want-the-skoda-peaq/
-https://www.skoda-storyboard.com/en/skoda-world/explore-the-new-skoda-models-in-mixed-reality/
-https://www.skoda-storyboard.com/en/skoda-world/the-new-skoda-slavia-features-a-refreshed-look-and-an-exclusive-colour/
 https://www.skoda-storyboard.com/en/emobility/practical-fun-stylish-5-reasons-to-choose-the-epiq/
+https://www.skoda-storyboard.com/en/emobility/peaq-enters-production-sharing-the-line-with-the-octavia/
+https://www.skoda-storyboard.com/en/emobility/meet-the-peaq-comfort-just-like-at-home/
+https://www.skoda-storyboard.com/en/emobility/designers-on-the-peaq-its-modern-durable-and-practical/
+https://www.skoda-storyboard.com/en/emobility/a-custom-made-sunroof-walkie-talkies-and-champagne-the-skoda-peaq-at-the-tour-de-france/
+https://www.skoda-storyboard.com/en/emobility/how-the-versatile-skoda-peaq-conquered-a-mountain-peak/
+https://www.skoda-storyboard.com/en/emobility/teaser/
+https://www.skoda-storyboard.com/en/emobility/meet-peaq-safe-and-comfortable/
+https://www.skoda-storyboard.com/en/emobility/a-true-czech-from-spain/
+https://www.skoda-storyboard.com/en/emobility/meet-the-peaq-a-large-suv-with-outstanding-aerodynamics/
+https://www.skoda-storyboard.com/en/emobility/whats-behind-epiq-design/
+
+# --- Lifestyle rail ---
+https://www.skoda-storyboard.com/en/lifestyle/ouninpohja-finlands-roller-coaster-stage/
 https://www.skoda-storyboard.com/en/lifestyle/la-dolce-vita-explore-the-surroundings-of-lake-como/
 https://www.skoda-storyboard.com/en/lifestyle/chainsaws-and-sparklers-discover-the-traditions-of-rally-fans/
+https://www.skoda-storyboard.com/en/lifestyle/skodas-smarter-wireless-charging-goes-beyond-phones/
+https://www.skoda-storyboard.com/en/lifestyle/from-unwanted-graffiti-to-bold-support-for-womens-cycling/
+https://www.skoda-storyboard.com/en/lifestyle/13-countries-over-19000-kilometers-the-kylaq-traveled-from-pune-to-prague/
+https://www.skoda-storyboard.com/en/lifestyle/an-epic-start-to-the-tour-de-france-skoda-got-barcelona-moving/
+https://www.skoda-storyboard.com/en/lifestyle/feeling-the-heat-skoda-cars-keep-both-passengers-and-their-snacks-cool/
+https://www.skoda-storyboard.com/en/lifestyle/a-drivers-paradise-just-outside-valencia-and-those-views/
+https://www.skoda-storyboard.com/en/lifestyle/turtle-window-fountain-warning-indicator-lights-you-may-not-recognise/
+https://www.skoda-storyboard.com/en/lifestyle/iconic-rally-locations-a-jump-into-portugal/
+
+# --- Škoda World rail ---
+https://www.skoda-storyboard.com/en/skoda-world/skoda-classic-tour-through-the-eyes-of-a-spectator/
+https://www.skoda-storyboard.com/en/skoda-world/explore-the-new-skoda-models-in-mixed-reality/
+https://www.skoda-storyboard.com/en/skoda-world/the-new-skoda-slavia-features-a-refreshed-look-and-an-exclusive-colour/
 https://www.skoda-storyboard.com/en/skoda-world/how-the-skoda-octavia-reached-365-km-h/
 https://www.skoda-storyboard.com/en/skoda-world/a-kodiaq-made-of-paper-the-modeler-spent-700-hours-developing-and-building-it/
-https://www.skoda-storyboard.com/en/lifestyle/skodas-smarter-wireless-charging-goes-beyond-phones/
+https://www.skoda-storyboard.com/en/skoda-world/legend-chris-froome-takes-you-behind-the-scenes-of-the-tour-de-france/
+https://www.skoda-storyboard.com/en/skoda-world/rally-champion-and-the-unique-skoda-fabia-motorsport-edition/
+https://www.skoda-storyboard.com/en/skoda-world/125-years-of-racing-history-in-one-place-come-visit-the-museum/
+https://www.skoda-storyboard.com/en/skoda-world/get-your-car-ready-for-summer-with-skoda-accessories/
+https://www.skoda-storyboard.com/en/skoda-world/come-cheer-and-sing-along-meet-the-karaoke-car/
+https://www.skoda-storyboard.com/en/skoda-world/the-evolution-of-hockey-gear-alongside-automobiles/
+https://www.skoda-storyboard.com/en/skoda-world/life-with-a-plug-in-hybrid-a-versatile-companion/
+https://www.skoda-storyboard.com/en/skoda-world/even-thousands-of-cars-at-a-time-how-skoda-sells-cars-to-corporate-customers/
+
+# --- Latest News rail (press releases) ---
+https://www.skoda-storyboard.com/en/press-releases/skoda-auto-announces-changes-to-its-board-of-management/
+https://www.skoda-storyboard.com/en/press-releases/936-km-without-recharging-skoda-peaq-sets-range-record-for-seven-seater-electric-suvs/
+https://www.skoda-storyboard.com/en/press-releases/skoda-octavia-turns-30-three-decades-of-a-brand-icon/
+https://www.skoda-storyboard.com/en/press-releases/skoda-auto-supports-uci-mountain-bike-world-championshipsas-official-partner-for-second-year-running/
+https://www.skoda-storyboard.com/en/press-releases/skoda-receives-red-dot-award-for-its-vision-app-concept/
+https://www.skoda-storyboard.com/en/press-releases/skoda-auto-unveils-updated-slavia-in-india/
+https://www.skoda-storyboard.com/en/press-releases/simply-clever-for-summer-smart-skoda-features-that-make-every-trip-easier/
+https://www.skoda-storyboard.com/en/press-releases/lorena-wiebes-receives-skoda-design-trophy-after-winning-tour-de-france-femmes-avec-zwift-points-classification/
+https://www.skoda-storyboard.com/en/press-releases/skoda-auto-launches-production-of-the-new-peaq-in-mlada-boleslav/
+https://www.skoda-storyboard.com/en/press-releases/skoda-auto-supports-tour-de-france-femmes-avec-zwift-as-official-main-partner-for-the-fifth-year/

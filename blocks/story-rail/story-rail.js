@@ -1,0 +1,127 @@
+import {
+  createOptimizedPicture,
+  buildBlock,
+  decorateBlock,
+  loadBlock,
+} from '../../scripts/aem.js';
+import ffetch from '../../scripts/ffetch.js';
+
+// story-rail: an auto-populated, tag-filtered teaser rail.
+//
+// The source homepage rails (eMobility / Lifestyle / Škoda World / Latest News)
+// are not hand-curated — they are search-result components pre-filtered by a
+// category tag. This block reproduces that: it reads the published query-index,
+// keeps story pages whose `category` matches the block's pre-selected tag, sorts
+// by `publisheddate` DESCENDING, and renders the SAME horizontal carousel UI the
+// static rails use — by building a real `carousel` block and letting EDS decorate
+// it (buildBlock + loadBlock), so no carousel code is duplicated or cross-imported.
+//
+// Authoring: a one-cell block whose rows configure it:
+//   | story-rail |
+//   | index    | /en/query-index.json |
+//   | category | emobility            |   <- the pre-selected tag (required)
+//   | limit    | 10                   |
+//   | exclude  | teaser, some-slug    |   <- optional slugs/path fragments to drop
+//
+// Graceful: if the index is unreachable, the tag is missing, or it yields no
+// entries, the block renders nothing and leaves the section heading intact.
+
+const DEFAULTS = {
+  index: '/en/query-index.json',
+  category: '',
+  limit: 10,
+  exclude: '',
+};
+
+/** Read simple key/value config rows from the block, falling back to defaults. */
+function readConfig(block) {
+  const config = { ...DEFAULTS };
+  [...block.children].forEach((row) => {
+    const cells = [...row.children];
+    if (cells.length < 2) return;
+    const key = cells[0].textContent.trim().toLowerCase();
+    const value = cells[1].textContent.trim();
+    if (key in config && value) config[key] = value;
+  });
+  config.limit = parseInt(config.limit, 10) || DEFAULTS.limit;
+  config.category = config.category.toLowerCase();
+  config.excludeList = config.exclude
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean);
+  return config;
+}
+
+/** Parse an index entry's date to a sortable number (newest = largest). */
+function toTime(entry) {
+  const raw = entry.publisheddate || entry.date || entry.lastModified || '';
+  const t = Date.parse(raw);
+  return Number.isNaN(t) ? 0 : t;
+}
+
+/**
+ * Format an ISO date (YYYY-MM-DD) as the source's "D. M. YYYY" (e.g. 3. 9. 2026),
+ * no leading zeros, to match every other rail on the page.
+ */
+function formatDate(raw) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(raw || '');
+  if (!m) return raw || '';
+  const [, y, mo, d] = m;
+  return `${parseInt(d, 10)}. ${parseInt(mo, 10)}. ${y}`;
+}
+
+/**
+ * Build the two-column carousel row for one story: [picture] + [date + title].
+ * Mirrors the static rail markup exactly so carousel.js classifies it as an
+ * overlay (dated) card and carousel.css styles it identically.
+ */
+function buildRow(entry) {
+  const picture = entry.image
+    ? createOptimizedPicture(entry.image, entry.title || '', false, [{ width: '750' }])
+    : document.createElement('picture');
+
+  const dateP = document.createElement('p');
+  if (entry.publisheddate) dateP.textContent = formatDate(entry.publisheddate);
+
+  const h3 = document.createElement('h3');
+  const a = document.createElement('a');
+  a.href = entry.path;
+  a.textContent = entry.title || entry.path;
+  h3.append(a);
+
+  return [{ elems: [picture] }, { elems: [dateP, h3] }];
+}
+
+export default async function decorate(block) {
+  const config = readConfig(block);
+  block.textContent = '';
+
+  // A rail with no pre-selected tag is a config error — degrade silently.
+  if (!config.category) return;
+
+  let entries = [];
+  try {
+    const all = await ffetch(config.index).all();
+    entries = all
+      .filter((e) => (e.template ? e.template === 'story' : true))
+      .filter((e) => (e.category || '').toLowerCase() === config.category)
+      .filter((e) => !config.excludeList.some((frag) => (e.path || '').includes(frag)))
+      .sort((a, b) => toTime(b) - toTime(a))
+      .slice(0, config.limit);
+  } catch (e) {
+    // Index unreachable — degrade gracefully (leave the section heading, render nothing).
+    // eslint-disable-next-line no-console
+    console.warn('story-rail: could not load index', config.index, e);
+    return;
+  }
+
+  if (!entries.length) return;
+
+  // Build a real carousel block from the filtered entries and let EDS decorate it,
+  // so the rail behaves + looks exactly like the static carousels (overlay cards,
+  // prev/next arrows, pointer-drag).
+  const carousel = buildBlock('carousel', entries.map(buildRow));
+  block.append(carousel);
+  decorateBlock(carousel);
+  await loadBlock(carousel);
+}

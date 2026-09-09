@@ -35,8 +35,69 @@ function cleanTitle(raw) {
   return raw.replace(/\s*[-|–]\s*Škoda Storyboard\s*$/i, '').trim();
 }
 
+/**
+ * Find the article's publish date as a clean ISO date (YYYY-MM-DD) or ''.
+ * Editorial posts expose it as the `article:published_time` meta; press releases
+ * do NOT — their date lives on the article element's `data-publish-date`
+ * attribute (and a `.entry-published` span), and in the Yoast JSON-LD graph.
+ * Try each signal in order of reliability. Read from `document` so it works
+ * regardless of body-subtree stripping done elsewhere.
+ */
+function findPublishedDate(document) {
+  const metaDate = meta(document, 'article:published_time');
+  if (metaDate) return metaDate.slice(0, 10);
+
+  // Press-release article carries data-publish-date="2026-09-02T17:20:53+02:00".
+  const dataEl = document.querySelector('[data-publish-date]');
+  const dataDate = dataEl && dataEl.getAttribute('data-publish-date');
+  if (dataDate) {
+    const m = /(\d{4}-\d{2}-\d{2})/.exec(dataDate);
+    if (m) return m[1];
+  }
+
+  // Yoast JSON-LD graph in <head> (if scripts survive).
+  const scripts = [...document.querySelectorAll('script[type="application/ld+json"]')];
+  for (let i = 0; i < scripts.length; i += 1) {
+    const m = /"datePublished"\s*:\s*"(\d{4}-\d{2}-\d{2})/.exec(scripts[i].textContent || '');
+    if (m) return m[1];
+  }
+
+  // Last resort: a visible "D. M. YYYY" in the .entry-published span.
+  const span = document.querySelector('.entry-published');
+  if (span) {
+    const m = /(\d{1,2})\.\s*(\d{1,2})\.\s*(\d{4})/.exec(span.textContent || '');
+    if (m) {
+      const [, d, mo, y] = m;
+      return `${y}-${mo.padStart(2, '0')}-${d.padStart(2, '0')}`;
+    }
+  }
+  return '';
+}
+
+/**
+ * Derive the rail category from the source URL's FIRST path segment after /en/.
+ * The source pages carry no `article:section` (or JSON-LD only) meta we can rely
+ * on, but their URL folder is authoritative: /en/emobility/…, /en/lifestyle/…,
+ * /en/skoda-world/…, /en/press-releases/…. The homepage rails filter the
+ * query-index on exactly these slugs, so the category MUST match the folder.
+ * Returns '' when the URL doesn't expose a usable segment.
+ */
+function categoryFromUrl(originalURL) {
+  try {
+    const segments = new URL(originalURL).pathname
+      .split('/')
+      .filter(Boolean);
+    // pathname is /en/<category>/<slug>/ → category is the segment after "en"
+    const enIdx = segments.indexOf('en');
+    const category = enIdx >= 0 ? segments[enIdx + 1] : segments[0];
+    return (category || '').toLowerCase();
+  } catch (e) {
+    return '';
+  }
+}
+
 export default function transform(hookName, element, payload) {
-  const { document } = payload;
+  const { document, params } = payload;
 
   if (hookName === H.before) {
     // Non-authorable site chrome + interactive/dynamic hooks. Bare header/footer
@@ -112,9 +173,12 @@ export default function transform(hookName, element, payload) {
     const image = meta(document, 'og:image');
     // article:published_time is a full ISO timestamp; keep the date portion for a
     // clean, sortable publisheddate (block sorts desc on this).
-    const published = meta(document, 'article:published_time');
-    const publishedDate = published ? published.slice(0, 10) : '';
-    const category = meta(document, 'article:section');
+    const publishedDate = findPublishedDate(document);
+    // Category drives the homepage rail filters. The source URL folder is the
+    // authoritative signal (article:section meta is usually absent); fall back to
+    // article:section only if the URL yields nothing.
+    const category = categoryFromUrl(params && params.originalURL)
+      || meta(document, 'article:section');
 
     const cells = [];
     if (title) cells.push(['Title', title]);

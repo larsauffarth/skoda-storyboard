@@ -1,0 +1,15 @@
+/* story-rail: transparent wrapper around a dynamically-built carousel.
+   All visual styling comes from the nested .carousel block (carousel.css); this
+   block only hosts it, so it must add no box of its own. */
+
+.story-rail {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+/* The built carousel is appended directly; keep it flush with the rail heading
+   exactly like the static carousels (which sit in their own wrapper). */
+.story-rail > .carousel {
+  margin: 0;
+}
