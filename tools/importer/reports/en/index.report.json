@@ -2,19 +2,19 @@
   "status": "success",
   "url": "https://www.skoda-storyboard.com/en/",
   "path": "en/index",
-  "timestamp": "2026-09-09T09:19:25.421Z",
+  "timestamp": "2026-09-09T10:41:14.888Z",
   "title": "Škoda Storyboard",
   "template": "en-landing",
   "blocks": [
     "cards-overlay",
     "cards-overlay",
-    "cards-media",
-    "cards-media",
-    "cards-media",
-    "cards-media",
-    "cards-toolbar",
-    "cards-toolbar",
-    "cards-toolbar",
-    "cards-toolbar"
+    "cards-social",
+    "carousel",
+    "carousel",
+    "carousel",
+    "carousel",
+    "carousel",
+    "carousel",
+    "carousel"
   ]
 }

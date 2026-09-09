@@ -33,7 +33,13 @@ body.appear {
 }
 
 header {
-  height: var(--nav-height);
+  height: var(--nav-main-height); /* mobile: topbar hidden, only the main nav row */
+}
+
+@media (width >= 900px) {
+  header {
+    height: var(--nav-height); /* desktop: topbar + main nav */
+  }
 }
 
 header .header,

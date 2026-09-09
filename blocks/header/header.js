@@ -124,11 +124,21 @@ export default async function decorate(block) {
   nav.id = 'nav';
   while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
 
-  const classes = ['brand', 'sections', 'tools'];
+  // The nav fragment is either the standard 3 rows (brand, sections, tools) or 4 rows
+  // where the FIRST is an optional utility "topbar" row (source two-row header). Detect
+  // the topbar by count so a 3-row fragment still maps correctly.
+  const hasTopbar = nav.children.length >= 4;
+  const classes = hasTopbar
+    ? ['topbar', 'brand', 'sections', 'tools']
+    : ['brand', 'sections', 'tools'];
   classes.forEach((c, i) => {
     const section = nav.children[i];
     if (section) section.classList.add(`nav-${c}`);
   });
+
+  // Move the utility (topbar) row out of <nav> so it renders as a full-width bar
+  // above the main navigation, matching the source two-row header.
+  const navTopbar = nav.querySelector('.nav-topbar');
 
   const navBrand = nav.querySelector('.nav-brand');
   const brandLink = navBrand.querySelector('.button');
@@ -166,6 +176,12 @@ export default async function decorate(block) {
 
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';
+
+  // Lift the utility row above the main nav as a full-width bar (source two-row header).
+  if (navTopbar) {
+    navTopbar.remove();
+    navWrapper.append(navTopbar);
+  }
   navWrapper.append(nav);
   block.append(navWrapper);
 }

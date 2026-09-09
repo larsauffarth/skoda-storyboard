@@ -5,6 +5,8 @@
 import cardsOverlayParser from './parsers/cards-overlay.js';
 import cardsMediaParser from './parsers/cards-media.js';
 import cardsToolbarParser from './parsers/cards-toolbar.js';
+import cardsSocialParser from './parsers/cards-social.js';
+import carouselParser from './parsers/carousel.js';
 
 // TRANSFORMER IMPORTS
 import cleanupTransformer from './transformers/skoda-cleanup.js';
@@ -15,6 +17,8 @@ const parsers = {
   'cards-overlay': cardsOverlayParser,
   'cards-media': cardsMediaParser,
   'cards-toolbar': cardsToolbarParser,
+  'cards-social': cardsSocialParser,
+  carousel: carouselParser,
 };
 
 // PAGE TEMPLATE CONFIGURATION (embedded from page-templates.json)
@@ -33,17 +37,17 @@ const PAGE_TEMPLATE = {
       ],
     },
     {
-      name: 'cards-media',
+      name: 'cards-social',
       instances: [
-        "div.cover-box.dark.socials-static .search-results.type-social",
-        'div.cover-box .search-results.type-skoda_model',
-        'div.cover-box.dark .search-results.type-skoda_series',
-        'div.cover-box .search-results.type-press_release',
+        'div.cover-box.dark.socials-static .search-results.type-social',
       ],
     },
     {
-      name: 'cards-toolbar',
+      name: 'carousel',
       instances: [
+        'div.cover-box .search-results.type-skoda_model',
+        'div.cover-box.dark .search-results.type-skoda_series',
+        'div.cover-box .search-results.type-press_release',
         'div.cover-box .search-results.type-post',
       ],
     },

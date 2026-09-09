@@ -63,5 +63,6 @@
 
   /* layout */
   --content-max-width: 1248px;
-  --nav-height: 108px;
+  --nav-height: 108px;      /* total header: topbar (44) + main nav (64) */
+  --nav-main-height: 64px;  /* main nav row only */
 }

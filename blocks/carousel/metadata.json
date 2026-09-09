@@ -1,0 +1,31 @@
+{
+  "variantName": "carousel",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-09-09T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.skoda-storyboard.com/en/",
+    "originPage": "Škoda Storyboard English landing/home page",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "teaser",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "horizontal draggable rail of image-above / title-below cells",
+    "buttonCount": 0,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": ["thematic teaser rails that scroll horizontally (source Flickity rails)"],
+    "notSuitableFor": ["static grids that show all cards at once (use cards-media/cards-toolbar)"]
+  },
+  "usage": {
+    "pagesUsing": ["/en/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-09-09T00:00:00.000Z"
+  }
+}
