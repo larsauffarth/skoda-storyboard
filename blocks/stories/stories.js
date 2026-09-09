@@ -55,6 +55,18 @@ function toTime(entry) {
   return Number.isNaN(t) ? 0 : t;
 }
 
+/**
+ * Format an ISO date (YYYY-MM-DD) as the source's "D. M. YYYY" (e.g. 3. 9. 2026),
+ * no leading zeros, to match every other rail on the page. Falls back to the raw
+ * string if it isn't a plain ISO date.
+ */
+function formatDate(raw) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(raw || '');
+  if (!m) return raw || '';
+  const [, y, mo, d] = m;
+  return `${parseInt(d, 10)}. ${parseInt(mo, 10)}. ${y}`;
+}
+
 /** Build one card <li> mirroring cards-overlay-latest markup. */
 function buildCard(entry, eager) {
   const li = document.createElement('li');
@@ -74,8 +86,8 @@ function buildCard(entry, eager) {
   body.className = 'cards-overlay-card-body';
   if (entry.publisheddate) {
     const dateP = document.createElement('p');
-    // display as-authored ISO date; sorting already used the parsed value
-    dateP.textContent = entry.publisheddate;
+    // format ISO date as source's "D. M. YYYY" to match the other rails
+    dateP.textContent = formatDate(entry.publisheddate);
     body.append(dateP);
   }
   const h3 = document.createElement('h3');
