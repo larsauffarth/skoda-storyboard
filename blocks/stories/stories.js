@@ -27,6 +27,7 @@ const DEFAULTS = {
   path: '/en/stories/',
   limit: 5,
   exclude: '',
+  excludecategory: '',
 };
 
 /** Read simple key/value config rows from the block, falling back to defaults. */
@@ -44,6 +45,11 @@ function readConfig(block) {
   config.excludeList = config.exclude
     .split(',')
     .map((s) => s.trim())
+    .filter(Boolean);
+  // Categories to drop entirely (e.g. press-releases belong only in Latest News).
+  config.excludeCategoryList = config.excludecategory
+    .split(',')
+    .map((s) => s.trim().toLowerCase())
     .filter(Boolean);
   return config;
 }
@@ -114,6 +120,8 @@ export default async function decorate(block) {
         : (e.path || '').startsWith(config.path)))
       // drop stories already featured in the static promo box (by slug/path fragment)
       .filter((e) => !config.excludeList.some((frag) => (e.path || '').includes(frag)))
+      // drop whole categories that belong to a dedicated rail (e.g. press-releases)
+      .filter((e) => !config.excludeCategoryList.includes((e.category || '').toLowerCase()))
       .sort((a, b) => toTime(b) - toTime(a));
   } catch (e) {
     // Index unreachable — degrade gracefully (leave the section heading, render nothing).
