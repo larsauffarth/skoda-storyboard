@@ -38,9 +38,10 @@ export default async function decorate(block) {
   });
 
   // Social row: label / icon row / app links, then turn :icon: tokens into glyphs.
+  // Paragraphs live under an EDS .default-content-wrapper, so match by descendant.
   const social = footer.querySelector('.footer-social');
   if (social) {
-    const paras = social.querySelectorAll(':scope > p');
+    const paras = social.querySelectorAll('p');
     if (paras[0]) paras[0].classList.add('footer-social-title');
     if (paras[1]) paras[1].classList.add('footer-social-icons');
     if (paras[2]) paras[2].classList.add('footer-social-apps');
