@@ -9,10 +9,15 @@ import ffetch from '../../scripts/ffetch.js';
 // cards-overlay "latest" featured grid (2 large + 3 medium) so its CSS is reused.
 //
 // Authoring: a one-cell block whose optional rows override defaults:
-//   | stories        |
-//   | index  | /en/query-index.json |
-//   | path   | /en/stories/         |
-//   | limit  | 5                    |
+//   | stories         |
+//   | index   | /en/query-index.json |
+//   | path    | /en/stories/         |
+//   | limit   | 5                    |
+//   | exclude | skoda-classic-tour-..., an-electric-car-... |
+//
+// `exclude` is a comma-separated list of slugs (or path fragments) to drop —
+// used to keep stories already shown in the static featured promo box from
+// repeating here. Matched as a substring of each story's path.
 //
 // Graceful: if the index is unreachable or empty, the block renders nothing and
 // leaves the section heading intact (the page never breaks).
@@ -21,6 +26,7 @@ const DEFAULTS = {
   index: '/en/query-index.json',
   path: '/en/stories/',
   limit: 5,
+  exclude: '',
 };
 
 /** Read simple key/value config rows from the block, falling back to defaults. */
@@ -34,6 +40,11 @@ function readConfig(block) {
     if (key in config && value) config[key] = value;
   });
   config.limit = parseInt(config.limit, 10) || DEFAULTS.limit;
+  // Normalize exclude into a list of non-empty, trimmed fragments.
+  config.excludeList = config.exclude
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean);
   return config;
 }
 
@@ -89,6 +100,8 @@ export default async function decorate(block) {
       .filter((e) => (e.template
         ? e.template === 'story'
         : (e.path || '').startsWith(config.path)))
+      // drop stories already featured in the static promo box (by slug/path fragment)
+      .filter((e) => !config.excludeList.some((frag) => (e.path || '').includes(frag)))
       .sort((a, b) => toTime(b) - toTime(a))
       .slice(0, config.limit);
   } catch (e) {
