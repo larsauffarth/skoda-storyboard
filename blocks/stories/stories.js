@@ -114,8 +114,7 @@ export default async function decorate(block) {
         : (e.path || '').startsWith(config.path)))
       // drop stories already featured in the static promo box (by slug/path fragment)
       .filter((e) => !config.excludeList.some((frag) => (e.path || '').includes(frag)))
-      .sort((a, b) => toTime(b) - toTime(a))
-      .slice(0, config.limit);
+      .sort((a, b) => toTime(b) - toTime(a));
   } catch (e) {
     // Index unreachable — degrade gracefully (leave the section heading, render nothing).
     // eslint-disable-next-line no-console
@@ -129,6 +128,29 @@ export default async function decorate(block) {
   block.classList.add('cards-overlay', 'cards-overlay-featured', 'cards-overlay-latest');
 
   const ul = document.createElement('ul');
-  stories.forEach((entry, i) => ul.append(buildCard(entry, i === 0)));
   block.append(ul);
+
+  // Render an initial batch of `limit`, then reveal the rest in equal batches
+  // via a "Load more" button (source treatment). Only the very first card is
+  // eager (it's the LCP candidate in this section).
+  let shown = 0;
+  const renderBatch = () => {
+    stories.slice(shown, shown + config.limit)
+      .forEach((entry, i) => ul.append(buildCard(entry, shown === 0 && i === 0)));
+    shown += config.limit;
+  };
+  renderBatch();
+
+  // Only add the button when there's a second batch to reveal.
+  if (shown < stories.length) {
+    const more = document.createElement('button');
+    more.type = 'button';
+    more.className = 'stories-load-more';
+    more.textContent = 'Load more';
+    more.addEventListener('click', () => {
+      renderBatch();
+      if (shown >= stories.length) more.remove();
+    });
+    block.append(more);
+  }
 }

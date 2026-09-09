@@ -277,6 +277,44 @@ main > .section > .default-content-wrapper > h4:only-child {
   margin-bottom: 20px;
 }
 
+/* Rail titles that carry an "All" listing link: lay the title + link on one row,
+   link pushed to the right as a ghost pill (source treatment). */
+main > .section > .default-content-wrapper > h3:only-child:has(> a) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+main > .section > .default-content-wrapper > h3 > a {
+  flex: 0 0 auto;
+  padding: 8px 32px;
+  border: 2px solid var(--skoda-grey-500, #464748);
+  border-radius: 50px;
+  font-size: var(--body-font-size-m);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  color: var(--skoda-grey-500, #464748);
+  white-space: nowrap;
+}
+
+main > .section > .default-content-wrapper > h3 > a:hover {
+  background-color: var(--skoda-grey-500, #464748);
+  color: var(--background-color);
+  text-decoration: none;
+}
+
+/* On dark sections the pill is white-on-transparent, filling on hover. */
+main > .section.dark > .default-content-wrapper > h3 > a {
+  border-color: var(--skoda-white);
+  color: var(--skoda-white);
+}
+
+main > .section.dark > .default-content-wrapper > h3 > a:hover {
+  background-color: var(--skoda-white);
+  color: var(--dark-color);
+}
+
 @media (width >= 900px) {
   main > .section > div {
     padding: 0 32px;

@@ -1,4 +1,4 @@
-# Škoda Storyboard EN story articles — 3 featured promo + 5 Latest Stories
+# Škoda Storyboard EN story articles — 3 featured promo + 5 Latest Stories + 5 extra (for Load-more)
 https://www.skoda-storyboard.com/en/skoda-world/skoda-classic-tour-through-the-eyes-of-a-spectator/
 https://www.skoda-storyboard.com/en/emobility/an-electric-car-approaching-says-the-license-plate-but-only-in-some-countries/
 https://www.skoda-storyboard.com/en/emobility/peaq-sets-a-record-from-the-heart-of-europe-to-the-sea-without-recharging/
@@ -7,3 +7,8 @@ https://www.skoda-storyboard.com/en/emobility/spacious-comfortable-and-striking-
 https://www.skoda-storyboard.com/en/skoda-world/explore-the-new-skoda-models-in-mixed-reality/
 https://www.skoda-storyboard.com/en/skoda-world/the-new-skoda-slavia-features-a-refreshed-look-and-an-exclusive-colour/
 https://www.skoda-storyboard.com/en/emobility/practical-fun-stylish-5-reasons-to-choose-the-epiq/
+https://www.skoda-storyboard.com/en/lifestyle/la-dolce-vita-explore-the-surroundings-of-lake-como/
+https://www.skoda-storyboard.com/en/lifestyle/chainsaws-and-sparklers-discover-the-traditions-of-rally-fans/
+https://www.skoda-storyboard.com/en/skoda-world/how-the-skoda-octavia-reached-365-km-h/
+https://www.skoda-storyboard.com/en/skoda-world/a-kodiaq-made-of-paper-the-modeler-spent-700-hours-developing-and-building-it/
+https://www.skoda-storyboard.com/en/lifestyle/skodas-smarter-wireless-charging-goes-beyond-phones/
