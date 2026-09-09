@@ -1,0 +1,39 @@
+.cards-media > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
+  gap: 24px;
+}
+
+.cards-media > ul > li {
+  border: 1px solid #dadada;
+  background-color: var(--background-color);
+  overflow: hidden;
+}
+
+.cards-media .cards-media-card-image {
+  line-height: 0;
+}
+
+.cards-media > ul > li img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.cards-media .cards-media-card-body {
+  margin: 16px;
+}
+
+.cards-media .cards-media-card-body h2,
+.cards-media .cards-media-card-body h3 {
+  margin: 0 0 8px;
+
+  /* CSS line-clamp for long titles */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

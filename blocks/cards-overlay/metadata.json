@@ -1,0 +1,31 @@
+{
+  "variantName": "cards-overlay",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-09-09T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.skoda-storyboard.com/en/",
+    "originPage": "Škoda Storyboard English landing/home page",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "teaser",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "image + overlaid (date, heading, summary)",
+    "buttonCount": 0,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": ["editorial teaser rails where text sits over the image", "featured story grids"],
+    "notSuitableFor": ["cards needing readable body copy below the image (use cards-media)", "icon/handle cards"]
+  },
+  "usage": {
+    "pagesUsing": ["/en/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-09-09T00:00:00.000Z"
+  }
+}

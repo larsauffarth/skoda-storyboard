@@ -1,0 +1,45 @@
+.cards-overlay > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
+  gap: 24px;
+}
+
+.cards-overlay > ul > li {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--background-color);
+}
+
+.cards-overlay .cards-overlay-card-image {
+  line-height: 0;
+}
+
+.cards-overlay > ul > li img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* text overlaid on the image, anchored to the bottom */
+.cards-overlay .cards-overlay-card-body {
+  position: absolute;
+  inset: auto 0 0;
+  margin: 0;
+  padding: 16px;
+  color: #fff;
+  background: linear-gradient(transparent, rgb(0 0 0 / 70%));
+}
+
+.cards-overlay .cards-overlay-card-body h2,
+.cards-overlay .cards-overlay-card-body h3 {
+  margin: 0;
+
+  /* clamp long teaser titles via CSS (not dotdotdot) */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
