@@ -16,24 +16,25 @@ header .nav-topbar {
 }
 
 @media (width >= 900px) {
+  /* the grey bar spans the full viewport width; only its inner content is
+     constrained (source treatment). */
   header .nav-topbar {
     display: block;
-    box-sizing: border-box;
-    max-width: 1264px;
-    min-height: 44px;
-    margin: 0 auto;
-    padding: 0 32px;
   }
 
   /* the two topbar paragraphs live in an EDS .default-content-wrapper — make
-     that the flex row so Stories/Media Room (left) and Subscribe+languages
-     (right) sit on one line, split to the edges. */
+     that the centered, max-width flex row so Stories/Media Room (left) and
+     Subscribe+languages (right) sit on one line, split to the edges. */
   header .nav-topbar .default-content-wrapper {
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 24px;
+    max-width: 1264px;
     min-height: 44px;
+    margin: 0 auto;
+    padding: 0 32px;
   }
 }
 
