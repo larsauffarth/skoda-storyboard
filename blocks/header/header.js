@@ -1,4 +1,4 @@
-import { getMetadata } from '../../scripts/aem.js';
+import { getMetadata, decorateIcons } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
 // media query match that indicates mobile/tablet width
@@ -184,4 +184,7 @@ export default async function decorate(block) {
   }
   navWrapper.append(nav);
   block.append(navWrapper);
+
+  // Render icon tokens (brand logo :skoda-storyboard-logo:, search, etc.).
+  decorateIcons(block);
 }

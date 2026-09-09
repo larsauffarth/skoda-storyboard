@@ -16,12 +16,21 @@ header .nav-topbar {
 }
 
 @media (width >= 900px) {
+  /* the grey bar spans the full viewport width; only its inner content is
+     constrained (source treatment). */
   header .nav-topbar {
+    display: block;
+  }
+
+  /* the two topbar paragraphs live in an EDS .default-content-wrapper — make
+     that the centered, max-width flex row so Stories/Media Room (left) and
+     Subscribe+languages (right) sit on one line, split to the edges. */
+  header .nav-topbar .default-content-wrapper {
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 24px;
-    box-sizing: border-box;
     max-width: 1264px;
     min-height: 44px;
     margin: 0 auto;
@@ -88,11 +97,24 @@ header .nav-topbar p {
   margin: 0;
 }
 
+/* right group (Subscribe + language switcher) sits flush right */
 header .nav-topbar p:last-child {
   gap: 12px;
 }
 
+/* topbar links are semibold; inactive grey, hover/active ink (source treatment) */
 header .nav-topbar a:any-link {
+  color: var(--skoda-grey-500, #7c7d7e);
+  font-weight: var(--weight-semibold);
+}
+
+header .nav-topbar a:hover {
+  color: var(--skoda-ink);
+  text-decoration: none;
+}
+
+/* first utility link (Stories) is the active section on the home page */
+header .nav-topbar p:first-child a:first-child {
   color: var(--skoda-ink);
 }
 
@@ -180,15 +202,26 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
 /* brand */
 header .nav-brand {
   grid-area: brand;
-  flex-basis: 128px;
+  flex-basis: 200px;
   font-size: var(--heading-font-size-s);
   font-weight: 700;
   line-height: 1;
 }
 
-header nav .nav-brand img {
-  width: 128px;
-  height: auto;
+/* brand is the ŠKODA STORYBOARD logo (icon-span → svg via decorateIcons).
+   The logo viewBox is 255.19×23.1 (≈11:1); size to ~194×18 and let the
+   image fill without distortion. */
+header nav .nav-brand .icon-skoda-storyboard-logo {
+  display: block;
+  width: 194px;
+  height: 18px;
+}
+
+header nav .nav-brand .icon-skoda-storyboard-logo img,
+header nav .nav-brand .icon-skoda-storyboard-logo svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 /* sections */
