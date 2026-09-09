@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Škoda Storyboard — Site Fact Sheet</title>
+<style>
+  :root {
+    --green: #0e3a2f;
+    --green-2: #14513f;
+    --green-bright: #4ba82e;
+    --ink: #1a1a1a;
+    --muted: #5c6670;
+    --line: #e4e8ea;
+    --bg: #f5f7f8;
+    --card: #ffffff;
+    --accent: #4ba82e;
+    --shadow: 0 1px 3px rgba(0,0,0,.05), 0 10px 30px rgba(0,0,0,.05);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.55; font-size: 16px;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+  header.hero {
+    background: linear-gradient(135deg, var(--green) 0%, var(--green-2) 55%, #1c6b4f 100%);
+    color: #fff; padding: 60px 0 48px;
+  }
+  .eyebrow { text-transform: uppercase; letter-spacing: .16em; font-size: 12px; font-weight: 700; color: var(--green-bright); margin: 0 0 12px; }
+  header.hero h1 { margin: 0 0 12px; font-size: 36px; line-height: 1.12; font-weight: 800; letter-spacing: -.015em; }
+  header.hero p.sub { margin: 0; color: #d6e4dd; max-width: 720px; font-size: 16px; }
+  header.hero .tag { margin-top: 18px; display: inline-block; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2); padding: 6px 14px; border-radius: 999px; font-size: 13px; }
+
+  main { padding: 40px 0 20px; }
+  section { margin-top: 40px; }
+  h2 { font-size: 21px; font-weight: 800; color: var(--green); margin: 0 0 16px; letter-spacing: -.01em; }
+  .lead { font-size: 17px; color: #33403a; }
+
+  /* Big stat cards */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  @media (max-width: 860px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 460px) { .stats { grid-template-columns: 1fr; } }
+  .stat {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 22px;
+    box-shadow: var(--shadow); position: relative; overflow: hidden;
+  }
+  .stat::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--green-bright); }
+  .stat .num { font-size: 34px; font-weight: 800; color: var(--green); line-height: 1; letter-spacing: -.02em; }
+  .stat .lbl { margin-top: 8px; font-size: 13.5px; color: var(--muted); font-weight: 600; }
+  .stat .sub { margin-top: 4px; font-size: 12px; color: #8a949b; }
+
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 24px 26px; box-shadow: var(--shadow); }
+  p { margin: 0 0 12px; }
+  ul { margin: 0; padding-left: 20px; }
+  li { margin: 7px 0; }
+  strong { font-weight: 700; }
+  .muted { color: var(--muted); }
+
+  table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+  thead th { text-align: left; background: var(--green); color: #fff; padding: 11px 14px; font-size: 12.5px; text-transform: uppercase; letter-spacing: .04em; }
+  thead th:first-child { border-radius: 10px 0 0 0; }
+  thead th:last-child { border-radius: 0 10px 0 0; }
+  tbody td { padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tbody tr:nth-child(even) { background: #fafbfb; }
+  .bar-cell { min-width: 180px; }
+  .bar { height: 9px; border-radius: 5px; background: var(--green-bright); display: inline-block; vertical-align: middle; }
+  .bar-wrap { display: flex; align-items: center; gap: 10px; }
+  .bar-num { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--green); min-width: 62px; text-align: right; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } header.hero h1 { font-size: 27px; } }
+
+  .feature { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .feature:last-child { border-bottom: none; }
+  .feature .ic { flex: 0 0 40px; height: 40px; border-radius: 10px; background: #eef4f0; display: grid; place-items: center; font-size: 20px; }
+  .feature .txt h4 { margin: 0 0 3px; font-size: 15px; color: var(--green); }
+  .feature .txt p { margin: 0; font-size: 13.5px; color: var(--muted); }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { background: #eef4f0; color: var(--green); border: 1px solid #dce7e1; padding: 6px 12px; border-radius: 8px; font-size: 13px; font-weight: 600; }
+
+  .kv { display: grid; grid-template-columns: 190px 1fr; gap: 0; }
+  .kv > div { padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .kv .k { font-weight: 700; color: var(--green); font-size: 13.5px; }
+  .kv .v { font-size: 14.5px; }
+  @media (max-width: 560px) { .kv { grid-template-columns: 1fr; } .kv .v { padding-top: 0; border-top: none; } }
+
+  .callout { background: #f0f7f2; border-left: 4px solid var(--green-bright); border-radius: 0 12px 12px 0; padding: 16px 20px; }
+
+  footer { border-top: 1px solid var(--line); padding: 26px 0 50px; color: var(--muted); font-size: 12.5px; margin-top: 44px; }
+
+  @media print {
+    body { background: #fff; font-size: 12px; }
+    header.hero, .stat::before, thead th, .bar { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    header.hero { background: var(--green) !important; }
+    section, .card, .stat, table { break-inside: avoid; }
+    a { color: inherit; text-decoration: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Site Fact Sheet · Executive Briefing</p>
+    <h1>Škoda Storyboard</h1>
+    <p class="sub">A factual profile of Škoda Auto's global editorial and press newsroom — what it is, how large it is, what it is built on, and what it does. Figures verified from the site's own data (public pages, content API, sitemaps).</p>
+    <span class="tag">🌐 skoda-storyboard.com &nbsp;·&nbsp; as of 2026-09-04</span>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+  <!-- WHAT IT IS -->
+  <section>
+    <h2>What it is</h2>
+    <div class="card">
+      <p class="lead" style="margin-bottom:0">Škoda Storyboard is Škoda Auto's <strong>global newsroom and press portal</strong> — a large editorial publication combining brand stories, official press releases, downloadable press kits, an automotive encyclopedia ("Škodapedia"), and a podcast. It is a <strong>content and media site, not an online shop</strong>: there is no product catalogue, pricing, or checkout. Its purpose is publishing news and providing journalists with media assets.</p>
+    </div>
+  </section>
+
+  <!-- BY THE NUMBERS -->
+  <section>
+    <h2>By the numbers</h2>
+    <div class="stats">
+      <div class="stat"><div class="num">~13,300</div><div class="lbl">Editorial pages</div><div class="sub">across all 6 languages</div></div>
+      <div class="stat"><div class="num">~28,300</div><div class="lbl">Media files</div><div class="sub">distinct items (photos, PDFs, video) · ~200k+ stored files</div></div>
+      <div class="stat"><div class="num">6</div><div class="lbl">Languages</div><div class="sub">CS · SK · EN · DE · SR · SL</div></div>
+      <div class="stat"><div class="num">~3,500</div><div class="lbl">English pages</div><div class="sub">~26% of the site</div></div>
+    </div>
+    <p class="muted" style="margin-top:14px; font-size:13.5px">Content counts are read directly from the site's content system; the media library has now been counted directly: ~28,300 distinct items across the languages (roughly 200,000+ individual stored files once every saved size is included). The site is <strong>actively publishing</strong> (fresh press releases dated to the current period).</p>
+  </section>
+
+  <!-- CONTENT BREAKDOWN -->
+  <section>
+    <h2>What the content is made of</h2>
+    <div class="grid2">
+      <div class="card">
+        <h4 style="margin:0 0 12px; color:var(--green); font-size:14px; text-transform:uppercase; letter-spacing:.04em">Editorial content (all languages)</h4>
+        <table>
+          <tbody>
+            <tr><td>Press releases</td><td class="bar-cell"><div class="bar-wrap"><span class="bar" style="width:150px"></span><span class="bar-num">6,715</span></div></td></tr>
+            <tr><td>Brand stories</td><td class="bar-cell"><div class="bar-wrap"><span class="bar" style="width:118px"></span><span class="bar-num">5,282</span></div></td></tr>
+            <tr><td>Škodapedia entries</td><td class="bar-cell"><div class="bar-wrap"><span class="bar" style="width:17px"></span><span class="bar-num">725</span></div></td></tr>
+            <tr><td>Standalone pages</td><td class="bar-cell"><div class="bar-wrap"><span class="bar" style="width:13px"></span><span class="bar-num">551</span></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h4 style="margin:0 0 12px; color:var(--green); font-size:14px; text-transform:uppercase; letter-spacing:.04em">Page types</h4>
+        <ul style="margin:0">
+          <li><strong>Press releases</strong> — official announcements with galleries &amp; downloadable assets</li>
+          <li><strong>Stories</strong> — editorial features (lifestyle, eMobility, motorsport, heritage)</li>
+          <li><strong>Press kits</strong> — chaptered media packages for journalists</li>
+          <li><strong>Škodapedia</strong> — an A–Z automotive encyclopedia</li>
+          <li><strong>Listings</strong> — news / images / videos hubs with search &amp; filters</li>
+          <li><strong>Podcast</strong> — audio episodes</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT IT'S BUILT ON -->
+  <section>
+    <h2>What it is built on</h2>
+    <div class="card">
+      <div class="kv">
+        <div class="k">Platform</div><div class="v">WordPress (heavily customized, enterprise-grade), with a large suite of purpose-built plugins</div>
+        <div class="k">Multilingual</div><div class="v">6 languages managed via Polylang, each on its own URL path</div>
+        <div class="k">Search technology</div><div class="v">Elasticsearch (via ElasticPress) — powers both site search and the filtered content listings</div>
+        <div class="k">Front-end</div><div class="v">Classic jQuery-based theme with established libraries (image carousels, grid layouts) — server-rendered, not a modern single-page app</div>
+        <div class="k">Media delivery</div><div class="v">Amazon S3 + CloudFront CDN (a content delivery cache; images are pre-sized at upload)</div>
+        <div class="k">Analytics &amp; consent</div><div class="v">Google Tag Manager, Hotjar, and OneTrust cookie consent</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEY FEATURES / SYSTEMS -->
+  <section>
+    <h2>Key features &amp; systems it runs</h2>
+    <div class="card">
+      <div class="feature"><div class="ic">🔎</div><div class="txt"><h4>Search &amp; filtered listings</h4><p>Full site search plus content listings filterable across 14 topic categories (models, motorsport, technology, etc.), with "load more" paging.</p></div></div>
+      <div class="feature"><div class="ic">🗂️</div><div class="txt"><h4>Media cart</h4><p>Journalists can collect press images and assets and download them in bulk — a shopping-cart-style tool for media, not products.</p></div></div>
+      <div class="feature"><div class="ic">📣</div><div class="txt"><h4>Promotional banner system</h4><p>A built-in, per-market advertising system where ~46 banners are managed separately for each language market and shown to visitors based on the topic of the page they are reading.</p></div></div>
+      <div class="feature"><div class="ic">✉️</div><div class="txt"><h4>Newsletter &amp; subscriptions</h4><p>A full subscriber system (sign-up, log-in, manage subscription) with consent handling — not just a simple sign-up box.</p></div></div>
+      <div class="feature"><div class="ic">📚</div><div class="txt"><h4>Škodapedia encyclopedia</h4><p>A self-contained, interactive A–Z glossary of ~189 (EN) automotive terms with a pop-up detail view — it runs on its own, needing no special live service behind it.</p></div></div>
+      <div class="feature"><div class="ic">🎬</div><div class="txt"><h4>Rich media embeds</h4><p>Video and audio embedded from Vimeo, YouTube, Buzzsprout (podcast), and Spotify.</p></div></div>
+      <div class="feature"><div class="ic">📊</div><div class="txt"><h4>Visitor analytics</h4><p>A built-in measurement system that tracks how visitors interact across the site — downloads, video plays, form sign-ups, banner clicks and "load more" — and feeds the company's reporting.</p></div></div>
+    </div>
+  </section>
+
+  <!-- MEDIA -->
+  <section>
+    <h2>The media library</h2>
+    <div class="grid2">
+      <div class="card">
+        <p style="margin-top:0"><strong>~28,300 distinct media items (roughly 200,000+ individual stored files)</strong> — the largest single part of the site. Predominantly <strong>photography (JPEG)</strong>, alongside downloadable <strong>PDF press kits</strong> (some 25+ MB), <strong>high-resolution images</strong>, and <strong>video files</strong> for press use.</p>
+        <p style="margin-bottom:0">Most images sit in the galleries attached to press releases. Images carry descriptions and captions; a small number lack descriptive text.</p>
+      </div>
+      <div class="card">
+        <h4 style="margin:0 0 10px; color:var(--green); font-size:14px; text-transform:uppercase; letter-spacing:.04em">Media types present</h4>
+        <div class="chips">
+          <span class="chip">JPEG photography</span>
+          <span class="chip">PDF press kits</span>
+          <span class="chip">Hi-res downloads</span>
+          <span class="chip">MP4 video</span>
+          <span class="chip">Vimeo / YouTube</span>
+          <span class="chip">Podcast audio</span>
+          <span class="chip">SVG logos</span>
+        </div>
+        <p class="muted" style="margin:14px 0 0; font-size:13px">Images are delivered in traditional formats (no next-generation formats such as WebP are in use today).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- REACH / STRUCTURE -->
+  <section>
+    <h2>Languages &amp; reach</h2>
+    <div class="card">
+      <p>The site publishes in <strong>six languages</strong>, each on its own section of the site:</p>
+      <div class="chips" style="margin-bottom:6px">
+        <span class="chip">🇨🇿 Czech</span>
+        <span class="chip">🇸🇰 Slovak</span>
+        <span class="chip">🇬🇧 English</span>
+        <span class="chip">🇩🇪 German</span>
+        <span class="chip">🇷🇸 Serbian</span>
+        <span class="chip">🇸🇮 Slovenian</span>
+      </div>
+      <p class="muted" style="margin:12px 0 0; font-size:13.5px">English accounts for roughly a quarter of all content (~3,500 pages). The volume of any given language is a direct multiplier on the size of the site.</p>
+      <p class="muted" style="margin:8px 0 0; font-size:13.5px">Not every article is translated into all six languages — coverage varies by item.</p>
+    </div>
+  </section>
+
+  <!-- BUILDING BLOCKS -->
+  <section>
+    <h2>Building blocks &amp; variations</h2>
+    <p class="lead">The site is built from a compact, repeatable set of components — a strength, as the same pieces recur across thousands of pages.</p>
+    <div class="stats">
+      <div class="stat"><div class="num">~13</div><div class="lbl">Content blocks</div><div class="sub">reusable page components</div></div>
+      <div class="stat"><div class="num">9</div><div class="lbl">Style variations</div><div class="sub">of those blocks</div></div>
+      <div class="stat"><div class="num">~5</div><div class="lbl">Site-wide elements</div><div class="sub">header, footer, etc.</div></div>
+      <div class="stat"><div class="num">4</div><div class="lbl">Complex systems</div><div class="sub">the demanding ones</div></div>
+    </div>
+    <div class="grid2" style="margin-top:16px">
+      <div class="card">
+        <h4 style="margin:0 0 10px; color:var(--green); font-size:14px; text-transform:uppercase; letter-spacing:.04em">Straightforward components</h4>
+        <div class="chips">
+          <span class="chip">Hero</span>
+          <span class="chip">Cards / Teasers (×3)</span>
+          <span class="chip">Image gallery</span>
+          <span class="chip">Carousel</span>
+          <span class="chip">Tags</span>
+          <span class="chip">Media embeds</span>
+          <span class="chip">Škodapedia glossary</span>
+          <span class="chip">Header · Footer</span>
+        </div>
+        <p class="muted" style="margin:12px 0 0; font-size:13px">Cover the vast majority of pages; mostly presentational.</p>
+      </div>
+      <div class="card">
+        <h4 style="margin:0 0 10px; color:var(--green); font-size:14px; text-transform:uppercase; letter-spacing:.04em">The 4 complex systems</h4>
+        <div class="chips">
+          <span class="chip">Search &amp; filtered listings</span>
+          <span class="chip">Media cart</span>
+          <span class="chip">Banner ad platform</span>
+          <span class="chip">Newsletter / subscriptions</span>
+        </div>
+        <p class="muted" style="margin:12px 0 0; font-size:13px">These are powered by back-end systems, not just page design — and carry most of the effort and risk.</p>
+      </div>
+    </div>
+    <p class="muted" style="margin:14px 0 0; font-size:13.5px">Note: article/story pages are assembled with a visual page-builder (a grid of content widgets), which makes their internal structure richer than a simple article.</p>
+  </section>
+
+  <!-- EFFORT -->
+  <section>
+    <h2>Indicative build effort — AI-assisted vs. manual</h2>
+    <p class="lead">Rough order-of-magnitude ranges for the <strong>English capability pilot</strong> — this builds the <strong>reusable components and page-building capability</strong> (blocks, navigation, listings, search, media handling) validated on a representative article and its listing, <strong>not just a single page</strong>. It intentionally excludes the hardest content type (visually-built articles) and the four complex back-end systems, which come later. The AI-assisted column reflects <strong>this environment's purpose-built migration tooling</strong> — automated content import, component styling with visual verification, and automated quality checks — not just a generic coding assistant. Figures are indicative planning estimates, <strong>not a quote</strong>.</p>
+    <div class="card">
+      <table>
+        <thead><tr><th>Work chunk</th><th>Manual</th><th>AI-assisted (this harness)</th></tr></thead>
+        <tbody>
+          <tr><td>Foundation &amp; setup (site, tooling, configuration, design tokens)</td><td>12–20 days</td><td><strong>5–9 days</strong></td></tr>
+          <tr><td>Content blocks (hero, cards, gallery, embeds, tags, encyclopedia)</td><td>19–28 days</td><td><strong>8.5–13 days</strong></td></tr>
+          <tr><td>Header / footer &amp; navigation</td><td>8–14 days</td><td><strong>5.5–8 days</strong></td></tr>
+          <tr><td>Search &amp; filtered listings (the hardest piece)</td><td>11–18 days</td><td><strong>6–10 days</strong></td></tr>
+          <tr><td>Media handling (images + press downloads)</td><td>5–8 days</td><td><strong>2.5–4 days</strong> ⚡</td></tr>
+          <tr><td>Content import (parsing the source into the new site)</td><td>8–12 days</td><td><strong>4–7 days</strong> ⚡</td></tr>
+          <tr><td>Quality assurance, performance &amp; accessibility</td><td>7–12 days</td><td><strong>4–7 days</strong></td></tr>
+          <tr style="background:#eef4f0; font-weight:700;"><td>English capability pilot — total</td><td>~60–90 days</td><td><strong>~30–50 days</strong></td></tr>
+        </tbody>
+      </table>
+      <p class="muted" style="margin:12px 0 0; font-size:12.5px">⚡ = a step this environment largely automates (content import, media pass-through), giving the biggest time savings. Totals are rounded planning bands — individual row ranges won't sum exactly (best/worst cases rarely all land together).</p>
+      <div class="callout" style="margin-top:16px">
+        <p style="margin:0"><strong>Dedicated migration tooling roughly halves the pilot effort overall</strong> (~30–50 vs ~60–90 days), with the biggest savings on the code-heavy, repeatable work — content import and media in particular are largely automated (⚡), while component styling and quality checks run in assisted loops. It helps far less on the <strong>4 complex back-end systems</strong>, which are architecture and integration decisions rather than page-building.</p>
+      </div>
+    </div>
+    <div class="grid2" style="margin-top:16px">
+      <div class="card">
+        <h4 style="margin:0 0 8px; color:var(--green); font-size:14px; text-transform:uppercase; letter-spacing:.04em">Beyond the pilot (full site)</h4>
+        <p style="margin:0; font-size:14px">Full production — all templates, the 4 back-end systems, ~28,300 media items (~200,000+ stored files), and all 6 languages — remains a <strong>multi-month programme (roughly 3–6 months with a small team)</strong>. The automated import handles content and media at scale efficiently, but the back-end services, DAM setup, content rights, and translation volume are the schedule drivers — and AI helps least there.</p>
+      </div>
+      <div class="card">
+        <h4 style="margin:0 0 8px; color:var(--green); font-size:14px; text-transform:uppercase; letter-spacing:.04em">Where AI helps most / least</h4>
+        <ul style="margin:0; font-size:13.5px">
+          <li><strong>Automated:</strong> content import, nav/footer generation, media pass-through, quality/visual checks</li>
+          <li><strong>Assisted:</strong> page components &amp; styling, listings/search front-end, test/fix loops</li>
+          <li><strong>Least:</strong> the 4 back-end systems, DAM setup, content rights, translations</li>
+        </ul>
+      </div>
+    </div>
+    <p class="muted" style="margin-top:14px; font-size:12.5px">Estimates assume experienced engineers steering the AI and reviewing its output. "Days" = engineer-days. Actuals depend on the scope decisions still open (e.g. how many languages, and whether the 4 complex systems are rebuilt or set aside for the pilot).</p>
+  </section>
+
+  <!-- AT A GLANCE SUMMARY -->
+  <section>
+    <h2>In one glance</h2>
+    <div class="callout">
+      <p style="margin:0"><strong>Škoda Storyboard is a large, mature, actively-published corporate newsroom.</strong> It combines ~13,300 editorial pages and ~28,300 media items across six languages on a customized WordPress platform, with sophisticated built-in systems for search, media distribution to journalists, targeted promotions, and newsletter subscriptions. In short: a high-volume publishing operation with a substantial press-media library at its core.</p>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    Škoda Storyboard — Site Fact Sheet · 2026-09-04 · Figures verified from the site's public pages, content API, and sitemaps. Descriptive profile only. &nbsp;·&nbsp; Tip: use <strong>Print → Save as PDF</strong> to share.
+  </div>
+</footer>
+
+</body>
+</html>

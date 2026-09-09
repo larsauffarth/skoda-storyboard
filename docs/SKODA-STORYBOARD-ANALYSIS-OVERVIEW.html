@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Škoda Storyboard → AEM Edge Delivery — Analysis Overview</title>
+<style>
+  :root {
+    --green: #0e3a2f;
+    --green-bright: #4ba82e;
+    --ink: #1a1a1a;
+    --muted: #5c6670;
+    --line: #e2e6e9;
+    --bg: #f6f8f9;
+    --card: #ffffff;
+    --red: #c0392b;
+    --amber: #e08a1e;
+    --amber-dk: #b5651d;
+    --lime: #4ba82e;
+    --chip-bg: #eef3f0;
+    --shadow: 0 1px 3px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.05);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.55;
+    font-size: 16px;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  /* Header */
+  header.hero {
+    background: linear-gradient(135deg, var(--green) 0%, #14513f 60%, #1c6b4f 100%);
+    color: #fff;
+    padding: 56px 0 44px;
+  }
+  header.hero .wrap { position: relative; }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--green-bright);
+    margin: 0 0 12px;
+  }
+  header.hero h1 {
+    margin: 0 0 14px;
+    font-size: 34px;
+    line-height: 1.15;
+    font-weight: 800;
+    letter-spacing: -.01em;
+  }
+  header.hero p.sub { margin: 0; color: #d6e4dd; max-width: 760px; font-size: 15.5px; }
+  .meta-row { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .meta-row .pill {
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.18);
+    padding: 6px 12px; border-radius: 999px; font-size: 12.5px; color: #eaf3ee;
+  }
+
+  /* TOC */
+  nav.toc {
+    background: var(--card);
+    border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; z-index: 20;
+    box-shadow: 0 1px 0 rgba(0,0,0,.03);
+  }
+  nav.toc .wrap { display: flex; flex-wrap: wrap; gap: 4px; padding-top: 10px; padding-bottom: 10px; }
+  nav.toc a {
+    font-size: 12.5px; color: var(--muted); text-decoration: none;
+    padding: 5px 10px; border-radius: 6px; white-space: nowrap; font-weight: 600;
+  }
+  nav.toc a:hover { background: var(--chip-bg); color: var(--green); }
+
+  main { padding: 8px 0 60px; }
+  section { margin-top: 40px; }
+  section h2 {
+    font-size: 22px; font-weight: 800; color: var(--green);
+    margin: 0 0 4px; letter-spacing: -.01em;
+    display: flex; align-items: baseline; gap: 10px;
+  }
+  section h2 .num {
+    font-size: 13px; font-weight: 700; color: #fff; background: var(--green-bright);
+    border-radius: 6px; padding: 2px 8px; letter-spacing: 0;
+  }
+  section .subtitle { color: var(--muted); font-size: 14px; margin: 0 0 16px; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 22px 24px; box-shadow: var(--shadow);
+  }
+  p { margin: 0 0 12px; }
+  ul { margin: 0 0 12px; padding-left: 20px; }
+  li { margin: 6px 0; }
+  code {
+    background: var(--chip-bg); padding: 1px 6px; border-radius: 5px;
+    font-family: "SF Mono", Menlo, Consolas, monospace; font-size: .85em; color: #24503f;
+  }
+  strong { font-weight: 700; }
+  em { color: var(--muted); }
+
+  /* Callout numbered list */
+  .keypoints { counter-reset: kp; list-style: none; padding: 0; margin: 4px 0 0; }
+  .keypoints > li {
+    counter-increment: kp; position: relative; padding: 14px 16px 14px 56px;
+    border: 1px solid var(--line); border-radius: 10px; margin-bottom: 10px; background: #fbfcfc;
+  }
+  .keypoints > li::before {
+    content: counter(kp); position: absolute; left: 14px; top: 14px;
+    width: 28px; height: 28px; border-radius: 50%; background: var(--green);
+    color: #fff; font-weight: 800; font-size: 14px; display: grid; place-items: center;
+  }
+
+  .recommend {
+    border-left: 4px solid var(--green-bright); background: #f0f7f2;
+    padding: 14px 18px; border-radius: 0 10px 10px 0; margin: 14px 0;
+  }
+  .complexity-tag {
+    display: inline-block; font-weight: 800; color: #fff; background: var(--red);
+    padding: 4px 12px; border-radius: 6px; font-size: 13px; letter-spacing: .03em;
+  }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 6px 0 4px; }
+  thead th {
+    text-align: left; background: var(--green); color: #fff; font-weight: 700;
+    padding: 10px 12px; font-size: 12.5px; text-transform: uppercase; letter-spacing: .04em;
+  }
+  thead th:first-child { border-radius: 8px 0 0 0; }
+  thead th:last-child { border-radius: 0 8px 0 0; }
+  tbody td { padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tbody tr:nth-child(even) { background: #fafbfb; }
+  tbody tr:hover { background: #f0f7f2; }
+
+  .risk-badge, .lvl {
+    display: inline-block; font-size: 11.5px; font-weight: 700; padding: 2px 8px;
+    border-radius: 999px; white-space: nowrap;
+  }
+  .r-high { background: #fbe6e3; color: var(--red); }
+  .r-med  { background: #fcf1e0; color: var(--amber-dk); }
+  .r-low  { background: #e6f4e6; color: #2e7d32; }
+  .dot { font-size: 13px; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } header.hero h1 { font-size: 26px; } }
+
+  .decisions { list-style: none; padding: 0; margin: 0; }
+  .decisions li {
+    border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; margin-bottom: 10px; background: var(--card);
+  }
+  .decisions .tag {
+    display: inline-block; font-weight: 800; color: var(--green); margin-right: 6px;
+  }
+
+  .phases { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-top: 6px; }
+  @media (max-width: 900px) { .phases { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) { .phases { grid-template-columns: 1fr; } }
+  .phase {
+    border: 1px solid var(--line); border-radius: 10px; padding: 14px; background: var(--card);
+    border-top: 3px solid var(--green-bright);
+  }
+  .phase h4 { margin: 0 0 8px; font-size: 14px; color: var(--green); }
+  .phase p { font-size: 13px; color: var(--muted); margin: 0; }
+
+  .buildorder {
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 12px;
+    font-size: 13px; font-weight: 600;
+  }
+  .buildorder .step { background: var(--chip-bg); padding: 6px 10px; border-radius: 6px; color: var(--green); }
+  .buildorder .arrow { color: var(--muted); }
+  .buildorder .deferred { background: #fbe6e3; color: var(--red); }
+
+  .note {
+    font-size: 13px; color: var(--muted); background: #fbfcfc; border: 1px dashed var(--line);
+    border-radius: 8px; padding: 12px 14px; margin-top: 14px;
+  }
+  footer {
+    border-top: 1px solid var(--line); padding: 24px 0 50px; color: var(--muted); font-size: 12.5px;
+  }
+
+  @media print {
+    nav.toc { display: none; }
+    body { background: #fff; font-size: 12px; }
+    header.hero { background: var(--green) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    thead th, .keypoints > li::before, .risk-badge, .lvl, header.hero { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    section { break-inside: avoid; }
+    .card, .phase, table { break-inside: avoid; }
+    a { color: inherit; text-decoration: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Discovery Engagement · Capstone Summary</p>
+    <h1>Škoda Storyboard → AEM Edge Delivery<br>Analysis Overview</h1>
+    <p class="sub">The consolidated, decision-ready summary of the migration discovery. Synthesizes six detailed reports; introduces no new claims. <strong>Analysis only</strong> — no content imported, no code generated, no Git operations.</p>
+    <div class="meta-row">
+      <span class="pill">📅 2026-09-04</span>
+      <span class="pill">🎯 skoda-storyboard.com/en/</span>
+      <span class="pill">🧩 6 source reports</span>
+      <span class="pill">🔎 3,496 EN pages crawled</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="wrap">
+    <a href="#s1">1 · Executive Summary</a>
+    <a href="#s2">2 · Site at a Glance</a>
+    <a href="#s3">3 · Block Landscape</a>
+    <a href="#s4">4 · Backend &amp; Integrations</a>
+    <a href="#s5">5 · Media</a>
+    <a href="#s6">6 · Search &amp; Listings</a>
+    <a href="#s7">7 · Risk Register</a>
+    <a href="#s8">8 · Key Decisions</a>
+    <a href="#s9">9 · Path Forward</a>
+    <a href="#s10">10 · Document Map</a>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+
+  <!-- 1 -->
+  <section id="s1">
+    <div class="note"><strong>Note (2026-09-04):</strong> A later adversarial review (<code>SKODA-ADVERSARIAL-REVIEW.md</code>) corrected several findings, reflected below — story pages use SiteOrigin Page Builder (import must flatten a nested widget layout); a gallery lightbox exists (2nd JS breakpoint); 'speeches' is not a content type (dropped); real-product-manager is licensing, not commerce (no-commerce confirmed); the media library is now measured (<code>SKODA-MEDIA-DEEP-DIVE.md</code>): ~42.3k attachment pages / ~28.3k distinct logical items / ~200k+ physical files (≈80–110 GB), not ~52k; and translation is uneven per-item (not a uniform 6× multiple). Complex-systems deep-dive (<code>SKODA-COMPLEX-SYSTEMS-DEEP-DIVE.md</code>): banners are a per-market ad server (locale-scoped: cs 51/en 46/sk 2/de 0/sr 0/sl 1, tag+geo+frequency targeting); the Škodapedia glossary A–Z list is static but term detail is a thin API fetch on click (not fully static); mediakit/v1/mediabox lets press-page downloads be a static block; zero cookies on anonymous load. <strong>Latest (<code>SKODA-COMPLEX-SYSTEMS-DEEP-DIVE.md</code>, <code>SKODA-HEADER-FOOTER-ANALYSIS.md</code>, <code>SKODA-ADVERSARIAL-REVIEW-2.md</code>):</strong> a bespoke ~140 KB <code>skoda-analytics</code> layer is a hidden cross-cutting dependency (rebuilding any interactive block re-wires its analytics); <code>ys-social-feed</code> is not a live integration; header/footer are simpler than assumed (mega-menu = plain nested link lists, footer repeats the nav); the glossary term-detail is a thin API fetch (not fully static); and the media file/footprint counts are order-of-magnitude.</div>
+    <h2><span class="num">1</span> Executive Summary</h2>
+    <div class="card">
+      <p>Škoda Storyboard is Škoda Auto's <strong>global editorial + press/media newsroom</strong> — not an e-commerce site. It runs on a <strong>large, mature, heavily-customized WordPress</strong> platform with a deep suite of bespoke plugins, <strong>6 languages</strong> (Polylang), an <strong>Elasticsearch-backed</strong> search/listing layer, and a <strong>~28,300-asset</strong> media library (~200k+ physical files, measured).</p>
+      <p><strong>Three things define this migration:</strong></p>
+      <ol class="keypoints">
+        <li><strong>Scale.</strong> ~<strong>13,300 editorial URLs</strong> across 6 languages (~<strong>3,500 in English</strong>), plus ~<strong>42.3k media attachment pages / ~28.3k distinct assets (~200k+ physical files, ≈80–110 GB), measured</strong>. A template-driven, multi-phase programme — not a one-shot lift.</li>
+        <li><strong>Backend coupling.</strong> The most visible features are <strong>not static</strong>: listings &amp; search run on <strong>ElasticPress</strong>; promos are a <strong>46-banner ad-serving platform</strong>; the newsletter is a <strong>subscriber account system</strong>; the press area has a stateful <strong>media-cart</strong>. None have a 1:1 EDS equivalent — each needs a "rebuild-as-service vs. drop-for-demo" decision.</li>
+        <li><strong>Front-end technical debt.</strong> Everything is <strong>jQuery</strong>-based with three heavyweight libraries (Owl Carousel, Isotope, a 174 KB React banner bundle) and a <strong>295 KB stylesheet</strong> (168 <code>!important</code>s, 30 breakpoints). There is <strong>no lift-and-shift</strong> — blocks get rebuilt clean on EDS.</li>
+      </ol>
+      <p><strong>The good news:</strong> the content model is coherent and repetitive (a handful of templates, ~10 real content blocks), the hero uses a real <code>&lt;img&gt;</code> (LCP-friendly), responsiveness is <strong>mostly CSS-only</strong>, and the English subset is only ~26% of the site — a very tractable demo.</p>
+      <div class="recommend">
+        <strong>Recommendation:</strong> proceed with a <strong>narrow English pilot</strong> — one press-release article + its listing — that proves the reusable block set (teaser/cards, hero, gallery, embeds) and forces early resolution of the two hardest problems (query-index listings/search) at low volume. Defer the four backend-dependent features to explicit service decisions.
+      </div>
+      <p style="margin-bottom:0">Overall complexity: <span class="complexity-tag">HIGH</span> &nbsp;— driven by scale and backend integrations, not by the page design itself.</p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="s2">
+    <h2><span class="num">2</span> The Site at a Glance</h2>
+    <p class="subtitle">Reconciled fact base — single source of truth for each number.</p>
+    <table>
+      <thead><tr><th>Dimension</th><th>Finding</th><th>Confidence</th></tr></thead>
+      <tbody>
+        <tr><td>Site type</td><td>Editorial / press newsroom (not commerce)</td><td><span class="lvl r-low">Confirmed</span></td></tr>
+        <tr><td>Backend CMS</td><td><strong>WordPress</strong> (<code>/wp-json/</code>, <code>rel=shortlink</code>, <code>/wp/wp-includes/</code>)</td><td><span class="lvl r-low">Confirmed</span></td></tr>
+        <tr><td>Rendering</td><td>Server-rendered HTML + jQuery + custom mu-plugins; <strong>not</strong> a SPA</td><td><span class="lvl r-low">Confirmed</span></td></tr>
+        <tr><td>Languages</td><td><strong>6</strong> — cs, sk, en, de, sr, sl (Polylang Pro)</td><td><span class="lvl r-low">Confirmed</span></td></tr>
+        <tr><td>Editorial URLs (all languages)</td><td>posts 5,282 · press releases 6,715 · pages 551 · Škodapedia 725 → <strong>~13,300</strong></td><td><span class="lvl r-low">Confirmed (REST)</span></td></tr>
+        <tr><td>Editorial URLs (<strong>English</strong>)</td><td>posts 1,312 · press releases 1,661 · pages 337 · Škodapedia 189 → <strong>~3,500</strong> (26% of site)</td><td><span class="lvl r-low">Confirmed (REST)</span></td></tr>
+        <tr><td>Media assets</td><td>42,275 attachment pages → ~28,300 distinct logical items; ~200k+ physical files with derivatives</td><td><span class="lvl r-med">Measured (sitemap enumeration)</span></td></tr>
+        <tr><td>Search / listings</td><td><strong>ElasticPress / Elasticsearch</strong> (<code>x-elasticpress-search: true</code>; <code>ep_integrate</code>)</td><td><span class="lvl r-low">Confirmed</span></td></tr>
+        <tr><td>EN pages crawled for blocks</td><td><strong>3,496</strong> scanned (3,501 enumerated, 8 dead URLs)</td><td><span class="lvl r-low">Confirmed</span></td></tr>
+      </tbody>
+    </table>
+    <div class="note"><strong>Templates (EN, from full crawl):</strong> Press release (1,659 · 47.5%), Story (1,312 · 37.5%), Page (334 · 9.6%), Škodapedia (189 · 5.4%), Listing/index (~7 pages). <em>"Series" and "Podcast" are not templates — they redirect into the story/press-release templates.</em></div>
+  </section>
+
+  <!-- 3 -->
+  <section id="s3">
+    <h2><span class="num">3</span> Block Landscape</h2>
+    <p class="subtitle">~10 content blocks + ~5 chrome elements. Mechanism and risk reflect the final post-verification review.</p>
+    <table>
+      <thead><tr><th>Block</th><th>Mechanism</th><th>Variants</th><th>EN coverage</th><th>Effort / Risk</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Cards / Teaser</strong></td><td>JS-light + Isotope</td><td>overlay, media, toolbar</td><td>91%</td><td><span class="risk-badge r-med">Low–Med 🟡</span> media-cart coupling</td></tr>
+        <tr><td><strong>Hero</strong></td><td><strong>CSS-only</strong> (real <code>&lt;img&gt;</code>)</td><td>image</td><td>45%</td><td><span class="risk-badge r-low">Low 🟢</span></td></tr>
+        <tr><td><strong>Gallery</strong></td><td><strong>JS-heavy</strong> (Owl + width→columns + lightbox)</td><td>—</td><td>50%</td><td><span class="risk-badge r-med">Med–High 🟠</span></td></tr>
+        <tr><td><strong>Carousel / Promo</strong></td><td>JS-light</td><td>—</td><td>7%</td><td><span class="risk-badge r-med">Med 🟡</span> auto-rotate a11y</td></tr>
+        <tr><td><strong>Embeds</strong></td><td>JS-light (IntersectionObserver)</td><td>Vimeo, YouTube, Buzzsprout, Spotify</td><td>~13%</td><td><span class="risk-badge r-low">Low–Med 🟢</span></td></tr>
+        <tr><td><strong>Tags</strong></td><td>CSS-only</td><td>—</td><td>83%</td><td><span class="risk-badge r-low">Low 🟢</span></td></tr>
+        <tr><td><strong>Parallax</strong></td><td>JS (scroll)</td><td>—</td><td>47%</td><td><span class="risk-badge r-low">Low 🟢</span> drop/simplify</td></tr>
+        <tr><td><strong>Škodapedia glossary</strong></td><td>JS-medium</td><td>term-detail + A–Z filter</td><td>189 pgs</td><td><span class="risk-badge r-med">Med 🟡</span> accessible modal</td></tr>
+        <tr><td><strong>Faceted listing</strong></td><td><strong>Backend (ElasticPress)</strong></td><td>taxonomy, pagination</td><td>7 pgs</td><td><span class="risk-badge r-high">High 🔴</span></td></tr>
+        <tr><td><strong>Media-cart actions</strong></td><td><strong>Backend</strong></td><td>—</td><td>91%</td><td><span class="risk-badge r-high">High 🔴</span></td></tr>
+        <tr><td><strong>Promo banner</strong></td><td><strong>Backend (ad platform)</strong></td><td>sidebar/widget/positional</td><td>47%</td><td><span class="risk-badge r-high">High 🔴</span></td></tr>
+        <tr><td><strong>Newsletter</strong> (chrome)</td><td><strong>Backend (account)</strong></td><td>widget/shortcode</td><td>site-wide</td><td><span class="risk-badge r-high">High 🔴</span></td></tr>
+        <tr><td>Header/mega-menu, Footer, Social, App badges</td><td>JS behavior / static</td><td>—</td><td>site-wide</td><td><span class="risk-badge r-med">Low–Med 🟡</span></td></tr>
+      </tbody>
+    </table>
+    <div class="grid2" style="margin-top:16px">
+      <div class="card"><strong>Responsive:</strong> overwhelmingly <strong>CSS-only</strong> (295 KB stylesheet, 284 media queries, mobile-first). The <strong>only</strong> genuinely JS-driven responsive content block is the <strong>gallery</strong>, which has <strong>two</strong> JS behaviors: column count by width, plus a lightbox (<code>sb-gallery-lightbox</code>, width&lt;=767). No block swaps DOM per breakpoint — ports cleanly to EDS's single-markup model.</div>
+      <div class="card"><strong>Front-end debt to retire, not port:</strong> jQuery everywhere; Owl Carousel, Isotope, 174 KB React (banners); 168 <code>!important</code>; 30 breakpoints; JS text-truncation (<code>dotdotdot</code>); <code>padding-bottom</code> ratio hack (no <code>aspect-ratio</code>); <code>:only-child</code> link detection; a fragile <code>:after</code>-content CSS↔JS flag; an unthrottled parallax scroll handler.</div>
+    </div>
+    <div class="note"><strong>Story-template correction (adversarial review):</strong> story pages (~37.5% of EN pages) are built with SiteOrigin Page Builder — a nested panel/widget layout, not linear HTML. The story importer must flatten the builder tree (higher effort). Story-only; press-release/Škodapedia/home unaffected.</div>
+    <div class="note"><strong>Header/footer now analyzed (<code>SKODA-HEADER-FOOTER-ANALYSIS.md</code>) — lower-risk than feared:</strong> the mega-menu is <strong>plain nested link lists</strong> (no images or rich panels) and the footer simply repeats the nav menu. Combined effort is <strong>Medium</strong>, below the earlier estimate. One caveat: the <strong>mobile nav has an accessibility gap</strong> — <code>aria-expanded</code> is missing and must be added in the rebuild.</div>
+  </section>
+
+  <!-- 4 -->
+  <section id="s4">
+    <h2><span class="num">4</span> Backend &amp; Integrations</h2>
+    <p class="subtitle">The non-static systems that drive most of the risk. Contracts below were <strong>live-replayed</strong>.</p>
+    <table>
+      <thead><tr><th>System</th><th>What it really is</th><th>EDS implication</th></tr></thead>
+      <tbody>
+        <tr><td><strong>ElasticPress</strong></td><td>Powers <strong>both</strong> search <em>and</em> listing "Load more" (<code>ep_integrate:true</code>), across <strong>15 taxonomy facets</strong>; deep-links pagination via <code>history.pushState</code></td><td>Replace with published <strong>query-index</strong> + client faceting, or hosted search. <strong>#1 prototype.</strong></td></tr>
+        <tr><td><strong>Banner platform</strong> <code>skoda-banners/v1</code></td><td><strong>46 banners</strong>, 3 types, geo-blocking, frequency capping, popup delay/scroll triggers, click-tracking redirects, <strong>174 KB React</strong>; campaigns are <strong>per-market/locale-scoped with content-tag targeting</strong></td><td>Full ad-serving integration — <strong>not</strong> a block. Keep as client-side service call or drop for demo.</td></tr>
+        <tr><td><strong>Newsletter</strong> <code>newsletter/v1</code>, mailguide.cz</td><td><strong>Subscriber account system</strong>: create/login/logout + subscription save/extend; consent + honeypot</td><td>Backend service + GDPR/consent. Do not reduce to a static form.</td></tr>
+        <tr><td><strong>Media-cart</strong> <code>media-cart/v1</code></td><td>Session/cookie-stateful; add/download press assets; per-teaser <code>data-*</code> hooks</td><td>No static equivalent; rebuild as service or drop. Couples into every teaser. <code>mediakit/v1/mediabox</code> can feed a <strong>static downloads block</strong> — cart only needed for cross-page bulk.</td></tr>
+        <tr><td><strong>Consent / analytics</strong></td><td>OneTrust (consent + geo), Google Tag Manager (<code>GTM-M5GMBWF</code>), Hotjar</td><td>Re-integrate scripts (delayed phase).</td></tr>
+        <tr><td><strong>Custom analytics layer</strong> <code>skoda-analytics</code></td><td><strong>Bespoke ~140 KB tracking layer over GTM</strong> — instruments forms, downloads, share, banner, media-cart, video, and load-more as a <strong>hidden cross-cutting dependency</strong></td><td>Rebuilding <em>any</em> interactive block implicitly means re-wiring its analytics events. Budget it explicitly — it touches every dynamic block.</td></tr>
+        <tr><td><strong>CDN / DAM</strong></td><td><code>cdn.skoda-storyboard.com</code> + CloudFront/S3</td><td>Maps to EDS media handling; ~28.3k assets / ~200k+ physical files = heaviest lift (see §5).</td></tr>
+      </tbody>
+    </table>
+    <div class="note"><strong>Custom REST namespaces confirmed:</strong> <code>newsletter</code>, <code>media-cart</code>, <code>mediakit</code>, <code>skodapedia</code>, <code>speeches</code> (note: 'speeches' is a feature plugin, not a public content type), <code>skoda-banners</code>, <code>sowb</code>, <code>pll</code> (Polylang) — the true migration surface.</div>
+  </section>
+
+  <!-- 5 -->
+  <section id="s5">
+    <h2><span class="num">5</span> Media</h2>
+    <p class="subtitle">Reviewed in full — see <code>SKODA-MEDIA-INTEGRATION-REVIEW.md</code>.</p>
+    <div class="card">
+      <ul>
+        <li><strong>~42.3k attachment pages / ~28.3k distinct logical items / ~200k+ physical files (≈80–110 GB) (order-of-magnitude — the derivative multiplier is variable)</strong>, JPG-dominant — the <strong>single heaviest migration workstream</strong>. Galleries on ~1,510 press-release pages hold the bulk.</li>
+        <li><strong>The CDN is a dumb origin cache, not an image service.</strong> Header probes confirmed <code>cdn.skoda-storyboard.com</code> (S3 + CloudFront, 1-year immutable) <strong>ignores all transform hints</strong> — <code>?w=</code>, <code>?resize=</code>, <code>?format=webp</code>, and <code>Accept: image/webp</code> all return identical original bytes. Derivatives are <strong>pre-baked by WordPress at upload</strong> (8-size ladder, 272→2560w), served via <code>srcset</code>/<code>sizes</code> with <strong>no <code>&lt;picture&gt;</code> and effectively no webp/AVIF</strong> (478 JPG vs 2 webp sampled).</li>
+        <li><strong>Content images → EDS author pipeline = a modernization win.</strong> EDS auto-generates <code>&lt;picture&gt;</code> + webp + on-the-fly widths from a single original, so migrating them <em>upgrades</em> performance. Repo gotcha: <code>&lt;img&gt;</code> must be a <strong>direct child of <code>&lt;div&gt;</code></strong> or EDS won't wrap it.</li>
+        <li><strong>Downloadable binaries are the hard part.</strong> Press pages carry large <strong>PDFs (28 MB annual report seen), hi-res JPGs, and MP4 video</strong> via a tracked <code>/direct-download/</code> route. These must be <strong>linked / DAM'd, NOT run through the image pipeline</strong> — and they couple to the media-cart.</li>
+        <li><strong>Recommended strategy:</strong> <strong>on-demand, in-use-only, EN-first</strong> ingestion (seeded from <code>SKODA-EN-BLOCK-DATASET.csv</code>) rather than migrating all ~28.3k / ~200k+ files; migrate <strong>masters-only</strong> (drop the derivative ladder — EDS regenerates it); reference-in-place / DAM-link the large binaries.</li>
+      </ul>
+      <div class="note" style="margin-bottom:0"><em>Note: counts from full sitemap enumeration (55 attachment sitemaps) + sampled derivative weights; footprint (≈80–110 GB) is a medium-confidence extrapolation.</em></div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section id="s6">
+    <h2><span class="num">6</span> Search &amp; Listings — the core decision</h2>
+    <div class="card">
+      <ul>
+        <li><strong>Feasible with an EDS query-index</strong> for the demo: type + <strong>15 taxonomy facets</strong>, sort, and "Load more" all map to a published per-locale <code>query-index.json</code> filtered client-side. At EN volume (~3,500 items) this is tractable.</li>
+        <li><strong>What an index cannot replicate:</strong> full-text <strong>body</strong> search, typo/fuzzy matching, and relevance ranking that ElasticPress provides.</li>
+      </ul>
+      <div class="recommend" style="margin-bottom:0"><strong>Decision:</strong> demo = index over title/summary/tags (accept reduced recall); production = keep a hosted search (Algolia/Elastic/Adobe) fed by the index if body-level relevance is a hard requirement. Index and external search are <strong>not</strong> mutually exclusive.</div>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section id="s7">
+    <h2><span class="num">7</span> Unified Risk Register</h2>
+    <p class="subtitle">Merged &amp; ranked across all reports.</p>
+    <table>
+      <thead><tr><th>#</th><th>Risk</th><th>Likelihood</th><th>Impact</th><th>Mitigation</th></tr></thead>
+      <tbody>
+        <tr><td>R1</td><td>Scale (13k+ editorial, ~28.3k media / ~200k+ files, 6 langs) underestimated</td><td><span class="lvl r-high">High</span></td><td><span class="lvl r-high">High</span></td><td>Template-driven phasing; EN-first; automate import</td></tr>
+        <tr><td>R2</td><td>Four backend features (media-cart, banners, newsletter, favorites) have no static equivalent</td><td><span class="lvl r-high">High</span></td><td><span class="lvl r-high">High</span></td><td>Early rebuild-vs-drop decision per feature (§8)</td></tr>
+        <tr><td>R3</td><td>Search/listings on ElasticPress across 15 facets</td><td><span class="lvl r-high">High</span></td><td><span class="lvl r-high">High</span></td><td>Prototype query-index in pilot; decide hosted-search need</td></tr>
+        <tr><td>R4</td><td>Media/DAM strategy for ~28.3k assets / ~200k+ files (≈80–110 GB) + hi-res downloads</td><td><span class="lvl r-high">High</span></td><td><span class="lvl r-high">High</span></td><td><strong>Measured &amp; reviewed</strong> — recommend on-demand/in-use-only + masters-only + DAM-link large binaries; still need DAM owner (D5)</td></tr>
+        <tr><td>R5</td><td>Front-end debt (jQuery, Owl, Isotope, React, CSS) → full rebuild</td><td><span class="lvl r-high">High</span></td><td><span class="lvl r-med">Med</span></td><td>Re-derive tokens; rebuild blocks vanilla; don't port</td></tr>
+        <tr><td>R6</td><td>Multilingual (6 langs) multiplies every estimate</td><td><span class="lvl r-high">High</span></td><td><span class="lvl r-high">High</span></td><td>Confirm locale scope before estimating; locale-extensible structure</td></tr>
+        <tr><td>R7</td><td>Auto-rotating carousels &amp; modals fail WCAG (pause/focus-trap)</td><td><span class="lvl r-med">Med</span></td><td><span class="lvl r-med">Med</span></td><td>Rebuild with controls + focus management</td></tr>
+        <tr><td>R8</td><td>Unstable cross-locale redirects; 8 dead EN URLs</td><td><span class="lvl r-med">Med</span></td><td><span class="lvl r-med">Med</span></td><td>Build URL lists from sitemaps/REST only; audit redirects</td></tr>
+        <tr><td>R9</td><td>Gallery responsive JS (column-by-width) needs reimplementation</td><td><span class="lvl r-med">Med</span></td><td><span class="lvl r-med">Med</span></td><td><code>matchMedia</code>/CSS grid rebuild</td></tr>
+        <tr><td>R10</td><td><code>[RUNTIME-UNCONFIRMED]</code> checks not yet done (no browser this session)</td><td><span class="lvl r-med">Med</span></td><td><span class="lvl r-low">Low–Med</span></td><td>Short browser follow-up (see §8)</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 8 -->
+  <section id="s8">
+    <h2><span class="num">8</span> Key Decisions Required</h2>
+    <p class="subtitle">Consolidated stakeholder question list — these gate the migration start.</p>
+    <ul class="decisions">
+      <li><span class="tag">D1 — Language scope:</span> EN-only for phase 1, or all 6 from the start?</li>
+      <li><span class="tag">D2 — Media-cart:</span> rebuild as a service, or drop for the demo?</li>
+      <li><span class="tag">D3 — Banners:</span> keep the ad-serving platform (client-side API), or drop for the demo?</li>
+      <li><span class="tag">D4 — Newsletter:</span> re-integrate the subscriber/account service (with consent), or stub for the demo?</li>
+      <li><span class="tag">D5 — Media/DAM:</span> review recommends <strong>on-demand / in-use-only</strong>, <strong>masters-only</strong> ingestion (not all ~28.3k / ~200k+ files) with large PDF/MP4/hi-res binaries <strong>linked/DAM'd, not optimized</strong>. Still needs a call on <strong>where the DAM lives and who owns it</strong>, plus whether the legacy CDN can be referenced in place and for how long (CDN has no CORS).</li>
+      <li><span class="tag">D6 — Search:</span> accept index-based search (title/summary/tags), or procure hosted search for body-level relevance?</li>
+      <li><span class="tag">D7 — Content cutoff:</span> full archive, or content from a date forward?</li>
+      <li><span class="tag">D8 — Scope check:</span> RESOLVED — <code>real-product-manager</code> is a plugin licensing/update client, not commerce (no-commerce confirmed). 'speeches' removed — not a public content type. Remaining: identify owners for Škodapedia and press-kits content models (press-kits = filtered <code>press_release</code>).</li>
+    </ul>
+    <div class="note"><strong>Outstanding browser follow-up (<code>[RUNTIME-UNCONFIRMED]</code>):</strong> focus-trap correctness (glossary/banner modals), auto-rotate pause controls, mega-menu hover timing, hero overlay contrast, and layout-shift when AJAX/banners inject — to be confirmed once a headless browser is available.</div>
+  </section>
+
+  <!-- 9 -->
+  <section id="s9">
+    <h2><span class="num">9</span> Recommended Path Forward</h2>
+    <div class="phases">
+      <div class="phase"><h4>Phase A — Capability pilot (EN)</h4><p>Stand up the reusable capability: teaser/cards, hero, gallery, embeds + header/footer, one query-index listing + one search slice — validated on a press-release article + its listing (not just one page). Story/Page-Builder &amp; backend services deferred. ~13–25 AI-days.</p></div>
+      <div class="phase"><h4>Phase B — Editorial at scale</h4><p>Remaining templates (story — includes flattening SiteOrigin Page Builder layouts, Škodapedia, press-kits); automate bulk import from sitemaps/REST; wire consent + analytics.</p></div>
+      <div class="phase"><h4>Phase C — Backend features</h4><p>Media-cart, banners, newsletter, favorites, faceted search — each per its §8 decision.</p></div>
+      <div class="phase"><h4>Phase D — Localization</h4><p>Extend to the other 5 languages once the EN template set is stable (locale-prefixed, index-per-locale from day one).</p></div>
+    </div>
+    <p style="margin-top:18px; margin-bottom:6px"><strong>Build-priority order:</strong></p>
+    <div class="buildorder">
+      <span class="step">Cards/Teaser</span><span class="arrow">→</span>
+      <span class="step">Hero</span><span class="arrow">→</span>
+      <span class="step">Gallery</span><span class="arrow">→</span>
+      <span class="step">Faceted-listing-over-index</span><span class="arrow">→</span>
+      <span class="step">Embeds</span><span class="arrow">→</span>
+      <span class="step">Carousel</span><span class="arrow">→</span>
+      <span class="step">Škodapedia glossary</span><span class="arrow">→</span>
+      <span class="step">Header/Footer chrome</span><span class="arrow">→</span>
+      <span class="step deferred">Backend features (deferred)</span>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section id="s10">
+    <h2><span class="num">10</span> Document Map &amp; Provenance</h2>
+    <table>
+      <thead><tr><th>For detail on…</th><th>See</th></tr></thead>
+      <tbody>
+        <tr><td>Site shape, backend, scale, integrations, first risk register</td><td><code>SKODA-STORYBOARD-DISCOVERY.md</code></td></tr>
+        <tr><td>Search feasibility, EN-only scope, template block-gap review</td><td><code>SKODA-STORYBOARD-DRILLDOWN.md</code></td></tr>
+        <tr><td>Full EN block audit (3,496 pages), variants, template×block matrix, CSS-vs-JS responsive analysis</td><td><code>SKODA-EN-BLOCK-INVENTORY.md</code></td></tr>
+        <tr><td>Per-block critical review, live backend contracts, CSS/JS debt, corrections</td><td><code>SKODA-BLOCK-IMPLEMENTATION-REVIEW.md</code></td></tr>
+        <tr><td>Media types, CDN/derivative pipeline, downloads, EDS integration matrix, scale strategy</td><td><code>SKODA-MEDIA-INTEGRATION-REVIEW.md</code></td></tr>
+        <tr><td>Measured media: counts, footprint, file weights, video/PDF, CDN/CORS</td><td><code>SKODA-MEDIA-DEEP-DIVE.md</code></td></tr>
+        <tr><td>Raw per-URL block data / aggregates</td><td><code>SKODA-EN-BLOCK-DATASET.csv</code>, <code>SKODA-EN-BLOCK-AGGREGATE.json</code></td></tr>
+        <tr><td>Adversarial red-team: falsification log, corrections, newly-found gaps</td><td><code>SKODA-ADVERSARIAL-REVIEW.md</code></td></tr>
+        <tr><td>Complex dynamic systems: API surface, data contracts, targeting, integration boundary</td><td><code>SKODA-COMPLEX-SYSTEMS-DEEP-DIVE.md</code></td></tr>
+        <tr><td>Header/mega-menu &amp; footer structure, effort, mobile-nav accessibility gap</td><td><code>SKODA-HEADER-FOOTER-ANALYSIS.md</code></td></tr>
+        <tr><td>Second adversarial red-team: softenings (glossary term-detail API, order-of-magnitude media counts), consistency checks</td><td><code>SKODA-ADVERSARIAL-REVIEW-2.md</code></td></tr>
+      </tbody>
+    </table>
+    <div class="card" style="margin-top:16px">
+      <p style="margin-top:0"><strong>Refinements made during the engagement</strong> (final positions shown above):</p>
+      <ul>
+        <li>Promo banner: "Medium block" → <strong>backend ad-serving platform</strong>.</li>
+        <li>Newsletter: "form + service" → <strong>subscriber account system</strong>.</li>
+        <li>ElasticPress: "powers search" → <strong>powers search <em>and</em> listings</strong> (<code>ep_integrate</code>).</li>
+        <li>Škodapedia A–Z filter: earlier 1,866 count was a <strong>false positive</strong> (collision with <code>NewsletterFormWidgetV2</code>); real glossary = <strong>189</strong> Škodapedia pages.</li>
+        <li>"Series"/"Podcast": <strong>not templates</strong> (redirect into story/press-release).</li>
+        <li>Media: dedicated review now <strong>complete</strong> — CDN confirmed a <strong>pass-through cache</strong>; EDS pipeline is an <em>upgrade</em> for content images; large PDF/MP4/hi-res downloads must be <strong>linked/DAM'd, not optimized</strong>.</li>
+      </ul>
+      <p style="margin-bottom:0"><strong>Method &amp; limitations:</strong> evidence from public pages, HTTP headers, the WordPress REST API, XML sitemaps, a full EN crawl (3,496 pages), source JS/CSS inspection, live endpoint replay, and CDN header probing. <strong>No headless browser</strong> was available this session, so visual/rendered-layout checks remain <code>[RUNTIME-UNCONFIRMED]</code>. All findings are analysis-only; no Git operations were performed.</p>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    Škoda Storyboard → AEM Edge Delivery · Analysis Overview · 2026-09-04 · Analysis-only discovery artifact. Tip: use your browser's <strong>Print → Save as PDF</strong> for a shareable deck.
+  </div>
+</footer>
+
+</body>
+</html>

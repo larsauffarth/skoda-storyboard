@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Škoda Storyboard → AEM Edge Delivery — Leadership Briefing</title>
+<style>
+  :root{
+    --green:#0e3a2f;--green-2:#14513f;--green-bright:#4ba82e;--ink:#1a1a1a;--muted:#5c6670;
+    --line:#e2e6e9;--bg:#f6f8f9;--card:#fff;--red:#c0392b;--amber-dk:#b5651d;--chip:#eef3f0;
+    --shadow:0 1px 3px rgba(0,0,0,.06),0 8px 24px rgba(0,0,0,.05);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55;font-size:16px}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+  header.hero{background:linear-gradient(135deg,var(--green) 0%,var(--green-2) 58%,#1c6b4f 100%);color:#fff;padding:54px 0 44px}
+  .eyebrow{text-transform:uppercase;letter-spacing:.15em;font-size:12px;font-weight:700;color:var(--green-bright);margin:0 0 12px}
+  header.hero h1{margin:0 0 12px;font-size:34px;line-height:1.13;font-weight:800;letter-spacing:-.01em}
+  header.hero p.sub{margin:0;color:#d6e4dd;max-width:780px;font-size:15.5px}
+  .meta-row{margin-top:20px;display:flex;flex-wrap:wrap;gap:10px}
+  .meta-row .pill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:6px 12px;border-radius:999px;font-size:12.5px;color:#eaf3ee}
+  nav.toc{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+  nav.toc .wrap{display:flex;flex-wrap:wrap;gap:4px;padding:10px 24px}
+  nav.toc a{font-size:12px;color:var(--muted);text-decoration:none;padding:5px 9px;border-radius:6px;white-space:nowrap;font-weight:600}
+  nav.toc a:hover{background:var(--chip);color:var(--green)}
+  main{padding:8px 0 60px}
+  section{margin-top:40px}
+  h2{font-size:22px;font-weight:800;color:var(--green);margin:0 0 6px;letter-spacing:-.01em;display:flex;align-items:baseline;gap:10px}
+  h2 .num{font-size:13px;font-weight:700;color:#fff;background:var(--green-bright);border-radius:6px;padding:2px 8px}
+  .subtitle{color:var(--muted);font-size:14px;margin:0 0 16px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 24px;box-shadow:var(--shadow)}
+  p{margin:0 0 12px}ul{margin:0 0 12px;padding-left:20px}li{margin:6px 0}
+  strong{font-weight:700}em{color:var(--muted)}
+  code{background:var(--chip);padding:1px 6px;border-radius:5px;font-family:"SF Mono",Menlo,Consolas,monospace;font-size:.85em;color:#24503f}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  @media(max-width:820px){.stats{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:460px){.stats{grid-template-columns:1fr}}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .stat::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--green-bright)}
+  .stat .num{font-size:28px;font-weight:800;color:var(--green);line-height:1}
+  .stat .lbl{margin-top:7px;font-size:13px;color:var(--muted);font-weight:600}
+  .stat .sub{margin-top:3px;font-size:11.5px;color:#8a949b}
+  .callout{border-left:4px solid var(--green-bright);background:#f0f7f2;padding:14px 18px;border-radius:0 10px 10px 0;margin:14px 0}
+  .alert{border-left:4px solid var(--red);background:#fdf0ee;padding:14px 18px;border-radius:0 10px 10px 0;margin:14px 0}
+  .sot{border:2px solid var(--green);border-radius:12px;background:#fbfdfc;padding:4px 24px 12px;box-shadow:var(--shadow)}
+  .sot .sot-tag{display:inline-block;background:var(--green);color:#fff;font-weight:800;font-size:12px;letter-spacing:.04em;padding:4px 12px;border-radius:0 0 8px 8px;text-transform:uppercase}
+  .sot h4{color:var(--green);margin:16px 0 4px;font-size:15px}
+  .sot ul{margin:2px 0 10px}
+  .sot ul ul{margin:2px 0}
+  details.sot-wrap{margin:0}
+  details.sot-wrap>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;border:2px solid var(--green);border-radius:12px;background:#fbfdfc;padding:14px 18px;font-weight:700;color:var(--green);box-shadow:var(--shadow)}
+  details.sot-wrap>summary::-webkit-details-marker{display:none}
+  details.sot-wrap>summary::before{content:"▸";color:var(--green);font-size:14px;transition:transform .15s}
+  details.sot-wrap[open]>summary::before{transform:rotate(90deg)}
+  details.sot-wrap>summary .sot-hint{margin-left:auto;font-weight:600;font-size:12.5px;color:var(--muted)}
+  details.sot-wrap[open]>summary{border-radius:12px 12px 0 0;border-bottom:0}
+  details.sot-wrap[open]>.sot{border-radius:0 0 12px 12px;border-top:0;box-shadow:none}
+  table{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0}
+  thead th{text-align:left;background:var(--green);color:#fff;font-weight:700;padding:10px 12px;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+  thead th:first-child{border-radius:8px 0 0 0}thead th:last-child{border-radius:0 8px 0 0}
+  tbody td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  tbody tr:nth-child(even){background:#fafbfb}
+  .lvl{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+  .r-high{background:#fbe6e3;color:var(--red)}.r-med{background:#fcf1e0;color:var(--amber-dk)}.r-low{background:#e6f4e6;color:#2e7d32}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr}header.hero h1{font-size:26px}}
+  /* swimlane: one row per engineer; Foundation bar on top, Integrate bar on bottom */
+  .swim{display:grid;grid-template-columns:96px 1fr;gap:6px;margin:8px 0 2px;font-size:12.5px}
+  .swim .bar{grid-column:1 / -1;border-radius:8px;padding:8px 12px;font-weight:700;text-align:center}
+  .swim .bar.gate{background:var(--green);color:#fff}
+  .swim .bar.funnel{background:#f0f7f2;color:var(--green);border:1px solid var(--green-bright)}
+  .swim .bar .ep{font-size:10.5px;font-weight:600;opacity:.85;margin-left:5px}
+  .swim .rl{display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;border-radius:8px;color:#fff}
+  .swim .rl.r1{background:#2e7d32}.swim .rl.r2{background:#1565c0}.swim .rl.r3{background:#6a1b9a}.swim .rl.r4{background:#c2185b}
+  .swim .cell{border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:#fbfcfc;display:flex;align-items:center}
+  .swim .cell .ep{color:var(--muted);font-size:10.5px;margin-left:5px}
+  .swim .cell.chain{border-left:3px solid var(--amber-dk)}
+  .swim .arrow{grid-column:1 / -1;text-align:center;color:var(--muted);font-size:12px;line-height:1;margin:-1px 0}
+  .flow-note{font-size:12px;color:var(--muted);margin:6px 0 0}
+  .chain-key{border-left:3px solid var(--amber-dk);padding-left:8px}
+  .gbadge,.fbadge{display:inline-block;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;padding:1px 7px;border-radius:999px;margin-right:5px;vertical-align:middle}
+  .gbadge{background:var(--green);color:#fff}.fbadge{background:#f0f7f2;color:var(--green);border:1px solid var(--green-bright)}
+  @media(max-width:760px){.swim{grid-template-columns:80px 1fr}}
+  .who{display:inline-block;font-size:10.5px;font-weight:700;padding:1px 8px;border-radius:999px;margin-right:6px;text-transform:uppercase;letter-spacing:.03em;vertical-align:middle}
+  .who-sk{background:#e8eef7;color:#1565c0}.who-jt{background:#ede7f6;color:#6a1b9a}
+  .keypoints{counter-reset:kp;list-style:none;padding:0;margin:4px 0 0}
+  .keypoints>li{counter-increment:kp;position:relative;padding:14px 16px 14px 54px;border:1px solid var(--line);border-radius:10px;margin-bottom:10px;background:#fbfcfc}
+  .keypoints>li::before{content:counter(kp);position:absolute;left:14px;top:14px;width:26px;height:26px;border-radius:50%;background:var(--green);color:#fff;font-weight:800;font-size:13px;display:grid;place-items:center}
+  .decisions{list-style:none;padding:0;margin:0}
+  .decisions li{border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:var(--card)}
+  .decisions .tag{font-weight:800;color:var(--green);margin-right:6px}
+  .phases{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:620px){.phases{grid-template-columns:1fr}}
+  .phase{border:1px solid var(--line);border-radius:10px;padding:16px;background:var(--card);border-top:3px solid var(--green-bright)}
+  .phase h4{margin:0 0 8px;font-size:15px;color:var(--green)}
+  .badge{display:inline-block;font-weight:800;font-size:12px;padding:3px 10px;border-radius:6px;color:#fff}
+  .b-conf{background:#2e7d32}.b-est{background:var(--amber-dk)}.b-unc{background:var(--muted)}
+  footer{border-top:1px solid var(--line);padding:24px 0 50px;color:var(--muted);font-size:12.5px}
+  @media print{nav.toc{display:none}body{background:#fff;font-size:12px}
+    header.hero,.stat::before,thead th,.sot .sot-tag,.badge,.lvl{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    header.hero{background:var(--green)!important}section,.card,.phase,table,.sot{break-inside:avoid}a{color:inherit;text-decoration:none}
+    details.sot-wrap>summary{display:none}details.sot-wrap>.sot{display:block!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Leadership Briefing</p>
+    <h1>Škoda Storyboard → AEM Edge Delivery<br>What we've learned &amp; what the ask is</h1>
+    <p class="sub">A clear, fact-based picture of the migration and Škoda's confirmed requirements. Purpose: one shared view of scope, what's proven, what's hard, the facts in our favour — and the decisions we need to hit the dates.</p>
+    <div class="meta-row">
+      <span class="pill">📅 Demo: 15 Oct 2026</span>
+      <span class="pill">🚀 Go-live: 2 Jan 2027</span>
+      <span class="pill">🎯 The VW EDS blueprint</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc"><div class="wrap">
+  <a href="#s1">1 · The Ask</a>
+  <a href="#s2">2 · The Site</a>
+  <a href="#s3">3 · Scope (Source of Truth)</a>
+  <a href="#s4">4 · Confirmed Facts</a>
+  <a href="#s5">5 · What's Hard</a>
+  <a href="#s6">6 · Settled Facts</a>
+  <a href="#s7">7 · Timeline &amp; Team</a>
+  <a href="#s8">8 · Parallel Tracks &amp; Staffing</a>
+  <a href="#s9">9 · Open Decisions</a>
+  <a href="#s10">10 · Risks</a>
+  <a href="#s11">11 · Recommendation</a>
+</div></nav>
+
+<main><div class="wrap">
+
+  <!-- 1 -->
+  <section id="s1">
+    <h2><span class="num">1</span> The ask, in one view</h2>
+    <div class="alert">
+      <strong>The 15 Oct demo is mission-critical and politically sensitive.</strong> Per Škoda: the team must show value with AEM by this date, "or this project and all future AEM projects are in jeopardy." Everything below is organised around making that date achievable — and it is achievable, but it's tight and starts now.
+    </div>
+    <ol class="keypoints">
+      <li><strong>Two fixed dates.</strong> A <strong>functioning demo by 15 Oct 2026</strong> (front end working, approved AEM Assets, blog posts + media-cart replicated) and <strong>go-live 2 Jan 2027</strong> (content fully migrated, authoring workflows running).</li>
+      <li><strong>This is the blueprint.</strong> Škoda intends this project as the template for future VW EDS projects — so it must be done cleanly and be reusable, not just "demo-ware."</li>
+      <li><strong>What it takes.</strong> A focused <strong>~4–6-week build to the demo</strong> depending on team size (§8; staff to maximise value — 4 engineers, ~4–5 weeks), delivered <strong>AI-led / human-steered</strong> (the AI builds the bulk; a small team each owns a workstream, with one acting as lead — accountable for quality, integrations and the date). The technically hardest parts have a defined, tested approach (§6).</li>
+    </ol>
+    <p style="margin-bottom:0"><strong>Technical complexity: moderate and well-understood — favourable for Edge Delivery.</strong> This is a content/editorial site with <em>none</em> of the hardest categories: <strong>no commerce, no personalization, no user logins, no dynamic media.</strong> The one dynamic piece is the media-cart's zip-on-demand, which needs a single small serverless function (§5) — modest, and the only such component. The work is scale plus a few well-defined back-end features — a far simpler undertaking than a comparable AEM Sites or commerce build. <strong>The schedule, however, is tight</strong> (§10): the challenge here is the fixed, immovable date, not technical difficulty. The demo is a deliberate, focused slice of the whole.</p>
+  </section>
+
+  <!-- 2 -->
+  <section id="s2">
+    <h2><span class="num">2</span> What the site is</h2>
+    <p class="subtitle">Škoda Auto's global editorial + press/media newsroom — not e-commerce. A large, mature, heavily-customised WordPress site.</p>
+    <div class="stats">
+      <div class="stat"><div class="num">~13,100</div><div class="lbl">Editorial pages</div><div class="sub">across 6 languages</div></div>
+      <div class="stat"><div class="num">~28,300</div><div class="lbl">Media items</div><div class="sub">~200k+ stored files</div></div>
+      <div class="stat"><div class="num">6</div><div class="lbl">Languages</div><div class="sub">EN + CS primary</div></div>
+      <div class="stat"><div class="num">~10 + 5</div><div class="lbl">Building blocks</div><div class="sub">content + site-wide</div></div>
+    </div>
+    <p style="margin-top:14px;margin-bottom:0;font-size:13.5px;color:var(--muted)">Runs on WordPress today, with search &amp; filtering powered by Elasticsearch. English is roughly a quarter of the content; English + Czech are the primary languages.</p>
+    <div class="callout" style="margin-top:16px">
+      <strong>How we know — these are measured, not estimated:</strong>
+      <ul style="margin:6px 0 0;font-size:13px">
+        <li><strong>Editorial scale:</strong> enumerated every editorial URL via the WordPress REST API — <strong>~13,100 pages</strong> (posts 5,282 · press releases 6,558 · pages 551 · Škodapedia 725) across 6 languages.</li>
+        <li><strong>Media scale:</strong> parsed all <strong>55 attachment sitemaps</strong> → <strong>42,275 attachment pages → ~28,300 distinct logical items → ~200k physical files</strong> (order-of-magnitude, incl. the derivative ladder); ~280 CDN files probed for byte weight.</li>
+        <li><strong>Blog/story structure:</strong> scanned <strong>100% of stories — 2,773</strong> (EN 1,312 + CS 1,461), <strong>0 fetch errors</strong>, cataloguing <strong>35,159 component instances</strong> across <strong>17 types</strong>; <strong>98.7%</strong> covered by a small, consistent set (identical in EN + CS).</li>
+        <li><strong>Dynamic features:</strong> mapped the live back-end endpoints (media-cart, media-kit, banners, newsletter, encyclopedia) read-only, to size the rebuild.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3 — VERBATIM SCOPE -->
+  <section id="s3">
+    <h2><span class="num">3</span> Scope — Source of Truth</h2>
+    <p class="subtitle">Škoda's confirmed requirements, reproduced verbatim. <strong>This is the authoritative scope</strong> — everything else in this deck aligns to it.</p>
+    <details class="sot-wrap">
+      <summary>Show Škoda's confirmed requirements (verbatim)<span class="sot-hint">click to expand</span></summary>
+    <div class="sot">
+      <span class="sot-tag">Verbatim — client requirements</span>
+
+      <h4>1 — Timing and scope of deliverable:</h4>
+      <ul>
+        <li>Aiming to have a functioning demo of the Škoda Storyboard website by October 15th, 2026
+          <ul>
+            <li>This demo date is mission critical and politically sensitive – the team must be able to show value with AEM by this date, or this project and all future AEM projects are in jeopardy</li>
+            <li>Website front end functioning</li>
+            <li>Utilizes approved assets from AEM Assets</li>
+            <li>Blog posts replicated</li>
+            <li>Media cart functionality replicated</li>
+            <li>Treat this project as the "blueprint" for future EDS projects at VW</li>
+          </ul>
+        </li>
+        <li>Go-live by end of 2026:
+          <ul>
+            <li>Content fully migrated</li>
+            <li>Authoring workflows setup and running</li>
+            <li>Site hosted in EDS is live on January 2nd, 2027</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h4>2 — Localization requirements:</h4>
+      <ul>
+        <li>Škoda HQ generally creates initial articles, which are then localized into English and Czech</li>
+        <li>Four additional language options are offered – content only gets localized into these languages when a local Škoda office decides to translate into their language:
+          <ul><li>German (DE)</li><li>Slovak (SK)</li><li>Serbian (SR)</li><li>Slovenian (SL)</li></ul>
+        </li>
+        <li>Some articles are ONLY available in a specific language (i.e., only in Slovak) – need this flexibility when deciding what to show based on the language selector in the header</li>
+      </ul>
+
+      <h4>3 — Existing Plugins, Integrations, and Key Functionality:</h4>
+      <ul>
+        <li>Consent: OneTrust should be integrated for cookie consent</li>
+        <li>Personalization: there is no existing personalization happening on the site</li>
+        <li>Authentication: the site is public and has no auth for regular users
+          <ul><li>This is true also for the "media cart" functionality – it's powered off device IDs, not logins</li></ul>
+        </li>
+        <li>Authoring: authors use the WordPress admin backend for authoring and editing of content
+          <ul><li>Note that they authenticate through Škoda's IDP to author content</li></ul>
+        </li>
+        <li>Content Embargoes: the "media room" section of the site has a need for content embargoing – items that are classified as "confidential" need to only available to a select audience of authors until a particular date</li>
+        <li>CDN/Caching: their sites currently use either CloudFront (AWS) or Azure Front Door (Azure); they're open to using whatever Adobe recommends
+          <ul><li>No edge workers, serverless edge functions, or similar functionality is currently in use</li></ul>
+        </li>
+        <li>Dynamic Media: nothing is currently dynamically generated, nor are there any content blocks on the site that shuffle around based on personalization attributes/audiences (though this may be an opportunity to showcase Adobe's functionality)</li>
+        <li>Video: team isn't using a MAM or AEM Assets generally for video – they host videos on Vimeo or Škoda's YouTube channel and embed them on page</li>
+        <li>Tags: Google Analytics for data collection and analytics, Facebook pixel for advertising, Yoast SEO in WordPress</li>
+      </ul>
+
+      <h4>4 — Workflow and Design</h4>
+      <ul>
+        <li>Design system: the team utilizes Figma to maintain their design system for Škoda web properties
+          <ul><li>We should be showcasing Figma-to-AEM agentic functionality here if possible</li><li>A design system overhaul may come later, but it shouldn't affect this project</li></ul>
+        </li>
+        <li>Component libraries: built using Material UI
+          <ul><li>Video, carousel, and Media shopping cart components identified as the most complex
+            <ul><li>Media shopping cart simply allows any user to add images/content to a "cart" and download it as a zip file on demand</li></ul>
+          </li><li>Team would like to be able to re-use components across future web properties</li></ul>
+        </li>
+        <li>Workflow: editors and content authors create articles and upload assets to support the articles, typically sourced from marketing databases, AEM Assets, or other locations
+          <ul><li>There is no rigid process currently in place for content production</li><li>See language notes above on language variants</li><li>Metadata tags in WordPress dictate where articles appear in the navigation</li></ul>
+        </li>
+      </ul>
+    </div>
+    </details>
+
+    <p class="subtitle" style="margin-top:18px">In plain terms — what the <strong>English + Czech demo pages</strong> include, and what waits for go-live:</p>
+    <div class="grid2">
+      <div class="card" style="border-top:3px solid var(--green-bright)">
+        <strong>✓ In the demo (EN + CS pages)</strong>
+        <ul style="margin:6px 0 0;font-size:13px">
+          <li>Blog / story pages and press releases, rebuilt from the current site</li>
+          <li>The core page building blocks + site navigation (header, footer, menus)</li>
+          <li>Search &amp; filtered topic listings</li>
+          <li>The media-cart — collect assets, download as a zip</li>
+          <li>AEM Assets integrated — approved imagery available to the pages</li>
+          <li>A Figma-to-AEM design showcase (1–2 components)</li>
+        </ul>
+      </div>
+      <div class="card" style="border-top:3px solid var(--muted)">
+        <strong>◦ Not in the demo — planned for go-live</strong>
+        <ul style="margin:6px 0 0;font-size:13px">
+          <li>The other four languages (DE / SK / SR / SL) — EN + CS only for the demo</li>
+          <li>The full content archive (demo uses a focused, representative set)</li>
+          <li>Content embargoes (staged-publish for confidential media-room items)</li>
+          <li>Banners &amp; newsletter (per the go-live decision)</li>
+          <li>Authoring workflows + Škoda sign-in (IDP)</li>
+          <li>Consent + analytics wiring — demo scope to be defined (§7)</li>
+        </ul>
+      </div>
+    </div>
+    <p style="font-size:12px;color:var(--muted);margin:8px 0 0">EN and CS use the <strong>same page structure</strong> (identical component set — §2), so Czech adds volume, not complexity. "Not in the demo" means <em>later</em>, not <em>dropped</em>.</p>
+  </section>
+
+  <!-- 4 -->
+  <section id="s4">
+    <h2><span class="num">4</span> What we've confirmed</h2>
+    <p class="subtitle">The established facts about the current site.</p>
+    <div class="grid2">
+      <div class="card">
+        <strong>Platform &amp; content</strong>
+        <ul>
+          <li><strong>WordPress + Elasticsearch</strong>; server-rendered, jQuery-era theme — not a modern app.</li>
+          <li>A handful of repeatable <strong>page templates</strong> (press release, story/blog, page, encyclopedia, listings) and <strong>~10 content blocks + ~5 site-wide</strong> elements.</li>
+          <li>Search &amp; filtered listings run across <strong>15 topic facets</strong>.</li>
+          <li>Navigation placement is driven by <strong>metadata tags</strong> (matches Škoda's note).</li>
+        </ul>
+      </div>
+      <div class="card">
+        <strong>Media, video &amp; environment</strong>
+        <ul>
+          <li>Images sit on <strong>S3 + CloudFront as a plain cache</strong> — no on-the-fly transforms, <strong>no Dynamic Media</strong> today (confirms Škoda's note). EDS's image pipeline will be an upgrade.</li>
+          <li><strong>Video = Vimeo / YouTube embeds</strong> — no self-hosted video, no MAM (confirms Škoda's note).</li>
+          <li><strong>No user login, no personalisation, no edge functions in use today</strong> (we add one small serverless function for the media-cart zip — §5); authors sign in via Škoda's IDP.</li>
+          <li>Header/mega-menu &amp; footer are <strong>plain nested menus</strong> — low build effort.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section id="s5">
+    <h2><span class="num">5</span> Where the real work is</h2>
+    <p class="subtitle">Complexity is concentrated in a few well-defined places — the rest is straightforward for Edge Delivery.</p>
+    <table>
+      <thead><tr><th>Area</th><th>Why it's hard</th><th>When</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Media-cart</strong></td><td>Collect assets → download as a zip. <em>Device-ID based, no login</em> — not an account system. The zip-on-demand is the one step Edge Delivery doesn't do natively — it <strong>requires a small serverless function</strong> that builds the zip, writes it to storage, and returns a short-lived download link (mirrors the current site's signed-download flow). A net-new capability for Škoda (none in use today, §3); <strong>exact host to confirm in a short spike</strong> (§9). Required in the demo.</td><td>Demo</td></tr>
+        <tr><td><strong>Search &amp; listings</strong></td><td>Elasticsearch today; rebuilt as a published index + client filtering (15 facets). The #1 build prototype.</td><td>Demo</td></tr>
+        <tr><td><strong>Story / "blog" pages</strong></td><td>Built in a visual page-builder — content must be "flattened" into the new model. The component set is small and consistent (§6).</td><td>Demo</td></tr>
+        <tr><td><strong>Content embargoes</strong> <em>(new)</em></td><td>Confidential items visible only to select authors until a release date. No native EDS gate → we recommend a "staged-publish" approach (authors preview; auto-publish on the date).</td><td>Go-live</td></tr>
+        <tr><td><strong>Media at scale</strong></td><td>~28,300 logical items / ~200k files.<sup>†</sup> Approved assets are intended to come from <strong>AEM Assets</strong> — but whether they already live there is <strong>unconfirmed</strong>; if not, the fallback is to import them into the content pipeline. Cost is rights + dedup, not the upload — and <strong>rights clearance sits with Škoda</strong>, so it's a go-live schedule input, not a build task.</td><td>Go-live</td></tr>
+        <tr><td><strong>Banners &amp; newsletter</strong></td><td>A bespoke per-market ad system and a subscriber/account newsletter — each a back-end service to rebuild or defer.</td><td>Go-live / decide</td></tr>
+        <tr><td><strong>Analytics</strong></td><td>Google Analytics + Facebook pixel + SEO metadata to re-wire (a custom tracking layer exists — likely feeds GA; to confirm).</td><td>Go-live</td></tr>
+        <tr><td><strong>Front-end rebuild</strong></td><td>The old site is jQuery-era; EDS blocks are rebuilt clean (no lift-and-shift). This is also the reuse opportunity for future VW sites.</td><td>Throughout</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 6 -->
+  <section id="s6">
+    <h2><span class="num">6</span> Settled facts in our favour</h2>
+    <p class="subtitle">Established points that keep the build straightforward.</p>
+    <div class="callout">
+      <strong>Blog posts are built from a small, consistent set of components</strong>, and that set is <strong>the same in English and Czech</strong> — so adding Czech is more volume, not more complexity.
+    </div>
+    <div class="grid2">
+      <div class="card"><strong>Media-cart needs no account</strong><br>Device-ID based, <strong>no login/account</strong>. The zip-download is the one piece Edge Delivery doesn't do natively — it needs a small <strong>serverless function</strong> (net-new for Škoda), which builds the zip, stores it, and returns a short-lived link. <strong>Host to confirm in a spike</strong> (Adobe App Builder, a CDN worker, or client-side zip in the browser each work with the right pattern — §9). Fallback: a per-story pre-built "download all" bundle.</div>
+      <div class="card"><strong>Approved assets source = AEM Assets</strong><br>Approved images are intended to come from <strong>AEM Assets</strong>. Open: whether Škoda has its own instance, uses a shared VW/group one, or needs one provisioned — and whether the images are in it yet (§9). Demo fallback: serve approved images from the content pipeline and cut over later.</div>
+      <div class="card"><strong>Video = no migration</strong><br>Vimeo/YouTube embeds mean <strong>no video files to move, transcode or host</strong>, and no video player to rebuild.</div>
+      <div class="card"><strong>Header/footer are plain nested menus</strong><br>Standard navigation lists, not an elaborate mega-menu — low build effort.</div>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section id="s7">
+    <h2><span class="num">7</span> Timeline &amp; how we deliver</h2>
+    <div class="phases">
+      <div class="phase"><h4>M1 — Demo · 15 Oct 2026 (~4–6 weeks, by team size — §8)</h4>
+        <p style="font-size:13px;color:var(--muted);margin:0 0 6px"><strong>What we deliver, working, on the day:</strong></p>
+        <ul style="margin:0;padding-left:18px;font-size:13px">
+          <li>Front end working — core blocks + navigation</li>
+          <li>Blog / story pages replicated</li>
+          <li>Media-cart (collect → zip-download)</li>
+          <li>Search &amp; filtered listings</li>
+          <li><strong>AEM Assets</strong> integrated (approved assets available; not necessarily all in active use by the demo)</li>
+          <li>Consent + analytics (OneTrust / GA / FB pixel) — <em>scope for the demo to be defined; may be deferred to go-live</em></li>
+          <li><strong>English + Czech</strong></li>
+          <li>A Figma-to-AEM showcase</li>
+        </ul>
+        <p style="font-size:12px;color:var(--muted);margin:6px 0 0"><em>Not in the demo:</em> full content archive, the four on-demand languages, embargoes, banners/newsletter — all M2.</p>
+      </div>
+      <div class="phase"><h4>M2 — Go-live · 2 Jan 2027</h4>
+        <p style="font-size:13px;color:var(--muted);margin:0 0 6px"><strong>Everything else, for the live site:</strong></p>
+        <ul style="margin:0;padding-left:18px;font-size:13px">
+          <li>Full content migration</li>
+          <li>Authoring workflows + Škoda IDP</li>
+          <li>The four on-demand languages (DE/SK/SR/SL)</li>
+          <li>Content embargoes (staged-publish)</li>
+          <li>Banners / newsletter — per decision</li>
+          <li>Analytics finalised; Adobe-recommended CDN</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:16px">
+      <strong>Delivery model: AI-led, human-steered.</strong> The AI builds the bulk — blocks, the flattener, import, listings, media handling — compressing the code-heavy work. The roles around it:
+      <ul style="margin:8px 0 0;font-size:13.5px">
+        <li><strong>Engineers (§8)</strong> — each owns a workstream: steers the AI, integrates and verifies it. One acts as <strong>technical lead</strong>, accountable for the overall outcome and the cross-cutting integrations (AEM Assets, consent/analytics, media-cart). Lead is a role <em>within</em> the team, not a one-person build.</li>
+        <li><strong>QA — owned, ~half a role for the demo.</strong> Quality is <strong>continuous</strong> (each engineer verifies their own workstream, browser-checked) <strong>plus a final QA gate</strong> before sign-off. For the demo this is a <strong>dedicated ~0.5 FTE QA owner</strong> — a distinct person accountable for a11y, performance, and cross-page consistency, ramping up as integration begins (a ~4–6-week slice doesn't need a full-time QA, but it does need an independent one). Why it matters here: on a fixed demo date the real risk is "built, but something looks off on stage," and much of our current confidence is analysis-based, not yet browser-verified — so an independent set of eyes pays off. <strong>At go-live we'd scale QA to full-time</strong>, and add an <strong>accessibility specialist</strong> if WCAG 2.1 AA is contractual.</li>
+        <li><strong>PM (part-time, organisational)</strong> — runs the logistics: schedule, access chasing, status, decision tracking, and the Škoda interface. <em>Not</em> the project lead — coordination and admin, so the engineers stay on the build.</li>
+      </ul>
+    </div>
+    <p style="margin-bottom:0"><strong>The ask of Škoda:</strong> a named technical counterpart, access (AEM Assets, repo/authoring org, IDP &amp; analytics specs), and the demo content set — <strong>all ready by demo build start</strong>. This is client-controlled and, on a fixed date, our single biggest schedule dependency (tracked as a High risk in §10).</p>
+  </section>
+
+  <!-- 8 — parallelization & staffing -->
+  <section id="s8">
+    <h2><span class="num">8</span> What runs in parallel — and the value each added engineer delivers</h2>
+    <p class="subtitle">Parallelism isn't "one workstream per person" — the work groups by <em>how it can be split</em>. Three shapes decide how much each added engineer delivers: a <strong>gate</strong> that must finish first, a <strong>divisible pool</strong> that any number of engineers can share, and a few <strong>dependency chains</strong> that must run in order — all feeding one <strong>integration funnel</strong>.</p>
+
+    <div class="callout">
+      <strong>The engineer profile matters as much as the count.</strong> These are <strong>senior front-end developers fluent in the Adobe ecosystem</strong> — Edge Delivery Services, App Builder, and Experience Workspace — who are <strong>practised with the AEM modernization agent and AI-based development flows</strong> (the model that makes the ~4–6-week timeline real). Just as important as the tooling: each must be ready to <strong>own their outcome end-to-end</strong> and <strong>find a way to make it happen</strong> under a fixed date. This is a small senior team, not a large junior one — the timelines below assume that calibre.
+    </div>
+
+    <div class="card">
+      <strong>How the work groups</strong>
+      <table>
+        <thead><tr><th>Group</th><th>Contains</th><th>Splits across people?</th></tr></thead>
+        <tbody>
+          <tr><td><span class="gbadge">Gate</span> <strong>Foundation</strong></td><td>Site, repo, tooling, design tokens, index skeleton, AEM Assets connection</td><td><strong>No</strong> — short, serial; must finish before the rest starts</td></tr>
+          <tr><td><strong>Divisible pool</strong></td><td>~10 largely-independent blocks + site navigation: hero, cards, gallery, embeds, tags, glossary, header, footer</td><td><strong>Yes.</strong> Blocks are largely self-contained → engineers split the pool; shared design tokens/global CSS + one review pass add some integration overhead, absorbed in the Integrate &amp; QA funnel</td></tr>
+          <tr><td><strong>Chain — Search</strong></td><td>Index schema → faceted listing → search block (listing also needs the Cards block)</td><td>Partly — internal order fixed; one owner is efficient</td></tr>
+          <tr><td><strong>Chain — Media</strong></td><td>Masters ingest → downloads block → media-cart + zip</td><td>Partly — sequential; one owner</td></tr>
+          <tr><td><strong>Chain — Content</strong></td><td>Import infra → pilot pages → story-flatten → blog content</td><td>Partly — the longest chain; sets the floor</td></tr>
+          <tr><td><span class="fbadge">Funnel</span> <strong>Integrate &amp; QA</strong></td><td>Assemble pilot pages (all blocks + media + import land here), polish, a11y/perf, sign-off</td><td><strong>Limited</strong> — a convergence step; more people help only a little</td></tr>
+        </tbody>
+      </table>
+      <p class="flow-note"><strong>The floor:</strong> Gate + the longest chain (Content) + the Funnel can't be parallelized away by adding people. Headcount speeds up the <em>pool</em> and lets the <em>chains</em> run concurrently — that's where each added engineer turns into delivered value (buffer, polish, a richer showcase), up to the point the floor sets.</p>
+    </div>
+
+    <div style="margin-top:16px" class="card">
+      <strong>Who does what, by team size</strong>
+      <p class="flow-note" style="margin-top:4px">Read each coloured row left→right = one engineer's job through the build. <strong>Foundation first</strong> (top bar), then the rows run <strong>at the same time</strong>, then all converge on <strong>Integrate &amp; QA</strong> (bottom bar). <span class="chain-key">Amber edge = a step-by-step chain</span>. More rows = more running at once = a shorter build = <strong>more buffer before 15 Oct</strong>. Elapsed times are the same scope built faster, not less scope.</p>
+
+      <p style="margin:16px 0 2px;font-weight:700;font-size:13.5px">2 engineers — <strong>~6 weeks</strong> to demo — <span class="lvl r-med">Feasible, tight</span></p>
+      <div class="swim">
+        <div class="bar gate">① Foundation first</div>
+        <div class="rl r1">Eng 1</div><div class="cell">Blocks + navigation — the whole pool</div>
+        <div class="rl r2">Eng 2</div><div class="cell chain">Content chain, then Search + Media chains</div>
+        <div class="arrow">▼ then converge ▼</div>
+        <div class="bar funnel">Integrate &amp; QA — both engineers</div>
+      </div>
+      <p class="flow-note">Only two lanes, so Eng 2 carries all three chains back-to-back — that's the long pole. Thin buffer.</p>
+
+      <p style="margin:18px 0 2px;font-weight:700;font-size:13.5px">3 engineers — <strong>~5 weeks</strong> to demo — <span class="lvl r-low">Comfortable</span> <em>(solid baseline)</em></p>
+      <div class="swim">
+        <div class="bar gate">① Foundation first</div>
+        <div class="rl r1">Eng 1</div><div class="cell">Blocks + navigation — the whole pool</div>
+        <div class="rl r2">Eng 2</div><div class="cell chain">Content chain: import → pages → flatten</div>
+        <div class="rl r3">Eng 3</div><div class="cell chain">Search chain, then Media chain</div>
+        <div class="arrow">▼ then converge ▼</div>
+        <div class="bar funnel">Integrate &amp; QA — all engineers</div>
+      </div>
+      <p class="flow-note">Each engineer owns one lane — blocks, content, and the interactive pieces all run at once. Real buffer + polish time.</p>
+
+      <p style="margin:18px 0 2px;font-weight:700;font-size:13.5px">4 engineers — <strong>~4–5 weeks</strong> to demo — <span class="lvl r-low">Most value delivered</span> <em>(recommended)</em></p>
+      <div class="swim">
+        <div class="bar gate">① Foundation first</div>
+        <div class="rl r1">Eng 1</div><div class="cell">Blocks — half the pool</div>
+        <div class="rl r4">Eng 4</div><div class="cell">Navigation + other half of blocks, then Figma showcase</div>
+        <div class="rl r2">Eng 2</div><div class="cell chain">Content chain: import → pages → flatten</div>
+        <div class="rl r3">Eng 3</div><div class="cell chain">Search chain, then Media chain</div>
+        <div class="arrow">▼ then converge ▼</div>
+        <div class="bar funnel">Integrate &amp; QA — all engineers</div>
+      </div>
+      <p class="flow-note">Blocks split two ways so they land early, and Figma gets time as its own step. Extra margin — but Foundation + the content chain + Integrate still set the shortest possible timeline.</p>
+
+      <p style="margin:8px 0 0;font-size:12.5px;color:var(--muted)">The engineer counts above are the <strong>build lanes</strong>. In every case, add a <strong>part-time PM</strong> (organisational — schedule, access, status, Škoda interface), a <strong>dedicated ~0.5 FTE QA owner</strong> (continuous + a final gate, §7 — scales to full-time at go-live), and a <strong>Škoda counterpart</strong>. <strong>Design is not a delivery lane</strong> — Škoda's Figma design system is provided and migrated as-is, so no designer is on the critical path; the Figma-to-AEM showcase is engineering work. Elapsed times spread the demo effort estimate (~40–66 AI-assisted engineer-days) across the build lanes — <strong>not a clean divide</strong>: adding people trades calendar time for a modest rise in total person-days (coordination overhead), and the Foundation → content-chain → integration floor caps the gain, which is why 4 engineers lands at ~4–5 weeks, not proportionally faster. More people never means less total effort. Planning-level, not a quote.</p>
+    </div>
+
+    <div class="callout" style="margin-top:16px">
+      <strong>Recommendation: staff to maximise delivered value — 4 engineers.</strong> The goal for a mission-critical, politically-charged demo is the strongest result on the day, so the question isn't "cheapest team" — it's "how much value does each added engineer deliver." Every added engineer converts directly into value: a shorter build, a bigger buffer against the fixed date, more polish, and a richer Figma-to-AEM showcase. <strong>4 engineers (~4–5 weeks)</strong> delivers the most — the blocks pool splits, the interactive chains and content chain all run at once, and the showcase gets its own lane. <strong>3 engineers (~5 weeks)</strong> is the solid baseline where everything still runs concurrently with real buffer. <strong>2 engineers (~6 weeks)</strong> is feasible but leaves little margin — one person carries both the blocks pool and a chain. The only ceiling is the Gate → Content-chain → Funnel floor: beyond 4 engineers, added people no longer shorten the critical path, so that's where the value curve flattens.
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section id="s9">
+    <h2><span class="num">9</span> Open decisions</h2>
+    <p class="subtitle">Points to settle before or early in the build. Each is tagged with who owns the call — <span class="who who-sk">Škoda</span> to decide, or <span class="who who-jt">Joint</span> (Škoda + delivery team together). Resolving these — or naming an owner and a date — unblocks the plan.</p>
+    <ul class="decisions">
+      <li><span class="tag">Embargoes</span> <span class="who who-jt">Joint</span> Confirm the <strong>staged-publish</strong> approach for confidential media-room items (authors preview; auto-publish on the release date) — this fits EDS and needs no special infrastructure.</li>
+      <li><span class="tag">Analytics</span> <span class="who who-sk">Škoda</span> Is <strong>Google Analytics + Facebook pixel + SEO metadata</strong> sufficient, or must a bespoke tracking layer be reproduced? (Affects effort.)</li>
+      <li><span class="tag">Figma showcase</span> <span class="who who-jt">Joint</span> Which <strong>1–2 components</strong> should demonstrate Figma-to-AEM at the demo?</li>
+      <li><span class="tag">Banners &amp; newsletter</span> <span class="who who-sk">Škoda</span> In or out for go-live? The banner tool is a full per-market ad platform — confirm it's wanted vs. a simpler promo.</li>
+      <li><span class="tag">Assets — is there an instance?</span> <span class="who who-sk">Škoda</span> <strong>Does Škoda have an AEM Assets instance at all?</strong> Three paths: (a) <strong>Škoda's own instance</strong> — cleanest end-state, but provisioning + licensing has procurement lead time; (b) <strong>a shared VW/group instance</strong> — likely faster if one exists, but raises tenancy / permissions / governance questions; (c) <strong>no instance in time</strong> — for the demo, serve approved images from the content pipeline and cut over later. <strong>Needs an answer before demo build start</strong> (demo-critical, §10).</li>
+      <li><span class="tag">Assets — where are the images?</span> <span class="who who-sk">Škoda</span> If an instance exists: are approved images <strong>already in it</strong>, or does the current site hold the originals? Sets the asset-mapping approach (likely a mix); if not in Assets, we import approved originals into the content pipeline.</li>
+      <li><span class="tag">Zip hosting</span> <span class="who who-jt">Joint</span> The media-cart zip needs a small <strong>serverless function</strong> — a net-new capability for Škoda (none in use today, §3). <strong>Host to confirm in a short spike:</strong> candidates are Adobe App Builder, a CDN/edge worker, or client-side zip in the browser — each has trade-offs (e.g. App Builder caps an action's direct result at 1 MB, so a zip must be written to storage and returned as a link, not inline). All are workable with the right pattern; we validate and pick early. Go-live ownership/hosting is the follow-on decision.</li>
+      <li><span class="tag">Content scope</span> <span class="who who-sk">Škoda</span> Full archive at go-live, or content from a cutoff date forward?</li>
+    </ul>
+  </section>
+
+  <!-- 10 -->
+  <section id="s10">
+    <h2><span class="num">10</span> Risks</h2>
+    <p class="subtitle">Rated objectively — <strong>likelihood of the issue × its impact on hitting the fixed dates</strong>, not relative to each other. Scale: <span class="lvl r-high">High</span> = would credibly threaten a date if unmanaged · <span class="lvl r-med">Med</span> = could cost days, absorbed with planning · <span class="lvl r-low">Low</span> = understood, minor.</p>
+    <table>
+      <thead><tr><th>Risk</th><th>Level</th><th>Why that level</th><th>How we manage it</th></tr></thead>
+      <tbody>
+        <tr><td>The short demo window (~4–6 weeks, §8) carries a broad scope (media-cart + 2 languages + blog posts)</td><td><span class="lvl r-high">High</span></td><td>Fixed, immovable date + broad scope + a hard delivery floor (§8) — little slack if any lane slips</td><td>Start now; parallel tracks; keep the demo a polished, focused slice</td></tr>
+        <tr><td>The four back-end systems (media-cart, banners, newsletter, analytics) have no off-the-shelf equivalent</td><td><span class="lvl r-high">High</span></td><td>Each is a bespoke rebuild, not a config; the media-cart is in the demo and needs a net-new serverless zip function (host TBC — §9)</td><td>Confirm the zip host in an early spike (App Builder / CDN worker / client-side); pre-built bundle / in-browser zip as fallbacks. Others scoped/decided for go-live</td></tr>
+        <tr><td><strong>Client-side readiness</strong> — access, a named Škoda counterpart, the demo content set, and the §9 decisions</td><td><span class="lvl r-high">High</span></td><td>Entirely client-controlled; in a ~4–6-week window a two-week slip here alone can miss the demo</td><td>Confirm all of it is <strong>ready by demo build start</strong> (the §7 ask); each §9 decision gets an owner + date today</td></tr>
+        <tr><td><strong>AEM Assets instance + approved assets</strong> available in time for the demo</td><td><span class="lvl r-med">Med</span></td><td>Demo requires "approved assets from AEM Assets" (§3), but it's unconfirmed whether Škoda even <em>has</em> an instance (own vs. shared VW), let alone whether the images are in it (§9)</td><td>Resolve the instance question first (§9 — Škoda's, a VW/group instance, or none-in-time); fallback = serve approved images from the pipeline for the demo and cut over later, so the demo isn't blocked on procurement</td></tr>
+        <tr><td>Full content migration + authoring workflows for go-live in ~10 weeks after the demo</td><td><span class="lvl r-med">Med</span></td><td>Large volume but automatable; the tooling can be built during M1, so time — not feasibility — is the constraint</td><td>Automated import; begin the tooling during M1</td></tr>
+        <tr><td>Blog / story page flattening</td><td><span class="lvl r-low">Low</span></td><td>Measured across 100% of stories: a small, consistent component set, same in EN + CS (§6)</td><td>Confirmed by full-corpus analysis; handled by one workstream</td></tr>
+        <tr><td>Visual / interactive polish to demo standard</td><td><span class="lvl r-med">Med</span></td><td>Subjective bar for a high-visibility demo; needs dedicated time, but no technical unknown</td><td>Standard QA pass + buffer before demo sign-off</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 11 -->
+  <section id="s11">
+    <h2><span class="num">11</span> Recommendation</h2>
+    <div class="card">
+      <p><strong>Proceed, and start immediately.</strong> The analysis is thorough, the hardest part has a defined, tested approach, and the demo scope is a credible, focused slice that doubles as the VW blueprint. The 15 Oct date is achievable with an early start, parallel workstreams, and the AI-led / human-steered model.</p>
+      <p style="margin-bottom:0"><strong>To close today:</strong> agree to proceed; name the Škoda counterpart and grant access; pick the demo content + Figma-showcase components; settle the open decisions in §9 (or name an owner + date for each); and confirm the engineer headcount (§8 — we recommend 4, to maximise delivered value). We re-confirm the week-by-week plan and begin.</p>
+    </div>
+  </section>
+
+</div></main>
+
+<footer><div class="wrap">
+  <p style="margin:0 0 8px"><sup>†</sup> Media figures are measured, not estimated: all 55 attachment sitemaps enumerated → 42,275 attachment pages → ~28,300 distinct logical items → ~200k physical files (order-of-magnitude, incl. the derivative ladder); ~280 CDN files probed for byte weight. See "How we know" (§2) for the full evidence basis.</p>
+  Škoda Storyboard → AEM Edge Delivery · Leadership Briefing · 2026-09-07 · Based on Škoda's confirmed requirements (§3, verbatim) and a full assessment of the current site. Timeline &amp; effort are planning estimates, not a quote. Tip: <strong>Print → Save as PDF</strong> to share.
+</div></footer>
+
+</body>
+</html>
