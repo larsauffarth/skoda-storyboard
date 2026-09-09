@@ -291,12 +291,17 @@ main .section.highlight {
   padding: 40px 0;
 }
 
-/* dark sections (Social media, Series) — Škoda brand green */
+/* dark sections (Social media, Series) — Škoda brand green.
+   Source box model: the green band has 32px top / 12px bottom INTERNAL padding,
+   and sits 36px below the preceding rail / 24px above the following one. Our
+   generic sections carry a 40px vertical margin, so use small negative margins
+   here to pull the outer gaps to the source's 36/24 (40 + −4 = 36 above,
+   40 + −16 = 24 below) while the padding gives the band its 32/12 height. */
 main .section.dark {
   background-color: var(--dark-color);
   color: var(--skoda-white);
-  margin: 0;
-  padding: 40px 0;
+  margin: -4px 0 -16px;
+  padding: 32px 0 12px;
 }
 
 /* stylelint-disable no-descending-specificity */
