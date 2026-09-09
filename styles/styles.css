@@ -264,6 +264,19 @@ main > .section:first-of-type {
   margin-top: 0;
 }
 
+/* Section-title headings (rail titles like Models / eMobility / Latest Stories)
+   each sit alone in their own default-content-wrapper immediately before the
+   rail they label. The default h* margin-bottom (0.25em ≈ 6.5px) leaves them
+   glued to the rail; the source gives ~20px of breathing room below the title.
+   Match that so heading→cards spacing reads the same as the original. */
+main > .section > .default-content-wrapper > h1:only-child,
+main > .section > .default-content-wrapper > h2:only-child,
+main > .section > .default-content-wrapper > h3:only-child,
+main > .section > .default-content-wrapper > h4:only-child {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
 @media (width >= 900px) {
   main > .section > div {
     padding: 0 32px;
@@ -286,6 +299,7 @@ main .section.dark {
   padding: 40px 0;
 }
 
+/* stylelint-disable no-descending-specificity */
 main .section.dark h1,
 main .section.dark h2,
 main .section.dark h3,
@@ -296,3 +310,4 @@ main .section.dark p,
 main .section.dark a:any-link {
   color: var(--skoda-white);
 }
+/* stylelint-enable no-descending-specificity */
