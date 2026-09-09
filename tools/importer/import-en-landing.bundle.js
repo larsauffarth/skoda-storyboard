@@ -211,11 +211,6 @@ var CustomImportScript = (() => {
         el.removeAttribute("data-original-only");
       });
       element.querySelectorAll("img[src]").forEach((img) => {
-        const src = img.getAttribute("src");
-        if (src && !src.startsWith("data:")) {
-          const master = src.replace(/-\d+x\d+(\.[a-zA-Z0-9]+)(\?.*)?$/, "$1$2");
-          if (master !== src) img.setAttribute("src", master);
-        }
         img.removeAttribute("srcset");
         img.removeAttribute("sizes");
       });

@@ -90,17 +90,19 @@ export default function transform(hookName, element, payload) {
       el.removeAttribute('data-original-only');
     });
 
-    // --- MEDIA: masters-only. Rewrite <img src> to the master by stripping WordPress
-    //     derivative suffixes matching -{W}x{H} before the extension
-    //     (e.g. hero_V2-768x292.jpg -> hero_V2.jpg). Remove srcset/sizes so EDS
-    //     regenerates the responsive <picture>. Preserve alt. Leave inline
-    //     data: SVG icons (static social channel icons) untouched. ---
+    // --- MEDIA: reference-in-place for the demo render. Keep the source-referenced
+    //     responsive derivative (e.g. ...-768x512.jpg) as the <img src> and only drop
+    //     srcset/sizes so EDS regenerates a single optimized <picture>. Preserve alt.
+    //     Leave inline data: SVG icons (static social channel icons) untouched.
+    //
+    //     NOTE — "masters-only" is a PRODUCTION-INGEST rule (one master per logical
+    //     image uploaded into DA/Assets, letting EDS regenerate the ladder). It must
+    //     NOT be applied to reference-in-place CDN URLs: stripping the WordPress
+    //     -{W}x{H} suffix resolves to the full-resolution original, which on this site
+    //     runs 20–34 MB per photo — too large for the content-bus preview to fetch
+    //     (causes `error from content-bus` / HTTP 409). When real ingestion happens,
+    //     de-derivative + upload the master there, not in this reference-in-place path. ---
     element.querySelectorAll('img[src]').forEach((img) => {
-      const src = img.getAttribute('src');
-      if (src && !src.startsWith('data:')) {
-        const master = src.replace(/-\d+x\d+(\.[a-zA-Z0-9]+)(\?.*)?$/, '$1$2');
-        if (master !== src) img.setAttribute('src', master);
-      }
       img.removeAttribute('srcset');
       img.removeAttribute('sizes');
     });
