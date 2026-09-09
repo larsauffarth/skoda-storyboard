@@ -99,3 +99,25 @@
     aspect-ratio: 396 / 223;
   }
 }
+
+/* Load-more: centered ghost pill below the grid (source treatment). */
+.stories .stories-load-more {
+  display: block;
+  margin: 24px auto 0;
+  padding: 8px 48px;
+  border: 2px solid var(--skoda-ink);
+  border-radius: 50px;
+  background-color: transparent;
+  color: var(--skoda-ink);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-m);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.stories .stories-load-more:hover {
+  background-color: var(--skoda-ink);
+  color: var(--background-color);
+}
