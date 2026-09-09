@@ -56,6 +56,12 @@
   overflow: hidden;
 }
 
+/* title is a link; keep it white over the image (global a:any-link is dark ink) */
+.cards-overlay .cards-overlay-card-body a:any-link,
+.cards-overlay .cards-overlay-card-body p {
+  color: var(--skoda-white);
+}
+
 /* ---- Featured grids (match the source promo-box / latest-articles) ---- */
 
 /* In featured layouts a card fills its grid cell, so the image stretches to
