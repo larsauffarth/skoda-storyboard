@@ -1,7 +1,7 @@
 # Škoda Storyboard → Edge Delivery (DA/Experience Workspace) — Delivery Backlog Overview
 
 **What this is:** the master index for the migration backlog — 10 epics, 43 tickets — grounded in the `SKODA-*` analysis set. Pilot epics (E01–E07) are ticket-level; later phases (E08–E10) are epic + high-level tickets so the whole program is visible.
-**Date:** 2026-09-05 (updated 2026-09-07: media-cart re-point — SKODA-505 added to M1, SKODA-902 re-scoped)
+**Date:** 2026-09-05 (updated 2026-09-07: media-cart re-point — SKODA-505 added to M1, SKODA-902 re-scoped; updated 2026-09-10: build-confirmed — SKODA-506 added, SKODA-401 re-scoped to +3 SP for metadata-normalization, SKODA-801 trending low & browser-confirmed)
 **Target:** DA / Experience Workspace + EDS (no AEM Author / UE / JCR) — per `SKODA-EDS-DA-ARCHITECTURE.md`.
 **Estimates:** story points (SP) + AI-assisted / manual day ranges — **planning estimates, not a quote**. "AI-assisted" reflects this environment's import/styling/QA tooling.
 **Files:** `skoda/epics/E##-*.md` · `skoda/tickets/SKODA-<id>.md`.
@@ -30,14 +30,14 @@ Four phases, mapped from `SKODA-EDS-DA-ARCHITECTURE.md` §12:
 | **E01 Foundation & Setup** | DA/EW site, repo, Code Sync, config, tokens | A | 6 | 15 | 5–9 | 12–20 |
 | **E02 Core Blocks** | teaser/cards, hero, gallery+lightbox, embeds, tags, Škodapedia glossary | A | 6 | 21 | 8.5–13 | 19–28 |
 | **E03 Chrome Fragments** | header/mega-menu, mobile ARIA, lang switcher, footer | A | 4 | 12 | 5.5–8 | 8–14 |
-| **E04 Listings & Search** | query-index (15 facets), listing/load-more, search | A | 3 | 16 | 6–10 | 11–18 |
-| **E05 Media Pipeline** | masters-only ingest, downloads block, PDF/MP4, **AEM Assets mapping**, **demo cart + client-side zip** | A | 5 | 19 | 6.5–12 | 13–21 |
+| **E04 Listings & Search** | query-index (15 facets) + metadata-normalization, listing/load-more, search | A | 3 | 19 | 7–12 | 13–21 |
+| **E05 Media Pipeline** | masters-only ingest, downloads block, PDF/MP4, **AEM Assets mapping**, **demo cart + client-side zip**, **media pre-conditioning** | A | 6 | 21 | 7–13 | 14–23 |
 | **E06 Import Pilot Content** | parsers/transformers, DA push, pilot pages | A | 3 | 11 | 4–7 | 8–12 |
 | **E07 QA / Perf / A11y / Launch** | lint, Lighthouse/RUM, a11y, visual QA, sign-off | A | 4 | 11 | 4–7 | 7–12 |
 | **E08 Editorial at Scale** | story flatten, remaining templates, bulk import | B | 4 | 29 | 11–18 | 22–36 |
 | **E09 Dynamic Services** | media-cart **prod hardening**, banners, newsletter, hosted search, analytics | C | 5 | 40 | 15–25 | 30–54 |
 | **E10 Localization** | 6 locales, per-locale index, translation, routing | D | 3 | 16 | 6–10 | 10–15+ |
-| **Total** | | | **43** | **190** | **72–118** | **140–230** |
+| **Total** | | | **44** | **195** | **73.5–121** | **143–235** |
 
 *(SP roll-ups are indicative; day ranges are the sum of per-ticket planning ranges — treat as order-of-magnitude, not a commitment.)*
 
@@ -65,7 +65,7 @@ Four phases, mapped from `SKODA-EDS-DA-ARCHITECTURE.md` §12:
 | SKODA-302 | Mobile nav toggle + ARIA (a11y fix) | E03 | 2 | 1 | 1–2 | 301 | 🟡 fixes source gap |
 | SKODA-303 | Language switcher (6 locales) | E03 | 2 | 1 | 1–2 | 301 | 🟢 |
 | SKODA-304 | Footer fragment | E03 | 3 | 1–2 | 2–4 | 102,106 | 🟢 |
-| SKODA-401 | Query-index schema + selectors (15 facets) | E04 | 5 | 2–3 | 3–5 | 104 | 🟠 DA no spreadsheet index |
+| SKODA-401 | Query-index schema + selectors + metadata-normalization (15 facets) | E04 | 8 | 3–5 | 5–8 | 104 | 🟠 build-confirmed: admin-service `query.yaml` (not repo); fields need normalization layer, not clean selectors |
 | SKODA-402 | Faceted listing + load-more (deep-link) | E04 | 8 | 3–5 | 6–9 | 401,201 | 🟠 hardest pilot block |
 | SKODA-403 | Search block (index-only) | E04 | 3 | 1–2 | 2–4 | 401 | 🟡 body-search deferred |
 | SKODA-501 | Masters-only image ingest (img-out-of-`<p>`, alt/caption) | E05 | 3 | 1–2 | 2–3 | 102 | 🟢 |
@@ -73,6 +73,7 @@ Four phases, mapped from `SKODA-EDS-DA-ARCHITECTURE.md` §12:
 | SKODA-503 | PDF/MP4 handling (link/DAM) | E05 | 2 | 0.5–1 | 1–2 | 501 | 🟡 MP4 signed-flow (cart now SKODA-505) |
 | SKODA-504 | Map S3 images → AEM Assets (manifest) | E05 | 3 | 1–2 | 2–3 | 501,601 | 🟠 A/B unconfirmed; M2 scale = rights+dedup |
 | SKODA-505 | Demo media-cart + client-side zip (device-ID, no login) | E05 | 8 | 3–5 | 6–10 | 502,501,504,601 | 🟠 mission-critical demo; CORS/AEM-Assets linchpin |
+| SKODA-506 | Media pre-conditioning: strip/replace oversized masters before publish | E05 | 2 | 0.5–1 | 1–2 | 501 | 🟠 build-confirmed: 25–40 MB masters 409 the content bus; gates publish |
 | SKODA-601 | Import infra: parsers + transformers | E06 | 5 | 2–3 | 4–6 | 102 | 🟡 content-driven only |
 | SKODA-602 | DA source-API push + bulk-op publish | E06 | 3 | 1–2 | 2–3 | 601 | 🟢 |
 | SKODA-603 | Pilot page set imported + validated | E06 | 3 | 1–2 | 2–3 | 601,602,201,202,203,204,205,501,502 | 🟡 fan-in |
@@ -139,7 +140,7 @@ Phase D: 401,603─1001 ─ 1002 ; 303,1001─1003
 | Phase D (E10) | 16 | 6–10 | 10–15+ |
 | **Full program** | **190** | **~72–118** | **~140–230** |
 
-- **Pilot ≈ 34–57 AI-assisted engineer-days** (vs ~68–100 manual) — **this ticket-derived total is the canonical pilot figure.** It grew from 81→89 SP when the mission-critical **demo media-cart + client-side zip (SKODA-505, +8 SP)** was pulled into M1 per client scope. The `SKODA-STORYBOARD-SITE-FACTS.html` deck's earlier ~13–25-day headline covered only the *core build* chunks; this backlog is fuller (explicit foundation + import + QA tickets + the Škodapedia block + the demo cart). **The deck should be aligned to this figure** (adversarial-review finding F2).
+- **Pilot ≈ 34–57 AI-assisted engineer-days** (vs ~68–100 manual) — **this ticket-derived total is the canonical pilot figure.** It grew from 81→89 SP when the mission-critical **demo media-cart + client-side zip (SKODA-505, +8 SP)** was pulled into M1 per client scope, then **+5 SP (2026-09-10, build-confirmed)** for **SKODA-506 media pre-conditioning (+2)** and **SKODA-401 metadata-normalization (+3)** — offset by **SKODA-801 trending to the low end** of its 8 SP. **Net effect on the pilot day-range is negligible** (the flatten relief roughly funds the metadata+media additions); the change is an **effort-mix shift, not a total increase** — consistent with the delivery-plan addendum. The `SKODA-STORYBOARD-SITE-FACTS.html` deck's earlier ~13–25-day headline covered only the *core build* chunks; this backlog is fuller (explicit foundation + import + QA tickets + the Škodapedia block + the demo cart + pre-conditioning). **The deck should be aligned to this figure** (adversarial-review finding F2).
 - **Full program is a multi-month programme** dominated by Phase C (the 4 bespoke services + analytics) and Phase B story-flattening + Phase D content-ops.
 - *Planning estimates, not a quote; AI-assisted assumes the migration tooling and experienced engineers steering it.*
 

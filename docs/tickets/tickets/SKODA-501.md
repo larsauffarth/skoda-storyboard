@@ -16,6 +16,7 @@ The source CDN serves each logical image as an 8-named-size derivative ladder pl
 - Preserve `alt` text on every image (source baseline ~96% non-empty); flag empty/missing alts for editorial backfill rather than dropping them.
 - Read and carry `data-caption` into a figure caption — **~53% of captions live in `data-caption`**; if the parser ignores it, half the captions are silently lost.
 - Rewrite `<img src>` to the DA/Assets reference (or reference-in-place for the demo) per the media-target decision.
+- **Pre-condition oversized masters before publish (build-confirmed 2026-09-10; detailed in SKODA-506):** detect inline images over a size threshold (~10 MB) and **strip/replace them with a sized derivative** ahead of the publish call — full-resolution masters of 25–40 MB **409 the content bus** ("error from content-bus"). Keep the metadata block + the `og:image`-driven card intact.
 - Content-driven only: no per-page/URL/positional assumptions.
 
 ## Acceptance Criteria
