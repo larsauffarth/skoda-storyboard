@@ -2,7 +2,9 @@
 - **Epic:** E08 — Editorial at Scale
 - **Type:** import
 - **Phase:** B (work-grouping) · **Milestone:** M1 (15 Oct demo — blog/story pages are a demo deliverable per deck §3/§7; reduced-fidelity slice)
-- **Estimate:** **8 SP** · AI-assisted **3–5d** / manual **6–10d** *(planning estimate, not a quote)* — **re-pointed down from 13 SP** and **confirmed by the 100% EN+CS widget census** (`SKODA-STORY-WIDGET-CENSUS.md`, 2,773 stories, 0 errors): **17 canonical widget types**, but **98.7% of stories / 99.85% of instances** covered by simple mapped widgets; only **1.3% (36 stories)** need special handling; **widget set is perfectly locale-invariant (EN = CS)**. Reduced-fidelity M1 slice ≈ 2–3 SP. Estimate holds — extra widgets are simple, specials are deferred.
+- **Estimate:** **8 SP → trending to the low end (~5–6 SP)** · AI-assisted **3–5d** / manual **6–10d** *(planning estimate, not a quote)* — **re-pointed down from 13 SP** and **confirmed by the 100% EN+CS widget census** (`SKODA-STORY-WIDGET-CENSUS.md`, 2,773 stories, 0 errors): **17 canonical widget types**, but **98.7% of stories / 99.85% of instances** covered by simple mapped widgets; only **1.3% (36 stories)** need special handling; **widget set is perfectly locale-invariant (EN = CS)**. Reduced-fidelity M1 slice ≈ 2–3 SP. Estimate holds — extra widgets are simple, specials are deferred.
+
+> **Build-confirmed (2026-09-10).** The shipped EN homepage + story/rails slice exercised the reduced-fidelity path: for those stories the "flatten" was a **light cleanup transformer + one canonical Metadata block**, and the `sow-editor` + carousel model held — now **browser-verified**, not merely structural. This **retires the `[RUNTIME-UNCONFIRMED]` caveat for the common story/rails shape** and points the estimate to the low end. The **full-corpus long tail remains M2 work** (multi-column preservation, the 36 `has_rare=yes` specials, 208-widget outliers) and stays `[RUNTIME-UNCONFIRMED]` until run at scale. Effort freed here is re-allocated to the metadata-normalization + media-conditioning work surfaced in the build (see SKODA-401, E05, delivery plan §8/§9).
 
 ## Summary
 Build the import parser that flattens SiteOrigin Page Builder story layouts into clean DA sections + blocks. This is the hardest single parser in the migration and the highest-effort ticket in the whole program.
@@ -114,4 +116,4 @@ Body…
 - **Non-PB variant (new):** 3.6% of stories are linear (no builder) → needs the fallback path (now in spec).
 - **Large-tree outliers (new):** up to 208 widgets / 293 panel-grids → perf/recursion robustness required.
 - **3 interactive widgets** (`charge-map`, `charging-calculator`, nested `panels-builder`) → defer/embed; confirm render-vs-drop with Škoda.
-- Rendered SiteOrigin DOM (post-JS) may differ from raw panel markup — the true content shape is `[RUNTIME-UNCONFIRMED]` without a browser; validate rendered output during build (esp. the multi-column + 208-widget outliers).
+- Rendered SiteOrigin DOM (post-JS) may differ from raw panel markup — **the common story/rails shape is now browser-confirmed (2026-09-10)**; the residual `[RUNTIME-UNCONFIRMED]` is scoped to the **full-corpus long tail** (multi-column layouts, the 36 specials, 208-widget outliers), validated during the M2 at-scale run.

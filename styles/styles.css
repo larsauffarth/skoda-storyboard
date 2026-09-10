@@ -10,12 +10,15 @@
  * governing permissions and limitations under the License.
  */
 
-@import url('brand.css');
-
 /*
  * Design tokens (:root custom properties) live in brand.css — extracted from
  * the live Škoda site and the single source of truth for colors, fonts, sizes,
  * spacing, radii, shadows, and layout widths.
+ *
+ * brand.css is loaded via its own <link> in head.html (in parallel with this
+ * file) rather than an `@import` here — an `@import` forces a second, SERIAL
+ * round-trip before first paint (flagged as a render-blocking waterfall on
+ * mobile). Both are render-blocking stylesheets, but now they download at once.
  */
 
 body {

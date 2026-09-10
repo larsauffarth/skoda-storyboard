@@ -9,6 +9,8 @@
 
 ---
 
+> **Build-confirmed update (2026-09-10):** the EN homepage + listings/rails slice was built and shipped end-to-end on EDS+DA (commits #2–#18). Findings that refine this doc, all marked inline with "build-confirmed": index config is an **admin config-service `query.yaml` PUT**, not repo `helix-query.yaml` (§1.1, §2, §6); the indexer **only sees published pages** (§6); taxonomy/date fields need a **per-field extraction/normalization layer**, not clean selectors (§6, R-A1); heavy source masters (25–40 MB) **409 the content bus** and need pre-conditioning (§7, R-A6); story-flatten fidelity for this slice is **browser-confirmed** (R-A2). The core static-index → client-block architecture is **validated**; no strategic reversal.
+
 > **Note (2026-09-05):** Integration boundary refined by `SKODA-COMPLEX-SYSTEMS-DEEP-DIVE.md`: the Škodapedia glossary can be fully static IF terms are pre-baked as `/modals/` docs (recommended) — otherwise the A–Z directory and letter/category filter are 100% client-side (no fetch) but term *detail* is a thin API fetch on click; `mediakit/v1/mediabox` lets press-page downloads be a static block (media-cart only needed for cross-page bulk collection); banner campaigns are per-market/locale+tag-targeted; zero cookies on anonymous load validates the cacheable-static-pages assumption.
 
 ---
@@ -19,7 +21,7 @@
 
 **The five decisions that shape the architecture:**
 
-1. **Content source = DA/EW (BYOM-class HTML).** This has one hard architectural consequence up front: **spreadsheet-based indexing is NOT supported in DA** (`/developer/indexing`) — so listings/search indexes are built with **`helix-query.yaml` CSS-selector indexing over published HTML**, not authored spreadsheets. This is the single biggest DA-vs-AEM design difference for this site.
+1. **Content source = DA/EW (BYOM-class HTML).** This has one hard architectural consequence up front: **spreadsheet-based indexing is NOT supported in DA** (`/developer/indexing`) — so listings/search indexes are built with **CSS-selector indexing over published HTML**, not authored spreadsheets. This is the single biggest DA-vs-AEM design difference for this site. **⚠ Config-surface correction (2026-09-10, build-confirmed):** the selector config is **NOT `helix-query.yaml` in the repo** for this DA project — it is submitted to the **admin config service** (`PUT https://admin.hlx.page/config/{org}/sites/{site}/content/query.yaml`; `helix-query.yaml` is retired). The *strategy* is unchanged (selector index over published HTML → `/{locale}/query-index.json` → client blocks); only the *configuration surface* moved from repo file to admin service. See §6.
 2. **The dynamic backend systems don't migrate as content** — ElasticPress, the 46-banner ad platform, the media-cart, and the subscriber/newsletter account system sit **outside** the static model and become explicit service boundaries (client-side calls or dropped for the pilot).
 3. **Stories must be de-builder'd.** ~5,282 story pages (37.5%) are SiteOrigin Page Builder panel/widget trees; the import pipeline flattens them into DA sections + blocks.
 4. **Media is masters-only.** Ingest ~28.3k logical masters (not the ~200k-file derivative ladder); EDS regenerates responsive `<picture>`/webp; large PDF/MP4 go to Assets/DAM or reference-in-place.
@@ -43,7 +45,7 @@
 | **Sidekick** | Sidekick v7 for preview/publish/library | `/docs/sidekick`, `/developer/sidekick-v7-migration` |
 
 **DA-specific callouts vs AEM-authored EDS:**
-- ❌ No spreadsheet-based indexing (use `helix-query.yaml`) — `/developer/indexing`.
+- ❌ No spreadsheet-based indexing — selector-based index config is **submitted to the admin config service** (`PUT admin.hlx.page/config/{org}/sites/{site}/content/query.yaml`), **not** a repo `helix-query.yaml` (retired). — `/developer/indexing`, §6.
 - ❌ No Universal Editor / component-model / JCR content packages — `/developer/component-model-definitions` is out of scope.
 - ✅ Media can be uploaded **directly into DA** (saved to a per-doc dotfolder) *or* served from **AEM Assets/Dynamic Media** if the integration is enabled — `/docs/ew/authoring/adding-media`. (For this site's scale, see §7.)
 
@@ -129,9 +131,13 @@
 
 **The DA constraint drives this section.** Spreadsheet indexing is unavailable in DA, so:
 
-- **Index = `helix-query.yaml`** with CSS selectors applied to **published HTML** (`/developer/indexing`, `/docs/indexing-reference`). Define per-locale indexes (the `english`/`french` default-and-override pattern in the indexing reference maps directly to `/en`, `/de`, …). Output served at `/{locale}/query-index.json`.
+- **Index = CSS-selector config submitted to the admin config service**, applied to **published HTML** (`/developer/indexing`, `/docs/indexing-reference`). **Build-confirmed (2026-09-10):** the config is a `query.yaml` `PUT` to `https://admin.hlx.page/config/{org}/sites/{site}/content/query.yaml` (Content-Type `text/yaml`; 201 on create; 404 = unset, 400 = wrong resource) — **not** a repo `helix-query.yaml` (retired). Keep a source-of-truth copy in-repo for the record (we did: `tools/importer/query-index-config.yaml`) but understand it is not what the platform reads. Define per-locale indexes; output served at `/{locale}/query-index.json`.
+- **⚠ Operational gotcha — the index only sees PUBLISHED pages (build-confirmed).** Previewed-only pages are invisible to the indexer; `/query-index.json` 404s until ≥1 page is **live-published**, and each page is omitted until its own live publish. This imposes a strict order on every content increment: **upload → preview → publish (live) → reindex** (`POST admin.hlx.page/index/...`), with a few-seconds preview↔live lag. Not modeled in the original plan; it is a real sequencing/throughput constraint for bulk migration (see delivery plan M2).
 - **Index columns** (selector-extracted): `path, title, description, image, template, date, category, model, + taxonomy facets, tags`. This supplies the **15 taxonomy facets** the source exposes.
+- **⚠ Field extraction is a normalization exercise, not clean selectors (build-confirmed).** On real content, the fields we most needed were **not reliably in usable meta tags**: `category` had to be **derived from the URL path segment** (no dependable `article:section`), and press-release **publish dates** required a **4-way fallback chain** (`article:published_time` meta → `data-publish-date` attribute → Yoast JSON-LD `datePublished` → visible `.entry-published` span). Treat the 15-facet index as a **per-field extraction/normalization layer** in the importer, not a straight CSS-selector map. This is where SKODA-401's real cost lives.
 - **Faceted listing + "load more"** → custom block: fetch the locale index JSON, filter/sort/paginate client-side, and reproduce **deep-link paging** via `history.pushState` (as the source does). No server round-trip.
+- **Auto-populated, tag-filtered, de-duplicated rails are a real sub-feature (build-confirmed).** The homepage rails are **not** five independent static carousels — they are index-driven blocks that filter by tag, sort by date, and **exclude anything already shown above them** (featured promo + Latest Stories), which requires awaiting the async upstream block's `data-blockStatus === 'loaded'` before reading its links. Budget the homepage as a **small orchestration of interacting index-driven blocks**.
+- **Blueprint pattern — reuse a block's UI without cross-importing it.** To render a dynamic rail with the existing carousel's exact look/behaviour, build a real carousel block and let EDS decorate it: **`buildBlock('carousel', rows)` → `decorateBlock` → `loadBlock`** (from `scripts/aem.js`). This respects the repo rule that the only cross-block JS import is `fragment.js`. Codify this idiom + the auto-populate/dedupe pattern as reusable blueprint components before the blocks pool is split across engineers.
 - **Search** → Block Collection **Search** block over `/query-index.json` (`/developer/block-collection/search`) for the demo.
 - **The honest boundary:** an index carries **title/summary/tag** matching + facets + sort — it does **not** replicate ElasticPress **full-text body search, fuzzy/typo tolerance, or relevance ranking**. Pilot = index-only (accept reduced recall); production = optional hosted search fed by the same index. *(Consistent with `SKODA-STORYBOARD-DRILLDOWN.md` §1.)*
 
@@ -143,6 +149,7 @@ Grounded in `SKODA-MEDIA-DEEP-DIVE.md` (measured) + `/docs/ew/authoring/adding-m
 
 - **Two EW media modes:** (a) upload directly into DA (per-doc dotfolder) — fine for small/inline; (b) **AEM Assets / Dynamic Media** integration for curated, reused brand content. For ~28.3k masters + heavy press assets, **AEM Assets/DM is the natural DAM** if licensed; otherwise reference-in-place on the legacy CDN for the demo.
 - **Images: masters-only.** Ingest ~28.3k logical masters; **drop the ~200k-file derivative ladder** — EDS's pipeline emits responsive `<picture>` + webp on demand (a net perf upgrade; source is JPEG-only). Cuts footprint from ~80–110 GB to ~34 GB.
+- **⚠ Heavy masters must be pre-conditioned before publish (build-confirmed).** A story page embedding 4 full-resolution masters (**25–40 MB each**) **409'd the content bus on publish** ("error from content-bus"). Fix that shipped: strip the oversized inline `<picture>` masters and keep the sized derivatives (the metadata `og:image` derivative still drives the card). This is a concrete instance of the abstract "~200k files" media-weight risk and **will recur at scale** — the import pipeline needs a **media pre-conditioning step** that detects images over a threshold (~10 MB) and strips/replaces them with a sized derivative before the publish call. Feeds E05 (see SKODA-501–505).
 - **`<img>` must be a direct child of a `<div>`** for EDS `<picture>` wrapping (repo `AGENTS.md` gotcha); block JS lifts images out of `<p>`.
 - **Press-page downloads = a static block.** The source `mediakit/v1/mediabox/post/{id}/{lang}` endpoint returns the per-post downloadable image set, so a press page's downloads can be baked into a **static downloads block** at import — **no media-cart service required**. The media-cart is only needed for *cross-page bulk collection* (§8).
 - **PDFs** (press kits/reports, up to 26 MB) → link/DAM, never the image pipeline.
@@ -176,7 +183,7 @@ Grounded in `/docs/translation-and-localization`, `/docs/ew/administering/transl
 - **Content tree per locale** (`/en/`, `/de/`, `/cs/`, `/sk/`, `/sr/`, `/sl/`) — the docs explicitly discuss the `/xx/` region-first IA and its SEO/duplication trade-offs; mirror the source's existing locale-prefix structure.
 - **EW Translation app** (Google Translate default; pluggable connectors) + **Translation projects** (URL-list based) handle rollout — `/docs/ew/administering/translation-service-connection`. **Transcreate/localize/rollout** vocabulary from the strategy doc frames stakeholder expectations.
 - **Uneven translation is native, not a problem:** since content is per-locale docs, a story existing in 4 of 6 languages is simply 4 docs — translation projects fill gaps on demand. (Corrects the earlier "uniform 6×" assumption.)
-- **Per-locale query-index** via `helix-query.yaml` locale definitions (§6).
+- **Per-locale query-index** via admin config-service `query.yaml` locale definitions (§6; not repo `helix-query.yaml`).
 - **Placeholders per locale** (`/docs/placeholders`) externalize UI strings ("Load more", "Search").
 - **Language-negotiated root routing** (`/` → `/de/` by `Accept-Language`) → reproduce via CDN/edge redirect or a small root-doc script; **[decision]** whether to keep auto-detection or default to `/en/`.
 
@@ -223,17 +230,18 @@ Two complementary paths, both doc-supported:
 ## 13. Risks, Assumptions & Open Questions
 
 **Architectural risks:**
-- **R-A1:** DA has no spreadsheet indexing → all listings/search depend on `helix-query.yaml` selector indexing over published HTML; index design is on the critical path. *(High)*
-- **R-A2:** Story Page-Builder flattening is novel parser work; quality of the flatten determines story-template success. *(High)*
+- **R-A1 (re-characterized 2026-09-10, build-informed):** the "can we index at all" worry is **retired** — the static index → client-block model is browser-confirmed on real content. The residual risk is **index field-mapping + publish ordering**, not index design: (a) taxonomy/date fields need a **per-field extraction/normalization layer** (category-from-URL, multi-source date fallback), not clean selectors (§6); (b) config is a **`query.yaml` PUT to the admin config service**, not repo `helix-query.yaml`; (c) the indexer **only sees published pages**, so every increment carries an ordered upload→preview→publish→reindex step. *(Med — was High.)*
+- **R-A6 (new):** Heavy source masters (25–40 MB) **409 the content bus on publish**; bulk migration needs a **media pre-conditioning step** (strip/replace images over ~10 MB with sized derivatives) or publishes fail at scale (§7, E05). *(Med)*
+- **R-A2 (lowered 2026-09-10, build-informed):** Story flatten is **less risky than the already-downgraded estimate**. For the shipped story/rails slice the "flatten" was a light cleanup transformer + one canonical Metadata block; the `sow-editor` + carousel model held and is now **browser-confirmed**, not merely structural. Full-corpus long tail (interactive widgets, multi-column) still warrants the parser work at go-live. *(Med — was High.)*
 - **R-A3:** Four dynamic services have no native EDS equivalent; each needs a build/drop decision before "full parity" is claimed. *(High)*
 - **R-A4:** Media DAM choice (AEM Assets vs direct-DA vs reference-in-place) affects perf, rights, and cost; unresolved. *(Med)*
 - **R-A5:** MP4 signed-download flow + no-CORS CDN complicate reference-in-place. *(Med)*
 
 **Assumptions:** DA/EW is licensed and available; the org/site in `da.live` exists; AEM Assets integration availability is TBD; translation service = EW default (Google) unless a connector is provided.
 
-**Open questions (stakeholder):** DAM ownership & AEM Assets availability; hosted-search procurement; fate of media-cart/banners/newsletter; language-routing policy; content cutoff/archival scope.
+**Open questions (stakeholder):** DAM ownership & AEM Assets availability (now sharpened — source masters are too heavy to publish as-is, so the demo pipeline fallback needs a conditioning step; see §7/R-A6); **which of the 15 taxonomy facets are demo-critical for listings vs. deferable** (facet extraction is a normalization layer, not free — §6/SKODA-401); hosted-search procurement; fate of media-cart/banners/newsletter; language-routing policy; content cutoff/archival scope.
 
-**Residual `[RUNTIME-UNCONFIRMED]`** (need a browser, carried from prior reports): modal focus-trap behavior, carousel/lightbox interaction, mega-menu hover timing, real LCP/CLS, whether the lightbox fetches larger originals.
+**Residual `[RUNTIME-UNCONFIRMED]`** (need a browser, carried from prior reports): modal focus-trap behavior, lightbox interaction, mega-menu hover timing, real LCP/CLS, whether the lightbox fetches larger originals. **Now browser-confirmed (2026-09-10):** homepage layout + all rail carousels (overlay/caption card styles, prev/next arrows, pointer-drag), the query-index → client-block data flow, story-flatten fidelity for the story/rails slice, and pixel-match against the source at 1440px — these are retired from the unconfirmed list.
 
 **Doc-gap note:** the aem.live docs index did not contain an explicit `da.live` *source-API* reference page (the `POST admin.da.live/source/...` contract used here comes from this project's `AGENTS.md`, not from `/docpages-index.json`). Treat the source-API specifics as project-established, not doc-cited.
 
@@ -247,7 +255,7 @@ Two complementary paths, both doc-supported:
 | `/developer/anatomy-of-a-project` | Repo/delivery model, `aem.page`/`aem.live` |
 | `/developer/markup-sections-blocks` | Sections/blocks/auto-blocking authoring model |
 | `/developer/byom` | BYOM/HTML content-source class (DA) |
-| `/developer/indexing` + `/docs/indexing-reference` | **No spreadsheet indexing in DA**; `helix-query.yaml` selectors |
+| `/developer/indexing` + `/docs/indexing-reference` | **No spreadsheet indexing in DA**; CSS-selector indexing via admin config-service `query.yaml` (not repo `helix-query.yaml`) |
 | `/developer/spreadsheets` + `/docs/authoring-tabular-data` | Sheets for placeholders/metadata/redirects/config |
 | `/developer/block-collection` (+ search, modal, header, footer, section-metadata) | Reusable block patterns; modal `/modals/` convention |
 | `/docs/fragments` | Header/footer/nav as fragments |

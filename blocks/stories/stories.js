@@ -1,5 +1,5 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
-import ffetch from '../../scripts/ffetch.js';
+import loadQueryIndex from '../../scripts/query-index.js';
 
 // stories: auto-populated "Latest Stories" grid.
 //
@@ -113,7 +113,7 @@ export default async function decorate(block) {
 
   let stories = [];
   try {
-    const all = await ffetch(config.index).all();
+    const all = await loadQueryIndex(config.index);
     stories = all
       .filter((e) => (e.template
         ? e.template === 'story'

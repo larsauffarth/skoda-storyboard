@@ -1,7 +1,9 @@
 # Škoda Storyboard → Edge Delivery — Date-Driven Delivery Plan
 
 **Companion to `SKODA-MASTER.md`.** Supersedes the earlier phase-only roadmap with a **milestone-driven plan** built around the two client-mandated dates. Reflects **client-confirmed scope** (Sept 2026 briefing).
-**Date:** 2026-09-07 · **Target:** DA / Experience Workspace + EDS.
+**Date:** 2026-09-07 (build-confirmed addendum 2026-09-10) · **Target:** DA / Experience Workspace + EDS.
+
+> **Build-confirmed addendum (2026-09-10).** The EN homepage + listings/rails slice shipped end-to-end on EDS+DA (commits #2–#18). **No strategic reversal, no date or headcount change.** Three assumptions refined: (1) index config is an **admin config-service `query.yaml` PUT**, not repo `helix-query.yaml`; (2) taxonomy/date metadata needs an **extraction/normalization layer**, not clean selectors; (3) heavy source masters **409 the content bus** and need **pre-conditioning** before publish. Also confirmed: the indexer **only sees published pages** (adds an ordered publish→reindex step to every content increment). The **effort mix shifts** from "flatten" (trending low) toward "metadata normalization + media conditioning" — total M1 engineer-days (~40–66) unchanged. Details flow into §1, §3, §6, §8 below.
 
 ---
 
@@ -29,6 +31,11 @@
 | — (not captured) | **Content embargoes**: "confidential" media-room items visible only to select authors until a release date | **NEW hard requirement** — not in any prior doc; needs a staged-publish + access solution (§4) |
 | — | **Nav is metadata-tag-driven** (WordPress tags dictate nav placement) | Confirms query-index/tag approach; nav built from metadata, not hand-authored |
 | — | No personalization, no user auth, no edge functions today; authors auth via **Škoda IDP** | Simplifies the target; auth only on the authoring side |
+| Index = repo **`helix-query.yaml`** (arch doc §2/§6) | **Build-confirmed:** config is a **`query.yaml` PUT to the admin config service** (`admin.hlx.page/config/{org}/sites/{site}/content/query.yaml`); `helix-query.yaml` retired | Config-surface only — strategy unchanged; update runbooks/tickets |
+| Index columns = clean CSS selectors over HTML (SKODA-401) | **Build-confirmed:** key fields **not in usable meta** — `category` derived from URL segment; press-release dates need a 4-way fallback | 401 is a **normalization layer**, not a selector map — re-scope (§8/D10) |
+| Media weight = abstract "~200k files" (briefing §2) | **Build-confirmed:** masters of **25–40 MB 409 the content bus on publish** | Import needs a **media pre-conditioning** step (E05) |
+| Publish model implicit | **Build-confirmed:** indexer **only sees published pages** → ordered upload→preview→publish→reindex per increment | M2 migration budgets publish+reindex batching, not just import (§3, §6) |
+| Story flatten = 🟠 / 5–8 SP | **Build-confirmed:** the story/rails slice flattened cleanly, **browser-verified** | Trends to low end; frees effort toward metadata+media (§8) |
 
 ---
 
@@ -54,7 +61,7 @@
 
 ## 3. M2 — Go-Live Scope (02 Jan 2027)
 
-- **Content fully migrated** — all templates at scale (story flatten, press-kits, Škodapedia pre-baked, pages); bulk import via DA source-API + Bulk Operations.
+- **Content fully migrated** — all templates at scale (story flatten, press-kits, Škodapedia pre-baked, pages); bulk import via DA source-API + Bulk Operations. **Pipeline has an ordered `publish → reindex` stage per increment** (build-confirmed: the query-index only sees live-published pages, so upload/preview alone leaves listings empty). At ~13,100 pages this is a **throughput/orchestration** concern — batch the live-publish + reindex and account for a few-seconds preview↔live lag; feasibility is not in doubt, but time budgets must include it, not just import. A **media pre-conditioning** pass (strip/replace >~10 MB masters) runs ahead of publish to avoid content-bus 409s at scale.
 - **Authoring workflows** — DA/EW authoring set up; authors trained; nav-by-metadata working; author auth via Škoda IDP (or EW equivalent).
 - **Localization** — EN + CS complete; DE/SK/SR/SL supported on-demand (per-locale trees + EW Translation); single-language articles handled by the selector.
 - **Content embargoes** — the confidential-until-date mechanism live for the media room (§4).
@@ -93,13 +100,15 @@
 
 | # | Risk | Sev | Mitigation |
 |---|---|---|---|
-| **R-A** | Story/Page-Builder flattening on the M1 critical path (blog posts required Oct 15) — **DE-RISKED** by the flattener POC + full-corpus census (`SKODA-FLATTENER-POC-FINDINGS.md`): small closed widget set (6 types; 99.8% covered by 5 simple ones; embeds inline), re-pointed **13→8 SP** | 🟠 (was 🔴) | Reduced-fidelity flatten for the demo (~2–3 SP); full parser M2; residual risk = 0.2% interactive long-tail (`k2tools-charge-map`) + browser-unverified layout fidelity |
+| **R-A** | Story/Page-Builder flattening on the M1 critical path (blog posts required Oct 15) — **DE-RISKED further (2026-09-10, build-confirmed):** the story/rails slice flattened cleanly (light cleanup transformer + one canonical Metadata block) and is **browser-verified**, not just structural. Trends to the **low end of 5–8 SP**. | 🟢 (was 🟠) | Reduced-fidelity flatten shipped for the slice; full parser M2 for the long tail (interactive `k2tools-charge-map`, multi-column). Freed effort re-allocated to metadata+media (§8) |
+| **R-A0 (new)** | **Index field-mapping + publish ordering** — taxonomy/date fields aren't clean selectors (category-from-URL, 4-way date fallback), config is an admin-service `query.yaml` PUT, and the indexer only sees **published** pages | 🟠 | Treat 401 as a normalization layer (§8/D10); bake the upload→preview→publish→reindex order into every content increment; keep a repo copy of the submitted `query.yaml` for the record |
+| **R-A′ (new)** | **Heavy masters 409 the content bus on publish** (25–40 MB inline images) | 🟠 | Add a **media pre-conditioning** step to the importer (detect/strip/replace >~10 MB masters with sized derivatives) before publish; proven fix on the shipped slice |
 | R-B | **5.5-week M1 window** with expanded scope (media-cart + 2 locales + stories) | 🔴 | Parallelize (blocks / chrome / import / media-cart as separate tracks); descope non-essentials; daily integration |
 | R-C | Media-cart zip-download service (device-ID) + AEM Assets integration must be demo-ready | 🟠 | Confirmed no-auth simplifies it; build zip-on-demand early; validate AEM Assets delivery |
 | R-D | Content embargo mechanism (M2) has no native EDS solution | 🟠 | Decide staged-publish approach now (§4); don't discover it late |
 | R-E | Analytics scope ambiguity (bespoke layer vs GA/FB/Yoast) | 🟡 | Confirm with Škoda; likely lighter than flagged |
 | R-F | Figma-to-AEM showcase is a *new* workstream with demo expectations | 🟡 | Scope a contained showcase (1–2 components) rather than the whole library |
-| R-G | Full content migration + authoring workflows for M2 in ~10 weeks after M1 | 🟠 | Automate import; begin bulk-import tooling during M1 |
+| R-G | Full content migration + authoring workflows for M2 in ~10 weeks after M1 | 🟠 | Automate import; begin bulk-import tooling during M1; **budget the ordered publish→reindex stage + media pre-conditioning** (build-confirmed, R-A0/R-A′) into the throughput plan, not just the import |
 
 ---
 
@@ -128,13 +137,14 @@ Oct 15 ── M2 build ───────────────────
 | D2 | Media-cart | **Resolved:** in M1; device-ID, no auth, zip-download |
 | D3 | Banners | Open — M2 or defer (rebuild-as-service) |
 | D4 | Newsletter | Open — M2 or defer |
-| D5 | Media/DAM | **Resolved:** AEM Assets |
+| D5 | Media/DAM | **Resolved:** AEM Assets — **sharpened (2026-09-10):** source masters are too heavy to publish as-is (content-bus 409), so the demo pipeline fallback **requires a media pre-conditioning step**; strengthens the case to confirm the AEM Assets instance early |
 | D6 | Search | Index-only for M1; hosted search decision for M2 |
 | D7 | Content cutoff | Open — full migration by M2 |
 | D8 | Commerce | Closed (no commerce) |
 | **D9 (new)** | **Content embargo mechanism** | Open — recommend staged-publish (§4); needed for M2 |
 | **D10 (new)** | **Analytics**: is the bespoke `skoda-analytics` layer needed, or GA+FB pixel+metadata sufficient? | Open — confirm with Škoda |
 | **D11 (new)** | **Figma-to-AEM showcase** scope for the demo | Open — recommend 1–2 components |
+| **D12 (new, 2026-09-10)** | **Which of the 15 taxonomy facets are demo-critical for listings vs. deferable?** Build-confirmed that facet extraction is a **per-field normalization layer** (not clean selectors), so each facet carries real cost | Open — confirm with Škoda; scope SKODA-401 to the demo-critical subset first |
 
 ---
 
@@ -142,5 +152,6 @@ Oct 15 ── M2 build ───────────────────
 
 - **M1 date is non-negotiable and politically loaded** — plan for a *demonstrable* subset over completeness; better a smaller, polished, working demo than a broad broken one.
 - The `skoda/` backlog tickets remain valid; this plan **re-sequences** them around the two dates and **pulls SKODA-801 (story flatten) and the media-cart forward into M1**. The media-cart demo build is now its own M1 ticket — **SKODA-505** (device-ID, no login, client-side zip; E05) — with **SKODA-902 re-scoped to production hardening** (serverless zip endpoint / signed access / cross-device state) for M2/Phase C. See `SKODA-MEDIA-CART-DOWNLOAD.md` for the options analysis. A backlog re-tagging (phase A/B → M1/M2) is the natural next step if you want the tickets to match this plan.
+- **Effort-mix shift (2026-09-10, build-confirmed) — no change to totals, dates, or team.** M1 stays ~40–66 AI-assisted engineer-days across the recommended **4 engineers**; both dates hold. What moves *inside* that envelope: **story flatten trends to the low end** (freeing Content-chain effort), and that relief funds two under-weighted areas surfaced in the build — a **metadata-normalization layer** in the importer (category-from-URL, multi-source date fallback, per-facet extraction for SKODA-401) and a **media pre-conditioning step** (detect/strip/replace >~10 MB masters, feeding E05). The reusable patterns the slice produced (admin-service index config, dynamic-rail-via-`buildBlock`, auto-populate+dedupe, media conditioning) are **blueprint assets** for future VW EDS sites — codify them before the blocks pool is split.
 - Estimates are planning-level, not a quote.
-- Cross-reference: `SKODA-MASTER.md` (canonical findings), `skoda/OVERVIEW.md` (ticket backlog).
+- Cross-reference: `SKODA-MASTER.md` (canonical findings), `skoda/OVERVIEW.md` (ticket backlog), `SKODA-EDS-DA-ARCHITECTURE.md` (build-confirmed §6/§7/§13 updates).
