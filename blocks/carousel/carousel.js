@@ -1,4 +1,4 @@
-import { createOptimizedPicture } from '../../scripts/aem.js';
+import optimizeImageInPlace from '../../scripts/optimized-picture.js';
 
 // carousel: horizontal, draggable teaser rail (matches the source Flickity rails).
 // Each block row -> one cell. First cell with a single picture = image; the rest = body
@@ -70,7 +70,10 @@ export default function decorate(block) {
     });
     ul.append(li);
   });
-  ul.querySelectorAll('picture > img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])));
+  // Optimize in place (preserve the document's original <img> node) so the
+  // static Models/Series rail images stay editable in EW Layout mode — this
+  // DA/EW project decides editability structurally. See scripts/optimized-picture.js.
+  ul.querySelectorAll('picture > img').forEach((img) => optimizeImageInPlace(img, false, [{ width: '750' }]));
 
   // Two source card styles, distinguished by whether a card carries a date:
   //  - POST rails (eMobility / Lifestyle / Škoda World / Latest News): dated teasers

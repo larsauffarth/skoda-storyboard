@@ -1,4 +1,4 @@
-import { createOptimizedPicture } from '../../scripts/aem.js';
+import optimizeImageInPlace from '../../scripts/optimized-picture.js';
 
 // cards-overlay: teaser cards with text overlaid on top of the image.
 // Each row -> one card. First cell with a single picture = image; remaining = overlaid body.
@@ -24,15 +24,19 @@ export default function decorate(block) {
 
   // LCP handling. The featured promo sits at the top of the page; on desktop all
   // three cards are above the fold, and on mobile they STACK single-column so any
-  // of them can be the LCP element. So for the promo, build EVERY card image
+  // of them can be the LCP element. So for the promo, load EVERY card image
   // eager (there are only 3) and hint the first `fetchpriority=high`. For other
   // layouts keep only the first eager, rest lazy. Discovering the LCP image late
   // (blocks decorate after fetch) is the main mobile-throttled score cost.
+  //
+  // Optimize IN PLACE (preserve the document's original <img> node) rather than
+  // replacing it — this DA/EW project decides Layout-mode editability
+  // structurally, so a rebuilt <picture> would render the featured images
+  // non-editable. See scripts/optimized-picture.js.
   ul.querySelectorAll('picture > img').forEach((img, i) => {
     const eager = isPromo || i === 0;
-    const optimized = createOptimizedPicture(img.src, img.alt, eager, [{ width: '750' }]);
-    if (i === 0) optimized.querySelector('img')?.setAttribute('fetchpriority', 'high');
-    img.closest('picture').replaceWith(optimized);
+    optimizeImageInPlace(img, eager, [{ width: '750' }]);
+    if (i === 0) img.setAttribute('fetchpriority', 'high');
   });
 
   block.replaceChildren(ul);

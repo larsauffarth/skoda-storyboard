@@ -1,4 +1,4 @@
-import { createOptimizedPicture } from '../../scripts/aem.js';
+import optimizeImageInPlace from '../../scripts/optimized-picture.js';
 
 // cards-toolbar: teaser cards that carry a toolbar row (e.g. actions/links) beneath the body.
 // The source media-cart "add" hooks are intentionally omitted at import time; this variant
@@ -21,6 +21,8 @@ export default function decorate(block) {
     });
     ul.append(li);
   });
-  ul.querySelectorAll('picture > img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])));
+  // Optimize in place (preserve the document's original <img> node) so images
+  // stay editable in EW Layout mode. See scripts/optimized-picture.js.
+  ul.querySelectorAll('picture > img').forEach((img) => optimizeImageInPlace(img, false, [{ width: '750' }]));
   block.replaceChildren(ul);
 }

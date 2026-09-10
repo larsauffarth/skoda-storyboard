@@ -1,4 +1,4 @@
-import { createOptimizedPicture } from '../../scripts/aem.js';
+import optimizeImageInPlace from '../../scripts/optimized-picture.js';
 
 export default function decorate(block) {
   /* change to ul, li */
@@ -12,6 +12,8 @@ export default function decorate(block) {
     });
     ul.append(li);
   });
-  ul.querySelectorAll('picture > img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])));
+  // Optimize in place (preserve the document's original <img> node) so images
+  // stay editable in EW Layout mode. See scripts/optimized-picture.js.
+  ul.querySelectorAll('picture > img').forEach((img) => optimizeImageInPlace(img, false, [{ width: '750' }]));
   block.replaceChildren(ul);
 }

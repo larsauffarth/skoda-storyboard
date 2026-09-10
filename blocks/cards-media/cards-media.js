@@ -1,4 +1,5 @@
-import { createOptimizedPicture, decorateIcons } from '../../scripts/aem.js';
+import { decorateIcons } from '../../scripts/aem.js';
+import optimizeImageInPlace from '../../scripts/optimized-picture.js';
 
 // cards-media: teaser cards with image on top and title/text below (classic media card).
 // Also serves the "social" variant: rows of [ icon cell | body cell ] where the first cell
@@ -39,7 +40,9 @@ export default function decorate(block) {
     if (!li.querySelector('picture') && !li.querySelector('span.icon')) li.classList.add('cards-media-card-textonly');
     ul.append(li);
   });
-  ul.querySelectorAll('picture > img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])));
+  // Optimize in place (preserve the document's original <img> node) so card
+  // images stay editable in EW Layout mode. See scripts/optimized-picture.js.
+  ul.querySelectorAll('picture > img').forEach((img) => optimizeImageInPlace(img, false, [{ width: '750' }]));
   block.replaceChildren(ul);
   decorateIcons(block);
   if (social) block.classList.add('cards-media-social');
