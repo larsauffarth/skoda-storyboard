@@ -9,13 +9,15 @@
 
 ## 1. Headline
 
-**Bulk zip-download is buildable in EDS — but it is the one media feature that needs a non-static helper, so it must be designed, not assumed.** EDS pages are static and CDN-cached; they have no origin compute to zip N files on request. Three real paths exist: **zip in the browser (client-side)**, **zip in a tiny stateless serverless/edge function**, or **reuse Škoda's existing signed-download service**. All three are modest; the deciding constraint is **CORS on the asset origin** (today's CDN has none) and whether Škoda wants a WordPress dependency to survive.
+> **⚠ Corrected 2026-09-10 (post-alignment-call).** Two facts reframe this doc and **demote the earlier client-side-zip recommendation**: (1) **the feature's purpose is file-size REDUCTION for download**, not just bundling — the source already ships *reduced renditions* server-side (`data-size="giant|original"` per image; MP4 `…-1080p.mp4` resolution suffix). Press assets are JPEG/PNG/MP4 — **already compressed, so zipping saves ~nothing**; the real lever is delivering a **smaller rendition before transfer**, which a browser cannot do. (2) The call confirmed **full migration = switch WordPress off**, so reusing the legacy service (Option C) is a bridge at most, **not an end-state**. Net: the download reduction job is **inherently server-side** — the only real choice is *reuse-legacy (interim) vs rebuild-on-Adobe/AEM-Assets (end-state)*. Adobe CDN is now the confirmed delivery network (Martin), so **Adobe-hosted edge/App Builder functions are available in-platform** for the rebuild. See §5A (why client-side is wrong for this purpose) and §5B/§7.
+
+**Rendition-reduced bulk download is buildable in EDS — but the reduction must happen server-side (before transfer), so it needs a non-static helper; it must be designed, not assumed.** EDS pages are static and CDN-cached; they have no origin compute to resize/repackage N files on request. The viable paths: a **stateless serverless/edge function that generates reduced renditions + bundles them** (Adobe App Builder / edge worker), **AEM Assets / Dynamic Media renditions** (the DAM does the resize), or **reuse Škoda's existing signed-download service** as an interim bridge. Client-side zip is **not** a fit when the goal is smaller downloads (§5A).
 
 **Recommendation in one line:**
-- **Demo (15 Oct):** deliver a *real, working* cart with **client-side zip** (`fflate`) **if** assets are served from a CORS-enabled origin (AEM Assets delivery), with **per-story pre-zipped bundles (Option D)** as a zero-risk fallback. Cart state via **device-ID in `localStorage`** — no login, exactly as scoped.
-- **Production:** a **thin serverless zip endpoint (Option B)** for unlimited/large selections + signed access, or reuse the **legacy `/direct-download/` service (Option C)** if governance allows keeping it.
+- **Demo (15 Oct, may slip 1–2 wks):** deliver a *real, working* cart whose "download" returns **reduced renditions** — simplest credible path is **AEM Assets/Dynamic Media renditions fetched + bundled by a thin Adobe App Builder action** (write-to-storage + signed link, §5B), with **per-story pre-baked reduced bundles (Option D)** as the zero-risk fallback. Cart state via **device-ID in `localStorage`** — no login, exactly as scoped.
+- **Production:** the **serverless/edge rendition-zip endpoint (Option B)** on Adobe, or **AEM Assets/Dynamic Media collection download (Option F)** if it supports the anonymous/device-ID flow. **Legacy `/direct-download/` reuse (Option C) is an interim bridge only** — it keeps WordPress alive, which the migration exists to end.
 
-**This supersedes the earlier "drop the cart for pilot" stance** (see §2) — that predates the client scope confirmation and is no longer valid for the demo.
+**This supersedes the earlier "drop the cart for pilot" stance (§2) AND the interim "client-side zip is the demo path" recommendation** — the latter predates the "purpose = size reduction" + "switch WP off" clarifications from the alignment call.
 
 ---
 
@@ -76,13 +78,13 @@ So this is **not** "static vs impossible" — it's "static page + one small non-
 | **E** | **No-zip fallback** (individual `<a download>`) | N/A | ⚠️ partial (multi-file prompt) | None | 🟢 fully static | XS | 🟢 low, but not "one bundle" |
 | **F** | **External DAM / download SaaS** (AEM Assets collection download) | Vendor service | ✅ (if supported) | Vendor capability | 🟡 depends on product | S–M | 🟠 capability `[UNVERIFIED]` |
 
-### A. Client-side zip (browser)
-- **How:** cart client fetches each selected asset as a `Blob`, zips in-browser with **`fflate`** (~8 KB, streaming, fast) or JSZip, then triggers a `Blob` download. No server round-trip for the bundle.
-- **Pros:** most EDS-native — no new backend; scales to zero cost; the cart and zip both live client-side; consent-friendly.
-- **Cons / blockers:**
-  - **CORS is mandatory.** `fetch()`-ing bytes cross-origin needs `Access-Control-Allow-Origin` on the asset host. **Today's CDN has no CORS** (`SKODA-MEDIA-DEEP-DIVE.md`), so this option is **gated on serving assets from a CORS-enabled origin — which AEM Assets delivery provides** (see §6). This is the linchpin.
-  - **Browser memory** for very large press masters (multi-MB each × many) — mitigate with `fflate` streaming, a **size/count cap**, and no compression on already-compressed JP/PNG (store, don't deflate — faster and lighter).
-- **Fit for demo:** **strong, IF assets come from AEM Assets** (CORS solved). This is the recommended demo path.
+### A. Client-side zip (browser) — ⚠ WRONG FIT when the purpose is size reduction
+- **How:** cart client fetches each selected asset as a `Blob`, zips in-browser with **`fflate`** or JSZip, triggers a `Blob` download.
+- **Why it does NOT serve this feature's purpose (corrected 2026-09-10):** the media-cart download exists to deliver **smaller files** (reduced renditions), and:
+  - **Zip ≠ compression here.** JPEG/PNG/MP4 are already compressed — our own §8 guidance is *store, don't deflate* — so bundling yields **~0 size saving** wherever it runs.
+  - **Reduction must precede transfer, and a browser can't reduce.** To download smaller files the resize/transcode has to happen **before** the bytes cross the wire. Client-side zip can only bundle what it already fetched, so it either (a) pulls the full **25–40 MB masters** into browser memory (no reduction + memory blow-out risk), or (b) fetches server-made reduced renditions — in which case **the server already did the job** and re-bundling client-side is pure waste.
+- **Residual niche:** only defensible as a demo shortcut for a handful of already-small assets where "one file" convenience — not size — is the point. Not the real answer.
+- **Verdict:** **demoted.** The reduction is server-side (Option B/F); see below.
 
 ### B. Serverless / edge zip endpoint
 - **How:** a tiny **stateless** function — `POST /zip {assetIds[]|urls[]}` fetches masters server-side (no browser CORS issue), builds the zip, and returns the download. Options: AWS Lambda + API Gateway, Cloudflare/Fastly Worker, or **Adobe App Builder / I/O Runtime** action (keeps it in the Adobe ecosystem).
@@ -158,7 +160,8 @@ The client confirmed **AEM Assets** as the approved asset source (D5), and `SKOD
 
 | # | Question | Why it matters | Affects |
 |---|---|---|---|
-| Q1 | **Are the demo press assets served from AEM Assets (CORS-enabled) by 15 Oct?** | Unlocks Option A (client-side zip, no backend). If not, demo needs Option D or a serverless endpoint. | Demo path; SKODA-501/504 |
+| Q1 | **Can AEM Assets / Dynamic Media generate the REDUCED renditions the download needs, by 15 Oct?** | The whole purpose is smaller files — the DAM (or an App Builder action) must produce the reduced rendition server-side. Determines whether the demo download is real vs pre-baked (Option D). | Demo path; SKODA-501/504 |
+| Q1b | **What reduced sizes/resolutions must the download offer?** (image long-edge px; video resolution) | Mirrors today's `data-size` + `…-1080p.mp4`; defines the rendition set to generate. | Rendition spec |
 | Q2 | **Reuse the legacy `media-cart/v1` + `/direct-download/` service, or rebuild?** | Governance + how long WordPress stays alive. Option C vs A/B. | Prod architecture |
 | Q3 | **What are the acceptable cart item count & total zip size caps?** | Drives client-side vs serverless (browser memory ceiling). | Option A vs B |
 | Q4 | **Is device-ID in `localStorage` acceptable (no cross-device sync) for the demo?** | If cross-device/server-authoritative is required, add a state service. | Cart-state model |
