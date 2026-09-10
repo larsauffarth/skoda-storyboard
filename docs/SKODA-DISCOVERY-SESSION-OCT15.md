@@ -6,6 +6,30 @@
 
 ---
 
+## Post-call status (2026-09-10 alignment call — Lars/Pushkar/Markus/Martin/Jaroslav)
+
+An alignment call already ran and moved several items. Use this doc for the **deeper requirements walkthrough (Monday) + the follow-up stakeholder session** (Media Room / Storyboard / WordPress / comms). Status of the agenda's questions after the call:
+
+**Resolved / narrowed:**
+- **CDN → Adobe CDN** (Martin); Adobe edge/App Builder functions available in-platform. *(was open)*
+- **Consent/OneTrust → OUT of Adobe delivery scope**; analytics **in** (standard). *(narrows A-group + D10)*
+- **Migration definition → full system so WordPress can be switched off** (Lars/Jaroslav) — incl. structured data + supporting functionality. *(reframes media-cart reuse — legacy `/direct-download/` is a bridge only)*
+- **Media-cart purpose → file-size REDUCTION** (reduced renditions), so it's **server-side**; client-side zip demoted (see corrected `SKODA-MEDIA-CART-DOWNLOAD.md`).
+- **Demo date → may slip 1–2 weeks** (Martin) — content definition, not code, is the critical path.
+- **Assets → ~40 MB S3 originals confirmed**; full migration likely into AEM Assets/DAM (reinforces D5 + SKODA-506 conditioning).
+
+**Newly open (add to the agenda):**
+- **Authoring model: DA vs Universal Editor (D13)** — architecture-critical; our docs assume DA. **Segment 4 must raise this.**
+- **Governance / RACI (D15)** across Markus's CMS team, Sara's AEP team, the new Adobe team — project-setup blocker.
+- **NFRs (D16):** security-code review, pentest, licence checks, RTO/RPO, logging/auditing, Azure DevOps — Jaroslav drafting; **top year-end risk.**
+- **Demo content set still undefined** (Pushkar) — Segment 1's job; the #1 unblocker.
+
+**Already built — demo these Monday (turn flagged risks into proof):** the three functions Markus called "not out of the box" — exclude-from-listings, multi-category with editorial placement, manual+tag recommendations — are **live on `/en`** (dedupe/exclude, category-tagged rails, manual promo + auto rails). **"Restricted folders for new-car launches" confirms the embargo requirement (D9) is real.**
+
+See `SKODA-FEASIBILITY-ASSESSMENT.md` for the build-vs-client-gated split + required-accesses list (Lars's action item).
+
+---
+
 ## Session goal (state this in the invite + first slide)
 
 > "By the end of this hour we will have written down: **(a)** the exact, minimal set the 15 Oct demo must show to count as a win, and **(b)** everything on Škoda's side we depend on — with a named owner and a date for each. The build is not the risk; the risk is what we can't control."

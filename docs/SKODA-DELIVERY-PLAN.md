@@ -131,22 +131,28 @@ Oct 15 ── M2 build ───────────────────
 
 ## 8. Open Decisions (updated)
 
+> **Alignment-call update (2026-09-10, Lars/Pushkar/Markus/Martin/Jaroslav).** Outcomes folded in below: **CDN resolved → Adobe CDN** (D14); **consent/OneTrust out of Adobe delivery scope**, analytics in (D10); **full migration = switch WordPress off** (reframes media-cart D2 + reuse options); **demo date may slip 1–2 weeks** (Martin); **demo content still undefined** (Pushkar) — Segment-1 "irreducible core" is open on their side too. New decisions surfaced: **authoring model DA vs Universal Editor** (D13) and **governance/RACI across CMS/AEP/Adobe teams** (D15). The three functions Markus flagged as "not OOTB" — exclude-from-listings, multi-category with editorial placement, manual+tag recommendations — are **already built** on `/en` (dedupe/exclude, category-tagged rails, manual promo + auto rails); demo them Monday. "Restricted folders for new-car launches" **confirms the embargo requirement is real** (D9). Feasibility split + required-accesses list: see `SKODA-FEASIBILITY-ASSESSMENT.md`.
+
 | # | Decision | Status |
 |---|---|---|
 | D1 | Language scope | **Refined:** EN+CS for M1; DE/SK/SR/SL on-demand for M2 |
-| D2 | Media-cart | **Resolved:** in M1; device-ID, no auth, zip-download |
+| D2 | Media-cart | **Reframed (2026-09-10):** purpose is **file-size REDUCTION for download** (reduced renditions), not just bundling; and **WordPress will be switched off**, so legacy `/direct-download/` reuse is an interim bridge only. Reduction is **server-side** (Adobe App Builder/edge or AEM Assets/Dynamic Media renditions) — **client-side zip demoted**. Cart state still device-ID/no-login. See `SKODA-MEDIA-CART-DOWNLOAD.md` (corrected). |
 | D3 | Banners | Open — M2 or defer (rebuild-as-service) |
 | D4 | Newsletter | Open — M2 or defer |
-| D5 | Media/DAM | **Resolved:** AEM Assets — **sharpened (2026-09-10):** source masters are too heavy to publish as-is (content-bus 409), so the demo pipeline fallback **requires a media pre-conditioning step**; strengthens the case to confirm the AEM Assets instance early |
+| D5 | Media/DAM | **Resolved:** AEM Assets — **sharpened (2026-09-10):** source masters ~40 MB (confirmed on call), too heavy to publish as-is (content-bus 409), so the demo pipeline fallback **requires a media pre-conditioning step**; strengthens the case to confirm the AEM Assets instance early |
 | D6 | Search | Index-only for M1; hosted search decision for M2 |
-| D7 | Content cutoff | Open — full migration by M2 |
+| D7 | Content cutoff | Open — full migration by M2; **confirmed the intent is a full system migration so WordPress can be decommissioned** (incl. structured data + supporting functionality, per Jaroslav/Lars) |
 | D8 | Commerce | Closed (no commerce) |
-| **D9 (new)** | **Content embargo mechanism** | Open — recommend staged-publish (§4); needed for M2 |
-| **D10 (new)** | **Analytics**: is the bespoke `skoda-analytics` layer needed, or GA+FB pixel+metadata sufficient? | Open — confirm with Škoda |
-| **D11 (new)** | **Figma-to-AEM showcase** scope for the demo | Open — recommend 1–2 components |
-| **D12 (new, 2026-09-10)** | **Which of the 15 taxonomy facets are demo-critical for listings vs. deferable?** Build-confirmed that facet extraction is a **per-field normalization layer** (not clean selectors), so each facet carries real cost | Open — confirm with Škoda; scope SKODA-401 to the demo-critical subset first |
+| **D9** | **Content embargo mechanism** | **Confirmed real (2026-09-10):** "restricted folders for new-car launches" — recommend staged-publish (§4); needed for M2 (candidate demo showcase if time allows) |
+| **D10** | **Analytics + consent** | **Partially resolved (2026-09-10):** analytics **in** Adobe scope (standard, GA+FB+Yoast baseline; confirm bespoke `skoda-analytics` layer need); **OneTrust/consent OUT of Adobe delivery scope** (complex integration, stays with Škoda) |
+| **D11** | **Figma-to-AEM showcase** scope for the demo | Open — recommend 1–2 components |
+| **D12** | **Which of the 15 taxonomy facets are demo-critical for listings vs. deferable?** Build-confirmed facet extraction is a **per-field normalization layer** (not clean selectors) | Open — confirm with Škoda; scope SKODA-401 to the demo-critical subset first |
+| **D13 (new, 2026-09-10)** | **Authoring model: Document Authoring vs Universal Editor** (vs other). Must keep authors' current WordPress-comparable capabilities | **Open — architecture-critical.** Our docs assume DA; UE would materially change the model. Needs an early decision |
+| **D14 (new, 2026-09-10)** | **CDN / edge-function host** | **Resolved: Adobe CDN** (Martin) — Adobe-hosted edge/App Builder functions available; no external CloudFront/Azure-Front-Door dependency for delivery |
+| **D15 (new, 2026-09-10)** | **Governance / RACI** across Markus's CMS team, Sara's AEP team, and the new Adobe delivery team | **Open — project-setup blocker** (Jaroslav). Responsibilities + cooperation to be agreed |
+| **D16 (new, 2026-09-10)** | **Non-functional requirements**: security-code review, pentest, licence checks, RTO/RPO, logging/auditing, Azure DevOps | **Open — client-gated.** Jaroslav to draft; subject to Škoda Auto governance; a **top year-end timeline risk** |
 
-> **Resolve these live:** `SKODA-DISCOVERY-SESSION-OCT15.md` is the 60-minute agenda that drives the open D-items above (plus the client-side dependency/access risks) to an **owner + date**. Run it before demo-build start; capture outcomes back into this table.
+> **Resolve these live:** `SKODA-DISCOVERY-SESSION-OCT15.md` is the 60-minute agenda that drives the open D-items above (plus the client-side dependency/access risks) to an **owner + date**. Run it before demo-build start; capture outcomes back into this table. Feasibility + accesses: `SKODA-FEASIBILITY-ASSESSMENT.md`.
 
 ---
 
