@@ -9,10 +9,11 @@
 
   /* Reserve a card-row's worth of height until the carousel is built, so the
      section doesn't collapse-then-expand (CLS) as the async block populates.
-     Reservation is cleared once the carousel exists (rail is deferred-built on
-     scroll via IntersectionObserver, so keying off block-status alone would drop
-     the reservation while the rail is still empty). */
-  min-height: 240px;
+     ~190px matches the built overlay-card rail height on mobile (measured), so
+     the swap-in is near-zero shift. Reservation is cleared once the carousel
+     exists (rail is deferred-built on scroll via IntersectionObserver, so keying
+     off block-status alone would drop the reservation while still empty). */
+  min-height: 190px;
 }
 
 .story-rail:has(> .carousel) {
