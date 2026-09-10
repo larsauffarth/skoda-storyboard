@@ -75,6 +75,12 @@
    cover the full cell height instead of holding a fixed 3:2 ratio. */
 .cards-overlay-featured > ul > li {
   display: flex;
+
+  /* Reserve space before the image loads to avoid CLS. On mobile the featured
+     cards stack single-column with no grid aspect-ratio, so without this the
+     <li> has ~0 height then pops open when the image arrives (measured CLS
+     0.257). The desktop media queries below override per-card. */
+  aspect-ratio: 3 / 2;
 }
 
 .cards-overlay-featured > ul > li .cards-overlay-card-image,

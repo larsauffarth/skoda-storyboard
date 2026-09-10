@@ -6,6 +6,10 @@ import { createOptimizedPicture } from '../../scripts/aem.js';
 // cards-media/cards-toolbar. A viewport wraps the scrollable track; prev/next arrows and
 // pointer-drag scroll it. Native overflow-x gives touch swipe + scroll-snap for free.
 
+// Update the arrow disabled-state from the track's scroll position. Reads three
+// layout properties in one batch; callers rAF-gate this so it runs at most once
+// per frame and never interleaves with the drag handler's scrollLeft writes
+// (which would force a synchronous reflow — measured 365 ms across the rails).
 function updateArrows(track, prev, next) {
   const max = track.scrollWidth - track.clientWidth;
   const x = track.scrollLeft;
@@ -104,8 +108,29 @@ export default function decorate(block) {
   };
   prev.addEventListener('click', () => scrollByCards(-1));
   next.addEventListener('click', () => scrollByCards(1));
-  track.addEventListener('scroll', () => updateArrows(track, prev, next), { passive: true });
-  window.addEventListener('resize', () => updateArrows(track, prev, next));
+
+  // rAF-gate arrow updates: coalesce the many scroll events per gesture into one
+  // geometry read per frame, so reads never interleave with the drag handler's
+  // scrollLeft writes (avoids the forced-reflow layout thrash flagged on mobile).
+  let ticking = false;
+  const scheduleArrowUpdate = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      ticking = false;
+      updateArrows(track, prev, next);
+    });
+  };
+  track.addEventListener('scroll', scheduleArrowUpdate, { passive: true });
+
+  // Recompute only when the track actually resizes (content/viewport change),
+  // not on every scroll tick. ResizeObserver fires off the main scroll path.
+  if (typeof ResizeObserver !== 'undefined') {
+    const ro = new ResizeObserver(scheduleArrowUpdate);
+    ro.observe(track);
+  } else {
+    window.addEventListener('resize', scheduleArrowUpdate);
+  }
 
   enableDrag(track);
 
@@ -113,5 +138,5 @@ export default function decorate(block) {
   block.replaceChildren(viewport);
 
   // set initial arrow state after layout settles
-  requestAnimationFrame(() => updateArrows(track, prev, next));
+  scheduleArrowUpdate();
 }

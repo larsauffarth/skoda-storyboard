@@ -4,7 +4,7 @@ import {
   decorateBlock,
   loadBlock,
 } from '../../scripts/aem.js';
-import ffetch from '../../scripts/ffetch.js';
+import loadQueryIndex from '../../scripts/query-index.js';
 
 // story-rail: an auto-populated, tag-filtered teaser rail.
 //
@@ -153,7 +153,7 @@ export default async function decorate(block) {
 
   let entries = [];
   try {
-    const all = await ffetch(config.index).all();
+    const all = await loadQueryIndex(config.index);
     entries = all
       .filter((e) => (e.template ? e.template === 'story' : true))
       .filter((e) => (e.category || '').toLowerCase() === config.category)
@@ -174,8 +174,26 @@ export default async function decorate(block) {
   // Build a real carousel block from the filtered entries and let EDS decorate it,
   // so the rail behaves + looks exactly like the static carousels (overlay cards,
   // prev/next arrows, pointer-drag).
-  const carousel = buildBlock('carousel', entries.map(buildRow));
-  block.append(carousel);
-  decorateBlock(carousel);
-  await loadBlock(carousel);
+  const build = async () => {
+    const carousel = buildBlock('carousel', entries.map(buildRow));
+    block.append(carousel);
+    decorateBlock(carousel);
+    await loadBlock(carousel);
+  };
+
+  // The rails are below the fold. Defer the DOM build + carousel loadBlock until
+  // the rail approaches the viewport, so the four+ rails don't all build during
+  // initial load (cuts main-thread work / TBT on mobile). Fall back to building
+  // immediately where IntersectionObserver is unavailable.
+  if (typeof IntersectionObserver === 'undefined') {
+    await build();
+    return;
+  }
+  const observer = new IntersectionObserver((entriesList, obs) => {
+    if (entriesList.some((en) => en.isIntersecting)) {
+      obs.disconnect();
+      build();
+    }
+  }, { rootMargin: '600px 0px' });
+  observer.observe(block);
 }
