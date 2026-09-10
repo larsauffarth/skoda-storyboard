@@ -146,6 +146,8 @@ Oct 15 ── M2 build ───────────────────
 | **D11 (new)** | **Figma-to-AEM showcase** scope for the demo | Open — recommend 1–2 components |
 | **D12 (new, 2026-09-10)** | **Which of the 15 taxonomy facets are demo-critical for listings vs. deferable?** Build-confirmed that facet extraction is a **per-field normalization layer** (not clean selectors), so each facet carries real cost | Open — confirm with Škoda; scope SKODA-401 to the demo-critical subset first |
 
+> **Resolve these live:** `SKODA-DISCOVERY-SESSION-OCT15.md` is the 60-minute agenda that drives the open D-items above (plus the client-side dependency/access risks) to an **owner + date**. Run it before demo-build start; capture outcomes back into this table.
+
 ---
 
 ## 9. Notes

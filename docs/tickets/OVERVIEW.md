@@ -177,6 +177,8 @@ Phase D: 401,603─1001 ─ 1002 ; 303,1001─1003
 | **D7 Content cutoff** (archive scope) | SKODA-803 | Affects bulk-import volume |
 | **D8 Scope check** (commerce ruled out; owners for Škodapedia/press-kits) | SKODA-802 | Commerce sub-question CLOSED |
 
+> **Drive these to owner + date live:** `SKODA-DISCOVERY-SESSION-OCT15.md` is the 60-minute discovery agenda that resolves the open decisions above plus the client-side access/data/environment risks. Run it before demo-build start.
+
 ---
 
 ## 9. Doc Traceability
