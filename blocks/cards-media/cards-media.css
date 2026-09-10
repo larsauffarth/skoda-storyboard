@@ -94,7 +94,8 @@
 .cards-media.social .cards-media-card-body h2,
 .cards-media.social .cards-media-card-body h3 {
   margin: 0;
-  font-size: var(--heading-font-size-s);
+  font-size: var(--heading-font-size-xs); /* 16px handle (source) */
+  font-weight: 300; /* source uses a light weight for the @handle */
   -webkit-line-clamp: 1;
 }
 
