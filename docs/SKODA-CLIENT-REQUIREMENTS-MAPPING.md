@@ -278,6 +278,8 @@ The client marks the doc a DRAFT baseline at ~90% completeness. The sections **t
 ## 10. Cross-references
 
 - `SKODA-MASTER.md` — canonical findings (block inventory, complex systems, media, architecture).
+- `SKODA-M1-DEMO-TARGET.md` — tiered M1 demo scope + signable definition-of-done, built on the statuses in this doc.
+- `SKODA-AGENT-HANDOFF-CANDIDATES.md` — which parts can be handed to an autonomous agentic team.
 - `SKODA-DELIVERY-PLAN.md` §8 — decision log D1–D16 (this doc adds **D17**).
 - `docs/tickets/OVERVIEW.md` — 43-ticket / 190-SP backlog referenced in the Ticket(s) columns.
 - `SKODA-MEDIA-CART-DOWNLOAD.md` — media-cart / download-reduction options (D2).

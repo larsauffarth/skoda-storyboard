@@ -16,6 +16,8 @@
 
 **These dates reframe everything.** The prior "capability pilot" ≈ M1, but M1's required scope is **larger** than our earlier pilot (adds media-cart + a second language + AEM Assets) — see §2. M1 is achievable but **tight**; it is the top risk (§6).
 
+> **M1 demo target proposal:** `SKODA-M1-DEMO-TARGET.md` is the tiered scope proposal (irreducible core / differentiators / blueprint narrative) with a signable §6 "definition of done", grounded in what is **already built & published** on `/en`. It is the client-facing companion to this plan's §2.
+
 ---
 
 ## 1. What Changed vs the Prior Plan
