@@ -55,6 +55,15 @@
   color: var(--skoda-white);
 }
 
+/* date line: 11px semibold (source .entry-published).
+   Scoped under -card-body to outrank the generic `-card-body p` rule. */
+.stories .cards-overlay-card-body p.cards-overlay-card-date {
+  margin: 0 0 4px;
+  font-size: 11px;
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+}
+
 .stories .cards-overlay-card-body h2,
 .stories .cards-overlay-card-body h3 {
   margin: 0;
@@ -64,6 +73,19 @@
   line-height: 1.2;
 
   /* clamp long teaser titles via CSS */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* summary shown only on the large promo card (source: 16px/400, line-height 20px).
+   Scoped under -card-body to outrank the generic `-card-body p` rule. */
+.stories .cards-overlay-card-body p.cards-overlay-card-summary {
+  margin: 8px 0 0;
+  font-size: 16px;
+  font-weight: var(--weight-regular);
+  line-height: 20px;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -120,4 +142,89 @@
 .stories .stories-load-more:hover {
   background-color: var(--skoda-ink);
   color: var(--background-color);
+}
+
+/* ---- Featured promo variant (index-driven top box) ----------------------
+   Mirrors cards-overlay-promo: 1 large (left) + 2 stacked (right) on desktop.
+   Carries the source's own outer spacing (16px above / 32px below). */
+.stories.cards-overlay-promo {
+  margin: 16px 0 32px;
+}
+
+/* Large promo title ≈ 29.6px regular (source big card). */
+.stories.cards-overlay-promo > ul > li:nth-child(1) .cards-overlay-card-body h3 {
+  font-size: 30px;
+}
+
+/* Mobile (default): cards stack; the JS carousel shows one at a time.
+   Reserve a 3:2 box so the <li> has height before the image loads (avoids CLS). */
+.stories.cards-overlay-promo > ul > li {
+  aspect-ratio: 3 / 2;
+}
+
+/* Only the large (first) card shows its summary; hide it if it ever renders elsewhere. */
+.stories.cards-overlay-promo > ul > li:nth-child(n + 2) .cards-overlay-card-summary {
+  display: none;
+}
+
+@media (width >= 900px) {
+  /* Static 1-big + 2-small grid (carousel disabled by JS at this width). */
+  .stories.cards-overlay-promo > ul {
+    display: grid;
+    grid-template:
+      'big small1' 1fr
+      'big small2' 1fr
+      / 812fr 400fr;
+    gap: 20px;
+    aspect-ratio: 1248 / 467;
+  }
+
+  .stories.cards-overlay-promo > ul > li {
+    aspect-ratio: auto;
+  }
+
+  .stories.cards-overlay-promo > ul > li:nth-child(1) { grid-area: big; }
+  .stories.cards-overlay-promo > ul > li:nth-child(2) { grid-area: small1; }
+  .stories.cards-overlay-promo > ul > li:nth-child(3) { grid-area: small2; }
+}
+
+/* ---- Mobile timed carousel (promo only, < 900px) ------------------------
+   JS adds .stories-promo-carousel while the carousel is active. Cards sit in a
+   horizontal track; JS translates the <ul> one card-width per step. */
+.stories.stories-promo-carousel {
+  overflow: hidden;
+}
+
+.stories.stories-promo-carousel > ul {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0;
+  transition: transform 0.4s ease;
+}
+
+.stories.stories-promo-carousel > ul > li {
+  flex: 0 0 100%;
+  width: 100%;
+}
+
+/* page dots */
+.stories .stories-promo-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.stories .stories-promo-dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background-color: rgb(0 0 0 / 25%);
+  cursor: pointer;
+}
+
+.stories .stories-promo-dot[aria-current='true'] {
+  background-color: var(--skoda-ink);
 }
