@@ -43,47 +43,42 @@ WEEKS = [
     {
         "week": "Week 1",
         "dates": "1–7 Sep 2026",
-        "phase": "Discovery & analysis",
-        "headline": "Measured the whole site and proved the migration is feasible.",
+        "phase": "Understanding the site",
+        "headline": "Sized up the full site and confirmed the move to the new platform is achievable.",
         "notes": [
-            "Enumerated the full editorial corpus via the WordPress REST API: ~13,100 pages "
-            "(5,282 stories · 6,558 press releases · 551 pages · 725 Škodapedia) across 6 languages.",
-            "Parsed all 55 attachment sitemaps → ~28,300 logical media items / ~200k physical files; "
-            "confirmed images sit on S3 + CloudFront with no Dynamic Media (EDS pipeline will be an upgrade).",
-            "Scanned 100% of stories (2,773 EN+CS, 0 fetch errors): 98.7% covered by a small, consistent "
-            "component set that is identical in EN and CS — so Czech adds volume, not complexity.",
-            "Mapped the dynamic back-ends read-only (media-cart, banners, newsletter, search) to size the rebuild; "
-            "only the media-cart zip needs a small serverless function.",
-            "Produced the leadership exec briefing (source-of-truth) and the DA/EDS target architecture; "
-            "every headline number LIVE-reconfirmed before send.",
-            "Verdict: technical complexity moderate and well-understood; the real risk is the fixed 15 Oct date, "
-            "not the build.",
+            "Counted the whole site so scope is based on facts, not guesses: about 13,100 articles and "
+            "pages across 6 languages, and roughly 28,300 images.",
+            "Checked how the site is built today and confirmed nothing blocks the move — the current "
+            "image setup will actually get faster on the new platform.",
+            "Reviewed every story page: they follow a small, consistent set of layouts, and English and "
+            "Czech are built the same way — so adding Czech is more volume, not more effort.",
+            "Looked at the interactive features (media cart, banners, newsletter, search) to understand "
+            "what each will take to rebuild.",
+            "Wrote up the findings for leadership and agreed the overall approach.",
+            "Bottom line: the work is well understood; the main thing to manage is the fixed 15 October "
+            "demo date, not the technology.",
         ],
     },
     {
         "week": "Week 2",
         "dates": "8–11 Sep 2026",
-        "phase": "Capability pilot — /en landing page",
-        "headline": "Migrated the English landing page end-to-end and pixel-matched it to the original.",
+        "phase": "First page rebuilt — English home page",
+        "headline": "Rebuilt the English home page on the new platform so it looks like the original.",
         "image": os.path.join(ASSETS, "week2-en-render.png"),
         "notes": [
-            "Stood up the reusable capability on one page: scraped & analysed /en, then built the block set "
-            "(hero, cards overlay/media/toolbar, carousel, social, newsletter stub).",
-            "Built content-driven import infrastructure (parsers + transformers + orchestrator) and ran it via the "
-            "bulk importer; pushed the page + nav + footer fragments to Document Authoring.",
-            "Content completeness ~97%, 0 source teaser titles missing; live at "
-            "main--skoda-storyboard--larsauffarth.aem.page/en/.",
-            "Extracted the design system from the live site into brand.css (SKODA Next stack, brand green #0e3a2f, "
-            "type scale, spacing, radii, shadows, 1248px container) and applied it globally.",
-            "Pixel-matched at 1440px: rebuilt the promo-box as the source's 1-large + 2-stacked featured grid, "
-            "matched Latest Stories' 2+3 grid, dark Social/Series sections, header wordmark + topbar, and the "
-            "dark-green footer with submenus.",
-            "Fixed real defects found in-browser: restored section-metadata handling the vendored aem.js omitted; "
-            "kept sized derivatives (not 20–34MB masters) so preview stops 409-ing; added a query-index-driven "
-            "Latest Stories block and tag-filtered rails.",
-            "Shipped as a series of reviewed PRs (#2–#25), all merged to main.",
-            "Intentionally deferred/stubbed: media-cart, banners, live newsletter/social feed, search, the other "
-            "5 locales, RSS feed.",
+            "Rebuilt the English home page end-to-end on the new platform, including the top navigation "
+            "and footer.",
+            "Set up a repeatable way to bring pages across automatically, so the rest of the site can "
+            "follow the same path.",
+            "Captured essentially all of the original content — every story headline made it across.",
+            "Applied Škoda's brand look (colours, fonts, spacing) so pages match the design, not a "
+            "generic template.",
+            "Matched the original layout closely — the featured story grid, the story lists, the dark "
+            "brand sections, the header and the footer all line up with the live site.",
+            "Reviewed the result in the browser and fixed the issues we found so it renders cleanly.",
+            "A few interactive pieces are intentionally left for later (media cart, banners, live "
+            "newsletter and social feeds, search, the other languages) — the goal this week was to prove "
+            "the look and the page structure.",
         ],
     },
 ]
