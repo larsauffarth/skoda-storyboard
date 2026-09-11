@@ -81,8 +81,16 @@ WEEKS = [
             "A few interactive pieces were intentionally left out of this test (media cart, banners, live "
             "newsletter and social feeds, search, the other languages) — this week was about proving the "
             "look, the structure, and the process.",
-            "Net: we now have evidence the move is low-risk and a clear list of what to watch for when we "
-            "scale up.",
+            "Client alignment call (10 Sep): confirmed the front-end migration is on solid footing, and "
+            "agreed the biggest open items are organisational, not technical — most importantly, pinning "
+            "down exactly what the 15 October demo needs to show.",
+            "Call also flagged what we still need from the client to keep moving: system access, and "
+            "clarity on scope, ownership, and security/operational requirements — plus deeper areas "
+            "(how authors will work, and some back-end behaviours) to explore next.",
+            "Agreed way of working: run discovery and hands-on build in parallel, so technical progress "
+            "continues while the open questions get resolved.",
+            "Net: we now have evidence the move is low-risk and a clear, shared list of what to nail down "
+            "as we scale up.",
         ],
     },
 ]
