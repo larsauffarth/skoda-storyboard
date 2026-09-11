@@ -304,6 +304,7 @@
 | Red-team of findings / of docs / consistency | `SKODA-ADVERSARIAL-REVIEW.md`, `-REVIEW-2.md`, `-CORRECTNESS-AUDIT.md` |
 | Prior consolidated overview | `SKODA-STORYBOARD-ANALYSIS-OVERVIEW.md` (+ `.html` deck, `SKODA-STORYBOARD-SITE-FACTS.html`) |
 | **Date-driven delivery plan (Oct 15 demo / Jan 2 go-live)** | **`SKODA-DELIVERY-PLAN.md`** (canonical for phasing/scope) |
+| **Client requirements doc → our status mapping (per-ID, ticket-linked)** | **`SKODA-CLIENT-REQUIREMENTS-MAPPING.md`** (maps `CMS-MediaRoomMigration-Requirements-*.pdf` COM/STO/MR/MIG IDs to built/solvable/open status; adds decision D17) |
 | Delivery backlog (epics/tickets) | `skoda/OVERVIEW.md` + `skoda/epics/` + `skoda/tickets/` |
 | **Completeness proof for this master** | `SKODA-MASTER-COVERAGE.md` |
 
