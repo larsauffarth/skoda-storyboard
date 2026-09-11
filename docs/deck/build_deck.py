@@ -62,23 +62,27 @@ WEEKS = [
     {
         "week": "Week 2",
         "dates": "8–11 Sep 2026",
-        "phase": "First page rebuilt — English home page",
-        "headline": "Rebuilt the English home page on the new platform so it looks like the original.",
+        "phase": "Canary migration — English home page",
+        "headline": "Ran one page all the way through as a test — to surface issues early and de-risk the full move.",
         "image": os.path.join(ASSETS, "week2-en-render.png"),
         "notes": [
-            "Rebuilt the English home page end-to-end on the new platform, including the top navigation "
-            "and footer.",
-            "Set up a repeatable way to bring pages across automatically, so the rest of the site can "
-            "follow the same path.",
-            "Captured essentially all of the original content — every story headline made it across.",
-            "Applied Škoda's brand look (colours, fonts, spacing) so pages match the design, not a "
-            "generic template.",
-            "Matched the original layout closely — the featured story grid, the story lists, the dark "
-            "brand sections, the header and the footer all line up with the live site.",
-            "Reviewed the result in the browser and fixed the issues we found so it renders cleanly.",
-            "A few interactive pieces are intentionally left for later (media cart, banners, live "
-            "newsletter and social feeds, search, the other languages) — the goal this week was to prove "
-            "the look and the page structure.",
+            "Deliberately took a single page — the English home page — through the entire migration "
+            "process end-to-end, as a controlled test before committing to the whole site.",
+            "Purpose was de-risking: prove the approach works and, just as importantly, surface the "
+            "problems now — while they're cheap to fix — rather than discovering them mid-rollout.",
+            "It worked: the page was rebuilt on the new platform (including navigation and footer), "
+            "captured essentially all the original content, and matched Škoda's brand look and the "
+            "original layout closely.",
+            "It also did its job as a canary — it revealed real issues we then fixed, e.g. very large "
+            "images that needed handling and a few layout details that had to be matched to the original. "
+            "Better to find these on one page than on thousands.",
+            "Along the way we built a repeatable path for bringing pages across, so the rest of the site "
+            "can follow the same proven route.",
+            "A few interactive pieces were intentionally left out of this test (media cart, banners, live "
+            "newsletter and social feeds, search, the other languages) — this week was about proving the "
+            "look, the structure, and the process.",
+            "Net: we now have evidence the move is low-risk and a clear list of what to watch for when we "
+            "scale up.",
         ],
     },
 ]
