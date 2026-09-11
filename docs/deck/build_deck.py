@@ -63,7 +63,7 @@ WEEKS = [
         "week": "Week 2",
         "dates": "8–11 Sep 2026",
         "phase": "Canary migration — English home page",
-        "headline": "Ran one page all the way through as a test — to surface issues early and de-risk the full move.",
+        "headline": "Ran one page end-to-end as a test to de-risk the full move — and aligned with the client on scope and next steps.",
         "image": os.path.join(ASSETS, "week2-en-render.png"),
         "notes": [
             "Deliberately took a single page — the English home page — through the entire migration "
