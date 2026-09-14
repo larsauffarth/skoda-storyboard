@@ -95,7 +95,8 @@
 - **HQ authors → localized to EN + CS** (primary pair).
 - **DE / SK / SR / SL** — localized **only when a local office opts in** (on-demand).
 - **Some articles exist in only one language** (e.g. SK-only).
-- **Requirement:** the header **language selector must show only the languages a given article actually exists in** (no dead links to untranslated variants).
+- **Requirement:** the header **language selector must show only the languages a given article actually exists in** (no dead links to untranslated variants). **Client-confirmed (walkthrough 2026-09-14, provisional pending transcript):** the header locale list is populated **per page** — e.g. DE shows only if a DE version of that article exists.
+- **Current-state authoring (walkthrough 2026-09-14, provisional):** inside the Media Room, authors currently **copy an article and manually replace the text for other languages** — a manual duplicate-and-translate flow, not assisted translation. Weigh this against the EW-Translation target model when finalizing D1/D13.
 - **EDS approach:** per-locale content trees + per-locale query-index; the selector reads each article's available-locale set (from hreflang/metadata) and renders only those. EW native Translation for on-demand localization. **M1 proves EN + CS**; M2 adds the rest on-demand.
 
 ---

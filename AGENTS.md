@@ -2,6 +2,8 @@
 
 Edge Delivery Services. Read a block first. Omissions are in the repo or known.
 
+**New to this repo?** Start at [`ONBOARDING.md`](ONBOARDING.md) → [`docs/DEVELOPER-GUIDE.md`](docs/DEVELOPER-GUIDE.md) → [`docs/architecture/IMPORT-PIPELINE.md`](docs/architecture/IMPORT-PIPELINE.md).
+
 ## Avoid
 - `scripts/aem.js` is vendored. Never edit.
 - Markup comes from the backend. `curl localhost:3000/x.plain.html` first.

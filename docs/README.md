@@ -4,7 +4,9 @@ Analysis, planning, and delivery docs for the Škoda Storyboard → AEM Edge Del
 Organized into topic subfolders on 2026-09-14 (previously a flat `docs/`). All `.md` here is
 `.hlxignore`'d — these documents are **not served** by EDS; they are project knowledge only.
 
-**Start here:** [`analysis/SKODA-MASTER.md`](analysis/SKODA-MASTER.md) is the canonical findings doc;
+**New developer?** Start at [`../ONBOARDING.md`](../ONBOARDING.md) → [`DEVELOPER-GUIDE.md`](DEVELOPER-GUIDE.md) → [`architecture/IMPORT-PIPELINE.md`](architecture/IMPORT-PIPELINE.md).
+
+**Analysis start point:** [`analysis/SKODA-MASTER.md`](analysis/SKODA-MASTER.md) is the canonical findings doc;
 its §16 Document Map indexes every source report with its current path.
 
 ## Folders
