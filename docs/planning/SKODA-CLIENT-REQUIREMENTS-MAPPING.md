@@ -2,11 +2,11 @@
 
 *Maps every requirement in the client's "Media Room Migration – Requirements" doc (DRAFT baseline, 90% completeness claim, due 25.09.2026) against what we have already identified/analysed and, where relevant, already built in the EN test migration. Each row carries a **Status**.*
 
-**Date:** 2026-09-11 · **Companion to:** `SKODA-MASTER.md` (canonical findings), `SKODA-DELIVERY-PLAN.md` (milestones/decisions), `docs/tickets/OVERVIEW.md` (backlog). **Source requirement doc:** `docs/CMS-MediaRoomMigration-Requirements-110926-1118-1348.pdf`.
+**Date:** 2026-09-11 · **Companion to:** `SKODA-MASTER.md` (canonical findings), `SKODA-DELIVERY-PLAN.md` (milestones/decisions), `docs/tickets/OVERVIEW.md` (backlog). **Source requirement doc:** `../source/CMS-MediaRoomMigration-Requirements-110926-1118-1348.pdf`.
 
-> **Note on scope framing:** the client doc is a **full target-state requirements baseline** (everything the eventual solution must do). Our existing work is scoped to a **capability pilot / 15 Oct demo** (M1) plus a **02 Jan 2027 go-live** (M2), tracked as 48 tickets / 207 SP across 10 epics (updated 2026-09-11: Press Kit detail broken out into SKODA-805–808). Many items the client lists as requirements we have deliberately deferred to a later phase — that is a *phase* status, not a gap in understanding. The doc's own Section 9 ("Out of Scope / Likely Deprecated") already aligns closely with our phasing.
+> **Note on scope framing:** the client doc is a **full target-state requirements baseline** (everything the eventual solution must do). Our existing work is scoped to a **capability pilot / 15 Oct demo** (M1) plus a **02 Jan 2027 go-live** (M2), tracked as 56 tickets / 237 SP across 10 epics (updated 2026-09-11: Press Kit detail broken out into SKODA-805–808; updated 2026-09-14: SKODA-207/604/810 per D18 and gap tickets SKODA-305/809/811/812/906). Many items the client lists as requirements we have deliberately deferred to a later phase — that is a *phase* status, not a gap in understanding. The doc's own Section 9 ("Out of Scope / Likely Deprecated") already aligns closely with our phasing.
 
-> **Decision-log alignment (2026-09-10/11):** statuses below reflect the current `SKODA-DELIVERY-PLAN.md` §8 decision log (D1–D16), including the **media-cart reframe** (D2 — purpose is server-side file-size *reduction* for download, not just client-side zip bundling; WordPress is being switched off) and **consent/OneTrust now OUT of Adobe delivery scope** (D10 — stays with Škoda; analytics stays in). The QR-code restricted-article access is added here as **D17 (new)**.
+> **Decision-log alignment (2026-09-10/11):** statuses below reflect the current `SKODA-DELIVERY-PLAN.md` §8 decision log (D1–D19), including the **media-cart reframe** (D2 — purpose is server-side file-size *reduction* for download, not just client-side zip bundling; WordPress is being switched off) and **consent/OneTrust now OUT of Adobe delivery scope** (D10 — stays with Škoda; analytics stays in). The QR-code restricted-article access is added here as **D17 (new)**.
 
 ---
 
@@ -151,15 +151,15 @@
 | MR-PK04 | Grouped Content (Texts/Infographics/Tech data/Images/Videos) | 5 grouped areas confirmed (§11.11); tabs/accordion/stacked = design detail. **Call (2026-09-14):** the MR media box additionally supports **PDF + infographics** (Storyboard media box is images/videos only), and grouped areas are **conditional per kit** (an area is hidden if that kit has no content of that type) | SKODA-806 | 🟢 Solvable (presentation TBD) |
 | MR-PK05 | FAQ | First FAQ pattern in the doc (§11.10); per-kit vs shared pool TBD | SKODA-807 | 🟡 Open |
 | MR-PK06 | Individual Asset Download | Downloads block | SKODA-502/806 | 🟢 Solvable |
-| MR-PK07 | Complete Press Kit ZIP | Whole-kit zip (§11.12) — same non-EDS-native download problem as media-cart; ties to D2 reduction/packaging. **PoC fallback agreed in principle on the 2026-09-14 call (Lars → Jaroslav):** if the server-side zip packer can't be built in time, ship the **select-all UI that downloads the files separately (unpacked)** for the demo — the zip is a later add. Same fallback covers the media-cart download (COM14) | SKODA-806/902 | 🔵 Solvable-as-service (PoC fallback = unpacked multi-download) |
+| MR-PK07 | Complete Press Kit ZIP | Whole-kit zip (§11.12). **Refined 2026-09-14 (deep pass):** the live whole-kit ZIP is a **pre-built static `.zip` on the CDN** (e.g. `…/Skoda_Epiq_c5a5f2fe.zip`), NOT on-demand packing — so the low-risk EDS pattern is **host a pre-generated asset + author-managed link** (no server runtime needed for the *whole-kit* case). This is easier than the media-cart's arbitrary-selection ZIP (COM14), which is the genuinely non-native one. PoC fallback still available (unpacked multi-download) | SKODA-806/902 | 🔵 Solvable-as-service (PoC fallback = unpacked multi-download) |
 
 ### E–G. Model / Images / Videos (MR-M01–07, MR-I01–05, MR-V01–04)
 
 | Group | Requirement summary | Identified / built | Ticket(s) | Status |
 |---|---|---|---|---|
 | MR-M01–07 | Media Room model page + 5 related-content strips (news/press-kits/stories/images/videos) | Tag-driven aggregation in scope; model page is M1 target; retrieval rules TBD | SKODA-402 | 🟢 Solvable (retrieval rules 🟡) |
-| MR-I01–05 | Image listing / filters / preview / rendition download / add-to-cart | Listing + lightbox + downloads + cart; **Original/1920px dual-rendition** confirmed live (2026-09-14, "12 of 33,313"); rendition strategy ties to D2. **Full Images listing page pulled into M1** (D18) — depends on gallery-lightbox + per-item media-cart, so **D2/D5 are now M1-blocking** | SKODA-203/402/505 | 🟢 Solvable — **M1** (D18); 🔵 cart / D2·D5 |
-| MR-V01–04 | Video listing / filters / playback / download | Vimeo-thumb grid + embeds + downloadable file confirmed live (2026-09-14, "12 of 913"); DAM/source-file model TBD. **Full Videos listing page pulled into M1** (D18) — depends on the Vimeo embed block + per-item media-cart | SKODA-204/503 | 🟢 Solvable — **M1** (D18) |
+| MR-I01–05 | Image listing / filters / preview / rendition download / add-to-cart | Listing + lightbox + downloads + cart; **Original/1920px dual-rendition** confirmed live (2026-09-14 deep pass: **exactly 33,313** images, 12/page load-more, 80-item cart cap, `/direct-download/` origin); rendition strategy ties to D2. **Full Images listing page pulled into M1** (D18) — depends on gallery-lightbox + per-item media-cart. **⚠️ Capability caveat (F2):** the source faceting is **server-side Elasticsearch aggregation over 33k rows** — the EDS query-index + client-side filter (SKODA-402) cannot carry that at production scale; M1 must be a **representative sample** (§9), and the full 33k listing likely needs hosted search (SKODA-901). D2/D5 M1-blocking | SKODA-203/402/505 | 🟢 Solvable at *sample* scale — **M1** (D18); 🔵 cart / D2·D5; full-scale faceting 🟠 (F2) |
+| MR-V01–04 | Video listing / filters / playback / download | Vimeo-`iframe` grid + colorbox lightbox player + direct `.mp4` download + add-to-cart confirmed live (2026-09-14 deep pass: **exactly 913** videos, same Search & Filter Pro engine; the third per-tile control is **add-to-cart**, not a favorites-heart); DAM/source-file model TBD. **Full Videos listing pulled into M1** (D18). **Gotchas:** don't mount 913 live iframes (lazy posters from `i.vimeocdn.com`, instantiate player on play); Vimeo `dnt=1` still fires on interaction → **consent-gate** (OneTrust); duration badge is runtime-only (not in markup) | SKODA-204/503 | 🟢 Solvable — **M1** (D18); consent/perf 🟡 |
 
 ---
 
@@ -239,7 +239,7 @@
 | **D18 (new)** | **Page-type scope split from the 22-URL analysis** (2026-09-14): where do the newly-surfaced/re-classified page types land? (a) **Series** confirmed a real 2-level template; (b) **Images/Videos** are full faceted-listing pages needing gallery/embed/cart; (c) story detail flatten drops in-body galleries/embeds/Media Box; (d) the **5 "company/Page" sub-types**. | `.migration/plans/url-analysis-comparison.md` | **Resolved 2026-09-14:** Series → **M1** (SKODA-207); Images/Videos full listing pages → **M1** (raises D2/D5 to M1-blocking); story full-fidelity → **restore on 1–2 hero demo stories in M1** (SKODA-604); 5 company/Page types → **deferred to M2** (SKODA-810). | 🟢 Resolved (split agreed) |
 | **D19 (new)** | **AI-tool usage reporting / governance** (Škoda + EU AI Act) — Škoda is mandated to monitor and report which AI tools are used, and may restrict the toolset. Surfaced on the 2026-09-14 call. | Client call 2026-09-14 | **Action on us:** Lars to formally notify Škoda that AI is used in the build/migration and share the internal legal-clearance summary (confirmed on the call: no data leaves our realm / no data sent to model providers). Not urgent, but a **compliance obligation** before/at engagement setup — track alongside D16 NFRs. | 🟡 Open — compliance notification owed |
 
-*(D1–D16 already tracked in `SKODA-DELIVERY-PLAN.md` §8. This doc adds D17, D18, D19.)*
+*(D1–D16 were already tracked in `SKODA-DELIVERY-PLAN.md` §8; this doc originated D17–D19. All of D1–D19 now live in the delivery plan §8.)*
 
 **Press-Kit detail (§11.8–11.14) — broken out into E08 tickets (2026-09-11):** previously rolled into SKODA-802 "remaining templates" as a reuse-only import, the §11 detail confirmed it is a *structured* template. Now split into four dedicated tickets:
 
@@ -250,9 +250,9 @@
 | **SKODA-807** | FAQ block (accessible Q/A accordion + FAQPage structured data) | §11.10, MR-PK05 | 2 |
 | **SKODA-808** | Variant/bodywork subsections + selector + internal categorization (facet metadata) | §11.7/§11.9/§11.14, MR-PK03 | 3 |
 
-SKODA-802 slimmed 8→5 SP (Škodapedia + generic pages only); E08 grew 29→41 SP; program 190→207 SP. The **fixed-vs-conditional-sections question (§11.8)** is the key modelling decision carried on SKODA-805 (required fields vs optional/conditional) and needs a live press-kit example (§10 Q6 / §11.1) before the template is locked.
+SKODA-802 slimmed 8→5 SP (Škodapedia + generic pages only); E08 grew 29→41 SP; program 190→207 SP (that was the 2026-09-11 state; the program has since grown to **237 SP / 56 tickets** — E08 now 59 SP — via D18 and the 2026-09-14 gap tickets). The **fixed-vs-conditional-sections question (§11.8)** is the key modelling decision carried on SKODA-805 (required fields vs optional/conditional) and needs a live press-kit example (§10 Q6 / §11.1) before the template is locked.
 
-**Backlog update (2026-09-14, D18 — 22-URL analysis):** three tickets added — **SKODA-207** (Series 2-level template → M1, E02, +3 SP), **SKODA-604** (full-fidelity restore on 1–2 hero stories → M1, E06, +2 SP), **SKODA-810** (company/Page family of 5 sub-types → M2, E08, +8 SP). Program **207→220 SP** across **48→51 tickets**. *(Note: `docs/tickets/OVERVIEW.md` carries a pre-existing ~5 SP reconciliation gap between its §2 epic-index roll-up (now 220) and §5 effort roll-up (now 215) that predates this change and is unrelated to D18.)*
+**Backlog update (2026-09-14, D18 — 22-URL analysis):** three tickets added — **SKODA-207** (Series 2-level template → M1, E02, +3 SP), **SKODA-604** (full-fidelity restore on 1–2 hero stories → M1, E06, +2 SP), **SKODA-810** (company/Page family of 5 sub-types → M2, E08, +8 SP). That took the program to 207→220 SP across 48→51 tickets. **Then (2026-09-14, gap pass)** five more tickets closed the traceability gaps — **SKODA-305** (MR footer → M1, E03, +2), **SKODA-809** (roles), **SKODA-811** (embargo), **SKODA-812** (audit) → E08/M2, **SKODA-906** (QR access) → E09/M2 — bringing the program to **237 SP across 56 tickets** (current canonical total; `docs/tickets/OVERVIEW.md` §2 and §5 both reconciled to 237).
 
 ---
 
@@ -273,7 +273,7 @@ The client marks the doc a DRAFT baseline at ~90% completeness. The sections **t
 
 ## 9. Headline read for the client
 
-- **The doc is well-aligned with our analysis.** Its §9 scope cuts and §10 open questions map almost one-to-one onto our decision log (D1–D17) and phase split — no surprises, no contradictions.
+- **The doc is well-aligned with our analysis.** Its §9 scope cuts and §10 open questions map almost one-to-one onto our decision log (D1–D19) and phase split — no surprises, no contradictions.
 - **A large share of the *common* + *Storyboard homepage* surface is already built and published** on the EN test migration (header, footer, nav, hero, cards, carousel, featured promo, latest stories, 4 tag-rails, social, app badges, 48 imported stories) — plus the Layout-editability fix and the shared-index-fetch perf fix.
 - **The genuinely hard items are the same three we already flagged:** (1) faceted listing/search over a normalized 15-facet index, (2) the media-cart / whole-kit-ZIP **download-size reduction** (non-EDS-native, now server-side per D2 — covers both COM14 and PK07), and (3) the backend-as-service rebuilds (newsletter, banners, analytics) which the client themselves defer.
 - **New/expanded in this doc vs our prior corpus:** the Press-Kit detail structure (§11.8–11.14), the **QR-code restricted-article end-user access** (§6.6 → new **D17**), and the explicit "Latest News on Stories side" question — all captured as 🟡 needs-input above.
@@ -286,8 +286,9 @@ The client marks the doc a DRAFT baseline at ~90% completeness. The sections **t
 - `SKODA-M1-DEMO-TARGET.md` — tiered M1 demo scope + signable definition-of-done, built on the statuses in this doc.
 - `SKODA-AGENT-HANDOFF-CANDIDATES.md` — which parts can be handed to an autonomous agentic team.
 - `SKODA-DELIVERY-PLAN.md` §8 — decision log D1–D19 (D17 QR-access, D18 page-type split, D19 AI-tool reporting now folded into the plan).
-- `docs/tickets/OVERVIEW.md` — 51-ticket / 220-SP backlog referenced in the Ticket(s) columns (SKODA-207/604/810 added 2026-09-14 per D18).
+- `docs/tickets/OVERVIEW.md` — 56-ticket / 237-SP backlog referenced in the Ticket(s) columns (SKODA-207/604/810 added per D18; SKODA-305/809/811/812/906 added in the 2026-09-14 gap pass).
+- `SKODA-REQUIREMENTS-TRACEABILITY.md` — the bidirectional requirement↔ticket matrix (every ID → ticket → M1/M2 milestone path) + the open-gap register, built from this doc's ticket refs.
 - `.migration/plans/url-analysis-comparison.md` + `url-analysis-matrix.json` — the 22-URL block-by-block gap analysis (2026-09-14) that surfaced D18.
 - `SKODA-MEDIA-CART-DOWNLOAD.md` — media-cart / download-reduction options (D2).
 - `SKODA-EDS-DA-ARCHITECTURE.md` §6 — DA/EW Layout-editability (relevant to §6.1/6.2, D13).
-- Source: `docs/CMS-MediaRoomMigration-Requirements-110926-1118-1348.pdf`.
+- Source: `../source/CMS-MediaRoomMigration-Requirements-110926-1118-1348.pdf`.

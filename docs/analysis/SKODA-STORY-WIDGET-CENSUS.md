@@ -1,6 +1,6 @@
 # Škoda Story Corpus — Full Widget Census (EN + CS, 100%)
 
-**De-risks:** `skoda/tickets/SKODA-801.md` (SiteOrigin flatten) — moves from *sampled* to *near-complete* confidence.
+**De-risks:** `../tickets/tickets/SKODA-801.md` (SiteOrigin flatten) — moves from *sampled* to *near-complete* confidence.
 **Supersedes:** the 5-story POC and 40-story census in `SKODA-FLATTENER-POC-FINDINGS.md`.
 **Date:** 2026-09-07
 **What ran:** enumerated **every EN + CS story** from the WordPress REST API and **scanned 100% of them** (2,773 pages, 0 fetch errors) for the SiteOrigin widget tree — capturing per-page widget **types**, **ordered recipe**, and **panel/row counts**. Read-only, raw HTML (rendered fidelity `[RUNTIME-UNCONFIRMED]`).

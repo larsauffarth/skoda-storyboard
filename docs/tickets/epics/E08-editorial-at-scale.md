@@ -14,10 +14,13 @@
 - **SKODA-807 — FAQ block (Press Kit)** (2SP) — accessible Q/A accordion + FAQPage structured data. Requirements §11.10, MR-PK05.
 - **SKODA-808 — Press Kit variant subsections + selector + internal categorization** (3SP) — nested variant subsections, variant/bodywork selector, facet metadata. Requirements §11.7/§11.9/§11.14, MR-PK03.
 - **SKODA-810 — Company/Page template family (5 sub-types)** (8SP) — board-of-management (exec-bio accordion), annual-reports (download-list), company-logo (brand-asset grid), media-services-application (app-promo), contacts (contact-directory). Five net-new blocks surfaced by the 22-URL analysis (2026-09-14), deferred to M2 per D18.
+- **SKODA-809 — Roles & permissions (7 editorial user groups)** (5SP) — DA/EW permission model + content-tree scoping; blocked on governance/RACI (D15). Closes gap G2 (§6.4).
+- **SKODA-811 — Content embargo (staged-publish)** (3SP) — group-restricted preview + publish-on-date; native EDS pattern (approach agreed 2026-09-14). Closes gap G3 (§6.5 / D9). M1-Stretch only in *ungated* form (group-gate depends on SKODA-809, M2/D15-blocked — F4).
+- **SKODA-812 — Auditability (author change-history)** (2SP) — validate + configure DA/EW audit log; multi-agency attribution. Closes gap G5 (§6.7).
 
 ## Effort roll-up
-- **Total: 49 SP** · AI-assisted ~19–31d / manual ~37–62d *(planning estimates, not a quote)* — SKODA-801 re-pointed 13→8 SP after the flattener POC + census (`SKODA-FLATTENER-POC-FINDINGS.md`); Press Kit detail broken out of SKODA-802 into SKODA-805–808 (+15 SP net) after the requirements doc (§11) confirmed it is a structured template, not a reuse-only import (2026-09-11); SKODA-810 (company/Page family, +8 SP) added 2026-09-14 per D18.
-- Critical path: SKODA-801 (blocks 802 and 803); SKODA-805 (blocks 806/807/808).
+- **Total: 59 SP** · AI-assisted ~22–38d / manual ~44–77d *(planning estimates, not a quote)* — SKODA-801 re-pointed 13→8 SP after the flattener POC + census (`SKODA-FLATTENER-POC-FINDINGS.md`); Press Kit detail broken out of SKODA-802 into SKODA-805–808 (+15 SP net) after the requirements doc (§11) confirmed it is a structured template, not a reuse-only import (2026-09-11); SKODA-810 (company/Page family, +8 SP) added 2026-09-14 per D18; the governance-layer tickets SKODA-809/811/812 (+10 SP) added 2026-09-14 to close traceability gaps G2/G3/G5 (§6.4/6.5/6.7).
+- Critical path: SKODA-801 (blocks 802 and 803); SKODA-805 (blocks 806/807/808). Governance layer (809→811/812) gated on D15.
 
 ## Source-doc traceability
 - SKODA-EDS-DA-ARCHITECTURE.md §12 (Phase B roadmap), §4 (Story → flatten SiteOrigin), §10 (import pipeline)

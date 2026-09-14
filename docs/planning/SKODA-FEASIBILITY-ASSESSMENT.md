@@ -111,7 +111,7 @@ Provisioned via the PM's consolidated team list; interim doc-exchange via the Sh
 ---
 
 ## 7. Cross-references
-- `SKODA-DELIVERY-PLAN.md` §8 — open decisions D1–D16 (call outcomes folded in).
+- `SKODA-DELIVERY-PLAN.md` §8 — open decisions D1–D19 (call outcomes folded in).
 - `SKODA-DISCOVERY-SESSION-OCT15.md` — agenda to drive open items to owner + date.
 - `SKODA-MEDIA-CART-DOWNLOAD.md` — corrected: server-side rendition reduction, client-side zip demoted.
 - `SKODA-EDS-DA-ARCHITECTURE.md` — target architecture (assumes DA; revisit under D13).

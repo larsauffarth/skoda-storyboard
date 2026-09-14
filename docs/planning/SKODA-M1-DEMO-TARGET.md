@@ -164,7 +164,7 @@ Everything in that sentence is either **done** or **assembly of done parts + one
 
 ## 9. Cross-references
 
-- `SKODA-DELIVERY-PLAN.md` §2 (M1 demo scope), §6 (risks), §8 (decision log D1–D18).
+- `SKODA-DELIVERY-PLAN.md` §2 (M1 demo scope), §6 (risks), §8 (decision log D1–D19).
 - `SKODA-CLIENT-REQUIREMENTS-MAPPING.md` — per-ID build status behind the tiers here.
 - `SKODA-SOLUTION-DESIGN.html` — client-facing PoC solution-design deck (Minimum/Target/Stretch across both sites, end-to-end); the client-discussion framing built on this doc's tiers.
 - `SKODA-AGENT-HANDOFF-CANDIDATES.md` — the blueprint/method narrative (Tier 3).

@@ -10,10 +10,11 @@
 - **SKODA-903 — Banner ad platform** (8SP) — per-market feed + small vanilla client block with content-tag/geo/frequency targeting. Challenge whether the full ad-server machinery is needed vs. a simpler featured-promo block.
 - **SKODA-904 — Newsletter / subscriber** (8SP) — ESP-fronted (mailguide.cz or replacement) form block with double-opt-in, consent, and honeypot.
 - **SKODA-905 — skoda-analytics rebuild** (8SP) — dataLayer event schema + per-block event wiring; the cross-cutting instrumentation module every interactive block feeds.
+- **SKODA-906 — Restricted end-user article access (QR-code journey)** (5SP, provisional) — end-user gated delivery (EDS has none natively); investigation + build once the access model is defined. Blocked on D17. Closes gap G4 (§6.6). Distinct from author-side embargo (SKODA-811).
 
 ## Effort roll-up
-- **Total: 40 SP** · AI-assisted ~15–25d / manual ~30–54d *(planning estimates, not a quote)*
-- SKODA-901 is decision-gated (may drop). **SKODA-902 re-scoped 13→8 SP** — the demo cart + client-side zip moved to M1 (SKODA-505, E05); this ticket now covers production hardening only.
+- **Total: 45 SP** · AI-assisted ~17–28d / manual ~34–62d *(planning estimates, not a quote)*
+- SKODA-901 is decision-gated (may drop). **SKODA-902 re-scoped 13→8 SP** — the demo cart + client-side zip moved to M1 (SKODA-505, E05); this ticket now covers production hardening only. **SKODA-906 (+5 SP)** added 2026-09-14 to close gap G4 (§6.6/D17); SP provisional pending the D17 access model.
 
 ## Source-doc traceability
 - SKODA-COMPLEX-SYSTEMS-DEEP-DIVE.md §2.1–§2.4 (search/banner/newsletter/media-cart dossiers), §2.6 (skoda-analytics), §4 (integration boundary map)

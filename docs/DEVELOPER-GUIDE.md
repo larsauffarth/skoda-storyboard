@@ -194,7 +194,7 @@ npm run lint:fix                  # auto-fix
 | Why it's built this way (source-site analysis, canonical findings) | [`analysis/SKODA-MASTER.md`](analysis/SKODA-MASTER.md) (§16 indexes every source report) |
 | Content-import machinery (parsers/transformers/DA push) | [`architecture/IMPORT-PIPELINE.md`](architecture/IMPORT-PIPELINE.md) |
 | Target architecture, build specs | [`architecture/`](architecture/) |
-| Milestones, scope, decision log (D1–D18) | [`planning/SKODA-DELIVERY-PLAN.md`](planning/SKODA-DELIVERY-PLAN.md) |
+| Milestones, scope, decision log (D1–D19) | [`planning/SKODA-DELIVERY-PLAN.md`](planning/SKODA-DELIVERY-PLAN.md) |
 | Backlog (epics + SKODA-* tickets) | [`tickets/OVERVIEW.md`](tickets/OVERVIEW.md) |
 | The rules that override defaults | [`../AGENTS.md`](../AGENTS.md) |
 | EDS platform docs | https://www.aem.live/docs/ |

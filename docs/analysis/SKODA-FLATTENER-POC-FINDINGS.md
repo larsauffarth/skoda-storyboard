@@ -2,7 +2,7 @@
 
 > **⏱ SUPERSEDED IN PART (2026-09-07):** §11's widget census (40 stories, 6 types) is now superseded by the **full 100% EN+CS census** (`SKODA-STORY-WIDGET-CENSUS.md`, 2,773 stories, 0 errors) — the true set is **17 canonical types** (the sample undercounted the long tail), but the conclusion **strengthens**: 98.7% of stories / 99.85% of instances are covered by simple mapped widgets, only 1.3% (36 stories) need special handling, and the widget set is **locale-invariant (EN = CS)**. The census also surfaced **101 non-Page-Builder stories (3.6%)** and **large-tree outliers (208 widgets / 293 panel-grids)** — both now in SKODA-801. **Use `SKODA-STORY-WIDGET-CENSUS.md` as the canonical widget reference; this POC remains the record of the parser mechanism + fidelity method.**
 
-**De-risks:** `skoda/tickets/SKODA-801.md` (SiteOrigin Page-Builder flatten — the M1 critical-path parser).
+**De-risks:** `../tickets/tickets/SKODA-801.md` (SiteOrigin Page-Builder flatten — the M1 critical-path parser).
 **Date:** 2026-09-07
 **What ran:** a throwaway Node POC (`flatten.mjs`) parsing the **raw server HTML** of **5 real EN stories**, walking the SiteOrigin tree, classifying every widget, mapping to flat EDS output, and measuring content fidelity. Read-only; no DA push; no Git. Structural fidelity only — rendering needs a browser (`[RUNTIME-UNCONFIRMED]`).
 

@@ -98,6 +98,8 @@ This is exactly how the M1 backlog scopes Series (SKODA-207), the Media Room hom
 | **Publish before you expect listings** | Index-driven blocks need published pages + a rebuilt index. |
 | **Media masters** | 20–40 MB masters 409 the content bus; pre-condition first. Don't strip the `-WxH` suffix on demo images. |
 | **`.bundle.js` is the runnable one** | Edit `import-<name>.js`, then re-bundle; the bulk runner executes the bundle, not the source. |
+| **Scraper drift + shared work dir** *(2026-09-14 page-analysis pass)* | The excat scraper repeatedly landed on the **Peaq model page** for several different URLs — some Media Room URLs do a **client-side redirect** the headless browser follows, and a **shared `migration-work/` dir** let parallel runs overwrite each other's `page-structure.json`/`metadata.json`. **Mitigation:** scrape each URL into its **own** output dir; when a page client-redirects, verify against a **raw SSR `curl`** (the target returns 200 with self-canonical HTML) rather than trusting the headless capture; treat drifted artifacts as suspect. |
+| **Press-kit = N+1 documents** | A press kit is a **hub + 8 chapter sub-pages + 5 resource sub-pages** sharing one **chapter sub-nav fragment** (`fragment.js` is the sanctioned cross-block import). Import the sub-nav once as a fragment, not per page. Whole-kit ZIP is a **pre-built static CDN asset** (author-managed link), not on-demand packing. |
 
 ---
 

@@ -67,7 +67,7 @@ These are **not drops** — the finding is represented in the master; the granul
 - Per-media-type dossiers & size distributions → `SKODA-MEDIA-*`.
 - Per-system `decorate()` outlines & DA table shapes → `SKODA-SYSTEM-BUILD-SPECS.md`.
 - aem.live doc citations (which doc supports which mechanism) → `SKODA-EDS-DA-ARCHITECTURE.md`.
-- Ticket-level requirements/acceptance criteria → `skoda/tickets/`.
+- Ticket-level requirements/acceptance criteria → `../tickets/tickets/`.
 - Adversarial falsification logs (hypothesis→test→verdict) → `SKODA-ADVERSARIAL-REVIEW*.md`.
 
 ---

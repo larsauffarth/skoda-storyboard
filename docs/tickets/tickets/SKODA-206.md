@@ -4,8 +4,7 @@
 - **Phase:** A  ·  **Pilot:** Yes · **Milestone:** M1 (15 Oct demo)
 - **Estimate:** 5 SP · AI-assisted 2–3d / manual 4–6d *(planning estimate, not a quote)*
 
-## Summary
-Build the Škodapedia glossary block — an inline A–Z term directory with client-side letter/category filtering and an accessible term-detail modal — so the encyclopedia template is proven in the capability pilot.
+> ⚠️ **Scope caveat (adversarial finding F6, 2026-09-14):** the client **§9** states Škodapedia *"continues **outside** Storyboard, so Storyboard should not be designed around its current inclusion."* This ticket is therefore scoped as **"prove the encyclopedia/glossary block pattern only"** — the actual Škodapedia *content* lives outside Storyboard and is not migrated here. **Candidate to drop from M1** if the pilot needs the 5 SP; keep only if the glossary pattern is wanted as a demo showcase. Confirm with the client before building.
 
 ## Description
 Škodapedia is a self-contained encyclopedia template (189 EN pages). Per `SKODA-SYSTEM-BUILD-SPECS.md` §5 and `SKODA-COMPLEX-SYSTEMS-DEEP-DIVE.md`: the source renders **all term titles inline** (212 `sp__list-directory__item`) with **27 A–Z nav links**, and the letter/category filter is **100% client-side CSS-class matching (no fetch)**. Only the **term detail** is a thin fetch today (`skodapedia/v1/term/{id}` → ready-rendered HTML). In EDS this is **eliminable**: pre-bake each term as a `/modals/` doc → the glossary becomes **fully static, no runtime API** (`SKODA-EDS-DA-ARCHITECTURE.md` §3/§5).
