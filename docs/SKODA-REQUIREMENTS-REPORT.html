@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Škoda Storyboard & Media Room — Requirements Status & Demo/Go-Live Split</title>
+<style>
+  :root {
+    --green: #0e3a2f;
+    --green-bright: #4ba82e;
+    --ink: #1a1a1a;
+    --muted: #5c6670;
+    --line: #e2e6e9;
+    --bg: #f6f8f9;
+    --card: #ffffff;
+    --red: #c0392b;
+    --amber: #e08a1e;
+    --amber-dk: #b5651d;
+    --lime: #4ba82e;
+    --blue: #2b7bb9;
+    --grey: #8a949c;
+    --chip-bg: #eef3f0;
+    --shadow: 0 1px 3px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.05);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  header.hero {
+    background: linear-gradient(135deg, var(--green) 0%, #14513f 60%, #1c6b4f 100%);
+    color: #fff;
+    padding: 40px 32px 34px;
+  }
+  header.hero .kicker { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--green-bright); margin: 0 0 8px; }
+  header.hero h1 { font-size: 32px; font-weight: 800; margin: 0 0 10px; line-height: 1.15; }
+  header.hero p.sub { margin: 0; color: #d6e4dd; max-width: 820px; font-size: 15px; }
+  header.hero .meta { margin-top: 16px; font-size: 12.5px; color: #b9cdc4; }
+  main { max-width: 1180px; margin: 0 auto; padding: 28px 24px 64px; }
+
+  .stats { display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 26px; }
+  .stat { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; box-shadow: var(--shadow); min-width: 118px; flex: 1; }
+  .stat .n { font-size: 26px; font-weight: 800; line-height: 1; }
+  .stat .l { font-size: 11.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-top: 5px; }
+
+  section { margin: 34px 0 0; }
+  h2 { font-size: 21px; margin: 0 0 6px; color: var(--green); border-left: 4px solid var(--green-bright); padding-left: 12px; }
+  h2 .sec-note { font-size: 13px; font-weight: 400; color: var(--muted); display: block; margin-top: 3px; padding-left: 0; }
+  h3 { font-size: 15px; margin: 22px 0 8px; color: var(--ink); }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 20px; }
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 6px 0 18px; }
+  .filters .flabel { font-size: 12px; color: var(--muted); font-weight: 600; margin-right: 4px; }
+
+  .badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 700; padding: 3px 9px; border-radius: 20px; white-space: nowrap; border: 1px solid transparent; }
+  .badge .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .b-built  { background: #e6f4e6; color: #1e6b1e; } .b-built .dot { background: var(--lime); }
+  .b-solv   { background: #e9f6ec; color: #227a3a; } .b-solv .dot { background: #43a047; }
+  .b-serv   { background: #e7f1fa; color: #1c5a86; } .b-serv .dot { background: var(--blue); }
+  .b-dec    { background: #fdf0e2; color: var(--amber-dk); } .b-dec .dot { background: var(--amber); }
+  .b-input  { background: #fdf7e4; color: #927012; } .b-input .dot { background: #e3c53a; }
+  .b-def    { background: #fbe9e7; color: var(--red); } .b-def .dot { background: var(--red); }
+
+  button.fbtn { cursor: pointer; font: inherit; }
+  .fbtn { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 4px 12px; font-size: 12px; font-weight: 600; color: var(--muted); }
+  .fbtn.active { background: var(--green); color: #fff; border-color: var(--green); }
+
+  .ms { display: inline-flex; align-items: center; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 5px; }
+  .ms-m1 { background: #e6f4e6; color: #1e6b1e; }
+  .ms-m2 { background: #eef1f4; color: #445; }
+  .ms-out { background: #f4eef0; color: #8a5a6a; }
+
+  table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); font-size: 13.5px; }
+  thead th { background: #f0f3f2; text-align: left; padding: 9px 12px; font-size: 11.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); border-bottom: 1px solid var(--line); }
+  tbody td { padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: 0; }
+  tbody tr:hover { background: #fafcfb; }
+  td.id { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12px; font-weight: 700; color: var(--green); white-space: nowrap; }
+  td.tk { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11.5px; color: var(--muted); white-space: nowrap; }
+  td.req { font-weight: 600; }
+  td.note { color: var(--muted); font-size: 12.5px; }
+
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 12px; }
+  @media (max-width: 820px) { .split { grid-template-columns: 1fr; } }
+  .panel { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; box-shadow: var(--shadow); }
+  .panel.m1 { border-top: 4px solid var(--green-bright); }
+  .panel.m2 { border-top: 4px solid var(--grey); }
+  .panel h3 { margin-top: 0; font-size: 16px; }
+  .panel .date { font-size: 12px; color: var(--muted); font-weight: 600; }
+  .panel ul { margin: 10px 0 0; padding-left: 18px; }
+  .panel li { margin: 5px 0; font-size: 13.5px; }
+  .panel li b { color: var(--ink); }
+  .tier { font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 4px; margin-right: 5px; }
+  .t1 { background: #e6f4e6; color: #1e6b1e; }
+  .t2 { background: #e7f1fa; color: #1c5a86; }
+  .t3 { background: #f3e9f7; color: #7a3d95; }
+
+  .callout { background: #fff8ec; border: 1px solid #f0dcb0; border-left: 4px solid var(--amber); border-radius: 8px; padding: 14px 16px; margin: 16px 0; font-size: 13.5px; }
+  .callout b { color: var(--amber-dk); }
+  .callout.green { background: #eef7ee; border-color: #c4e2c4; border-left-color: var(--green-bright); }
+  .callout.green b { color: #1e6b1e; }
+
+  .dtable td.d { font-family: ui-monospace, monospace; font-weight: 700; color: var(--green); white-space: nowrap; }
+  footer { max-width: 1180px; margin: 0 auto; padding: 24px; color: var(--muted); font-size: 12px; border-top: 1px solid var(--line); }
+  .hide { display: none !important; }
+  a { color: #1c5a86; }
+</style>
+</head>
+<body>
+<header class="hero">
+  <p class="kicker">Škoda Auto · Storyboard &amp; Media Room → Adobe Edge Delivery</p>
+  <h1>Requirements Status &amp; Demo / Go-Live Split</h1>
+  <p class="sub">Every requirement from the client baseline (<code>CMS-MediaRoomMigration-Requirements</code>, DRAFT, ~90% complete) mapped to our current build status, cross-referenced to backlog tickets, and sorted into the two milestone deliveries. Statuses reflect the live decision log (D1–D17) and the published <code>/en</code> test migration. <b>Section&nbsp;8</b> adds the full <b>48-ticket delivery backlog</b> in order, each with our approach and open questions.</p>
+  <p class="meta">Generated 2026-09-11 · Target: DA / Experience Workspace + EDS · Companion to SKODA-CLIENT-REQUIREMENTS-MAPPING.md, SKODA-M1-DEMO-TARGET.md, SKODA-DELIVERY-PLAN.md, docs/tickets/OVERVIEW.md · Ticket source: CMS-MediaRoomMigration-Requirements PDF</p>
+</header>
+
+<main>
+  <div class="stats">
+    <div class="stat"><div class="n" style="color:var(--lime)">17</div><div class="l">Built ✅</div></div>
+    <div class="stat"><div class="n" style="color:#43a047">40</div><div class="l">Solvable 🟢</div></div>
+    <div class="stat"><div class="n" style="color:var(--blue)">5</div><div class="l">As-service 🔵</div></div>
+    <div class="stat"><div class="n" style="color:var(--amber)">9</div><div class="l">Open · decision 🟠</div></div>
+    <div class="stat"><div class="n" style="color:#927012">10</div><div class="l">Open · input 🟡</div></div>
+    <div class="stat"><div class="n" style="color:var(--red)">9</div><div class="l">Deferred 🔴</div></div>
+    <div class="stat"><div class="n" style="color:var(--green)">90</div><div class="l">Requirements total</div></div>
+  </div>
+
+  <div class="callout green">
+    <b>Headline:</b> the Common + Storyboard-homepage surface is largely <b>already built and published</b> on <code>/en</code>. The remaining work concentrates in Media Room assembly, one dynamic feature (media cart), and backend-as-service rebuilds the client themselves defer. The client's stated demo bar is a <em>frontend + fidelity + one dynamic feature + blueprint</em> story — which is why M1 is <b>gap-closing + assembly</b>, not a build from zero.
+  </div>
+
+  <div class="legend">
+    <span class="badge b-built"><span class="dot"></span>Built — live on /en</span>
+    <span class="badge b-solv"><span class="dot"></span>Solvable — path known, ticketed</span>
+    <span class="badge b-serv"><span class="dot"></span>Solvable-as-service</span>
+    <span class="badge b-dec"><span class="dot"></span>Open — decision (D-item)</span>
+    <span class="badge b-input"><span class="dot"></span>Open — needs client input</span>
+    <span class="badge b-def"><span class="dot"></span>Deferred / out of scope this phase</span>
+  </div>
+
+  <div class="filters">
+    <span class="flabel">Filter status:</span>
+    <button class="fbtn active" data-f="all">All</button>
+    <button class="fbtn" data-f="built">Built</button>
+    <button class="fbtn" data-f="solv">Solvable</button>
+    <button class="fbtn" data-f="serv">As-service</button>
+    <button class="fbtn" data-f="dec">Open·decision</button>
+    <button class="fbtn" data-f="input">Open·input</button>
+    <button class="fbtn" data-f="def">Deferred</button>
+    <span class="flabel" style="margin-left:12px">Milestone:</span>
+    <button class="fbtn active" data-m="all">All</button>
+    <button class="fbtn" data-m="m1">M1 demo</button>
+    <button class="fbtn" data-m="m2">M2 go-live</button>
+  </div>
+
+  <!-- ============ SECTION 1 ============ -->
+  <section>
+    <h2>1 · Common — Stories &amp; Media Room<span class="sec-note">§5.1 · COM01–COM19 · site-wide capabilities</span></h2>
+    <table>
+      <thead><tr><th>ID</th><th>Requirement</th><th>Status</th><th>Milestone</th><th>Ticket</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr data-s="built" data-m="m1"><td class="id">COM01</td><td class="req">Site Header</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">301/302</td><td class="note">Header, topbar, mega-menu, brand wordmark live; Media Room nav variant to add.</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">COM02</td><td class="req">Section Switcher (Stories ↔ Media Room)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">301</td><td class="note">Topbar links built; active-state + MR destination pending.</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">COM03</td><td class="req">Primary Navigation (per-section)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">301</td><td class="note">Stories nav built; Media Room nav set to add.</td></tr>
+        <tr data-s="input" data-m="m2"><td class="id">COM04</td><td class="req">Model / Secondary Navigation</td><td><span class="badge b-input"><span class="dot"></span>Input</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">301</td><td class="note">Mechanism proven; structure to confirm.</td></tr>
+        <tr data-s="dec" data-m="m1"><td class="id">COM05</td><td class="req">Language / Country Selector (only authored variants)</td><td><span class="badge b-dec"><span class="dot"></span>Decision</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">303/1003</td><td class="note">Switcher built; "show only existing" rule — D1 locale scope.</td></tr>
+        <tr data-s="dec" data-m="m2"><td class="id">COM06</td><td class="req">Global Search</td><td><span class="badge b-dec"><span class="dot"></span>Decision</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">403/901</td><td class="note">Index-only for demo; D6 hosted-search for go-live.</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">COM07</td><td class="req">Listing / Filtering (facets)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">401/402</td><td class="note">15 facets; demo subset per D12; needs normalization layer.</td></tr>
+        <tr data-s="built" data-m="m1"><td class="id">COM08</td><td class="req">Content Card (Story/News/Series/Model/Media)</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">201</td><td class="note">Card variants live; News/Media variants to add.</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">COM09</td><td class="req">Hero / Page Banner</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">202</td><td class="note">hero-image block built; variants identified.</td></tr>
+        <tr data-s="built" data-m="m1"><td class="id">COM10</td><td class="req">Carousel / Slider</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">201</td><td class="note">Drag/arrows/snap; reused via buildBlock for rails.</td></tr>
+        <tr data-s="built" data-m="m1"><td class="id">COM11</td><td class="req">Pagination / Load More</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">402</td><td class="note">Load-more live on Latest Stories.</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">COM12</td><td class="req">Media Preview — Actions (lightbox)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">203</td><td class="note">Lightbox ticketed; a11y focus-trap to verify.</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">COM13</td><td class="req">Media Download (single/multi, renditions)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">501/502</td><td class="note">Downloads block; masters-only ingest; AEM Assets.</td></tr>
+        <tr data-s="serv" data-m="m1"><td class="id">COM14</td><td class="req">Media Cart (collect across browsing)</td><td><span class="badge b-serv"><span class="dot"></span>As-service</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">505/902</td><td class="note">Full UI + loop-closing download in demo; server-side reduction/ZIP → M2 (D2).</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">COM15</td><td class="req">Social Share</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">304</td><td class="note">Channels identified; footer social built.</td></tr>
+        <tr data-s="def" data-m="m2"><td class="id">COM16</td><td class="req">Subscription / Newsletter</td><td><span class="badge b-def"><span class="dot"></span>Deferred</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">904</td><td class="note">10-route account today; stub only in demo — D4.</td></tr>
+        <tr data-s="def" data-m="m2"><td class="id">COM17</td><td class="req">Cookie / Consent</td><td><span class="badge b-def"><span class="dot"></span>Deferred</span></td><td><span class="ms ms-out">Out</span></td><td class="tk">804</td><td class="note">D10: consent OUT of Adobe delivery scope (stays with Škoda); stub only.</td></tr>
+        <tr data-s="built" data-m="m1"><td class="id">COM18</td><td class="req">Footer (Škoda pattern, badges, sitemap)</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">304</td><td class="note">Dark-green footer, 7-col grid, social, app badges live.</td></tr>
+        <tr data-s="built" data-m="m1"><td class="id">COM19</td><td class="req">App Download Badge</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">304</td><td class="note">App-store badges in footer.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============ SECTION 2 ============ -->
+  <section>
+    <h2>2 · Storyboard Functional<span class="sec-note">§5.2 · homepage · category · series · model · story-detail</span></h2>
+    <h3>A · Storyboard Homepage (STO-H01–H09)</h3>
+    <table>
+      <thead><tr><th>ID</th><th>Requirement</th><th>Status</th><th>Milestone</th><th>Ticket</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr data-s="built" data-m="m1"><td class="id">STO-H01</td><td class="req">Promotional / Featured Carousel</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">201</td><td class="note">Index-driven promo; curation-vs-auto open (Q11).</td></tr>
+        <tr data-s="built" data-m="m1"><td class="id">STO-H02</td><td class="req">Latest Stories</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">402</td><td class="note">Query-index driven; press-releases excluded; load-more.</td></tr>
+        <tr data-s="built" data-m="m1"><td class="id">STO-H03</td><td class="req">Models Slider</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">201</td><td class="note">Static caption rail; source/order 🟡.</td></tr>
+        <tr data-s="built" data-m="m1"><td class="id">STO-H04</td><td class="req">eMobility Stories Slider</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">402</td><td class="note">story-rail, tag-filtered.</td></tr>
+        <tr data-s="built" data-m="m1"><td class="id">STO-H05</td><td class="req">Lifestyle Stories Slider</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">402</td><td class="note">story-rail (lifestyle).</td></tr>
+        <tr data-s="built" data-m="m1"><td class="id">STO-H06</td><td class="req">Škoda World Stories Slider</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">402</td><td class="note">story-rail (skoda-world).</td></tr>
+        <tr data-s="built" data-m="m1"><td class="id">STO-H07</td><td class="req">Series Slider</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">201</td><td class="note">Undated caption style; sort/clickability 🟡.</td></tr>
+        <tr data-s="built" data-m="m1"><td class="id">STO-H08</td><td class="req">Latest News</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">402</td><td class="note">story-rail (press-releases); source scope 🟡 (Q12).</td></tr>
+        <tr data-s="built" data-m="m1"><td class="id">STO-H09</td><td class="req">Social Media</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">201</td><td class="note">Static social block; live feed 🔴 (not live at source).</td></tr>
+      </tbody>
+    </table>
+
+    <h3>B–D · Category / Series / Model pages (STO-C, STO-S, STO-M)</h3>
+    <table>
+      <thead><tr><th>ID</th><th>Requirement</th><th>Status</th><th>Milestone</th><th>Ticket</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr data-s="solv" data-m="m2"><td class="id">STO-C01–05</td><td class="req">Category page (hero, results grid, card, pagination)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">202/402</td><td class="note">Components exist; template assembly later-phase.</td></tr>
+        <tr data-s="solv" data-m="m2"><td class="id">STO-S01–03</td><td class="req">Series page (hero, grid, card)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">201/202</td><td class="note">Components exist; template not assembled; ordering 🟡.</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">STO-M01–05</td><td class="req">Storyboard Model page (hero, featured, related grid)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">201/402</td><td class="note">Named M1 target ("one Model page"); tag-driven, retrieval rules 🟡.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>E · Story Detail Page (STO-D01–D10)</h3>
+    <table>
+      <thead><tr><th>ID</th><th>Requirement</th><th>Status</th><th>Milestone</th><th>Ticket</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr data-s="built" data-m="m1"><td class="id">STO-D01</td><td class="req">Story Hero (title/image/perex/date/category)</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">202/603</td><td class="note">48 stories imported with metadata.</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">STO-D02</td><td class="req">Rich Text (flexible composition)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">801</td><td class="note">SiteOrigin flatten proven (17 widget types, 98.7% simple).</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">STO-D03</td><td class="req">Embedded Video (+ consent)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">204</td><td class="note">Embed autoblock (Vimeo/YouTube/…), dnt=1, lazy.</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">STO-D04</td><td class="req">Image Carousel / Gallery (auto-play)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">203</td><td class="note">Gallery + lightbox; auto-play a11y (pause) flagged.</td></tr>
+        <tr data-s="def" data-m="m2"><td class="id">STO-D05</td><td class="req">Newsletter Widget</td><td><span class="badge b-def"><span class="dot"></span>Deferred</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">904</td><td class="note">Stub only — D4.</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">STO-D06</td><td class="req">Related Stories (tag-matched)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">402</td><td class="note">Tag-aggregation in scope (personalization out); story-rail proves it.</td></tr>
+        <tr data-s="solv" data-m="m2"><td class="id">STO-D07</td><td class="req">Article Sidebar</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">201</td><td class="note">Related/promo/subscription; responsive treatment.</td></tr>
+        <tr data-s="def" data-m="m2"><td class="id">STO-D08</td><td class="req">Side Banner</td><td><span class="badge b-def"><span class="dot"></span>Deferred</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">903</td><td class="note">Bespoke ad server; drop/challenge — D3.</td></tr>
+        <tr data-s="serv" data-m="m1"><td class="id">STO-D09</td><td class="req">Media Box / Gallery (download, add-to-cart)</td><td><span class="badge b-serv"><span class="dot"></span>As-service</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">502/505</td><td class="note">Downloads + cart; mediabox source known.</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">STO-D10</td><td class="req">Social Share</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">304</td><td class="note">Share channels identified.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============ SECTION 3 ============ -->
+  <section>
+    <h2>3 · Media Room Functional<span class="sec-note">§5.3 (WIP) · homepage · listing · press release · press kit · model · images · videos</span></h2>
+    <h3>A · Media Room Homepage (MR-H01–H10)</h3>
+    <table>
+      <thead><tr><th>ID</th><th>Requirement</th><th>Status</th><th>Milestone</th><th>Ticket</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr data-s="solv" data-m="m1"><td class="id">MR-H01</td><td class="req">Featured / Promotional Content</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">201/603</td><td class="note">Promo pattern proven; MR home is a named M1 target.</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">MR-H02</td><td class="req">News</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">402</td><td class="note">story-rail pattern reusable.</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">MR-H03</td><td class="req">Images (preview/download)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">203/501/502</td><td class="note">Downloads + lightbox + masters-only ingest.</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">MR-H04</td><td class="req">Videos</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">204/503</td><td class="note">Embeds + separate downloadable file (§11.5).</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">MR-H05</td><td class="req">Models</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">201</td><td class="note">Model rail/card reusable.</td></tr>
+        <tr data-s="solv" data-m="m2"><td class="id">MR-H06</td><td class="req">Press Kits</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">402/805</td><td class="note">Card + shared listing filter (§11.6); fields 🟡.</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">MR-H07</td><td class="req">Latest Stories</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">402</td><td class="note">stories block reusable.</td></tr>
+        <tr data-s="serv" data-m="m1"><td class="id">MR-H08</td><td class="req">Media Cart</td><td><span class="badge b-serv"><span class="dot"></span>As-service</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">505</td><td class="note">Device-ID; reduction server-side (D2).</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">MR-H09</td><td class="req">Media Lightbox</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">203</td><td class="note">Lightbox block.</td></tr>
+        <tr data-s="input" data-m="m2"><td class="id">MR-H10</td><td class="req">Contacts / Company Content</td><td><span class="badge b-input"><span class="dot"></span>Input</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">201</td><td class="note">Placement to confirm.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>B · Shared Listing Pattern (MR-L01–L06)</h3>
+    <table>
+      <thead><tr><th>ID</th><th>Requirement</th><th>Status</th><th>Milestone</th><th>Ticket</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr data-s="dec" data-m="m2"><td class="id">MR-L01</td><td class="req">Listing Search</td><td><span class="badge b-dec"><span class="dot"></span>Decision</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">403</td><td class="note">Relationship w/ global search — D6 / Q9.</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">MR-L02</td><td class="req">Content-Type Filter (All/Stories/News/Press Kits/Images/Videos)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">402</td><td class="note">Definitive taxonomy confirmed from live markup (§11.6).</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">MR-L03</td><td class="req">Faceted Filters (model, bodywork, category…)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">401</td><td class="note">15 facets; normalization layer; demo subset D12.</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">MR-L04</td><td class="req">Result Grid/List</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">201/402</td><td class="note">Card + grid components.</td></tr>
+        <tr data-s="input" data-m="m2"><td class="id">MR-L05</td><td class="req">Result Card (per type)</td><td><span class="badge b-input"><span class="dot"></span>Input</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">201</td><td class="note">Per-type definitions to finalise.</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">MR-L06</td><td class="req">Pagination / Load More (6/click, total, sort)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">402</td><td class="note">Load-more built; sort/total 🟡 (Q5).</td></tr>
+      </tbody>
+    </table>
+
+    <h3>C · Press Release / News (MR-PR01–07)</h3>
+    <table>
+      <thead><tr><th>ID</th><th>Requirement</th><th>Status</th><th>Milestone</th><th>Ticket</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr data-s="solv" data-m="m1"><td class="id">MR-PR01</td><td class="req">Press Release Header</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">603/801</td><td class="note">Structurally = story; verify vs live (§11.1).</td></tr>
+        <tr data-s="dec" data-m="m2"><td class="id">MR-PR02</td><td class="req">Structured Article Content</td><td><span class="badge b-dec"><span class="dot"></span>Decision</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">802</td><td class="note">Authoring model DA vs UE — D13.</td></tr>
+        <tr data-s="def" data-m="m2"><td class="id">MR-PR03</td><td class="req">AI-Generated Audio Reading</td><td><span class="badge b-def"><span class="dot"></span>Deferred</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">—</td><td class="note">External embed; reproduce as-is, vendor TBD.</td></tr>
+        <tr data-s="input" data-m="m2"><td class="id">MR-PR04</td><td class="req">PDF Download (citation-ready)</td><td><span class="badge b-input"><span class="dot"></span>Input</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">503</td><td class="note">Authored vs generated TBD.</td></tr>
+        <tr data-s="solv" data-m="m2"><td class="id">MR-PR05</td><td class="req">Infographic (preview→PDF)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">502</td><td class="note">Preview-image→PDF pattern.</td></tr>
+        <tr data-s="solv" data-m="m2"><td class="id">MR-PR06</td><td class="req">Video (playback + source download)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">204/503</td><td class="note">Dual delivery path identified.</td></tr>
+        <tr data-s="solv" data-m="m2"><td class="id">MR-PR07</td><td class="req">Media Downloads</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">502</td><td class="note">Downloads block; AEM Assets.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>D · Press Kit (MR-PK01–07) — broken out to SKODA-805–808</h3>
+    <table>
+      <thead><tr><th>ID</th><th>Requirement</th><th>Status</th><th>Milestone</th><th>Ticket</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr data-s="input" data-m="m2"><td class="id">MR-PK01</td><td class="req">Press Kit Header</td><td><span class="badge b-input"><span class="dot"></span>Input</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">805</td><td class="note">Needs walkthrough (Q6).</td></tr>
+        <tr data-s="input" data-m="m2"><td class="id">MR-PK02</td><td class="req">Structured Narrative (fixed sections)</td><td><span class="badge b-input"><span class="dot"></span>Input</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">805</td><td class="note">Fixed vs conditional per product type (§11.8).</td></tr>
+        <tr data-s="input" data-m="m2"><td class="id">MR-PK03</td><td class="req">Variant / Bodywork Selector</td><td><span class="badge b-input"><span class="dot"></span>Input</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">808</td><td class="note">Interaction TBD (§11.9).</td></tr>
+        <tr data-s="solv" data-m="m2"><td class="id">MR-PK04</td><td class="req">Grouped Content (Texts/Infographics/Tech/Images/Videos)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">806</td><td class="note">5 areas confirmed; presentation TBD (§11.11).</td></tr>
+        <tr data-s="input" data-m="m2"><td class="id">MR-PK05</td><td class="req">FAQ</td><td><span class="badge b-input"><span class="dot"></span>Input</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">807</td><td class="note">Per-kit vs shared pool (§11.10).</td></tr>
+        <tr data-s="solv" data-m="m2"><td class="id">MR-PK06</td><td class="req">Individual Asset Download</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">502/806</td><td class="note">Downloads block.</td></tr>
+        <tr data-s="serv" data-m="m2"><td class="id">MR-PK07</td><td class="req">Complete Press Kit ZIP</td><td><span class="badge b-serv"><span class="dot"></span>As-service</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">806/902</td><td class="note">Whole-kit ZIP; same non-native download problem as cart (D2).</td></tr>
+      </tbody>
+    </table>
+
+    <h3>E–G · Model / Images / Videos (MR-M, MR-I, MR-V)</h3>
+    <table>
+      <thead><tr><th>ID</th><th>Requirement</th><th>Status</th><th>Milestone</th><th>Ticket</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr data-s="solv" data-m="m1"><td class="id">MR-M01–07</td><td class="req">Media Room model page + 5 related-content strips</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">402</td><td class="note">Tag-driven; model page is M1 target; retrieval rules 🟡.</td></tr>
+        <tr data-s="solv" data-m="m2"><td class="id">MR-I01–05</td><td class="req">Image listing / filters / preview / rendition / cart</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">203/402/505</td><td class="note">Original/1920px dual-rendition; rendition strategy ties to D2.</td></tr>
+        <tr data-s="solv" data-m="m2"><td class="id">MR-V01–04</td><td class="req">Video listing / filters / playback / download</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">204/503</td><td class="note">Embeds + downloadable file; source-file model TBD.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============ SECTION 4 ============ -->
+  <section>
+    <h2>4 · Editorial / Authoring / DAM<span class="sec-note">§6 (WIP) · templates, workflow, roles, embargo, DAM</span></h2>
+    <table>
+      <thead><tr><th>ID</th><th>Requirement</th><th>Status</th><th>Milestone</th><th>Ticket</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr data-s="dec" data-m="m2"><td class="id">6.1</td><td class="req">Reusable page structures / templates</td><td><span class="badge b-dec"><span class="dot"></span>Decision</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">801/802</td><td class="note">DA vs Universal Editor — D13 (architecture-critical).</td></tr>
+        <tr data-s="built" data-m="m1"><td class="id">6.2</td><td class="req">Content creation &amp; config (variants, layout-edit)</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">201</td><td class="note">Layout-editability fix shipped (optimized-picture.js in-place).</td></tr>
+        <tr data-s="dec" data-m="m2"><td class="id">6.3</td><td class="req">Preview &amp; publishing lifecycle (+ schedule/review)</td><td><span class="badge b-dec"><span class="dot"></span>Decision</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">602</td><td class="note">Core proven; embargo not native → staged-publish (D9).</td></tr>
+        <tr data-s="def" data-m="m2"><td class="id">6.4</td><td class="req">Roles &amp; permissions (7 groups)</td><td><span class="badge b-def"><span class="dot"></span>Deferred</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">—</td><td class="note">Governance later-phase; RACI = D15.</td></tr>
+        <tr data-s="dec" data-m="m2"><td class="id">6.5</td><td class="req">Restricted pre-publication (secured folder)</td><td><span class="badge b-dec"><span class="dot"></span>Decision</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">—</td><td class="note">Content embargo — D9 (confirmed real, "new-car launch folders").</td></tr>
+        <tr data-s="input" data-m="m2"><td class="id">6.6</td><td class="req">Restricted article access — end users (QR code)</td><td><span class="badge b-input"><span class="dot"></span>Input</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">—</td><td class="note">Model undefined — new decision D17.</td></tr>
+        <tr data-s="input" data-m="m2"><td class="id">6.7</td><td class="req">Auditability (change history)</td><td><span class="badge b-input"><span class="dot"></span>Input</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">—</td><td class="note">Assumed via authoring setup; validate (D16 NFRs).</td></tr>
+        <tr data-s="dec" data-m="m2"><td class="id">6.8</td><td class="req">Language &amp; market setup (locales, fallback)</td><td><span class="badge b-dec"><span class="dot"></span>Decision</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">1001–1003</td><td class="note">EN+CS in M1; DE/SK/SR/SL on-demand — D1.</td></tr>
+        <tr data-s="serv" data-m="m1"><td class="id">6.9</td><td class="req">DAM (images/videos/PDFs; rendition/rights/reuse)</td><td><span class="badge b-serv"><span class="dot"></span>As-service</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">501/504/506</td><td class="note">AEM Assets = approved source (D5); pre-conditioning for 40MB masters; Dynamic Media TBD.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============ SECTION 5 ============ -->
+  <section>
+    <h2>5 · Migration &amp; Non-Functional<span class="sec-note">§7 (TBD) · §8 (TBD)</span></h2>
+    <table>
+      <thead><tr><th>ID</th><th>Requirement</th><th>Status</th><th>Milestone</th><th>Ticket</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr data-s="def" data-m="m2"><td class="id">MIG01–07</td><td class="req">Historical content + asset migration</td><td><span class="badge b-def"><span class="dot"></span>Deferred</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">601/803</td><td class="note">Infra built; bulk out this phase (§9). Full migration = WordPress off (D7).</td></tr>
+        <tr data-s="solv" data-m="m2"><td class="id">8.1</td><td class="req">URL &amp; SEO (redirects, canonical, sitemap)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">103</td><td class="note">EDS ships canonical HTML; full redirect map = pre-go-live.</td></tr>
+        <tr data-s="dec" data-m="m2"><td class="id">8.2</td><td class="req">Analytics &amp; tracking (12 events)</td><td><span class="badge b-dec"><span class="dot"></span>Decision</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">804/905</td><td class="note">Analytics IN Adobe scope (GA+FB+Yoast baseline) — D10.</td></tr>
+        <tr data-s="def" data-m="m2"><td class="id">8.3</td><td class="req">Cookie consent</td><td><span class="badge b-def"><span class="dot"></span>Deferred</span></td><td><span class="ms ms-out">Out</span></td><td class="tk">—</td><td class="note">OUT of Adobe delivery scope — stays with Škoda (D10).</td></tr>
+        <tr data-s="def" data-m="m2"><td class="id">8.4</td><td class="req">Newsletter / subscription</td><td><span class="badge b-def"><span class="dot"></span>Deferred</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">904</td><td class="note">ESP integration deferred — D4.</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">8.5</td><td class="req">Performance (Core Web Vitals)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">702</td><td class="note">Shared index-fetch shipped (5→1); remaining CLS/LCP ticketed; target ≥90.</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">8.6</td><td class="req">Accessibility (nav/forms/carousels/modals)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">302/703</td><td class="note">ARIA gaps flagged; audit ticketed; WCAG level TBD.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============ DEMO / GO-LIVE SPLIT ============ -->
+  <section>
+    <h2>6 · Demo / Go-Live Split<span class="sec-note">M1 = 15 Oct 2026 (functioning demo · VW blueprint) · M2 = 02 Jan 2027 (go-live)</span></h2>
+    <div class="split">
+      <div class="panel m1">
+        <h3>M1 — Functioning Demo <span class="date">· 15 Oct 2026 (~5.5 wks)</span></h3>
+        <p style="font-size:13px;color:var(--muted);margin:4px 0 0">A credible, end-to-end EDS demo + the repeatable VW blueprint. Mostly gap-closing &amp; assembly of already-built parts.</p>
+        <ul>
+          <li><span class="tier t1">Tier 1</span><b>Storyboard /en homepage</b> — built; polish only</li>
+          <li><span class="tier t1">Tier 1</span><b>Story detail pages</b> — built (48 imported); extend a few</li>
+          <li><span class="tier t1">Tier 1</span><b>Media Room homepage</b> — new assembly from built blocks</li>
+          <li><span class="tier t1">Tier 1</span><b>One Model page</b> — new assembly</li>
+          <li><span class="tier t1">Tier 1</span><b>"Not-OOTB" trio</b> (exclude / multi-category / manual+tag) — built, narrate</li>
+          <li><span class="tier t2">Tier 2</span><b>Media cart — full UI + loop-closing download</b> of a curated set (reduction/ZIP deferred)</li>
+          <li><span class="tier t2">Tier 2</span><b>AEM Assets curated set</b> in use (fallback: pipeline/CDN)</li>
+          <li><span class="tier t2">Tier 2</span><b>EN + CS</b> on homepage + one story + language selector</li>
+          <li><span class="tier t2">Tier 2</span><b>One faceted listing</b> (demo facet subset, index-only search)</li>
+          <li><span class="tier t2">Tier 2</span><b>1–2 Figma-to-AEM</b> components, generated agentically</li>
+          <li><span class="tier t3">Tier 3</span><b>"Repeatable VW blueprint" narrative</b> (5 min)</li>
+        </ul>
+      </div>
+      <div class="panel m2">
+        <h3>M2 — Go-Live <span class="date">· 02 Jan 2027 (~16 wks)</span></h3>
+        <p style="font-size:13px;color:var(--muted);margin:4px 0 0">Full content migrated, authoring workflows running, WordPress decommissioned.</p>
+        <ul>
+          <li><b>Full content migration</b> at scale (all templates, bulk import + publish/reindex)</li>
+          <li><b>Press Kit template</b> — narrative, grouped media + ZIP, FAQ, variants (805–808)</li>
+          <li><b>Category / Series page templates</b> assembled</li>
+          <li><b>Press Release detail</b> at scale + audio/PDF/infographic</li>
+          <li><b>Media cart production hardening</b> — server-side reduction, whole-kit ZIP, signed access, cross-device (902, D2)</li>
+          <li><b>Remaining locales</b> DE/SK/SR/SL on-demand + EW Translation (D1)</li>
+          <li><b>Content embargo</b> / restricted pre-publication — staged publish (D9)</li>
+          <li><b>Restricted end-user access</b> (QR) — model to define (D17)</li>
+          <li><b>Roles &amp; permissions</b>, audit, governance/RACI (D15/D16)</li>
+          <li><b>Analytics</b> full wiring (GA+FB+Yoast; bespoke layer TBD — D10)</li>
+          <li><b>Banners</b> (D3), <b>Newsletter</b> (D4), <b>hosted search</b> (D6) — rebuild-as-service or defer</li>
+          <li><b>URL redirect map</b> execution + full SEO</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout">
+      <b>The real risk is client-side, not build-side.</b> The Tier-1 M1 items are unblocked assembly. The Tier-2 items each depend on a client decision (D5 AEM Assets instance · D2 cart download · D1 CS content · D11 Figma · D12 facet subset) — and each has a fallback that keeps the demo whole if a dependency slips. Start those clocks in Week 1.
+    </div>
+  </section>
+
+  <!-- ============ OPEN DECISIONS ============ -->
+  <section>
+    <h2>7 · Open Decisions Gating This Plan<span class="sec-note">drive to owner + date — SKODA-DELIVERY-PLAN.md §8</span></h2>
+    <table class="dtable">
+      <thead><tr><th>D</th><th>Decision</th><th>Status / position</th><th>Needed by</th></tr></thead>
+      <tbody>
+        <tr><td class="d">D1</td><td>Language scope</td><td>EN+CS for M1; DE/SK/SR/SL on-demand for M2</td><td>Wk 1</td></tr>
+        <tr><td class="d">D2</td><td>Media-cart download</td><td>Server-side file-size reduction (client-side zip demoted); WordPress switched off</td><td>Wk 2</td></tr>
+        <tr><td class="d">D5</td><td>Media / DAM</td><td>Resolved: AEM Assets — instance must exist in time (#1 risk); 40 MB masters need pre-conditioning</td><td>Wk 1</td></tr>
+        <tr><td class="d">D9</td><td>Content embargo</td><td>Confirmed real ("new-car launch folders"); recommend staged-publish</td><td>M2</td></tr>
+        <tr><td class="d">D10</td><td>Analytics + consent</td><td>Analytics IN Adobe scope; consent/OneTrust OUT (stays with Škoda)</td><td>M2</td></tr>
+        <tr><td class="d">D11</td><td>Figma-to-AEM showcase</td><td>Open — recommend 1–2 components</td><td>Wk 2</td></tr>
+        <tr><td class="d">D12</td><td>Demo-critical facet subset</td><td>Open — scope SKODA-401 to the subset first</td><td>Wk 2</td></tr>
+        <tr><td class="d">D13</td><td>Authoring model DA vs UE</td><td>Open — architecture-critical; docs assume DA</td><td>Early</td></tr>
+        <tr><td class="d">D15</td><td>Governance / RACI</td><td>Open — project-setup blocker</td><td>M2</td></tr>
+        <tr><td class="d">D16</td><td>Non-functional (security, pentest, RTO/RPO)</td><td>Open — client-gated; top year-end risk</td><td>M2</td></tr>
+        <tr><td class="d">D17</td><td>QR restricted end-user access</td><td>New — access model fully undefined</td><td>M2</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============ SECTION 8 · TICKET BACKLOG ============ -->
+  <section>
+    <h2>8 · Delivery Backlog — Škoda Tickets (ordered)<span class="sec-note">48 tickets · 10 epics (E01–E10) · derived from the CMS-MediaRoomMigration-Requirements baseline · full detail in docs/tickets/</span></h2>
+
+    <div class="callout green">
+      <b>How to read this:</b> tickets are listed in ID order within each epic (E01→E10), which is also broadly the build order. <b>Approach</b> = how we intend to deliver it on DA/EDS; <b>Open questions</b> = what must be confirmed with the client or in a spike before the ticket can close. <span class="tk">Ph</span> = phase (A pilot · B scale · C services · D localization); <span class="ms ms-m1">M</span> = milestone; <b>SP</b> = story points (planning estimate, not a quote).
+    </div>
+
+    <div class="filters">
+      <span class="flabel">Filter phase:</span>
+      <button class="fbtn active" data-p="all">All</button>
+      <button class="fbtn" data-p="A">A · Pilot</button>
+      <button class="fbtn" data-p="B">B · Scale</button>
+      <button class="fbtn" data-p="C">C · Services</button>
+      <button class="fbtn" data-p="D">D · Localization</button>
+    </div>
+
+    <h3>E01 · Foundation &amp; Setup</h3>
+    <table>
+      <thead><tr><th>Ticket</th><th>Title</th><th>Ph</th><th>M</th><th>SP</th><th>Status</th><th>Our approach</th><th>Open questions</th></tr></thead>
+      <tbody>
+        <tr data-p="A"><td class="id">SKODA-101</td><td class="req">DA/EW site + repo + Code Sync</td><td class="tk">A</td><td><span class="ms ms-m1">M1</span></td><td>3</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td class="note">DA org/site (<code>larsauffarth/skoda-storyboard</code>) + GitHub repo + Code Sync live; <code>/en</code> published.</td><td class="note">Final org/repo naming &amp; ownership for production.</td></tr>
+        <tr data-p="A"><td class="id">SKODA-102</td><td class="req">Boilerplate scaffold</td><td class="tk">A</td><td><span class="ms ms-m1">M1</span></td><td>3</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td class="note">EDS boilerplate scaffolded; block/section conventions in place.</td><td class="note">—</td></tr>
+        <tr data-p="A"><td class="id">SKODA-103</td><td class="req">Config sheets (placeholders / metadata / redirects)</td><td class="tk">A</td><td><span class="ms ms-m2">M2</span></td><td>2</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td class="note">Placeholder/metadata/redirect sheets per EDS convention.</td><td class="note">Redirect map depends on final URL strategy (§8.1).</td></tr>
+        <tr data-p="A"><td class="id">SKODA-104</td><td class="req">Query-index skeleton (per-locale)</td><td class="tk">A</td><td><span class="ms ms-m1">M1</span></td><td>3</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td class="note">Per-locale index config submitted to the admin config service; drives Latest Stories.</td><td class="note">Locale list (D1) sets how many indexes.</td></tr>
+        <tr data-p="A"><td class="id">SKODA-105</td><td class="req">Sidekick v7 + preview/publish</td><td class="tk">A</td><td><span class="ms ms-m1">M1</span></td><td>1</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td class="note">Sidekick preview/publish flow working.</td><td class="note">—</td></tr>
+        <tr data-p="A"><td class="id">SKODA-106</td><td class="req">Design tokens + global CSS (re-derived)</td><td class="tk">A</td><td><span class="ms ms-m1">M1</span></td><td>3</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td class="note"><code>brand.css</code> extracted from the live site (SKODA-Next stack, brand green, scale, radii); applied globally.</td><td class="note">Figma design-system as future source of truth (D11).</td></tr>
+      </tbody>
+    </table>
+
+    <h3>E02 · Core Blocks</h3>
+    <table>
+      <thead><tr><th>Ticket</th><th>Title</th><th>Ph</th><th>M</th><th>SP</th><th>Status</th><th>Our approach</th><th>Open questions</th></tr></thead>
+      <tbody>
+        <tr data-p="A"><td class="id">SKODA-201</td><td class="req">Cards / Teaser (overlay / media / toolbar)</td><td class="tk">A</td><td><span class="ms ms-m1">M1</span></td><td>5</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td class="note">Card variants + carousel live on <code>/en</code>; CSS grid + line-clamp; reused via buildBlock.</td><td class="note">Per-content-type card fields (News/Media) to finalise (MR-L05).</td></tr>
+        <tr data-p="A"><td class="id">SKODA-202</td><td class="req">Hero (image, LCP)</td><td class="tk">A</td><td><span class="ms ms-m1">M1</span></td><td>2</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td class="note"><code>hero-image</code> block; eager LCP image.</td><td class="note">Which hero variants per page family (STO-D01).</td></tr>
+        <tr data-p="A"><td class="id">SKODA-203</td><td class="req">Gallery + lightbox modal</td><td class="tk">A</td><td><span class="ms ms-m1">M1</span></td><td>5</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td class="note">Gallery + <code>/modals/</code> lightbox; rebuilt vanilla with pause/keyboard.</td><td class="note">Auto-play requirement; modal focus-trap (runtime-unconfirmed).</td></tr>
+        <tr data-p="A"><td class="id">SKODA-204</td><td class="req">Embeds (4 providers, dnt=1, lazy)</td><td class="tk">A</td><td><span class="ms ms-m1">M1</span></td><td>3</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td class="note">Autoblock Vimeo/YouTube/Buzzsprout/Spotify; <code>dnt=1</code>; consent-gated, lazy.</td><td class="note">Video provider + consent relationship (STO-D03).</td></tr>
+        <tr data-p="A"><td class="id">SKODA-205</td><td class="req">Tags / metadata</td><td class="tk">A</td><td><span class="ms ms-m1">M1</span></td><td>1</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td class="note">Tag/metadata as default content / small block.</td><td class="note">Tag display rules &amp; factors (Q on §page).</td></tr>
+        <tr data-p="A"><td class="id">SKODA-206</td><td class="req">Škodapedia glossary (directory + A–Z + modal)</td><td class="tk">A</td><td><span class="ms ms-m2">M2</span></td><td>5</td><td><span class="badge b-def"><span class="dot"></span>Deferred</span></td><td class="note">Client-side A–Z + <code>/modals/</code> term detail; can be fully static if terms pre-baked.</td><td class="note">Škodapedia stays outside Storyboard (§9) — confirm inclusion at all.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>E03 · Chrome Fragments</h3>
+    <table>
+      <thead><tr><th>Ticket</th><th>Title</th><th>Ph</th><th>M</th><th>SP</th><th>Status</th><th>Our approach</th><th>Open questions</th></tr></thead>
+      <tbody>
+        <tr data-p="A"><td class="id">SKODA-301</td><td class="req">Header + mega-menu (3 panels)</td><td class="tk">A</td><td><span class="ms ms-m1">M1</span></td><td>5</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td class="note">Two-row header, wordmark, topbar, mega-menu live as <code>nav</code> fragment.</td><td class="note">Media Room nav variant (different set: News/Press Kits/…).</td></tr>
+        <tr data-p="A"><td class="id">SKODA-302</td><td class="req">Mobile nav toggle + ARIA (a11y fix)</td><td class="tk">A</td><td><span class="ms ms-m1">M1</span></td><td>2</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td class="note">Real <code>&lt;button&gt;</code> + <code>aria-expanded</code>; fixes the source checkbox-hack.</td><td class="note">Full a11y audit still to run (703).</td></tr>
+        <tr data-p="A"><td class="id">SKODA-303</td><td class="req">Language switcher (6 locales)</td><td class="tk">A</td><td><span class="ms ms-m1">M1</span></td><td>2</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td class="note">Switcher in topbar; per-locale destinations.</td><td class="note">Hide-missing-variant vs fallback to EN (COM05 / D1).</td></tr>
+        <tr data-p="A"><td class="id">SKODA-304</td><td class="req">Footer fragment</td><td class="tk">A</td><td><span class="ms ms-m1">M1</span></td><td>3</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td class="note">Dark-green footer: social row, 7-col sitemap w/ submenus, app badges, legal.</td><td class="note">Stories vs Media Room footer variant.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>E04 · Listings &amp; Search</h3>
+    <table>
+      <thead><tr><th>Ticket</th><th>Title</th><th>Ph</th><th>M</th><th>SP</th><th>Status</th><th>Our approach</th><th>Open questions</th></tr></thead>
+      <tbody>
+        <tr data-p="A"><td class="id">SKODA-401</td><td class="req">Query-index schema + selectors + metadata-normalization (15 facets)</td><td class="tk">A</td><td><span class="ms ms-m1">M1</span></td><td>8</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td class="note">Selector index over published HTML + importer normalization (category-from-URL, 4-way date fallback) for fields the markup doesn't expose.</td><td class="note">Build the demo-critical facet subset first (D12); full 15-facet model.</td></tr>
+        <tr data-p="A"><td class="id">SKODA-402</td><td class="req">Faceted listing + load-more (deep-link)</td><td class="tk">A</td><td><span class="ms ms-m1">M1</span></td><td>8</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td class="note">Client-side filter/sort/paginate over the index; load-more live; tag-filtered rails proven.</td><td class="note">Sort options + total count display (Q5); per-page facet availability.</td></tr>
+        <tr data-p="A"><td class="id">SKODA-403</td><td class="req">Search block (index-only)</td><td class="tk">A</td><td><span class="ms ms-m2">M2</span></td><td>3</td><td><span class="badge b-dec"><span class="dot"></span>Decision</span></td><td class="note">Block-collection search over query-index for the demo (title/tag/facet).</td><td class="note">Index-only vs hosted body-search; ranking (recency/relevance/curation) — D6 / Q9.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>E05 · Media Pipeline</h3>
+    <table>
+      <thead><tr><th>Ticket</th><th>Title</th><th>Ph</th><th>M</th><th>SP</th><th>Status</th><th>Our approach</th><th>Open questions</th></tr></thead>
+      <tbody>
+        <tr data-p="A"><td class="id">SKODA-501</td><td class="req">Masters-only image ingest (img-out-of-&lt;p&gt;, alt/caption)</td><td class="tk">A</td><td><span class="ms ms-m1">M1</span></td><td>3</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td class="note">Ingest one master per image; EDS regenerates renditions; carry alt.</td><td class="note">DAM ownership / where masters live (D5).</td></tr>
+        <tr data-p="A"><td class="id">SKODA-502</td><td class="req">Static Downloads block (mediabox)</td><td class="tk">A</td><td><span class="ms ms-m1">M1</span></td><td>3</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td class="note">Per-post downloadable set baked at import from the mediabox endpoint.</td><td class="note">Rendition set (Original/1920px) to confirm.</td></tr>
+        <tr data-p="A"><td class="id">SKODA-503</td><td class="req">PDF / MP4 handling (link / DAM)</td><td class="tk">A</td><td><span class="ms ms-m2">M2</span></td><td>2</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td class="note">Large PDFs &amp; MP4 as links/DAM refs, never the image pipeline.</td><td class="note">MP4 signed-download flow; source-file model (MR-V04).</td></tr>
+        <tr data-p="A"><td class="id">SKODA-504</td><td class="req">Map S3 images → AEM Assets (manifest)</td><td class="tk">A</td><td><span class="ms ms-m1">M1</span></td><td>3</td><td><span class="badge b-serv"><span class="dot"></span>As-service</span></td><td class="note">Manifest mapping legacy CDN → AEM Assets delivery (CORS-enabled).</td><td class="note">Does an AEM Assets instance exist in time; are approved images already in it (D5).</td></tr>
+        <tr data-p="A"><td class="id">SKODA-505</td><td class="req">Demo media-cart + client-side zip (device-ID, no login)</td><td class="tk">A</td><td><span class="ms ms-m1">M1</span></td><td>8</td><td><span class="badge b-serv"><span class="dot"></span>As-service</span></td><td class="note">Device-ID cart in <code>localStorage</code>; in-browser zip (<code>fflate</code>); per-story pre-zipped fallback.</td><td class="note">CORS on asset origin is the linchpin; arbitrary cross-page vs story-scoped selection (Q5); zip-host spike (Q8) — D2.</td></tr>
+        <tr data-p="A"><td class="id">SKODA-506</td><td class="req">Media pre-conditioning (strip/replace oversized masters)</td><td class="tk">A</td><td><span class="ms ms-m1">M1</span></td><td>2</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td class="note">Keep sized derivatives, not 25–40 MB masters — build-confirmed to prevent content-bus 409s.</td><td class="note">Threshold + pre-conditioning step for the go-live asset set.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>E06 · Import Pilot Content</h3>
+    <table>
+      <thead><tr><th>Ticket</th><th>Title</th><th>Ph</th><th>M</th><th>SP</th><th>Status</th><th>Our approach</th><th>Open questions</th></tr></thead>
+      <tbody>
+        <tr data-p="A"><td class="id">SKODA-601</td><td class="req">Import infra: parsers + transformers</td><td class="tk">A</td><td><span class="ms ms-m1">M1</span></td><td>5</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td class="note">Content-driven parsers + transformers + orchestrator; ran on <code>/en</code>.</td><td class="note">Extend to Press Release / Press Kit templates.</td></tr>
+        <tr data-p="A"><td class="id">SKODA-602</td><td class="req">DA source-API push + bulk-op publish</td><td class="tk">A</td><td><span class="ms ms-m1">M1</span></td><td>3</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td class="note">Push to <code>admin.da.live</code> source API (injected creds); preview/publish.</td><td class="note">—</td></tr>
+        <tr data-p="A"><td class="id">SKODA-603</td><td class="req">Pilot page set imported + validated</td><td class="tk">A</td><td><span class="ms ms-m1">M1</span></td><td>3</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td class="note"><code>/en</code> + stories imported, ~97% content completeness; integration fan-in point.</td><td class="note">Which representative set for the demo beyond <code>/en</code>.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>E07 · QA / Perf / A11y / Launch</h3>
+    <table>
+      <thead><tr><th>Ticket</th><th>Title</th><th>Ph</th><th>M</th><th>SP</th><th>Status</th><th>Our approach</th><th>Open questions</th></tr></thead>
+      <tbody>
+        <tr data-p="A"><td class="id">SKODA-701</td><td class="req">Lint + unit tests</td><td class="tk">A</td><td><span class="ms ms-m1">M1</span></td><td>2</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td class="note">Lint clean across blocks/styles/scripts; unit tests for logic.</td><td class="note">—</td></tr>
+        <tr data-p="A"><td class="id">SKODA-702</td><td class="req">Performance (Lighthouse ≈ 100 / RUM)</td><td class="tk">A</td><td><span class="ms ms-m1">M1</span></td><td>3</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td class="note">Shared index-fetch shipped (5→1); LCP/CLS fixes ticketed.</td><td class="note">Measurable CWV thresholds to confirm with Eng/SEO (§8.5).</td></tr>
+        <tr data-p="A"><td class="id">SKODA-703</td><td class="req">Accessibility audit</td><td class="tk">A</td><td><span class="ms ms-m1">M1</span></td><td>3</td><td><span class="badge b-input"><span class="dot"></span>Input</span></td><td class="note">ARIA gaps flagged; audit of nav/forms/carousels/modals.</td><td class="note">Target WCAG level &amp; acceptance criteria (§8.6).</td></tr>
+        <tr data-p="A"><td class="id">SKODA-704</td><td class="req">Visual critique + consent/analytics stubs + sign-off</td><td class="tk">A</td><td><span class="ms ms-m1">M1</span></td><td>3</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td class="note">Pixel-match critique done on <code>/en</code>; consent/analytics as stubs for the demo.</td><td class="note">Demo sign-off bar; what "October" must show.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>E08 · Editorial at Scale <span style="font-weight:400;color:var(--muted)">(Phase B)</span></h3>
+    <table>
+      <thead><tr><th>Ticket</th><th>Title</th><th>Ph</th><th>M</th><th>SP</th><th>Status</th><th>Our approach</th><th>Open questions</th></tr></thead>
+      <tbody>
+        <tr data-p="B"><td class="id">SKODA-801</td><td class="req">Story template — SiteOrigin Page-Builder flatten</td><td class="tk">B</td><td><span class="ms ms-m2">M2</span></td><td>8</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td class="note">Flatten builder trees into DA sections/blocks; census shows a small closed widget set (98.7% simple).</td><td class="note">Long-tail widgets (charge-map/calculator) handling.</td></tr>
+        <tr data-p="B"><td class="id">SKODA-802</td><td class="req">Remaining templates (Škodapedia pre-baked, pages)</td><td class="tk">B</td><td><span class="ms ms-m2">M2</span></td><td>5</td><td><span class="badge b-dec"><span class="dot"></span>Decision</span></td><td class="note">Reusable page + Škodapedia templates.</td><td class="note">Authoring model DA vs Universal Editor — D13 (architecture-critical).</td></tr>
+        <tr data-p="B"><td class="id">SKODA-803</td><td class="req">Bulk import automation (at scale)</td><td class="tk">B</td><td><span class="ms ms-m2">M2</span></td><td>8</td><td><span class="badge b-def"><span class="dot"></span>Deferred</span></td><td class="note">Scale the proven import pipeline to the full corpus.</td><td class="note">Volumes, retention/exclusion, reconciliation criteria (MIG07).</td></tr>
+        <tr data-p="B"><td class="id">SKODA-804</td><td class="req">Consent + analytics wiring (OneTrust, GTM, skoda-analytics)</td><td class="tk">B</td><td><span class="ms ms-m2">M2</span></td><td>5</td><td><span class="badge b-dec"><span class="dot"></span>Decision</span></td><td class="note">Analytics IN Adobe scope (GA+FB+Yoast baseline); consent loads in delayed phase.</td><td class="note">Consent/OneTrust OUT of Adobe scope (stays with Škoda) — D10; event schema.</td></tr>
+        <tr data-p="B"><td class="id">SKODA-805</td><td class="req">Press Kit template + structured narrative sections</td><td class="tk">B</td><td><span class="ms ms-m2">M2</span></td><td>5</td><td><span class="badge b-input"><span class="dot"></span>Input</span></td><td class="note">Fixed-sequence narrative sections (Intro/Exterior/Interior/…).</td><td class="note">Fixed vs conditional sections per product type (§11.8); needs walkthrough (Q6).</td></tr>
+        <tr data-p="B"><td class="id">SKODA-806</td><td class="req">Press Kit grouped media/download + whole-kit ZIP</td><td class="tk">B</td><td><span class="ms ms-m2">M2</span></td><td>5</td><td><span class="badge b-serv"><span class="dot"></span>As-service</span></td><td class="note">5 grouped areas (Texts/Infographics/Tech/Images/Videos); per-item downloads.</td><td class="note">Whole-kit ZIP needs the same reduction service as the cart — D2; tabs/accordion presentation (§11.11).</td></tr>
+        <tr data-p="B"><td class="id">SKODA-807</td><td class="req">FAQ block (Press Kit)</td><td class="tk">B</td><td><span class="ms ms-m2">M2</span></td><td>2</td><td><span class="badge b-input"><span class="dot"></span>Input</span></td><td class="note">Q&amp;A block.</td><td class="note">Per-kit authored vs shared filtered pool (§11.10).</td></tr>
+        <tr data-p="B"><td class="id">SKODA-808</td><td class="req">Press Kit variant subsections + selector + categorization</td><td class="tk">B</td><td><span class="ms ms-m2">M2</span></td><td>3</td><td><span class="badge b-input"><span class="dot"></span>Input</span></td><td class="note">Nested variant subsections (e.g. Sportline) + bodywork selector.</td><td class="note">Selector interaction (§11.7/11.9).</td></tr>
+      </tbody>
+    </table>
+
+    <h3>E09 · Dynamic Services <span style="font-weight:400;color:var(--muted)">(Phase C)</span></h3>
+    <table>
+      <thead><tr><th>Ticket</th><th>Title</th><th>Ph</th><th>M</th><th>SP</th><th>Status</th><th>Our approach</th><th>Open questions</th></tr></thead>
+      <tbody>
+        <tr data-p="C"><td class="id">SKODA-901</td><td class="req">Hosted body-relevance search (decision-gated)</td><td class="tk">C</td><td><span class="ms ms-m2">M2</span></td><td>8</td><td><span class="badge b-dec"><span class="dot"></span>Decision</span></td><td class="note">Hosted search fed by the same index, if full-text/relevance is required.</td><td class="note">Index-only sufficient or hosted needed — D6; provider.</td></tr>
+        <tr data-p="C"><td class="id">SKODA-902</td><td class="req">Media-cart prod hardening (serverless zip + signed access + cross-device)</td><td class="tk">C</td><td><span class="ms ms-m2">M2</span></td><td>8</td><td><span class="badge b-serv"><span class="dot"></span>As-service</span></td><td class="note">Server-side reduction/ZIP endpoint, signed links, cross-device sync.</td><td class="note">Zip host (App Builder vs Lambda vs CDN worker) — D2 / Q8.</td></tr>
+        <tr data-p="C"><td class="id">SKODA-903</td><td class="req">Banner ad platform (per-market feed + client)</td><td class="tk">C</td><td><span class="ms ms-m2">M2</span></td><td>8</td><td><span class="badge b-def"><span class="dot"></span>Deferred</span></td><td class="note">Rebuild as small vanilla block over a locale feed, or drop for a simpler promo.</td><td class="note">Keep full ad platform vs simpler promo — D3.</td></tr>
+        <tr data-p="C"><td class="id">SKODA-904</td><td class="req">Newsletter / subscriber (ESP + consent + opt-in)</td><td class="tk">C</td><td><span class="ms ms-m2">M2</span></td><td>8</td><td><span class="badge b-def"><span class="dot"></span>Deferred</span></td><td class="note">External form + consent service; client posts to API.</td><td class="note">Provider/integration; subscription-to-Stories vs Newsletter wording — D4.</td></tr>
+        <tr data-p="C"><td class="id">SKODA-905</td><td class="req">skoda-analytics rebuild (dataLayer + per-block wiring)</td><td class="tk">C</td><td><span class="ms ms-m2">M2</span></td><td>8</td><td><span class="badge b-def"><span class="dot"></span>Deferred</span></td><td class="note">Full dataLayer + per-block event wiring; blocks leave hooks now.</td><td class="note">Event naming/data-layer structure with Analytics/Architecture.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>E10 · Localization <span style="font-weight:400;color:var(--muted)">(Phase D)</span></h3>
+    <table>
+      <thead><tr><th>Ticket</th><th>Title</th><th>Ph</th><th>M</th><th>SP</th><th>Status</th><th>Our approach</th><th>Open questions</th></tr></thead>
+      <tbody>
+        <tr data-p="D"><td class="id">SKODA-1001</td><td class="req">Per-locale trees + per-locale query-index</td><td class="tk">D</td><td><span class="ms ms-m2">M2</span></td><td>5</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td class="note">Per-locale content trees + indexes (built locale-aware from day one).</td><td class="note">Definitive locale list; HQ vs local ownership — D1.</td></tr>
+        <tr data-p="D"><td class="id">SKODA-1002</td><td class="req">EW Translation rollout (DE/CS/SK/SR/SL)</td><td class="tk">D</td><td><span class="ms ms-m2">M2</span></td><td>8</td><td><span class="badge b-dec"><span class="dot"></span>Decision</span></td><td class="note">EW Translation projects; uneven translation is native (a story in 4 of 6 langs = 4 docs).</td><td class="note">Content cloning/reuse; fallback behaviour; volume (D1).</td></tr>
+        <tr data-p="D"><td class="id">SKODA-1003</td><td class="req">Language-negotiated routing + placeholders</td><td class="tk">D</td><td><span class="ms ms-m2">M2</span></td><td>3</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td class="note">Root routing by Accept-Language; per-locale UI placeholders.</td><td class="note">Keep auto-detection vs default to <code>/en/</code>.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <b>Effort (planning, not a quote):</b> Pilot (E01–E07) ≈ <b>89 SP</b> · full program <b>207 SP</b> across 48 tickets. Much of Phase A (E01–E03, parts of E04–E06) is <b>already built and published on <code>/en</code></b>; the open questions above are the client-side confirmations that unblock the rest. See <code>docs/tickets/OVERVIEW.md</code> for dependencies, the critical path, and per-ticket detail.
+    </div>
+  </section>
+</main>
+
+<footer>
+  Škoda Storyboard &amp; Media Room migration — analysis &amp; planning artifact. Statuses are point-in-time (2026-09-11) and reflect the published <code>/en</code> test migration plus the decision log D1–D17. Planning estimates, not a quote. Sources: <code>SKODA-CLIENT-REQUIREMENTS-MAPPING.md</code>, <code>SKODA-M1-DEMO-TARGET.md</code>, <code>SKODA-DELIVERY-PLAN.md</code>, <code>docs/tickets/OVERVIEW.md</code>.
+</footer>
+
+<script>
+  (function () {
+    var sFilter = 'all', mFilter = 'all';
+    var rows = Array.prototype.slice.call(document.querySelectorAll('tbody tr[data-s]'));
+    function apply() {
+      rows.forEach(function (r) {
+        var okS = sFilter === 'all' || r.getAttribute('data-s') === sFilter;
+        var okM = mFilter === 'all' || r.getAttribute('data-m') === mFilter;
+        r.classList.toggle('hide', !(okS && okM));
+      });
+    }
+    document.querySelectorAll('.fbtn[data-f]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        document.querySelectorAll('.fbtn[data-f]').forEach(function (x) { x.classList.remove('active'); });
+        b.classList.add('active'); sFilter = b.getAttribute('data-f'); apply();
+      });
+    });
+    document.querySelectorAll('.fbtn[data-m]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        document.querySelectorAll('.fbtn[data-m]').forEach(function (x) { x.classList.remove('active'); });
+        b.classList.add('active'); mFilter = b.getAttribute('data-m'); apply();
+      });
+    });
+
+    // Section 8 ticket backlog — independent phase filter on data-p rows
+    var pRows = Array.prototype.slice.call(document.querySelectorAll('tbody tr[data-p]'));
+    document.querySelectorAll('.fbtn[data-p]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        document.querySelectorAll('.fbtn[data-p]').forEach(function (x) { x.classList.remove('active'); });
+        b.classList.add('active');
+        var pf = b.getAttribute('data-p');
+        pRows.forEach(function (r) {
+          r.classList.toggle('hide', !(pf === 'all' || r.getAttribute('data-p') === pf));
+        });
+      });
+    });
+  })();
+</script>
+</body>
+</html>
