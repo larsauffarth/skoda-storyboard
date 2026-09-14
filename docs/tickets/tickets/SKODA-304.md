@@ -35,3 +35,4 @@ Author the `footer` DA fragment and load it via the Block Collection Footer bloc
 - 🟢 Low–Med effort; footer is a fragment, not bespoke IA.
 - Icon-font → inline SVG conversion is a small but required conversion.
 - Preserve the press-specific Škoda Media Room app + WhatsApp channel links (brand/press assets to retain).
+- **Media Room footer is DIFFERENT from the Storyboard footer** *(client walkthrough 2026-09-14, provisional pending transcript)* — this ticket delivers the **Storyboard** footer only. A **distinct MR footer variant** (a second `footer` fragment + block variant) is net-new scope; the exact deltas (links/legal/app-badge set) are unconfirmed until the transcript is reviewed. **Likely a separate ticket** — hold for transcript before scoping/estimating. Cross-ref COM18.

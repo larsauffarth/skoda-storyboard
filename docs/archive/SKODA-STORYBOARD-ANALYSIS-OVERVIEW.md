@@ -1,5 +1,7 @@
 # Škoda Storyboard → AEM Edge Delivery — Analysis Overview
 
+> ⚠️ **ARCHIVED / SUPERSEDED (2026-09-14).** This prior consolidated overview has been **superseded by the canonical findings doc [`analysis/SKODA-MASTER.md`](../analysis/SKODA-MASTER.md)** (see its §16 Document Map). Retained as a historical reference point only — do not rely on it for current status; some claims (e.g. "Series is not a template") are corrected in MASTER.
+
 **The capstone summary of the discovery engagement.**
 **Date:** 2026-09-04 · **Scope target:** `https://www.skoda-storyboard.com/en/`
 **Nature:** Analysis only — no content imported, no code generated, no Git operations. This report **synthesizes** six detailed reports (see §10); it introduces no new claims.

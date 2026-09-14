@@ -11,6 +11,7 @@ Stand up the site chrome — header/mega-menu and footer — as EDS **Header/Foo
 - **SKODA-302 — Mobile nav toggle with ARIA.** Rebuild the source's CSS checkbox-hack (which ships `aria-expanded`=0, unwired) as a **real `<button>` with proper `aria-expanded`/ARIA state** — a deliberate WCAG accessibility upgrade over the source. — deps 301 — 2SP — Y
 - **SKODA-303 — Language switcher (6 locales).** The 6-locale (en/cs/de/sk/sr/sl) switcher in the nav **tools** section, wired to per-locale link targets. — deps 301 — 2SP — Y
 - **SKODA-304 — Footer fragment.** `footer` DA fragment loaded into `<footer>`: nav-menu repeat + social (FB/IG/YT/WhatsApp) + app-store badges ("Škoda Media Room" iOS/Android app) + legal bar + brand SVG. Icon-font → inline SVG conversion. — deps 102,106 — 3SP — Y
+  - ⚠️ **Provisional (client walkthrough 2026-09-14, pending transcript):** the **Media Room footer differs** from this Storyboard footer. A distinct MR footer variant (second `footer` fragment) is net-new scope — likely a separate ticket; deferred until the transcript confirms the deltas. Not yet added to the SP roll-up.
 
 ## Effort Roll-up
 | Ticket | Type | SP | AI-assisted | Manual |

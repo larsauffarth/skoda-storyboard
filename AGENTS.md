@@ -14,6 +14,15 @@ Edge Delivery Services. Read a block first. Omissions are in the repo or known.
 ## Outdated
 - `fstab.yaml`, `helix-query.yaml`, `paths.json` are retired. Config lives at tools.aem.live.
 
+## Analysis & planning (read before scoping/estimating)
+`docs/` is organized into topic subfolders (see `docs/README.md`): `analysis/` (findings + block/widget data), `architecture/`, `media/`, `planning/`, `reviews/`, `source/` (client input), `archive/` (superseded, kept as reference), plus `tickets/`, `deck/`, `meetings/`.
+- `docs/analysis/SKODA-MASTER.md` is the canonical findings doc; its §16 map indexes every source report.
+- `docs/planning/SKODA-DELIVERY-PLAN.md` — milestones (M1 demo 15 Oct 2026 / M2 go-live 02 Jan 2027) + decision log D1–D18.
+- `docs/planning/SKODA-CLIENT-REQUIREMENTS-MAPPING.md` — client requirement IDs → build status → tickets.
+- `docs/planning/SKODA-M1-DEMO-TARGET.md` — tiered demo scope; `docs/planning/SKODA-REQUIREMENTS-REPORT.html` — filterable status/split report.
+- `docs/planning/SKODA-AGENT-HANDOFF-CANDIDATES.md` — parts fit for autonomous-agent handoff.
+- `docs/tickets/OVERVIEW.md` — 51-ticket / 220-SP backlog (epics + SKODA-* tickets).
+
 ## Remember
 - `npx -y @adobe/aem-cli up`: local code, previewed content.
 - Merging `main` ships code; content publishes separately.

@@ -152,6 +152,8 @@
 - **Header/mega-menu = plain nested link lists** (no images/rich panels): 3 sections with children — **Models** (12 models + Classic Cars + Concepts), **Lifestyle** (People/Sports/Adventures), **Škoda World** (5 topics); rest flat. Topbar newsletter dropdown + 6-locale language switcher; inline SVG brand logo.
 - **Mobile nav** = CSS checkbox-hack, **`aria-expanded` absent** → rebuild with a real button + ARIA (a11y upgrade).
 - **Footer** = repeats the WP nav menu + social (FB/IG/YT/WhatsApp) + **Škoda Media Room app badges** (iOS/Android) + WhatsApp channel + RSS + legal bar (Data Protection/Copyright/Cookies/Whistleblower) + copyright.
+- **Media Room footer differs from the Storyboard footer** *(client walkthrough 2026-09-14, provisional pending transcript)* — the built footer is the Storyboard variant; a **distinct MR footer** is net-new scope (likely a `footer` fragment variant, see SKODA-304). Confirm exact deltas against the transcript.
+- **Header language selector is per-page dynamic** *(client walkthrough 2026-09-14, provisional)* — a locale appears only if the article exists in it (confirms the "show only existing languages" rule, §COM05/D1).
 - **EDS:** Header/Footer blocks + per-locale `nav`/`footer` fragments. Combined effort **Medium** (lower than initially feared).
 
 ---
@@ -289,30 +291,32 @@
 
 ## 16. Document Map (detail sources)
 
+> **Paths are relative to `docs/`** (this doc lives at `docs/analysis/SKODA-MASTER.md`). The corpus was reorganized into topic subfolders on 2026-09-14 — see `docs/README.md`.
+
 | Topic | Source doc |
 |---|---|
-| Site shape, backend, scale, first risks | `SKODA-STORYBOARD-DISCOVERY.md` |
-| Search feasibility, EN scope, template gaps | `SKODA-STORYBOARD-DRILLDOWN.md` |
-| Full block audit + variants + matrix + responsive | `SKODA-EN-BLOCK-INVENTORY.md` (+ `SKODA-EN-BLOCK-DATASET.csv`/`-AGGREGATE.json`) |
-| Per-block critical review + live contracts + debt | `SKODA-BLOCK-IMPLEMENTATION-REVIEW.md` |
-| Media integration strategy | `SKODA-MEDIA-INTEGRATION-REVIEW.md` |
-| Measured media (counts, footprint, CDN/CORS) | `SKODA-MEDIA-DEEP-DIVE.md` |
-| Mapping existing S3 images → AEM Assets (manifest, A/B) | `SKODA-ASSET-MAPPING.md` |
-| Story-flattener POC (parser mechanism + fidelity method) | `SKODA-FLATTENER-POC-FINDINGS.md` |
-| **Full 100% EN+CS widget census** (types, combinations, coverage, locale-invariance) + per-story dataset | `SKODA-STORY-WIDGET-CENSUS.md` + `SKODA-STORY-WIDGET-DATASET.csv` |
-| Complex dynamic systems (contracts, targeting) | `SKODA-COMPLEX-SYSTEMS-DEEP-DIVE.md` |
-| Media-cart **bulk zip-download** feasibility + options (A–F) + demo/prod recommendation | `SKODA-MEDIA-CART-DOWNLOAD.md` |
-| Header/footer structure | `SKODA-HEADER-FOOTER-ANALYSIS.md` |
-| DA/EW target architecture (doc-cited) | `SKODA-EDS-DA-ARCHITECTURE.md` |
-| Build specs for 5 systems | `SKODA-SYSTEM-BUILD-SPECS.md` |
-| Red-team of findings / of docs / consistency | `SKODA-ADVERSARIAL-REVIEW.md`, `-REVIEW-2.md`, `-CORRECTNESS-AUDIT.md` |
-| Prior consolidated overview | `SKODA-STORYBOARD-ANALYSIS-OVERVIEW.md` (+ `.html` deck, `SKODA-STORYBOARD-SITE-FACTS.html`) |
-| **Date-driven delivery plan (Oct 15 demo / Jan 2 go-live)** | **`SKODA-DELIVERY-PLAN.md`** (canonical for phasing/scope) |
-| **Client requirements doc → our status mapping (per-ID, ticket-linked)** | **`SKODA-CLIENT-REQUIREMENTS-MAPPING.md`** (maps `CMS-MediaRoomMigration-Requirements-*.pdf` COM/STO/MR/MIG IDs to built/solvable/open status; adds decision D17) |
-| **M1 demo target (tiered scope + signable definition-of-done)** | **`SKODA-M1-DEMO-TARGET.md`** (irreducible core / differentiators / blueprint tiers vs the already-built `/en`) |
-| **Autonomous-agent handoff candidates (framework eval)** | **`SKODA-AGENT-HANDOFF-CANDIDATES.md`** (which isolated, objective-oracle parts can be handed to an agentic team; no-visual-fidelity constraint) |
-| Delivery backlog (epics/tickets) | `skoda/OVERVIEW.md` + `skoda/epics/` + `skoda/tickets/` |
-| **Completeness proof for this master** | `SKODA-MASTER-COVERAGE.md` |
-| **22-URL block-by-block gap analysis** (2026-09-14) — corrected §3 Series claim, refined press-kit claim, named the 5 "Page" sub-types, and surfaced decision D18 | `.migration/plans/url-analysis-comparison.md` + `url-analysis-matrix.json` |
+| Site shape, backend, scale, first risks | `analysis/SKODA-STORYBOARD-DISCOVERY.md` |
+| Search feasibility, EN scope, template gaps | `analysis/SKODA-STORYBOARD-DRILLDOWN.md` |
+| Full block audit + variants + matrix + responsive | `analysis/SKODA-EN-BLOCK-INVENTORY.md` (+ `analysis/SKODA-EN-BLOCK-DATASET.csv`/`-AGGREGATE.json`) |
+| Per-block critical review + live contracts + debt | `reviews/SKODA-BLOCK-IMPLEMENTATION-REVIEW.md` |
+| Media integration strategy | `media/SKODA-MEDIA-INTEGRATION-REVIEW.md` |
+| Measured media (counts, footprint, CDN/CORS) | `media/SKODA-MEDIA-DEEP-DIVE.md` |
+| Mapping existing S3 images → AEM Assets (manifest, A/B) | `media/SKODA-ASSET-MAPPING.md` |
+| Story-flattener POC (parser mechanism + fidelity method) | `analysis/SKODA-FLATTENER-POC-FINDINGS.md` |
+| **Full 100% EN+CS widget census** (types, combinations, coverage, locale-invariance) + per-story dataset | `analysis/SKODA-STORY-WIDGET-CENSUS.md` + `analysis/SKODA-STORY-WIDGET-DATASET.csv` |
+| Complex dynamic systems (contracts, targeting) | `analysis/SKODA-COMPLEX-SYSTEMS-DEEP-DIVE.md` |
+| Media-cart **bulk zip-download** feasibility + options (A–F) + demo/prod recommendation | `media/SKODA-MEDIA-CART-DOWNLOAD.md` |
+| Header/footer structure | `analysis/SKODA-HEADER-FOOTER-ANALYSIS.md` |
+| DA/EW target architecture (doc-cited) | `architecture/SKODA-EDS-DA-ARCHITECTURE.md` |
+| Build specs for 5 systems | `architecture/SKODA-SYSTEM-BUILD-SPECS.md` |
+| Red-team of findings / of docs / consistency | `reviews/SKODA-ADVERSARIAL-REVIEW.md`, `reviews/SKODA-ADVERSARIAL-REVIEW-2.md`, `reviews/SKODA-CORRECTNESS-AUDIT.md` |
+| Prior consolidated overview (superseded by this master) | `archive/SKODA-STORYBOARD-ANALYSIS-OVERVIEW.md` (+ `archive/…-OVERVIEW.html`, `archive/SKODA-STORYBOARD-SITE-FACTS.html`) |
+| **Date-driven delivery plan (Oct 15 demo / Jan 2 go-live)** | **`planning/SKODA-DELIVERY-PLAN.md`** (canonical for phasing/scope) |
+| **Client requirements doc → our status mapping (per-ID, ticket-linked)** | **`planning/SKODA-CLIENT-REQUIREMENTS-MAPPING.md`** (maps `source/CMS-MediaRoomMigration-Requirements-*.pdf` COM/STO/MR/MIG IDs to built/solvable/open status; adds decisions D17/D18) |
+| **M1 demo target (tiered scope + signable definition-of-done)** | **`planning/SKODA-M1-DEMO-TARGET.md`** (irreducible core / differentiators / blueprint tiers vs the already-built `/en`) |
+| **Autonomous-agent handoff candidates (framework eval)** | **`planning/SKODA-AGENT-HANDOFF-CANDIDATES.md`** (which isolated, objective-oracle parts can be handed to an agentic team; no-visual-fidelity constraint) |
+| Delivery backlog (epics/tickets) | `tickets/OVERVIEW.md` + `tickets/epics/` + `tickets/tickets/` |
+| **Completeness proof for this master** | `analysis/SKODA-MASTER-COVERAGE.md` |
+| **22-URL block-by-block gap analysis** (2026-09-14) — corrected §3 Series claim, refined press-kit claim, named the 5 "Page" sub-types, and surfaced decision D18 | `../.migration/plans/url-analysis-comparison.md` + `url-analysis-matrix.json` |
 
-*This master is canonical going forward; source docs are retained for detail, not deleted.*
+*This master is canonical going forward; source docs are retained for detail (now under `docs/` topic subfolders), not deleted.*
