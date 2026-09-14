@@ -104,8 +104,8 @@
 </style>
 </head>
 <body>
-<div style="background:#fde8e8;border:1px solid #f0b0b0;border-left:4px solid #c0392b;color:#7a1f1f;padding:12px 16px;margin:0 0 16px;font-family:sans-serif;font-size:13px;">
-⚠️ <strong>ARCHIVED (2026-09-14).</strong> Point-in-time exec briefing, retained as a historical reference point. For current status see the canonical findings doc <code>docs/analysis/SKODA-MASTER.md</code> and <code>docs/planning/</code>.
+<div style="background:#eef7ee;border:1px solid #c4e2c4;border-left:4px solid #4ba82e;color:#1e6b1e;padding:12px 16px;margin:0 0 16px;font-family:sans-serif;font-size:13px;">
+<strong>Updated 2026-09-14</strong> — refreshed after the frontend-walkthrough call (Storyboard + Media Room) and aligned to the live decision log (D1–D19). Companion to the PoC solution-design deck <code>SKODA-SOLUTION-DESIGN.html</code> (Minimum/Target/Stretch tiers) and <code>SKODA-DELIVERY-PLAN.md</code>. Feeds the PoC-vs-final solution proposal on <strong>Wed 2026-09-16</strong>.
 </div>
 
 <header class="hero">
@@ -144,11 +144,12 @@
       <strong>The 15 Oct demo is mission-critical and politically sensitive.</strong> Per Škoda: the team must show value with AEM by this date, "or this project and all future AEM projects are in jeopardy." Everything below is organised around making that date achievable — and it is achievable, but it's tight and starts now.
     </div>
     <ol class="keypoints">
-      <li><strong>Two fixed dates.</strong> A <strong>functioning demo by 15 Oct 2026</strong> (front end working, approved AEM Assets, blog posts + media-cart replicated) and <strong>go-live 2 Jan 2027</strong> (content fully migrated, authoring workflows running).</li>
-      <li><strong>This is the blueprint.</strong> Škoda intends this project as the template for future VW EDS projects — so it must be done cleanly and be reusable, not just "demo-ware."</li>
+      <li><strong>Two fixed dates.</strong> A <strong>functioning demo by 15 Oct 2026</strong> (front end working, approved AEM Assets, blog posts + media-cart replicated) and <strong>go-live 2 Jan 2027</strong> (content fully migrated, authoring workflows running). <em>Per the 2026-09-14 alignment, the demo date may slip 1–2 weeks — the critical path is Škoda defining the demo content set, not our code.</em></li>
+      <li><strong>This is the blueprint.</strong> Škoda intends this project as the template for future VW EDS projects — so it must be done cleanly and be reusable, not just "demo-ware." <strong>~60–70% of the demo front end already runs live on a published <code>/en</code></strong> (homepage, rails, 48 story pages), built agentically — the ask is gap-closing + assembly, not a build from zero.</li>
+      <li><strong>Next step (this week).</strong> A <strong>PoC-vs-final solution proposal on Wed 2026-09-16</strong> sets the demo line as three tiers — <strong>Minimum</strong> (proves the model), <strong>Target</strong> (the demo the client pictured), <strong>Stretch</strong> (the differentiators). See <code>SKODA-SOLUTION-DESIGN.html</code>.</li>
       <li><strong>What it takes.</strong> A focused <strong>~4–6-week build to the demo</strong> depending on team size (§8; staff to maximise value — 4 engineers, ~4–5 weeks), delivered <strong>AI-led / human-steered</strong> (the AI builds the bulk; a small team each owns a workstream, with one acting as lead — accountable for quality, integrations and the date). The technically hardest parts have a defined, tested approach (§6).</li>
     </ol>
-    <p style="margin-bottom:0"><strong>Technical complexity: moderate and well-understood — favourable for Edge Delivery.</strong> This is a content/editorial site with <em>none</em> of the hardest categories: <strong>no commerce, no personalization, no user logins, no dynamic media.</strong> The one dynamic piece is the media-cart's zip-on-demand, which needs a single small serverless function (§5) — modest, and the only such component. The work is scale plus a few well-defined back-end features — a far simpler undertaking than a comparable AEM Sites or commerce build. <strong>The schedule, however, is tight</strong> (§10): the challenge here is the fixed, immovable date, not technical difficulty. The demo is a deliberate, focused slice of the whole.</p>
+    <p style="margin-bottom:0"><strong>Technical complexity: moderate and well-understood — favourable for Edge Delivery.</strong> This is a content/editorial site with <em>none</em> of the hardest categories: <strong>no commerce, no personalization, no user logins, no dynamic media.</strong> The one dynamic piece is the media-cart's server-side download step (file-size reduction, §5) — modest, and the only such component (with an unpacked-download fallback for the demo). The work is scale plus a few well-defined back-end features — a far simpler undertaking than a comparable AEM Sites or commerce build. <strong>The schedule, however, is tight</strong> (§10): the challenge here is the fixed, immovable date, not technical difficulty. The demo is a deliberate, focused slice of the whole.</p>
   </section>
 
   <!-- 2 -->
@@ -159,9 +160,9 @@
       <div class="stat"><div class="num">~13,100</div><div class="lbl">Editorial pages</div><div class="sub">across 6 languages</div></div>
       <div class="stat"><div class="num">~28,300</div><div class="lbl">Media items</div><div class="sub">~200k+ stored files</div></div>
       <div class="stat"><div class="num">6</div><div class="lbl">Languages</div><div class="sub">EN + CS primary</div></div>
-      <div class="stat"><div class="num">~10 + 5</div><div class="lbl">Building blocks</div><div class="sub">content + site-wide</div></div>
+      <div class="stat"><div class="num">97</div><div class="lbl">Functional requirements</div><div class="sub">client baseline (§3.5)</div></div>
     </div>
-    <p style="margin-top:14px;margin-bottom:0;font-size:13.5px;color:var(--muted)">Runs on WordPress today, with search &amp; filtering powered by Elasticsearch. English is roughly a quarter of the content; English + Czech are the primary languages.</p>
+    <p style="margin-top:14px;margin-bottom:0;font-size:13.5px;color:var(--muted)">Runs on WordPress today, with search &amp; filtering powered by Elasticsearch. English is roughly a quarter of the content; English + Czech are the primary languages. The <strong>97 functional requirements</strong> above are the client's own structured baseline (<code>CMS-MediaRoomMigration-Requirements</code>) — enumerated per component/page-type in §3.5 below — not our estimate of the legacy site.</p>
     <div class="callout" style="margin-top:16px">
       <strong>How we know — these are measured, not estimated:</strong>
       <ul style="margin:6px 0 0;font-size:13px">
@@ -274,6 +275,34 @@
       </div>
     </div>
     <p style="font-size:12px;color:var(--muted);margin:8px 0 0">EN and CS use the <strong>same page structure</strong> (identical component set — §2), so Czech adds volume, not complexity. "Not in the demo" means <em>later</em>, not <em>dropped</em>.</p>
+
+    <h3 style="margin-top:24px">3.5 — Requirement inventory (client baseline)</h3>
+    <p class="subtitle">The client's requirements doc enumerates <strong>97 functional requirement IDs across 13 component / page-type groups</strong>, plus editorial, migration and non-functional requirements. This is the authoritative component count. Each maps to a build status in <code>SKODA-CLIENT-REQUIREMENTS-MAPPING.md</code>; the PoC tiering is in <code>SKODA-SOLUTION-DESIGN.html</code>.</p>
+    <table>
+      <thead><tr><th>Area (client §)</th><th>Group</th><th>IDs</th><th>#</th><th>Demo relevance</th></tr></thead>
+      <tbody>
+        <tr><td rowspan="1"><strong>Common</strong> (§5.1)</td><td>Site-wide capabilities</td><td class="dep">COM01–COM19</td><td>19</td><td>Header, nav, cards, hero, carousel, pagination, media preview/download, <strong>media cart</strong>, share, subscription, consent, footer, app badge — mostly built on <code>/en</code></td></tr>
+        <tr><td rowspan="5"><strong>Storyboard</strong> (§5.2)</td><td>A · Homepage</td><td class="dep">STO-H01–H09</td><td>9</td><td>Featured, Latest Stories, Models/eMobility/Lifestyle/Škoda-World/Series sliders, Latest News, Social — built</td></tr>
+        <tr><td>B · Category pages</td><td class="dep">STO-C01–C05</td><td>5</td><td>Hero + results grid + card + pagination + load-more</td></tr>
+        <tr><td>C · Series page</td><td class="dep">STO-S01–S03</td><td>3</td><td>Hero + grid + card — pulled into demo (D18)</td></tr>
+        <tr><td>D · Model page</td><td class="dep">STO-M01–M05</td><td>5</td><td>Hero + featured + related-stories grid + card + load-more — demo target</td></tr>
+        <tr><td>E · Story detail</td><td class="dep">STO-D01–D10</td><td>10</td><td>Hero, rich text, embed, gallery, newsletter, related, sidebar, banner, <strong>media box</strong>, share</td></tr>
+        <tr><td rowspan="7"><strong>Media Room</strong> (§5.3)</td><td>A · Homepage</td><td class="dep">MR-H01–H10</td><td>10</td><td>Featured, News, Images, Videos, Models, Press Kits, Latest Stories, Cart, Lightbox, Contacts — <strong>key new assembly</strong></td></tr>
+        <tr><td>B · Shared listing</td><td class="dep">MR-L01–L06</td><td>6</td><td>One shared search/listing engine (§11.6) — News/Images/Videos/Press Kits</td></tr>
+        <tr><td>C · Press Release</td><td class="dep">MR-PR01–PR07</td><td>7</td><td>Header, structured body, AI-audio, PDF, infographic, video, downloads</td></tr>
+        <tr><td>D · Press Kit</td><td class="dep">MR-PK01–PK07</td><td>7</td><td>Hub + conditional narrative + variant selector + grouped media + FAQ + downloads + ZIP</td></tr>
+        <tr><td>E · Model page (MR)</td><td class="dep">MR-M01–M07</td><td>7</td><td>Hero + bodywork selector + 5 related-content strips</td></tr>
+        <tr><td>F · Images</td><td class="dep">MR-I01–I05</td><td>5</td><td>Listing, filters, preview/lightbox, rendition download, add-to-cart</td></tr>
+        <tr><td>G · Videos</td><td class="dep">MR-V01–V04</td><td>4</td><td>Listing, filters, preview/playback, download</td></tr>
+        <tr><td colspan="2"><strong>Functional total</strong></td><td class="dep">13 groups</td><td><strong>97</strong></td><td>Full per-ID status in the requirements mapping</td></tr>
+        <tr><td><strong>Editorial / DAM</strong> (§6)</td><td>Authoring, roles, embargo, audit, locale, DAM</td><td class="dep">6.1–6.9</td><td>9</td><td>Mostly go-live; DA-vs-UE (D13) is architecture-critical; embargo (D9) &amp; audit (§6.7) confirmed real</td></tr>
+        <tr><td><strong>Migration</strong> (§7)</td><td>Inventory → migrate → map → preserve → validate</td><td class="dep">MIG01–MIG07</td><td>7</td><td>Bulk migration out of PoC (§9); demo uses a representative set</td></tr>
+        <tr><td><strong>Non-functional</strong> (§8)</td><td>URL/SEO, analytics, consent, newsletter, perf, a11y</td><td class="dep">8.1–8.6</td><td>6</td><td>Analytics in scope (D10); consent out (D10); perf/a11y ongoing</td></tr>
+      </tbody>
+    </table>
+    <div class="callout">
+      <strong>Client's own PoC scope cut (§9 of the requirements doc):</strong> not every template is rebuilt this phase — the PoC delivers a faithful as-is frontend for a <strong>defined subset</strong> (Media Room home + one Model page, extendable to Story, Press Release, Press Kit once approved). Out: backend governance depth, bulk migration, visual redesign, full localization tooling, third-party rebuilds (AI-audio, newsletter, app/RSS reproduced as-is), production search/redirect execution. <strong>Recommendation logic:</strong> tag-based aggregation in scope, personalization out. This aligns one-to-one with our tiering.
+    </div>
   </section>
 
   <!-- 4 -->
@@ -285,7 +314,7 @@
         <strong>Platform &amp; content</strong>
         <ul>
           <li><strong>WordPress + Elasticsearch</strong>; server-rendered, jQuery-era theme — not a modern app.</li>
-          <li>A handful of repeatable <strong>page templates</strong> (press release, story/blog, page, encyclopedia, listings) and <strong>~10 content blocks + ~5 site-wide</strong> elements.</li>
+          <li>A handful of repeatable <strong>page templates</strong> (press release, story/blog, page, encyclopedia, listings) and <strong>~10 content blocks + ~5 site-wide</strong> elements <em>on the legacy site</em> — which the client's requirements doc formalises into <strong>97 functional requirement IDs</strong> across 13 component/page-type groups (see the §3.5 inventory).</li>
           <li>Search &amp; filtered listings run across <strong>15 topic facets</strong>.</li>
           <li>Navigation placement is driven by <strong>metadata tags</strong> (matches Škoda's note).</li>
         </ul>
@@ -309,10 +338,12 @@
     <table>
       <thead><tr><th>Area</th><th>Why it's hard</th><th>When</th></tr></thead>
       <tbody>
-        <tr><td><strong>Media-cart</strong></td><td>Collect assets → download as a zip. <em>Device-ID based, no login</em> — not an account system. The zip-on-demand is the one step Edge Delivery doesn't do natively — it <strong>requires a small serverless function</strong> that builds the zip, writes it to storage, and returns a short-lived download link (mirrors the current site's signed-download flow). A net-new capability for Škoda (none in use today, §3); <strong>exact host to confirm in a short spike</strong> (§9). Required in the demo.</td><td>Demo</td></tr>
+        <tr><td><strong>Media-cart</strong></td><td>Collect assets → download. <em>Device-ID based, no login</em> — not an account system. Purpose is confirmed as server-side <strong>file-size reduction</strong> (reduced renditions), not just bundling (D2). The packing/reduction step is the one thing Edge Delivery doesn't do natively — a small server-side function (Adobe App Builder / edge, or AEM Assets renditions). <strong>PoC fallback agreed on the 2026-09-14 call:</strong> if the packer isn't ready in time, the select-all UI downloads files <strong>separately (unpacked)</strong> for the demo. Required in the demo.</td><td>Demo</td></tr>
         <tr><td><strong>Search &amp; listings</strong></td><td>Elasticsearch today; rebuilt as a published index + client filtering (15 facets). The #1 build prototype.</td><td>Demo</td></tr>
         <tr><td><strong>Story / "blog" pages</strong></td><td>Built in a visual page-builder — content must be "flattened" into the new model. The component set is small and consistent (§6).</td><td>Demo</td></tr>
-        <tr><td><strong>Content embargoes</strong> <em>(new)</em></td><td>Confidential items visible only to select authors until a release date. No native EDS gate → we recommend a "staged-publish" approach (authors preview; auto-publish on the date).</td><td>Go-live</td></tr>
+        <tr><td><strong>Content embargoes</strong></td><td>Confidential items visible only to select authors until a release date. <strong>Approach agreed on the 2026-09-14 call:</strong> native EDS pattern — group-restricted access + preview-not-live, publish at a time; client confirmed group-based (not per-individual) and that an article-level preview-share is acceptable (no separate folder required). D9.</td><td>Go-live</td></tr>
+        <tr><td><strong>AI-audio reading</strong> <em>(MR)</em></td><td>Per-language "listen to this press release" box. Third-party JS embed — <strong>must be retained even though the podcast section is cut</strong> (drop-in vendor code, no rebuild). D-none; embed only.</td><td>Demo / Go-live</td></tr>
+        <tr><td><strong>Media Room breadth</strong> <em>(new, 22-URL analysis)</em></td><td>Series is a real 2-level template; Images/Videos are full faceted-listing pages (gallery-lightbox + Vimeo embed + per-item cart). One shared listing engine serves both sites. Pulled into the demo (D18) — assembly of built parts.</td><td>Demo</td></tr>
         <tr><td><strong>Media at scale</strong></td><td>~28,300 logical items / ~200k files.<sup>†</sup> Approved assets are intended to come from <strong>AEM Assets</strong> — but whether they already live there is <strong>unconfirmed</strong>; if not, the fallback is to import them into the content pipeline. Cost is rights + dedup, not the upload — and <strong>rights clearance sits with Škoda</strong>, so it's a go-live schedule input, not a build task.</td><td>Go-live</td></tr>
         <tr><td><strong>Banners &amp; newsletter</strong></td><td>A bespoke per-market ad system and a subscriber/account newsletter — each a back-end service to rebuild or defer.</td><td>Go-live / decide</td></tr>
         <tr><td><strong>Analytics</strong></td><td>Google Analytics + Facebook pixel + SEO metadata to re-wire (a custom tracking layer exists — likely feeds GA; to confirm).</td><td>Go-live</td></tr>
@@ -329,7 +360,7 @@
       <strong>Blog posts are built from a small, consistent set of components</strong>, and that set is <strong>the same in English and Czech</strong> — so adding Czech is more volume, not more complexity.
     </div>
     <div class="grid2">
-      <div class="card"><strong>Media-cart needs no account</strong><br>Device-ID based, <strong>no login/account</strong>. The zip-download is the one piece Edge Delivery doesn't do natively — it needs a small <strong>serverless function</strong> (net-new for Škoda), which builds the zip, stores it, and returns a short-lived link. <strong>Host to confirm in a spike</strong> (Adobe App Builder, a CDN worker, or client-side zip in the browser each work with the right pattern — §9). Fallback: a per-story pre-built "download all" bundle.</div>
+      <div class="card"><strong>Media-cart needs no account</strong><br>Device-ID based, <strong>no login/account</strong>. Purpose = server-side <strong>file-size reduction</strong> (reduced renditions), not just bundling (D2). The one piece Edge Delivery doesn't do natively is that server-side step (Adobe App Builder / edge, or AEM Assets renditions). <strong>PoC fallback (agreed 2026-09-14):</strong> if the packer isn't ready, download the selected files separately (unpacked) for the demo — same fallback covers the whole-kit press-kit ZIP.</div>
       <div class="card"><strong>Approved assets source = AEM Assets</strong><br>Approved images are intended to come from <strong>AEM Assets</strong>. Open: whether Škoda has its own instance, uses a shared VW/group one, or needs one provisioned — and whether the images are in it yet (§9). Demo fallback: serve approved images from the content pipeline and cut over later.</div>
       <div class="card"><strong>Video = no migration</strong><br>Vimeo/YouTube embeds mean <strong>no video files to move, transcode or host</strong>, and no video player to rebuild.</div>
       <div class="card"><strong>Header/footer are plain nested menus</strong><br>Standard navigation lists, not an elaborate mega-menu — low build effort.</div>
@@ -450,16 +481,21 @@
   <!-- 9 -->
   <section id="s9">
     <h2><span class="num">9</span> Open decisions</h2>
-    <p class="subtitle">Points to settle before or early in the build. Each is tagged with who owns the call — <span class="who who-sk">Škoda</span> to decide, or <span class="who who-jt">Joint</span> (Škoda + delivery team together). Resolving these — or naming an owner and a date — unblocks the plan.</p>
+    <p class="subtitle">Tracked in the live decision log (<code>SKODA-DELIVERY-PLAN.md</code> §8, D1–D19). Owner tags: <span class="who who-sk">Škoda</span> to decide · <span class="who who-jt">Joint</span> (Škoda + delivery team). <strong>Six to close on Wed 2026-09-16</strong> are marked ★. Several earlier opens are now resolved (shown for context).</p>
     <ul class="decisions">
-      <li><span class="tag">Embargoes</span> <span class="who who-jt">Joint</span> Confirm the <strong>staged-publish</strong> approach for confidential media-room items (authors preview; auto-publish on the release date) — this fits EDS and needs no special infrastructure.</li>
-      <li><span class="tag">Analytics</span> <span class="who who-sk">Škoda</span> Is <strong>Google Analytics + Facebook pixel + SEO metadata</strong> sufficient, or must a bespoke tracking layer be reproduced? (Affects effort.)</li>
-      <li><span class="tag">Figma showcase</span> <span class="who who-jt">Joint</span> Which <strong>1–2 components</strong> should demonstrate Figma-to-AEM at the demo?</li>
-      <li><span class="tag">Banners &amp; newsletter</span> <span class="who who-sk">Škoda</span> In or out for go-live? The banner tool is a full per-market ad platform — confirm it's wanted vs. a simpler promo.</li>
-      <li><span class="tag">Assets — is there an instance?</span> <span class="who who-sk">Škoda</span> <strong>Does Škoda have an AEM Assets instance at all?</strong> Three paths: (a) <strong>Škoda's own instance</strong> — cleanest end-state, but provisioning + licensing has procurement lead time; (b) <strong>a shared VW/group instance</strong> — likely faster if one exists, but raises tenancy / permissions / governance questions; (c) <strong>no instance in time</strong> — for the demo, serve approved images from the content pipeline and cut over later. <strong>Needs an answer before demo build start</strong> (demo-critical, §10).</li>
-      <li><span class="tag">Assets — where are the images?</span> <span class="who who-sk">Škoda</span> If an instance exists: are approved images <strong>already in it</strong>, or does the current site hold the originals? Sets the asset-mapping approach (likely a mix); if not in Assets, we import approved originals into the content pipeline.</li>
-      <li><span class="tag">Zip hosting</span> <span class="who who-jt">Joint</span> The media-cart zip needs a small <strong>serverless function</strong> — a net-new capability for Škoda (none in use today, §3). <strong>Host to confirm in a short spike:</strong> candidates are Adobe App Builder, a CDN/edge worker, or client-side zip in the browser — each has trade-offs (e.g. App Builder caps an action's direct result at 1 MB, so a zip must be written to storage and returned as a link, not inline). All are workable with the right pattern; we validate and pick early. Go-live ownership/hosting is the follow-on decision.</li>
-      <li><span class="tag">Content scope</span> <span class="who who-sk">Škoda</span> Full archive at go-live, or content from a cutoff date forward?</li>
+      <li>★ <span class="tag">D5 · AEM Assets</span> <span class="who who-sk">Škoda</span> <strong>Resolved as the approved-asset source</strong> — but <strong>does an instance exist by demo-build start?</strong> (own vs shared VW/group vs none-in-time). This is the <strong>#1 client-side risk</strong>. Source masters ~40 MB need pre-conditioning. Fallback: serve a curated set from the pipeline/CDN and cut over later.</li>
+      <li>★ <span class="tag">D2 · Media-cart download</span> <span class="who who-jt">Joint</span> Confirmed as server-side <strong>file-size reduction</strong> (reduced renditions), not just zip. PoC fallback agreed: unpacked multi-download if the packer isn't ready.</li>
+      <li>★ <span class="tag">D1 · Localization</span> <span class="who who-sk">Škoda</span> EN + CS for the PoC; DE/SK/SR/SL on-demand for go-live. Needs CS content. Fallback: prove CS structurally (chrome + selector + one page).</li>
+      <li>★ <span class="tag">D12 · Facets</span> <span class="who who-jt">Joint</span> Which of the 15 taxonomy facets are demo-critical? (Facet extraction is a normalization layer, not clean selectors — scope the subset first.)</li>
+      <li>★ <span class="tag">D11 · Figma showcase</span> <span class="who who-jt">Joint</span> Which <strong>1–2 components</strong> demonstrate Figma-to-AEM at the demo?</li>
+      <li>★ <span class="tag">D13 · Authoring model</span> <span class="who who-jt">Joint</span> <strong>Document Authoring vs Universal Editor</strong> — architecture-critical; changes the author experience + editability model. Decide early.</li>
+      <li><span class="tag">D15 · Governance / RACI</span> <span class="who who-jt">Joint</span> <strong>Live project-setup blocker</strong> — who implements the PoC (Adobe) vs QA (Škoda/CMS); business owner (EZ Horák) engagement. Awaiting Martin's confirmation; business meeting Fri.</li>
+      <li><span class="tag">D19 · AI-tool reporting</span> <span class="who who-jt">Joint</span> <em>New (2026-09-14):</em> Škoda must report/monitor AI tools used (EU AI Act). We formally notify + share the legal-clearance summary (no data leaves our realm). Compliance, not a blocker.</li>
+      <li><span class="tag">Audit log (§6.7)</span> <span class="who who-jt">Joint</span> <em>New:</em> author change-history is a firm requirement (many agencies author) — validate EDS/DA capability.</li>
+      <li><span class="tag">D9 · Embargoes</span> <span class="who who-jt">Joint</span> <strong>Approach agreed</strong> — group-restricted + preview-not-live (native EDS). Go-live.</li>
+      <li><span class="tag">D10 · Analytics + consent</span> <span class="who who-sk">Škoda</span> <strong>Resolved</strong> — analytics in Adobe scope (GA + FB + Yoast baseline); consent/OneTrust <strong>out</strong> (stays with Škoda).</li>
+      <li><span class="tag">D3/D4 · Banners &amp; newsletter</span> <span class="who who-sk">Škoda</span> Go-live or defer. Newsletter is <strong>UI-only for the PoC</strong> (confirmed 2026-09-14).</li>
+      <li><span class="tag">D7 · Content scope</span> <span class="who who-sk">Škoda</span> Full archive (~1,651 press releases back to 2015) vs a cutoff date — likely a specific cutoff, TBC.</li>
     </ul>
   </section>
 
@@ -471,8 +507,9 @@
       <thead><tr><th>Risk</th><th>Level</th><th>Why that level</th><th>How we manage it</th></tr></thead>
       <tbody>
         <tr><td>The short demo window (~4–6 weeks, §8) carries a broad scope (media-cart + 2 languages + blog posts)</td><td><span class="lvl r-high">High</span></td><td>Fixed, immovable date + broad scope + a hard delivery floor (§8) — little slack if any lane slips</td><td>Start now; parallel tracks; keep the demo a polished, focused slice</td></tr>
-        <tr><td>The four back-end systems (media-cart, banners, newsletter, analytics) have no off-the-shelf equivalent</td><td><span class="lvl r-high">High</span></td><td>Each is a bespoke rebuild, not a config; the media-cart is in the demo and needs a net-new serverless zip function (host TBC — §9)</td><td>Confirm the zip host in an early spike (App Builder / CDN worker / client-side); pre-built bundle / in-browser zip as fallbacks. Others scoped/decided for go-live</td></tr>
-        <tr><td><strong>Client-side readiness</strong> — access, a named Škoda counterpart, the demo content set, and the §9 decisions</td><td><span class="lvl r-high">High</span></td><td>Entirely client-controlled; in a ~4–6-week window a two-week slip here alone can miss the demo</td><td>Confirm all of it is <strong>ready by demo build start</strong> (the §7 ask); each §9 decision gets an owner + date today</td></tr>
+        <tr><td>The four back-end systems (media-cart, banners, newsletter, analytics) have no off-the-shelf equivalent</td><td><span class="lvl r-med">Med</span></td><td>Each is a bespoke rebuild, not a config; the media-cart is in the demo and needs a server-side reduction step (D2). Analytics/consent resolved (D10); newsletter UI-only for PoC</td><td>PoC fallback = unpacked multi-download if the packer isn't ready (agreed 2026-09-14); banners/newsletter scoped for go-live</td></tr>
+        <tr><td><strong>Client-side readiness</strong> — access, a named Škoda counterpart, the demo content set, and the §9 decisions</td><td><span class="lvl r-high">High</span></td><td>Entirely client-controlled; a 1–2-week slip here alone can miss the demo. The demo content set is <strong>still undefined</strong> — the #1 unblocker</td><td>Confirm all of it is <strong>ready by demo build start</strong> (the §7 ask); close the six ★ decisions (§9) with an owner + date on Wed 2026-09-16</td></tr>
+        <tr><td><strong>Governance / RACI</strong> (D15) — roles across the CMS, AEP and Adobe delivery teams not yet agreed</td><td><span class="lvl r-high">High</span></td><td>Project-setup blocker raised on the 2026-09-14 call — who implements the PoC vs QAs it, and business-owner engagement, must be clear before build</td><td>Jaroslav driving; awaiting Martin's confirmation; business meeting Fri. Name the RACI before build start</td></tr>
         <tr><td><strong>AEM Assets instance + approved assets</strong> available in time for the demo</td><td><span class="lvl r-med">Med</span></td><td>Demo requires "approved assets from AEM Assets" (§3), but it's unconfirmed whether Škoda even <em>has</em> an instance (own vs. shared VW), let alone whether the images are in it (§9)</td><td>Resolve the instance question first (§9 — Škoda's, a VW/group instance, or none-in-time); fallback = serve approved images from the pipeline for the demo and cut over later, so the demo isn't blocked on procurement</td></tr>
         <tr><td>Full content migration + authoring workflows for go-live in ~10 weeks after the demo</td><td><span class="lvl r-med">Med</span></td><td>Large volume but automatable; the tooling can be built during M1, so time — not feasibility — is the constraint</td><td>Automated import; begin the tooling during M1</td></tr>
         <tr><td>Blog / story page flattening</td><td><span class="lvl r-low">Low</span></td><td>Measured across 100% of stories: a small, consistent component set, same in EN + CS (§6)</td><td>Confirmed by full-corpus analysis; handled by one workstream</td></tr>
@@ -485,8 +522,9 @@
   <section id="s11">
     <h2><span class="num">11</span> Recommendation</h2>
     <div class="card">
-      <p><strong>Proceed, and start immediately.</strong> The analysis is thorough, the hardest part has a defined, tested approach, and the demo scope is a credible, focused slice that doubles as the VW blueprint. The 15 Oct date is achievable with an early start, parallel workstreams, and the AI-led / human-steered model.</p>
-      <p style="margin-bottom:0"><strong>To close today:</strong> agree to proceed; name the Škoda counterpart and grant access; pick the demo content + Figma-showcase components; settle the open decisions in §9 (or name an owner + date for each); and confirm the engineer headcount (§8 — we recommend 4, to maximise delivered value). We re-confirm the week-by-week plan and begin.</p>
+      <p><strong>Proceed, and start immediately.</strong> The analysis is thorough, the hardest parts have a defined, tested approach, and <strong>~60–70% of the demo front end already runs live</strong> on a published <code>/en</code>. The demo scope is a credible, focused slice that doubles as the VW blueprint. The 15 Oct date is achievable with an early start, parallel workstreams, and the AI-led / human-steered model — the real risk is client-side, not build-side.</p>
+      <p><strong>The demo line (see <code>SKODA-SOLUTION-DESIGN.html</code>):</strong> <strong>Minimum</strong> is essentially already met (assembly + narration of live parts, with a cart fallback); <strong>Target</strong> is the recommended sign-off (both sites end-to-end, EN+CS — all assembly of built parts); <strong>Stretch</strong> is opportunistic (Figma→AEM, blueprint narrative, press-kit, embargo).</p>
+      <p style="margin-bottom:0"><strong>To close on Wed 2026-09-16 (owner + date each):</strong> the six ★ decisions in §9 — <strong>D5</strong> (AEM Assets instance — the #1 threat), <strong>D2</strong> (cart download), <strong>D1</strong> (CS scope), <strong>D12</strong> (facet subset), <strong>D11</strong> (Figma components), <strong>D13</strong> (DA vs Universal Editor) — plus the <strong>demo-content owner</strong> and the <strong>governance/RACI</strong> (D15). Then we confirm headcount (§8 — recommend 4) and begin.</p>
     </div>
   </section>
 

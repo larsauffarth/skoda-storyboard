@@ -16,10 +16,10 @@ its §16 Document Map indexes every source report with its current path.
 | **`analysis/`** | Canonical findings (`SKODA-MASTER.md` + coverage proof) and the source analysis reports behind them — block/widget inventories + datasets, complex-systems deep-dive, flattener POC, header/footer analysis, discovery & drilldown. |
 | **`architecture/`** | Target-state build & architecture specs (`SKODA-EDS-DA-ARCHITECTURE.md`, `SKODA-SYSTEM-BUILD-SPECS.md`). |
 | **`media/`** | Media pipeline, media-cart/download feasibility, asset mapping, media deep-dive & integration review. |
-| **`planning/`** | Delivery plan (milestones + decision log), M1 demo target, client-requirements mapping, filterable requirements report (HTML), agent-handoff candidates, feasibility, discovery-session agenda, call-prep. |
+| **`planning/`** | Delivery plan (milestones + decision log), M1 demo target, **PoC solution design (`SKODA-SOLUTION-DESIGN.html` — Minimum/Target/Stretch tiers, client-discussion basis)**, **exec/leadership briefing (`SKODA-EXEC-BRIEFING.html`)**, client-requirements mapping, filterable requirements report (HTML), agent-handoff candidates, feasibility, discovery-session agenda, call-prep. |
 | **`reviews/`** | Adversarial reviews, correctness audit, block-implementation review, deck-verification log. |
 | **`source/`** | Original client input — the Media Room Migration requirements PDF. |
-| **`archive/`** | **Superseded material, retained as reference** (not deleted). Prior consolidated overviews and the earlier exec briefing — succeeded by `analysis/SKODA-MASTER.md`. |
+| **`archive/`** | **Superseded material, retained as reference** (not deleted). Prior consolidated overviews (`SKODA-STORYBOARD-ANALYSIS-OVERVIEW`, `-SITE-FACTS`) — succeeded by `analysis/SKODA-MASTER.md`. |
 | **`tickets/`** | Delivery backlog — `OVERVIEW.md`, epics, and SKODA-* tickets. |
 | **`deck/`** | Project-tracker slide deck + its build script. |
 | **`meetings/`** | Meeting notes. |

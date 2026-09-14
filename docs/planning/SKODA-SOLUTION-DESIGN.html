@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Škoda Storyboard &amp; Media Room — PoC Solution Design (Minimum · Target · Stretch)</title>
+<style>
+  :root {
+    --green: #0e3a2f; --green-bright: #4ba82e; --ink: #1a1a1a; --muted: #5c6670;
+    --line: #e2e6e9; --bg: #f6f8f9; --card: #fff; --red: #c0392b; --amber: #e08a1e;
+    --amber-dk: #b5651d; --lime: #4ba82e; --blue: #2b7bb9; --purple: #7a3d95; --grey: #8a949c;
+    --shadow: 0 1px 3px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.05);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--ink); background: var(--bg); font-size: 16px; line-height: 1.5; }
+  header.hero { background: linear-gradient(135deg, var(--green) 0%, #14513f 60%, #1c6b4f 100%); color: #fff; padding: 40px 32px 34px; }
+  header.hero .kicker { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--green-bright); margin: 0 0 8px; }
+  header.hero h1 { font-size: 32px; font-weight: 800; margin: 0 0 10px; line-height: 1.15; }
+  header.hero p.sub { margin: 0; color: #d6e4dd; max-width: 880px; font-size: 15px; }
+  header.hero .meta { margin-top: 16px; font-size: 12.5px; color: #b9cdc4; }
+  main { max-width: 1180px; margin: 0 auto; padding: 28px 24px 64px; }
+  section { margin: 38px 0 0; }
+  h2 { font-size: 21px; margin: 0 0 6px; color: var(--green); border-left: 4px solid var(--green-bright); padding-left: 12px; }
+  h2 .sec-note { font-size: 13px; font-weight: 400; color: var(--muted); display: block; margin-top: 3px; }
+  h3 { font-size: 15px; margin: 22px 0 8px; color: var(--ink); }
+
+  .stats { display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 6px; }
+  .stat { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; box-shadow: var(--shadow); min-width: 130px; flex: 1; }
+  .stat .n { font-size: 24px; font-weight: 800; line-height: 1.1; }
+  .stat .l { font-size: 11.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-top: 5px; }
+
+  .badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 20px; white-space: nowrap; }
+  .badge .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .b-built { background: #e6f4e6; color: #1e6b1e; } .b-built .dot { background: var(--lime); }
+  .b-asm   { background: #e7f1fa; color: #1c5a86; } .b-asm .dot { background: var(--blue); }
+  .b-new   { background: #fdf0e2; color: var(--amber-dk); } .b-new .dot { background: var(--amber); }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 4px; align-items: center; }
+  .legend .flabel { font-size: 12px; color: var(--muted); font-weight: 600; }
+
+  table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); font-size: 13px; margin-top: 8px; }
+  thead th { background: #f0f3f2; text-align: left; padding: 9px 12px; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); border-bottom: 1px solid var(--line); }
+  tbody td { padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: 0; }
+  tbody tr:hover { background: #fafcfb; }
+  td.flow { font-weight: 600; white-space: nowrap; }
+  td.dep { font-family: ui-monospace, Menlo, monospace; font-size: 11.5px; color: var(--muted); white-space: nowrap; }
+  td.note { color: var(--muted); font-size: 12.5px; }
+  .site-tag { font-size: 10.5px; font-weight: 700; padding: 1px 6px; border-radius: 4px; }
+  .sb { background: #e6f0ee; color: #0e3a2f; } .mr { background: #efe7f4; color: #7a3d95; } .x { background: #eef1f4; color: #445; }
+
+  .tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 12px; }
+  @media (max-width: 900px) { .tiers { grid-template-columns: 1fr; } }
+  .panel { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; box-shadow: var(--shadow); }
+  .panel.min { border-top: 4px solid var(--green-bright); }
+  .panel.tgt { border-top: 4px solid var(--blue); }
+  .panel.str { border-top: 4px solid var(--purple); }
+  .panel h3 { margin-top: 0; font-size: 16px; display: flex; align-items: baseline; justify-content: space-between; }
+  .panel h3 .tag { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 5px; }
+  .min .tag { background: #e6f4e6; color: #1e6b1e; } .tgt .tag { background: #e7f1fa; color: #1c5a86; } .str .tag { background: #f3e9f7; color: #7a3d95; }
+  .panel .lead { font-size: 12.5px; color: var(--muted); margin: 6px 0 10px; }
+  .panel ul { margin: 0; padding-left: 18px; }
+  .panel li { margin: 6px 0; font-size: 13px; }
+  .panel li b { color: var(--ink); }
+  .panel li .m { color: var(--muted); font-size: 12px; }
+
+  .callout { background: #fff8ec; border: 1px solid #f0dcb0; border-left: 4px solid var(--amber); border-radius: 8px; padding: 14px 16px; margin: 16px 0; font-size: 13.5px; }
+  .callout b { color: var(--amber-dk); }
+  .callout.green { background: #eef7ee; border-color: #c4e2c4; border-left-color: var(--green-bright); }
+  .callout.green b { color: #1e6b1e; }
+  .callout.rec { background: #eaf1f7; border-color: #bcd4e8; border-left-color: var(--blue); }
+  .callout.rec b { color: #1c5a86; }
+
+  ul.plain { margin: 8px 0 0; padding-left: 18px; } ul.plain li { margin: 5px 0; font-size: 13.5px; }
+  .prov { font-size: 11px; font-weight: 700; color: var(--amber-dk); background: #fdf0e2; padding: 1px 6px; border-radius: 4px; }
+  footer { max-width: 1180px; margin: 0 auto; padding: 24px; color: var(--muted); font-size: 12px; border-top: 1px solid var(--line); }
+  a { color: #1c5a86; }
+</style>
+</head>
+<body>
+<header class="hero">
+  <p class="kicker">Škoda Auto · Storyboard &amp; Media Room → Adobe Edge Delivery Services</p>
+  <h1>PoC Solution Design — where the line sits between a working demo and one that wins</h1>
+  <p class="sub">An end-to-end proof-of-concept scope for <b>both Storyboard and Media Room</b> (author → publish → consume), reconciling the client's stated vision against what already runs live on <code>/en</code>. Scope is drawn as three tiers — <b>Minimum</b> (proves the model), <b>Target</b> (the demo the client pictured), <b>Stretch</b> (the differentiators that make it a repeatable VW blueprint). Basis for the upcoming solution-design discussion.</p>
+  <p class="meta">Prepared 2026-09-14 · updated post-walkthrough-call (2026-09-14 transcript reviewed) · Companion to SKODA-M1-DEMO-TARGET.md, SKODA-DELIVERY-PLAN.md (decision log D1–D19), SKODA-CLIENT-REQUIREMENTS-MAPPING.md · Statuses verified against the published <code>/en</code> slice. <b>Feeds the PoC-vs-final solution proposal (Wed 2026-09-16).</b></p>
+</header>
+
+<main>
+
+  <!-- 1 · THE BAR -->
+  <section>
+    <h2>1 · The bar the client set<span class="sec-note">stated demo criteria (E1–E7) + the three functions flagged "not out of the box"</span></h2>
+    <div class="stats">
+      <div class="stat"><div class="n">E1–E7</div><div class="l">Stated criteria</div></div>
+      <div class="stat"><div class="n">~60–70%</div><div class="l">Already live on /en</div></div>
+      <div class="stat"><div class="n">2</div><div class="l">Sites, end-to-end</div></div>
+      <div class="stat"><div class="n">3</div><div class="l">"Not-OOTB" — already built</div></div>
+      <div class="stat"><div class="n">D1–D18</div><div class="l">Decisions in the log</div></div>
+    </div>
+    <table>
+      <thead><tr><th>#</th><th>What the client expects</th><th>Nature</th><th>Where it stands</th></tr></thead>
+      <tbody>
+        <tr><td class="dep">E1</td><td class="flow">Front end functioning — real pages, real chrome</td><td>fidelity</td><td class="note">Live on <code>/en</code> (header/mega-menu/footer, homepage rails). <span class="badge b-built"><span class="dot"></span>built</span></td></tr>
+        <tr><td class="dep">E2</td><td class="flow">Blog / story posts replicated</td><td>content + template</td><td class="note">48 stories imported + published. <span class="badge b-built"><span class="dot"></span>built</span></td></tr>
+        <tr><td class="dep">E3</td><td class="flow">Media-cart (device-ID, no login, collect → download)</td><td>the one dynamic feature</td><td class="note">The signature interaction. Gated on D2 (download reduction) + D5 (assets). <span class="badge b-new"><span class="dot"></span>net-new</span></td></tr>
+        <tr><td class="dep">E4</td><td class="flow">Approved AEM Assets in use</td><td>DAM integration</td><td class="note">Curated set, not full 28k. Gated on D5 (instance exists in time). <span class="badge b-asm"><span class="dot"></span>assembly</span></td></tr>
+        <tr><td class="dep">E5</td><td class="flow">EN + CS (primary localized pair)</td><td>localization proof</td><td class="note">Per-locale index is locale-extensible; needs CS content (D1). <span class="badge b-asm"><span class="dot"></span>assembly</span></td></tr>
+        <tr><td class="dep">E6</td><td class="flow">Figma-to-AEM showcase (agentic component gen)</td><td>the "blueprint" flourish</td><td class="note">1–2 components (D11). <span class="badge b-new"><span class="dot"></span>net-new</span></td></tr>
+        <tr><td class="dep">E7</td><td class="flow">The VW blueprint — "repeatable for other VW EDS sites"</td><td>political / narrative</td><td class="note">Narrative over the reusable pipeline + method. <span class="badge b-built"><span class="dot"></span>built (narrate)</span></td></tr>
+        <tr><td class="dep">NB</td><td class="flow">"Not-OOTB" trio: exclude-from-listings · multi-category placement · manual+tag recs</td><td>credibility</td><td class="note">Markus flagged these as hard — <b>all three already run on <code>/en</code></b> (dedupe/exclude, category rails, manual promo + auto rails). <span class="badge b-built"><span class="dot"></span>built</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 2 · THE LEVERAGE -->
+  <section>
+    <h2>2 · The leverage — what already runs live<span class="sec-note">published, pixel-matched at 1440px, on EDS + Document Authoring, built agentically</span></h2>
+    <div class="callout green">
+      <b>Start from a running system, not a blank page.</b> The credibility opener for the meeting is a live <code>/en</code> demo. This is why the PoC is framed as <em>gap-closing + assembly</em>, not a build from zero — and why the Minimum tier is essentially already met.
+    </div>
+    <ul class="plain">
+      <li><b>Chrome:</b> header + topbar + mega-menu, dark-green footer (7-col sitemap, 4 social, app-store badges), language-switcher shell.</li>
+      <li><b>Homepage surface:</b> hero, featured promo (index-driven, mobile carousel), Latest Stories + Load-more, 4 auto-populated tag-filtered rails (eMobility / Lifestyle / Škoda World / Latest News), Models + Series rails, social block.</li>
+      <li><b>Content:</b> 48 story pages imported (flattened) + a live <code>/en/query-index.json</code> (title / date / category / image).</li>
+      <li><b>Engines:</b> query-index-driven blocks, dedupe/exclude logic, shared memoized index fetch (perf), in-place image optimization (Layout-editability preserved).</li>
+      <li><b>Reusable machinery:</b> import parsers/transformers, DA source-API push, publish → reindex flow — a pipeline, not a one-off.</li>
+    </ul>
+  </section>
+
+  <!-- 3 · END-TO-END MAP -->
+  <section>
+    <h2>3 · The end-to-end PoC map — both sites over shared engines<span class="sec-note">every page type traced author → publish → consume; the same engines serve both sites</span></h2>
+    <p style="font-size:13.5px;color:var(--muted);margin:6px 0 0">Six shared engines carry the whole PoC. Each site is an arrangement of page types on top of them — which is why breadth is cheap once the engines exist.</p>
+    <table>
+      <thead><tr><th>Shared engine</th><th>Serves</th><th>State</th></tr></thead>
+      <tbody>
+        <tr><td class="flow">Import pipeline (parsers→transformers→DA push→publish)</td><td>every page on both sites</td><td class="note"><span class="badge b-built"><span class="dot"></span>built</span> reusable; new page types = config + reuse</td></tr>
+        <tr><td class="flow">Query-index + dynamic rails / faceted listing</td><td>homepages, rails, all listings (news/images/videos/tag/category/series)</td><td class="note"><span class="badge b-built"><span class="dot"></span>built</span> rails; <span class="badge b-asm"><span class="dot"></span>assembly</span> faceted listing (one engine, D12 facet subset)</td></tr>
+        <tr><td class="flow">Media-cart + download reduction</td><td>Media Room images/videos/press-kit, story Media Box</td><td class="note"><span class="badge b-new"><span class="dot"></span>net-new</span> gated on D2 (server-side reduction) + D5</td></tr>
+        <tr><td class="flow">AEM Assets (approved DAM set)</td><td>all media on both sites</td><td class="note"><span class="badge b-asm"><span class="dot"></span>assembly</span> gated on D5 (instance) + media pre-conditioning (40 MB masters 409)</td></tr>
+        <tr><td class="flow">Localization (per-locale trees + index, dynamic selector)</td><td>both sites, EN + CS</td><td class="note"><span class="badge b-asm"><span class="dot"></span>assembly</span> per-page language selector <b>confirmed</b> (2026-09-14); manual copy-to-translate + country-choice model; needs CS content (D1)</td></tr>
+        <tr><td class="flow">Authoring model (DA / Experience Workspace)</td><td>how authors work on both sites</td><td class="note"><span class="badge b-new"><span class="dot"></span>decision</span> DA vs Universal Editor open (D13, architecture-critical)</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Page types per site (the consume surface)</h3>
+    <div class="tiers" style="grid-template-columns:1fr 1fr;">
+      <div class="panel" style="border-top:4px solid var(--green)">
+        <h3>Storyboard <span class="tag" style="background:#e6f0ee;color:#0e3a2f">editorial</span></h3>
+        <ul>
+          <li><b>Homepage</b> — hero + rails <span class="m">· built</span></li>
+          <li><b>Story detail</b> — 48 live; 1–2 full-fidelity <span class="m">· built / assembly (SKODA-604)</span></li>
+          <li><b>Model page</b> — hero + 5 tag rails <span class="m">· assembly (SKODA-402)</span></li>
+          <li><b>Series</b> — 2-level directory → hub <span class="m">· assembly (SKODA-207)</span></li>
+          <li><b>Category / tag listing</b> — faceted <span class="m">· assembly</span></li>
+        </ul>
+      </div>
+      <div class="panel" style="border-top:4px solid var(--purple)">
+        <h3>Media Room <span class="tag" style="background:#efe7f4;color:#7a3d95">pressroom</span></h3>
+        <ul>
+          <li><b>MR homepage</b> — 7 rails + lightbox <span class="m">· assembly</span></li>
+          <li><b>News / Images / Videos listings</b> — faceted + cart <span class="m">· assembly + net-new</span></li>
+          <li><b>Press-kit</b> — hub + chaptered sub-pages <span class="m">· net-new (SKODA-805–808)</span></li>
+          <li><b>Model page (MR)</b> — 5 related strips <span class="m">· assembly</span></li>
+          <li><b>Distinct MR footer</b> (confirmed 2026-09-14; client open to unifying) <span class="m">· net-new</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · THE THREE TIERS (centerpiece) -->
+  <section>
+    <h2>4 · The line — Minimum · Target · Stretch<span class="sec-note">the centerpiece: what must be true at each tier, both sites, with the gating decision and a fallback</span></h2>
+    <div class="legend">
+      <span class="flabel">Build type:</span>
+      <span class="badge b-built"><span class="dot"></span>built (live on /en)</span>
+      <span class="badge b-asm"><span class="dot"></span>assembly of built parts</span>
+      <span class="badge b-new"><span class="dot"></span>net-new</span>
+      <span class="flabel" style="margin-left:8px">Site:</span>
+      <span class="site-tag sb">SB Storyboard</span> <span class="site-tag mr">MR Media Room</span> <span class="site-tag x">◆ shared</span>
+    </div>
+
+    <div class="tiers">
+      <!-- MINIMUM -->
+      <div class="panel min">
+        <h3>Minimum <span class="tag">proves the model</span></h3>
+        <p class="lead">The PoC counts as a win if only this works: both sites navigable, real content, one complete author→publish→consume loop, the dynamic feature shown happy-path. <b>Almost entirely already met.</b></p>
+        <ul>
+          <li><span class="site-tag sb">SB</span> <b>Storyboard homepage + story detail</b> — as-is, rails auto-populating <span class="m">· built</span></li>
+          <li><span class="site-tag mr">MR</span> <b>Media Room homepage</b> — assembled from built rails (featured/news/latest-stories) + lightbox <span class="m">· assembly</span></li>
+          <li><span class="site-tag mr">MR</span> <b>One faceted listing</b> (the shared Media Room listing) over a demo facet subset <span class="m">· assembly · D12</span></li>
+          <li><span class="site-tag x">◆</span> <b>Media-cart happy-path</b> — collect across pages → persistent icon → download a curated set <span class="m">· net-new · D2 · PoC fallback agreed 2026-09-14: if the zip packer isn't ready, download files unpacked (separate)</span></li>
+          <li><span class="site-tag x">◆</span> <b>One live author→publish→consume loop</b> shown end-to-end (edit in DA → publish → appears in a rail) <span class="m">· built</span></li>
+          <li><span class="site-tag x">◆</span> <b>The "not-OOTB" trio narrated</b> (exclude / multi-category / manual+tag) <span class="m">· built</span></li>
+        </ul>
+        <p class="lead" style="margin-top:10px"><b>Fallback:</b> if AEM Assets (D5) slips, serve the curated set from the pipeline/CDN — the loop and cart still demo whole.</p>
+      </div>
+
+      <!-- TARGET -->
+      <div class="panel tgt">
+        <h3>Target <span class="tag">the expected demo</span></h3>
+        <p class="lead">What the client actually pictured — the recommended sign-off line. Bounded, but each item carries a client dependency.</p>
+        <ul>
+          <li><span class="site-tag sb">SB</span> <b>One Model page + Series</b> (directory → hub) <span class="m">· assembly · SKODA-207/402</span></li>
+          <li><span class="site-tag sb">SB</span> <b>1–2 full-fidelity stories</b> (in-body galleries + video + Media Box) <span class="m">· assembly · SKODA-604</span></li>
+          <li><span class="site-tag mr">MR</span> <b>Full Images + Videos listing pages</b> — gallery-lightbox + Vimeo embed + per-item cart <span class="m">· assembly+net-new · D2/D5 now M1-blocking</span></li>
+          <li><span class="site-tag mr">MR</span> <b>Media Room model page</b> — 5 tag-driven related strips <span class="m">· assembly</span></li>
+          <li><span class="site-tag x">◆</span> <b>Media-cart with AEM-Assets-served approved set</b> (E3+E4 together) <span class="m">· net-new · D2/D5</span></li>
+          <li><span class="site-tag x">◆</span> <b>EN + CS</b> on homepage + one story + language selector showing only existing locales <span class="m">· assembly · D1 (CS content)</span></li>
+        </ul>
+        <p class="lead" style="margin-top:10px"><b>Fallback:</b> CS content late → prove CS <em>structurally</em> (chrome + selector + one page). D2 undecided → client-side happy-path cart for the demo only.</p>
+      </div>
+
+      <!-- STRETCH -->
+      <div class="panel str">
+        <h3>Stretch <span class="tag">impresses / wins</span></h3>
+        <p class="lead">The differentiators that turn "a working demo" into "a repeatable VW method." High political payoff, opportunistic.</p>
+        <ul>
+          <li><span class="site-tag x">◆</span> <b>Figma → AEM agentic generation</b> — 1–2 components, "designed in Figma → generated agentically → live" <span class="m">· net-new · D11</span></li>
+          <li><span class="site-tag x">◆</span> <b>The VW-blueprint narrative</b> (5 min) — reusable pipeline, query-index pattern, agent-handoff candidates <span class="m">· built (narrate) · E7</span></li>
+          <li><span class="site-tag mr">MR</span> <b>Press-kit hub + one chaptered sub-page</b> — TOC + chapter sub-nav + spec table + Media Box <span class="m">· net-new · SKODA-805–808</span></li>
+          <li><span class="site-tag mr">MR</span> <b>Content-embargo showcase</b> — group-restricted + preview-not-live → publish at a time (native EDS; approach agreed 2026-09-14) <span class="m">· net-new · D9</span></li>
+          <li><span class="site-tag x">◆</span> <b>Media Box authoring upgrade</b> — today authors add assets manually; show <b>auto-add-all-by-tag with a delete option</b> as the improvement (client-endorsed 2026-09-14) <span class="m">· net-new</span></li>
+          <li><span class="site-tag mr">MR</span> <b>AI-audio embed on a press release</b> — third-party per-language JS box, retained even though podcast is cut (drop-in, no rebuild) <span class="m">· assembly</span></li>
+        </ul>
+        <p class="lead" style="margin-top:10px"><b>Note:</b> nothing here is required for the PoC to succeed — each is a bonus that lands only if its dependency is ready. Deferred to M2 if not: press-kit at scale, embargo, the 5 company/Page types (SKODA-810).</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <b>Where the line sits.</b> <b>Minimum is essentially already met</b> — it's assembly + narration of live parts, with a client-side cart fallback. <b>Target is the recommended sign-off scope</b> — it's the demo the client described, and every gap is assembly of built parts, not new invention. <b>Stretch is opportunistic</b> — pursue in parallel, but never let it endanger Target. The build is not the risk; the client-side dependencies below are.
+    </div>
+  </section>
+
+  <!-- 5 · DEPENDENCY / RISK BOARD -->
+  <section>
+    <h2>5 · The real risk is client-side — decisions that gate Target &amp; Stretch<span class="sec-note">each needs an owner + a date; the build is de-risked, these are not in our control</span></h2>
+    <table>
+      <thead><tr><th>Decision</th><th>Gates</th><th>Position / recommendation</th><th>Owner + date</th></tr></thead>
+      <tbody>
+        <tr><td class="dep">D5</td><td>Target E4, cart</td><td class="note">AEM Assets — <b>does an instance exist by build-start?</b> #1 schedule threat. 40 MB masters need pre-conditioning. Fallback: pipeline/CDN set.</td><td class="note">Wk 1 — <span class="prov">TBD</span></td></tr>
+        <tr><td class="dep">D2</td><td>Minimum + Target cart</td><td class="note">Media-cart download = server-side <b>file-size reduction</b> (reduced renditions), not just zip. Demo fallback: client-side happy-path.</td><td class="note">Wk 2 — <span class="prov">TBD</span></td></tr>
+        <tr><td class="dep">D1</td><td>Target E5</td><td class="note">EN + CS for the PoC. Needs CS content/translation input. Fallback: structural CS proof.</td><td class="note">Wk 1 — <span class="prov">TBD</span></td></tr>
+        <tr><td class="dep">D12</td><td>Minimum/Target listing</td><td class="note">Which of the 15 facets are demo-critical? Facet extraction is a normalization layer, not clean selectors — scope the subset first.</td><td class="note">Wk 2 — <span class="prov">TBD</span></td></tr>
+        <tr><td class="dep">D11</td><td>Stretch E6</td><td class="note">Which 1–2 Figma components for the agentic-generation showcase.</td><td class="note">Wk 2 — <span class="prov">TBD</span></td></tr>
+        <tr><td class="dep">D13</td><td>authoring model (both sites)</td><td class="note"><b>Architecture-critical:</b> Document Authoring vs Universal Editor. Changes the author experience + editability model. Decide early.</td><td class="note">Early — <span class="prov">TBD</span></td></tr>
+        <tr><td class="dep">D9</td><td>Stretch embargo</td><td class="note">Content embargo confirmed real ("new-car launch folders"). Recommend staged-publish; no native EDS gate.</td><td class="note">M2 — <span class="prov">TBD</span></td></tr>
+        <tr><td class="dep">D16</td><td>go-live, not PoC</td><td class="note">NFRs (security review, pentest, RTO/RPO, logging). Client-gated; top year-end risk — flag now, doesn't block the PoC.</td><td class="note">M2 — <span class="prov">TBD</span></td></tr>
+        <tr><td class="dep">D19</td><td>engagement setup</td><td class="note"><b>New (2026-09-14):</b> Škoda must report/monitor AI tools used (EU AI Act). We must formally notify them AI is used in build/migration + share the legal-clearance summary (no data leaves our realm). Compliance, not a blocker.</td><td class="note">Setup — <span class="prov">Lars</span></td></tr>
+        <tr><td class="dep">§6.7</td><td>go-live (validate now)</td><td class="note"><b>New (2026-09-14):</b> author change-history / audit log is a firm requirement (many agencies author). Validate EDS/DA capability — flag if not native.</td><td class="note">M2 — <span class="prov">TBD</span></td></tr>
+        <tr><td class="dep">D15</td><td>build start</td><td class="note"><b>Live blocker:</b> governance/RACI — who implements PoC (Adobe) vs QA (Škoda/CMS); business owner (EZ Horák) engagement. Awaiting Martin; business meeting Fri.</td><td class="note">Now — <span class="prov">Jaroslav</span></td></tr>
+        <tr><td class="dep">—</td><td>everything</td><td class="note"><b>Demo content set still undefined</b> + demo date may slip 1–2 weeks. The #1 unblocker is naming the content owner.</td><td class="note">Wk 1 — <span class="prov">TBD</span></td></tr>
+      </tbody>
+    </table>
+    <div class="callout"><b>D17 (QR restricted end-user access)</b> and the <b>5 company/Page types</b> (board / annual-reports / logo / app / contacts) are explicitly out of the PoC — flagged for M2 so scope stays clean.</div>
+  </section>
+
+  <!-- 6 · RECOMMENDATION -->
+  <section>
+    <h2>6 · Recommendation — the line to take into the room<span class="sec-note">what to propose the client signs, and the decisions to close in the meeting</span></h2>
+    <div class="callout rec">
+      <b>Sign the Target tier as the PoC "definition of done"</b>, with Minimum as the guaranteed floor and Stretch pursued opportunistically:
+      <ul class="plain" style="margin-top:8px">
+        <li><b>Guarantee Minimum unconditionally</b> — it's live parts + assembly with a cart fallback; nothing client-side can take it away.</li>
+        <li><b>Target = the signed scope</b> — end-to-end on both sites (Storyboard: home/story/model/series + full-fidelity; Media Room: home/listings/model + cart with AEM Assets), EN+CS. Every item is assembly of built parts.</li>
+        <li><b>Stretch = declared bonuses</b> — Figma→AEM, blueprint narrative, press-kit, embargo. Each ships only if its dependency (D11/D9) is ready; none endangers Target.</li>
+      </ul>
+    </div>
+    <h3>Close these in the meeting (owner + date each)</h3>
+    <ul class="plain">
+      <li><b>D5</b> — is there an AEM Assets instance by build-start? (the #1 threat) · <b>D2</b> — cart download approach · <b>D1</b> — CS scope (full vs structural).</li>
+      <li><b>D12</b> — the demo-critical facet subset · <b>D11</b> — which Figma components · <b>D13</b> — DA vs Universal Editor (architecture-critical).</li>
+      <li><b>Demo content set owner</b> + the confirmed demo date (the real critical path is content definition, not code).</li>
+    </ul>
+    <div class="callout green"><b>One-line pitch for the room:</b> "We're already ~60–70% of the way there on a live system. Minimum is essentially done; Target is assembly of parts we've already built; Stretch is where we show this is a repeatable VW method. The only real risk is on your side — so let's name owners and dates for six decisions today."</div>
+  </section>
+
+</main>
+
+<footer>
+  Škoda Storyboard &amp; Media Room — PoC solution-design basis. Prepared 2026-09-14, updated after the frontend-walkthrough call (2026-09-14 transcript reviewed). Statuses reflect the published <code>/en</code> test migration + the decision log D1–D19. Feeds the PoC-vs-final solution proposal (Wed 2026-09-16). Planning artifact, not a quote. Sources: <code>SKODA-M1-DEMO-TARGET.md</code>, <code>SKODA-DELIVERY-PLAN.md</code>, <code>SKODA-CLIENT-REQUIREMENTS-MAPPING.md</code>, <code>SKODA-REQUIREMENTS-REPORT.html</code>, <code>../analysis/SKODA-MASTER.md</code>.
+</footer>
+</body>
+</html>
