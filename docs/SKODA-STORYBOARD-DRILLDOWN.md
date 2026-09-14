@@ -112,7 +112,7 @@ I sampled templates not deeply covered in the original discovery and enumerated 
 | **Press-kits listing** (filtered view of `press_release`, not a separate type — verified: `wp/v2/press_kit` returns HTTP 404, no such CPT) | `/en/press-kits/` 200 | same filter bar + teasers + media-cart, category chips |
 | **Article / press release** | 200 | body (h/p/ul), Vimeo embed, Buzzsprout podcast iframe, gallery, tags, share, downloads, media-cart, newsletter widget |
 | **Podcast post** | `/en/podcast/` **301 →** `/en/podcast-en/…` | It's a **post variant**, not its own template — audio via embed |
-| **Series** | `/en/series/` **301 →** a press-release | **"Series" is a content grouping, not a template** — no dedicated layout |
+| **Series** | `/en/series/` **301 →** a press-release | ⚠️ **CORRECTED 2026-09-14:** `/en/series-2/` (directory of ~20 series) and `/en/series/<slug>/` (series hub, e.g. `125-years-of-motorsport`) **render as real 2-level listing pages** — Series IS a template. The `/en/series/` root tested here 301s, but the actual Series pages do not. See `.migration/plans/url-analysis-comparison.md` + SKODA-MASTER §3 (D18 → SKODA-207) |
 | **Škodapedia index + term** | 200 | **A–Z letter filter** (`letterFormWidget`, `filter-button`, `letter-*`), **term-detail modal/overlay** (`sp__term-detail`, `sp__term-detail__close`, `sp__term-detail__data`), hero |
 
 ### NEW blocks uncovered by this review (not in the original inventory)
@@ -129,7 +129,7 @@ I sampled templates not deeply covered in the original discovery and enumerated 
 
 ### Refinements to prior assumptions
 
-- **"Series" and "Podcast" are NOT separate templates** — both 301-redirect into the post/press-release template. This *reduces* template count vs. the discovery estimate. Good news for scope.
+- **"Series" and "Podcast" are NOT separate templates** — both 301-redirect into the post/press-release template. This *reduces* template count vs. the discovery estimate. Good news for scope. — ⚠️ **CORRECTED 2026-09-14 for Series:** the 22-URL analysis found `/en/series-2/` + `/en/series/<slug>/` render as a real 2-level template (only the bare `/en/series/` root redirects). Podcast remains a post variant (unverified in that batch). See SKODA-MASTER §3 / D18.
 - **The faceted filter bar (N1) is the single most important newly-clarified block** — it's the concrete manifestation of the "listing/search re-architecture" risk (R4) and is the piece that most needs prototyping in the demo.
 - **Škodapedia is more interactive than assumed** — a letter-index + modal glossary, not a flat article list. Two net-new blocks (N3, N4).
 

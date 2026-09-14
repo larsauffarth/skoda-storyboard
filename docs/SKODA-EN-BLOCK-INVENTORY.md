@@ -208,7 +208,7 @@ The signature crawl **missed that story-template pages are built with SiteOrigin
 | Teaser is the universal card unit | Confirmed — 91% of pages | ✅ |
 | Faceted filter bar is a key new block | Confirmed — scoped to 7 index pages | ✅ |
 | Škodapedia = interactive glossary (letter filter + modal) | Confirmed via `sp__term-detail`; A–Z filter is real on skodapedia pages (the site-wide 1,866 count was a false positive) | ✅ refined |
-| "Series"/"Podcast" are not templates | Confirmed — carousel is a story block; podcast is a story variant with Buzzsprout embed | ✅ |
+| "Series"/"Podcast" are not templates | ⚠️ **CORRECTED 2026-09-14:** Series IS a real 2-level template (directory `/series-2/` + hub `/series/<slug>/`, 22-URL analysis) — see SKODA-MASTER §3 / D18. Podcast remains a story variant (unverified in that batch) | ⚠️ corrected |
 | ~12–14 net-new blocks | Full crawl yields **~10 content blocks + ~5 chrome elements** | ✅ aligned |
 | Embeds: Vimeo/YouTube/Buzzsprout | Confirmed + **Spotify** added (36 pages) | ✅ +1 provider |
 

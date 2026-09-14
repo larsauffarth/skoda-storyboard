@@ -114,8 +114,8 @@
 <header class="hero">
   <p class="kicker">Škoda Auto · Storyboard &amp; Media Room → Adobe Edge Delivery</p>
   <h1>Requirements Status &amp; Demo / Go-Live Split</h1>
-  <p class="sub">Every requirement from the client baseline (<code>CMS-MediaRoomMigration-Requirements</code>, DRAFT, ~90% complete) mapped to our current build status, cross-referenced to backlog tickets, and sorted into the two milestone deliveries. Statuses reflect the live decision log (D1–D17) and the published <code>/en</code> test migration.</p>
-  <p class="meta">Generated 2026-09-11 · Target: DA / Experience Workspace + EDS · Companion to SKODA-CLIENT-REQUIREMENTS-MAPPING.md, SKODA-M1-DEMO-TARGET.md, SKODA-DELIVERY-PLAN.md</p>
+  <p class="sub">Every requirement from the client baseline (<code>CMS-MediaRoomMigration-Requirements</code>, DRAFT, ~90% complete) mapped to our current build status, cross-referenced to backlog tickets, and sorted into the two milestone deliveries. Statuses reflect the live decision log (D1–D18) and the published <code>/en</code> test migration.</p>
+  <p class="meta">Generated 2026-09-11 · updated 2026-09-14 (22-URL analysis → D18: Series + full Images/Videos listings + 1–2 full-fidelity stories pulled into M1; 5 "company/Page" sub-types deferred to M2) · Target: DA / Experience Workspace + EDS · Companion to SKODA-CLIENT-REQUIREMENTS-MAPPING.md, SKODA-M1-DEMO-TARGET.md, SKODA-DELIVERY-PLAN.md</p>
 </header>
 
 <main>
@@ -125,8 +125,8 @@
     <div class="stat"><div class="n" style="color:var(--blue)">5</div><div class="l">As-service 🔵</div></div>
     <div class="stat"><div class="n" style="color:var(--amber)">9</div><div class="l">Open · decision 🟠</div></div>
     <div class="stat"><div class="n" style="color:#927012">10</div><div class="l">Open · input 🟡</div></div>
-    <div class="stat"><div class="n" style="color:var(--red)">9</div><div class="l">Deferred 🔴</div></div>
-    <div class="stat"><div class="n" style="color:var(--green)">90</div><div class="l">Requirements total</div></div>
+    <div class="stat"><div class="n" style="color:var(--red)">10</div><div class="l">Deferred 🔴</div></div>
+    <div class="stat"><div class="n" style="color:var(--green)">91</div><div class="l">Requirements total</div></div>
   </div>
 
   <div class="callout green">
@@ -210,7 +210,7 @@
       <thead><tr><th>ID</th><th>Requirement</th><th>Status</th><th>Milestone</th><th>Ticket</th><th>Note</th></tr></thead>
       <tbody>
         <tr data-s="solv" data-m="m2"><td class="id">STO-C01–05</td><td class="req">Category page (hero, results grid, card, pagination)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">202/402</td><td class="note">Components exist; template assembly later-phase.</td></tr>
-        <tr data-s="solv" data-m="m2"><td class="id">STO-S01–03</td><td class="req">Series page (hero, grid, card)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">201/202</td><td class="note">Components exist; template not assembled; ordering 🟡.</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">STO-S01–03</td><td class="req">Series page (hero, grid, card)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">207</td><td class="note">Confirmed a real 2-level template (directory → hub, 22-URL 2026-09-14); pulled into M1 per D18. Ordering 🟡.</td></tr>
         <tr data-s="solv" data-m="m1"><td class="id">STO-M01–05</td><td class="req">Storyboard Model page (hero, featured, related grid)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">201/402</td><td class="note">Named M1 target ("one Model page"); tag-driven, retrieval rules 🟡.</td></tr>
       </tbody>
     </table>
@@ -220,14 +220,14 @@
       <thead><tr><th>ID</th><th>Requirement</th><th>Status</th><th>Milestone</th><th>Ticket</th><th>Note</th></tr></thead>
       <tbody>
         <tr data-s="built" data-m="m1"><td class="id">STO-D01</td><td class="req">Story Hero (title/image/perex/date/category)</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">202/603</td><td class="note">48 stories imported with metadata.</td></tr>
-        <tr data-s="solv" data-m="m1"><td class="id">STO-D02</td><td class="req">Rich Text (flexible composition)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">801</td><td class="note">SiteOrigin flatten proven (17 widget types, 98.7% simple).</td></tr>
-        <tr data-s="solv" data-m="m1"><td class="id">STO-D03</td><td class="req">Embedded Video (+ consent)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">204</td><td class="note">Embed autoblock (Vimeo/YouTube/…), dnt=1, lazy.</td></tr>
-        <tr data-s="solv" data-m="m1"><td class="id">STO-D04</td><td class="req">Image Carousel / Gallery (auto-play)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">203</td><td class="note">Gallery + lightbox; auto-play a11y (pause) flagged.</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">STO-D02</td><td class="req">Rich Text (flexible composition)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">801/604</td><td class="note">SiteOrigin flatten proven; flatten drops in-body galleries/embeds/Media Box — 1–2 hero stories restored to full fidelity in M1 (D18, 604).</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">STO-D03</td><td class="req">Embedded Video (+ consent)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">204/604</td><td class="note">Embed autoblock (Vimeo/YouTube/…), dnt=1, lazy; restored on full-fidelity demo stories (D18).</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">STO-D04</td><td class="req">Image Carousel / Gallery (auto-play)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">203/604</td><td class="note">Gallery + lightbox confirmed in-body (22-URL); restored on full-fidelity demo stories (D18); auto-play a11y flagged.</td></tr>
         <tr data-s="def" data-m="m2"><td class="id">STO-D05</td><td class="req">Newsletter Widget</td><td><span class="badge b-def"><span class="dot"></span>Deferred</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">904</td><td class="note">Stub only — D4.</td></tr>
         <tr data-s="solv" data-m="m1"><td class="id">STO-D06</td><td class="req">Related Stories (tag-matched)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">402</td><td class="note">Tag-aggregation in scope (personalization out); story-rail proves it.</td></tr>
         <tr data-s="solv" data-m="m2"><td class="id">STO-D07</td><td class="req">Article Sidebar</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">201</td><td class="note">Related/promo/subscription; responsive treatment.</td></tr>
         <tr data-s="def" data-m="m2"><td class="id">STO-D08</td><td class="req">Side Banner</td><td><span class="badge b-def"><span class="dot"></span>Deferred</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">903</td><td class="note">Bespoke ad server; drop/challenge — D3.</td></tr>
-        <tr data-s="serv" data-m="m1"><td class="id">STO-D09</td><td class="req">Media Box / Gallery (download, add-to-cart)</td><td><span class="badge b-serv"><span class="dot"></span>As-service</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">502/505</td><td class="note">Downloads + cart; mediabox source known.</td></tr>
+        <tr data-s="serv" data-m="m1"><td class="id">STO-D09</td><td class="req">Media Box / Gallery (download, add-to-cart)</td><td><span class="badge b-serv"><span class="dot"></span>As-service</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">502/505/604</td><td class="note">Downloads + cart; confirmed at foot of story bodies (7–14 imgs); restored on full-fidelity demo stories (D18).</td></tr>
         <tr data-s="solv" data-m="m1"><td class="id">STO-D10</td><td class="req">Social Share</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">304</td><td class="note">Share channels identified.</td></tr>
       </tbody>
     </table>
@@ -258,8 +258,8 @@
       <thead><tr><th>ID</th><th>Requirement</th><th>Status</th><th>Milestone</th><th>Ticket</th><th>Note</th></tr></thead>
       <tbody>
         <tr data-s="dec" data-m="m2"><td class="id">MR-L01</td><td class="req">Listing Search</td><td><span class="badge b-dec"><span class="dot"></span>Decision</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">403</td><td class="note">Relationship w/ global search — D6 / Q9.</td></tr>
-        <tr data-s="solv" data-m="m1"><td class="id">MR-L02</td><td class="req">Content-Type Filter (All/Stories/News/Press Kits/Images/Videos)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">402</td><td class="note">Definitive taxonomy confirmed from live markup (§11.6).</td></tr>
-        <tr data-s="solv" data-m="m1"><td class="id">MR-L03</td><td class="req">Faceted Filters (model, bodywork, category…)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">401</td><td class="note">15 facets; normalization layer; demo subset D12.</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">MR-L02</td><td class="req">Content-Type Filter (All/Stories/News/Press Kits/Images/Videos)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">402</td><td class="note">One shared faceted-listing engine — verified live across tag/category/news/images/videos (22-URL 2026-09-14). §11.6.</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">MR-L03</td><td class="req">Faceted Filters (model, bodywork, category…)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">401</td><td class="note">15 facets; normalization layer; demo subset D12. Images/Videos expose the full advanced facet set.</td></tr>
         <tr data-s="solv" data-m="m1"><td class="id">MR-L04</td><td class="req">Result Grid/List</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">201/402</td><td class="note">Card + grid components.</td></tr>
         <tr data-s="input" data-m="m2"><td class="id">MR-L05</td><td class="req">Result Card (per type)</td><td><span class="badge b-input"><span class="dot"></span>Input</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">201</td><td class="note">Per-type definitions to finalise.</td></tr>
         <tr data-s="solv" data-m="m1"><td class="id">MR-L06</td><td class="req">Pagination / Load More (6/click, total, sort)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">402</td><td class="note">Load-more built; sort/total 🟡 (Q5).</td></tr>
@@ -284,7 +284,7 @@
     <table>
       <thead><tr><th>ID</th><th>Requirement</th><th>Status</th><th>Milestone</th><th>Ticket</th><th>Note</th></tr></thead>
       <tbody>
-        <tr data-s="input" data-m="m2"><td class="id">MR-PK01</td><td class="req">Press Kit Header</td><td><span class="badge b-input"><span class="dot"></span>Input</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">805</td><td class="note">Needs walkthrough (Q6).</td></tr>
+        <tr data-s="input" data-m="m2"><td class="id">MR-PK01</td><td class="req">Press Kit Header</td><td><span class="badge b-input"><span class="dot"></span>Input</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">805</td><td class="note">= press_release for data source only; page = distinct hub (8-chapter TOC + tabs + ZIP) + chaptered sub-pages w/ spec table + 84-img Media Box (22-URL). Needs walkthrough (Q6).</td></tr>
         <tr data-s="input" data-m="m2"><td class="id">MR-PK02</td><td class="req">Structured Narrative (fixed sections)</td><td><span class="badge b-input"><span class="dot"></span>Input</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">805</td><td class="note">Fixed vs conditional per product type (§11.8).</td></tr>
         <tr data-s="input" data-m="m2"><td class="id">MR-PK03</td><td class="req">Variant / Bodywork Selector</td><td><span class="badge b-input"><span class="dot"></span>Input</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">808</td><td class="note">Interaction TBD (§11.9).</td></tr>
         <tr data-s="solv" data-m="m2"><td class="id">MR-PK04</td><td class="req">Grouped Content (Texts/Infographics/Tech/Images/Videos)</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">806</td><td class="note">5 areas confirmed; presentation TBD (§11.11).</td></tr>
@@ -299,8 +299,8 @@
       <thead><tr><th>ID</th><th>Requirement</th><th>Status</th><th>Milestone</th><th>Ticket</th><th>Note</th></tr></thead>
       <tbody>
         <tr data-s="solv" data-m="m1"><td class="id">MR-M01–07</td><td class="req">Media Room model page + 5 related-content strips</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">402</td><td class="note">Tag-driven; model page is M1 target; retrieval rules 🟡.</td></tr>
-        <tr data-s="solv" data-m="m2"><td class="id">MR-I01–05</td><td class="req">Image listing / filters / preview / rendition / cart</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">203/402/505</td><td class="note">Original/1920px dual-rendition; rendition strategy ties to D2.</td></tr>
-        <tr data-s="solv" data-m="m2"><td class="id">MR-V01–04</td><td class="req">Video listing / filters / playback / download</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">204/503</td><td class="note">Embeds + downloadable file; source-file model TBD.</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">MR-I01–05</td><td class="req">Image listing / filters / preview / rendition / cart</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">203/402/505</td><td class="note">Full listing page pulled into M1 (D18); Original/1920px dual-rendition confirmed live — D2/D5 now M1-blocking.</td></tr>
+        <tr data-s="solv" data-m="m1"><td class="id">MR-V01–04</td><td class="req">Video listing / filters / playback / download</td><td><span class="badge b-solv"><span class="dot"></span>Solvable</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">204/503</td><td class="note">Full listing page pulled into M1 (D18); Vimeo-thumb grid + embeds confirmed live; source-file model TBD.</td></tr>
       </tbody>
     </table>
   </section>
@@ -312,6 +312,7 @@
       <thead><tr><th>ID</th><th>Requirement</th><th>Status</th><th>Milestone</th><th>Ticket</th><th>Note</th></tr></thead>
       <tbody>
         <tr data-s="dec" data-m="m2"><td class="id">6.1</td><td class="req">Reusable page structures / templates</td><td><span class="badge b-dec"><span class="dot"></span>Decision</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">801/802</td><td class="note">DA vs Universal Editor — D13 (architecture-critical).</td></tr>
+        <tr data-s="def" data-m="m2"><td class="id">6.1a</td><td class="req">"Company/Page" family — 5 sub-types (board-of-management, annual-reports, company-logo, media-services-app, contacts)</td><td><span class="badge b-def"><span class="dot"></span>Deferred</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">810</td><td class="note">Surfaced by 22-URL analysis (2026-09-14); 5 net-new blocks; deferred to M2 per D18.</td></tr>
         <tr data-s="built" data-m="m1"><td class="id">6.2</td><td class="req">Content creation &amp; config (variants, layout-edit)</td><td><span class="badge b-built"><span class="dot"></span>Built</span></td><td><span class="ms ms-m1">M1</span></td><td class="tk">201</td><td class="note">Layout-editability fix shipped (optimized-picture.js in-place).</td></tr>
         <tr data-s="dec" data-m="m2"><td class="id">6.3</td><td class="req">Preview &amp; publishing lifecycle (+ schedule/review)</td><td><span class="badge b-dec"><span class="dot"></span>Decision</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">602</td><td class="note">Core proven; embargo not native → staged-publish (D9).</td></tr>
         <tr data-s="def" data-m="m2"><td class="id">6.4</td><td class="req">Roles &amp; permissions (7 groups)</td><td><span class="badge b-def"><span class="dot"></span>Deferred</span></td><td><span class="ms ms-m2">M2</span></td><td class="tk">—</td><td class="note">Governance later-phase; RACI = D15.</td></tr>
@@ -350,9 +351,11 @@
         <p style="font-size:13px;color:var(--muted);margin:4px 0 0">A credible, end-to-end EDS demo + the repeatable VW blueprint. Mostly gap-closing &amp; assembly of already-built parts.</p>
         <ul>
           <li><span class="tier t1">Tier 1</span><b>Storyboard /en homepage</b> — built; polish only</li>
-          <li><span class="tier t1">Tier 1</span><b>Story detail pages</b> — built (48 imported); extend a few</li>
+          <li><span class="tier t1">Tier 1</span><b>Story detail pages</b> — built (48 imported); + <b>1–2 full-fidelity stories</b> (galleries + embed + Media Box, D18/604)</li>
           <li><span class="tier t1">Tier 1</span><b>Media Room homepage</b> — new assembly from built blocks</li>
           <li><span class="tier t1">Tier 1</span><b>One Model page</b> — new assembly</li>
+          <li><span class="tier t1">Tier 1</span><b>Series template</b> (directory → hub) — confirmed real template, D18/207</li>
+          <li><span class="tier t1">Tier 1</span><b>Full Images + Videos listing pages</b> — D18/207; raises D2/D5 to M1-blocking</li>
           <li><span class="tier t1">Tier 1</span><b>"Not-OOTB" trio</b> (exclude / multi-category / manual+tag) — built, narrate</li>
           <li><span class="tier t2">Tier 2</span><b>Media cart — full UI + loop-closing download</b> of a curated set (reduction/ZIP deferred)</li>
           <li><span class="tier t2">Tier 2</span><b>AEM Assets curated set</b> in use (fallback: pipeline/CDN)</li>
@@ -368,7 +371,8 @@
         <ul>
           <li><b>Full content migration</b> at scale (all templates, bulk import + publish/reindex)</li>
           <li><b>Press Kit template</b> — narrative, grouped media + ZIP, FAQ, variants (805–808)</li>
-          <li><b>Category / Series page templates</b> assembled</li>
+          <li><b>Category page template</b> assembled (Series pulled forward to M1 per D18)</li>
+          <li><b>"Company/Page" family</b> — board-of-management, annual-reports, company-logo, media-services-app, contacts (5 net-new blocks, 810/D18)</li>
           <li><b>Press Release detail</b> at scale + audio/PDF/infographic</li>
           <li><b>Media cart production hardening</b> — server-side reduction, whole-kit ZIP, signed access, cross-device (902, D2)</li>
           <li><b>Remaining locales</b> DE/SK/SR/SL on-demand + EW Translation (D1)</li>
@@ -383,7 +387,7 @@
     </div>
 
     <div class="callout">
-      <b>The real risk is client-side, not build-side.</b> The Tier-1 M1 items are unblocked assembly. The Tier-2 items each depend on a client decision (D5 AEM Assets instance · D2 cart download · D1 CS content · D11 Figma · D12 facet subset) — and each has a fallback that keeps the demo whole if a dependency slips. Start those clocks in Week 1.
+      <b>The real risk is client-side, not build-side.</b> Most Tier-1 M1 items are unblocked assembly — <b>except the newly-Tier-1 Images/Videos listing pages (D18), which now depend on D5 (AEM Assets) + D2 (cart download)</b>. The Tier-2 items each also depend on a client decision (D5 · D2 · D1 CS content · D11 Figma · D12 facet subset) — and each (plus the Images/Videos pages) has a fallback that keeps the demo whole if a dependency slips. Start those clocks in Week 1.
     </div>
   </section>
 
@@ -404,13 +408,14 @@
         <tr><td class="d">D15</td><td>Governance / RACI</td><td>Open — project-setup blocker</td><td>M2</td></tr>
         <tr><td class="d">D16</td><td>Non-functional (security, pentest, RTO/RPO)</td><td>Open — client-gated; top year-end risk</td><td>M2</td></tr>
         <tr><td class="d">D17</td><td>QR restricted end-user access</td><td>New — access model fully undefined</td><td>M2</td></tr>
+        <tr><td class="d">D18</td><td>Page-type scope split (22-URL analysis)</td><td>Resolved 2026-09-14: Series → M1 (207); full Images/Videos listings → M1 (D2/D5 now M1-blocking); story full-fidelity → 1–2 stories in M1 (604); 5 company/Page sub-types → M2 (810)</td><td>Resolved</td></tr>
       </tbody>
     </table>
   </section>
 </main>
 
 <footer>
-  Škoda Storyboard &amp; Media Room migration — analysis &amp; planning artifact. Statuses are point-in-time (2026-09-11) and reflect the published <code>/en</code> test migration plus the decision log D1–D17. Planning estimates, not a quote. Sources: <code>SKODA-CLIENT-REQUIREMENTS-MAPPING.md</code>, <code>SKODA-M1-DEMO-TARGET.md</code>, <code>SKODA-DELIVERY-PLAN.md</code>, <code>docs/tickets/OVERVIEW.md</code>.
+  Škoda Storyboard &amp; Media Room migration — analysis &amp; planning artifact. Statuses are point-in-time (2026-09-11, updated 2026-09-14) and reflect the published <code>/en</code> test migration plus the decision log D1–D18. Planning estimates, not a quote. Sources: <code>SKODA-CLIENT-REQUIREMENTS-MAPPING.md</code>, <code>SKODA-M1-DEMO-TARGET.md</code>, <code>SKODA-DELIVERY-PLAN.md</code>, <code>docs/tickets/OVERVIEW.md</code>.
 </footer>
 
 <script>

@@ -46,10 +46,12 @@ Plus the three functions **Markus flagged as "not OOTB"** (exclude-from-listings
 ### 🟢 Tier 1 — Irreducible core (must show; ~mostly done)
 The demo is a *win* if only this works:
 1. **Storyboard `/en` homepage** — as-is fidelity, all rails auto-populating (**done**; polish only).
-2. **Story detail pages** — the flattened blog posts, real content (**done** for EN slice; extend a few).
+2. **Story detail pages** — the flattened blog posts, real content (**done** for EN slice; extend a few). **Plus 1–2 hero stories restored to full fidelity** (in-body galleries + video embed + Media Box) per D18 (SKODA-604), so the real article experience is shown, not just the flattened slice.
 3. **Media Room homepage** — *new assembly* from existing blocks (featured/news/images/videos/models/press-kits/latest-stories rails + lightbox). The single most important **new** build for demo credibility.
 4. **One Model page** — *new assembly*; client named "MR home + one Model page" as the extendable subset.
-5. **The three "not-OOTB" functions shown deliberately** (exclude, multi-category, manual+tag) — **done**, just narrate them.
+5. **Series template** — the 2-level Series directory → hub, confirmed a real template by the 22-URL analysis (2026-09-14) and pulled into M1 per D18 (SKODA-207); cheap (reuses cards/hero/grid), adds visible demo breadth.
+6. **Full Images + Videos faceted-listing pages** — pulled into M1 per D18 (one shared listing engine + per-item gallery-lightbox / Vimeo-embed + media-cart). **These raise D2 (cart download) and D5 (AEM Assets) to hard M1 blockers** (see §5).
+7. **The three "not-OOTB" functions shown deliberately** (exclude, multi-category, manual+tag) — **done**, just narrate them.
 
 ### 🔵 Tier 2 — Demo differentiators (high value, scoped)
 6. **Media-cart (E3)** — device-ID collect + download. Scope to a **happy-path demo**: collect across pages → cart icon persists → download. Depends on **D2** (server-side reduction) + a CORS-reachable asset set.
@@ -69,6 +71,9 @@ The demo is a *win* if only this works:
 |---|---|---|---|
 | Media Room homepage assembly | 1 | Low — reuse built blocks | none (needs source walkthrough for exact rails) |
 | One Model page assembly | 1 | Low — reuse rails + hero | retrieval rules 🟡 |
+| **Series template (directory + hub)** — 22-URL, D18 | 1 | **Low** — reuses cards/hero/grid (SKODA-207) | ordering/source of series 🟡 |
+| **Full Images + Videos listing pages** — 22-URL, D18 | 1 | **Med–High** — needs gallery-lightbox + Vimeo embed + per-item cart | **D2 (cart) + D5 (AEM Assets) now M1-blocking** |
+| **1–2 full-fidelity story pages** — 22-URL, D18 | 1 | **Low** — un-flatten galleries/embed/Media Box on 1–2 stories (SKODA-604) | media pre-conditioning applies |
 | Press Release detail page (structurally = story) | 1–2 | Low–Med | no live example reviewed (§11.1) 🟡 |
 | Media-cart happy-path | 2 | Med | **D2** approach + CORS asset delivery |
 | AEM Assets curated set | 2 | Med | **D5** instance exists in time? (top schedule risk) |
@@ -76,7 +81,7 @@ The demo is a *win* if only this works:
 | Faceted listing (demo subset) | 2 | Med–High | **D12** facet subset + metadata-normalization |
 | Figma showcase (1–2 components) | 2 | Med | **D11** which components |
 
-**None of the Tier-1 gaps are blocked** — they're assembly of existing parts. The blocked items are all **client-side dependencies (D5/D2/D1/D12/D11)**, not build problems.
+**Most Tier-1 gaps are unblocked assembly** — with **one change from the 22-URL analysis (D18):** pulling the **full Images/Videos listing pages** into Tier 1 means those two pages now depend on **D2 (cart download) + D5 (AEM Assets)** — i.e. a Tier-1 item now carries a client-side dependency it previously didn't. Series and the full-fidelity stories remain pure assembly. The remaining blocked items are still client-side dependencies (D5/D2/D1/D12/D11), not build problems. **Also surfaced but deliberately deferred to M2:** the 5 "company/Page" sub-types (board-of-management, annual-reports, company-logo, media-services-app, contacts — SKODA-810), kept out of M1 to keep the demo scope clean.
 
 ---
 
@@ -88,8 +93,10 @@ Per the delivery plan risk register + discovery agenda, the schedule threats are
 - **Demo sign-off owner + Škoda's internal approval turnaround.**
 - Demo date itself **may slip 1–2 weeks** (Martin) and **demo content still undefined** (Pushkar).
 
-**Mitigation baked into the target:** every Tier-2 item has a **fallback that keeps the demo whole** if its dependency slips —
-- No AEM Assets in time → serve the curated approved set from the pipeline/CDN, cut over later.
+**Escalation from D18 (2026-09-14):** because the **full Images/Videos listing pages are now Tier 1**, the AEM-Assets (D5) + media-cart (D2) dependencies are no longer only Tier-2 concerns — a Tier-1 demo page now needs a real approved asset set and per-item cart. Start those clocks in Week 1 and keep the same fallback (curated set from pipeline/CDN).
+
+**Mitigation baked into the target:** every Tier-2 item **and the Images/Videos Tier-1 pages** have a **fallback that keeps the demo whole** if the dependency slips —
+- No AEM Assets in time → serve the curated approved set from the pipeline/CDN, cut over later (covers the Images/Videos listings too).
 - D2 undecided → client-side happy-path cart for the *demo only* (prod reduction is M2/SKODA-902).
 - CS content late → prove CS *structurally* (chrome + selector + one page) rather than full parity.
 
@@ -97,7 +104,9 @@ Per the delivery plan risk register + discovery agenda, the schedule threats are
 
 ## 6. Recommended M1 "definition of done" (the line to sign)
 
-> *"On 15 Oct we show a live EDS Škoda Storyboard: the `/en` homepage + story pages (done today), a **new Media Room home + one Model page**, a **working device-ID media-cart** downloading an **AEM-Assets-served** approved set, **EN+CS** on the homepage with correct language-selector behaviour, **one faceted listing**, **1–2 Figma-generated components**, and a 5-minute **'how this was built as a repeatable VW blueprint'** narrative — with the three 'not-OOTB' functions shown explicitly."*
+> *"On 15 Oct we show a live EDS Škoda Storyboard: the `/en` homepage + story pages (done today) **including 1–2 full-fidelity stories** (in-body galleries + video + Media Box), a **new Media Room home + one Model page**, the **Series template** (directory → hub), the **full Images + Videos faceted-listing pages**, a **working device-ID media-cart** downloading an **AEM-Assets-served** approved set, **EN+CS** on the homepage with correct language-selector behaviour, **1–2 Figma-generated components**, and a 5-minute **'how this was built as a repeatable VW blueprint'** narrative — with the three 'not-OOTB' functions shown explicitly."*
+>
+> *(Scope note per D18, 2026-09-14: Series + full Images/Videos listings + full-fidelity stories are pulled into M1; the 5 "company/Page" sub-types — board-of-management, annual-reports, company-logo, media-services-app, contacts — are deferred to M2. The Images/Videos listings make D2/D5 hard M1 blockers.)*
 
 Everything in that sentence is either **done** or **assembly of done parts + one bounded dynamic feature** — which is why the velocity so far makes it realistic.
 
@@ -135,6 +144,9 @@ Everything in that sentence is either **done** or **assembly of done parts + one
 - [ ] **Polish the built `/en`** homepage + story pages to demo-grade (Tier 1 #1–2)
 - [ ] Assemble **Media Room homepage** from existing blocks (Tier 1 #3) — confirm exact rails vs source
 - [ ] Assemble **one Model page** (Tier 1 #4) — confirm tag-driven retrieval rules
+- [ ] Assemble the **Series template** (directory → hub, Tier 1 #5, SKODA-207) — confirm series ordering/source
+- [ ] Build the **full Images + Videos faceted-listing pages** (Tier 1 #6, SKODA-203/204/402/505) — depends on D2/D5
+- [ ] **Restore 1–2 full-fidelity stories** (galleries + embed + Media Box, SKODA-604)
 - [ ] Build **Press Release detail** page (request a live example first, §11.1)
 - [ ] Demo-script the **three "not-OOTB" functions** (exclude / multi-category / manual+tag) — already built
 - [ ] **Media-cart happy-path** (device-ID collect → download) per D2 fallback (Tier 2 #6)
@@ -152,7 +164,7 @@ Everything in that sentence is either **done** or **assembly of done parts + one
 
 ## 9. Cross-references
 
-- `SKODA-DELIVERY-PLAN.md` §2 (M1 demo scope), §6 (risks), §8 (decision log D1–D17).
+- `SKODA-DELIVERY-PLAN.md` §2 (M1 demo scope), §6 (risks), §8 (decision log D1–D18).
 - `SKODA-CLIENT-REQUIREMENTS-MAPPING.md` — per-ID build status behind the tiers here.
 - `SKODA-AGENT-HANDOFF-CANDIDATES.md` — the blueprint/method narrative (Tier 3).
 - `SKODA-DISCOVERY-SESSION-OCT15.md` — the Wk-1 agenda that resolves the §8 decisions.

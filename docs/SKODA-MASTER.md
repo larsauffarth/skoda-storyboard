@@ -53,8 +53,10 @@
 | Škodapedia | 189 | 5.4% |
 | Listing / index | ~7 | — |
 
-- **"Series" and "Podcast" are NOT templates** — they 301-redirect into story/press-release.
-- **Press-kits** = filtered view of `press_release` (`wp/v2/press_kit` → 404, not a CPT).
+> **"Page" family — 5 named sub-types** *(surfaced 2026-09-14, previously subsumed in the 334 "Page" count):* **board-of-management** (exec-bio accordion), **annual-reports** (reverse-chron download list), **company-logo** (36-asset brand grid, PDF+PNG), **skoda-media-services-application** (app-promo), **contacts** (department-grouped directory). Each needs a net-new block; deferred to M2 (SKODA-810, decision D18).
+
+- **"Series" IS a real 2-level template** *(corrected 2026-09-14 — 22-URL analysis; supersedes the earlier "Series 301-redirects" claim)*: a series **directory** (`/series-2/`, ~20 series cards) → a series **hub** (`/series/<slug>/`, e.g. `125-years-of-motorsport`, curated story-card grid). Both render real pages, not redirects. **Podcast** remains unverified in this batch — still assumed to 301 into story/press-release (re-check before relying on it).
+- **Press-kits** = filtered view of `press_release` **for the data source** (`wp/v2/press_kit` → 404, not a CPT) — **but the *page composition* is a distinct type** *(verified 2026-09-14)*: a hub landing (TOC of 8 chapters + resource tabs + WhatsApp/ZIP) plus chaptered sub-pages that carry a persistent chapter sub-nav, technical-spec tables, and a large Media Box (84 images / 6 PDFs on the Epiq exterior sub-page). "= press_release" holds for the source, not the template.
 - **"speeches"** = a feature plugin, **not a public content type** (absent from `wp/v2/types`).
 - **Cross-locale redirects** are unstable (e.g. `/en/models/…` → a Slovenian article); **8 dead EN URLs** (redirect loops/404s). Build URL lists from sitemaps/REST, never nav.
 - Root routing is **`Accept-Language`-negotiated** (`/` → `/de/`, `/cs/`…).
@@ -81,6 +83,8 @@
 | **Media-cart actions** | **Backend** | item | 91% | Service (or drop) · High |
 | **Promo banner** | **Backend (per-market ad server)** | sidebar/widget/positional | 47% | Service/SDK, not a block · High |
 | Header/mega-menu, Footer, Social, App badges (chrome) | JS behavior / static | — | site-wide | Fragments · Low–Med |
+
+**Net-new blocks surfaced by the 22-URL analysis (2026-09-14, all unbuilt):** series-directory grid + series-hub grid (Series template, → M1 SKODA-207); press-kit index/TOC + persistent chapter sub-nav + technical-spec table (press-kit template, SKODA-805/808); exec-bio accordion, download-list, brand-asset grid, app-promo, contact-directory (the 5 "Page" sub-types, → M2 SKODA-810). The **faceted-listing engine** (COM07/MR-L02/L03) is confirmed as one shared component underlying tag/category/news/images/videos listings; **gallery+lightbox and Vimeo embed** (already in §4 as adapt-effort) are the per-item renderers the Images/Videos listings and full-fidelity stories depend on.
 
 **Front-end debt to retire (not port):** jQuery; Owl Carousel; Isotope; 174 KB React (banners); 168 `!important`; 30 breakpoints; `dotdotdot` JS truncation; `padding-bottom` ratio hack (no `aspect-ratio`); `:only-child` link detection; `getComputedStyle(':after').content==='flickity'` CSS↔JS flag; unthrottled parallax scroll.
 
@@ -309,5 +313,6 @@
 | **Autonomous-agent handoff candidates (framework eval)** | **`SKODA-AGENT-HANDOFF-CANDIDATES.md`** (which isolated, objective-oracle parts can be handed to an agentic team; no-visual-fidelity constraint) |
 | Delivery backlog (epics/tickets) | `skoda/OVERVIEW.md` + `skoda/epics/` + `skoda/tickets/` |
 | **Completeness proof for this master** | `SKODA-MASTER-COVERAGE.md` |
+| **22-URL block-by-block gap analysis** (2026-09-14) — corrected §3 Series claim, refined press-kit claim, named the 5 "Page" sub-types, and surfaced decision D18 | `.migration/plans/url-analysis-comparison.md` + `url-analysis-matrix.json` |
 
 *This master is canonical going forward; source docs are retained for detail, not deleted.*

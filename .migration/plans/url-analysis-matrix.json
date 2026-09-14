@@ -1,0 +1,228 @@
+{
+  "generated": "2026-09-14",
+  "method": "structural analysis of live URLs vs built inventory (tools/importer + SKODA-MASTER.md)",
+  "legend": {
+    "captured": "built & reusable",
+    "variation": "design variation of a captured block",
+    "missed": "net-new page type or block, not yet built"
+  },
+  "baseline": {
+    "templates": ["en-landing", "en-stories"],
+    "parsers": ["cards-overlay", "cards-media", "cards-social", "cards-toolbar", "carousel"],
+    "transformers": ["skoda-cleanup", "skoda-sections", "skoda-story-cleanup"],
+    "blocks": ["stories", "story-rail", "carousel", "cards-overlay", "cards-media", "hero-image", "header", "footer"],
+    "known_unbuilt": ["faceted-listing", "gallery+lightbox", "embeds", "skodapedia", "media-cart", "promo-banner"]
+  },
+  "urls": [
+    {
+      "n": 1, "bucket": "A", "url": "/en/skoda-world/the-versatile-octavia-do-you-know-these-ones-too/",
+      "pageType": "story-detail", "template": "en-stories", "status": "captured",
+      "blocks": [{"name": "hero+title+body", "status": "captured", "mapsTo": "en-stories"}],
+      "notes": "already imported; report exists"
+    },
+    {
+      "n": 2, "bucket": "A", "url": "/en/skoda-world/how-the-skoda-octavia-reached-365-km-h/",
+      "pageType": "story-detail", "template": "en-stories", "status": "captured",
+      "blocks": [
+        {"name": "hero+body", "status": "captured", "mapsTo": "en-stories"},
+        {"name": "in-body image galleries x5", "status": "missed", "mapsTo": "gallery"},
+        {"name": "related rail", "status": "captured", "mapsTo": "story-rail"}
+      ],
+      "notes": "flatten drops galleries (demo scope)"
+    },
+    {
+      "n": 5, "bucket": "A", "url": "/en/emobility/whats-behind-epiq-design/",
+      "pageType": "story-detail", "template": "en-stories", "status": "captured",
+      "blocks": [
+        {"name": "hero+body", "status": "captured", "mapsTo": "en-stories"},
+        {"name": "image gallery", "status": "missed", "mapsTo": "gallery"},
+        {"name": "YouTube embed", "status": "missed", "mapsTo": "embed"},
+        {"name": "related rail (10)", "status": "captured", "mapsTo": "story-rail"},
+        {"name": "Media Box (7 img)", "status": "missed", "mapsTo": "media-cart"}
+      ],
+      "notes": "imported; embeds/galleries/box dropped"
+    },
+    {
+      "n": 7, "bucket": "A", "url": "/en/lifestyle/people/the-story-of-olive-oil-from-andalusia-to-the-czech-republic/",
+      "pageType": "story-detail", "template": "en-stories", "status": "variation",
+      "blocks": [
+        {"name": "hero+body", "status": "variation", "mapsTo": "en-stories"},
+        {"name": "YouTube embed", "status": "missed", "mapsTo": "embed"},
+        {"name": "2x lightbox galleries + single image", "status": "missed", "mapsTo": "gallery+lightbox"},
+        {"name": "newsletter", "status": "missed", "mapsTo": "out-of-scope"},
+        {"name": "related rail + tags", "status": "captured", "mapsTo": "story-rail"},
+        {"name": "Media Box (14 img)", "status": "missed", "mapsTo": "media-cart"}
+      ],
+      "notes": "fits en-stories; NOT yet imported - add to import set"
+    },
+    {
+      "n": 3, "bucket": "B", "url": "/en/tag/model/elroq/",
+      "pageType": "tag-listing", "template": "en-listing (unbuilt)", "status": "missed",
+      "blocks": [
+        {"name": "model hero + CTAs (Discover/Configure/Images/Videos)", "status": "missed", "mapsTo": "model-hero"},
+        {"name": "filtered card grid (overlay, load-more 4/31)", "status": "missed", "mapsTo": "faceted-listing"}
+      ],
+      "notes": "hero shared with Model detail; card reuses cards-overlay"
+    },
+    {
+      "n": 4, "bucket": "B", "url": "/en/tag/model/epiq/",
+      "pageType": "tag-listing", "template": "en-listing (unbuilt)", "status": "missed",
+      "blocks": [
+        {"name": "model hero + CTAs", "status": "missed", "mapsTo": "model-hero"},
+        {"name": "filtered card grid (load-more 4/11)", "status": "missed", "mapsTo": "faceted-listing"}
+      ],
+      "notes": "identical structure to #3"
+    },
+    {
+      "n": 6, "bucket": "B", "url": "/en/category/emobility/",
+      "pageType": "category-listing", "template": "en-listing (unbuilt)", "status": "missed",
+      "blocks": [
+        {"name": "hero", "status": "variation", "mapsTo": "hero-image"},
+        {"name": "facet bar (All/News/Press Kits/Images/Videos)", "status": "missed", "mapsTo": "faceted-listing"},
+        {"name": "media-style card grid + load-more", "status": "missed", "mapsTo": "faceted-listing / cards-media"}
+      ],
+      "notes": "same engine as tag listings"
+    },
+    {
+      "n": 8, "bucket": "C", "url": "/en/series-2/",
+      "pageType": "series-directory", "template": "en-series (unbuilt)", "status": "missed",
+      "blocks": [{"name": "hero + grid of ~20 series cards", "status": "missed", "mapsTo": "series-directory"}],
+      "notes": "OVERTURNS master §3: Series IS a real template (level 1)"
+    },
+    {
+      "n": 9, "bucket": "C", "url": "/en/series/125-years-of-motorsport/",
+      "pageType": "series-hub", "template": "en-series-hub (unbuilt)", "status": "missed",
+      "blocks": [{"name": "hero (title+desc) + 8 story cards", "status": "missed", "mapsTo": "series-hub"}],
+      "notes": "OVERTURNS master §3: series hub (level 2), no load-more, curated"
+    },
+    {
+      "n": 10, "bucket": "D", "url": "/en/media-room/",
+      "pageType": "media-room-home", "template": "en-mediaroom (planned)", "status": "missed",
+      "blocks": [
+        {"name": "hero (featured press-kit, overlay)", "status": "variation", "mapsTo": "cards-overlay"},
+        {"name": "featured rail (3, overlay)", "status": "captured", "mapsTo": "cards-overlay"},
+        {"name": "news rail (carousel)", "status": "captured", "mapsTo": "carousel"},
+        {"name": "images rail (grid + downloads)", "status": "missed", "mapsTo": "gallery+media-cart"},
+        {"name": "videos rail (carousel, Vimeo)", "status": "missed", "mapsTo": "carousel+embed"},
+        {"name": "models rail (grid)", "status": "variation", "mapsTo": "cards-media/carousel"},
+        {"name": "press-kits rail (grid)", "status": "variation", "mapsTo": "cards-overlay/carousel"},
+        {"name": "latest-stories rail (carousel)", "status": "captured", "mapsTo": "stories/carousel"}
+      ],
+      "notes": "~70% assemblable; images/videos rails need unbuilt blocks"
+    },
+    {
+      "n": 14, "bucket": "E", "url": "/en/news/",
+      "pageType": "news-listing", "template": "en-listing (unbuilt)", "status": "missed",
+      "blocks": [
+        {"name": "facet bar + sort", "status": "missed", "mapsTo": "faceted-listing"},
+        {"name": "press-release card list + load-more", "status": "missed", "mapsTo": "faceted-listing"}
+      ],
+      "notes": "same engine as bucket B"
+    },
+    {
+      "n": 16, "bucket": "E", "url": "/en/images/",
+      "pageType": "images-listing", "template": "en-images (unbuilt)", "status": "missed",
+      "blocks": [
+        {"name": "advanced facet bar (Model/Year/Topic...)", "status": "missed", "mapsTo": "faceted-listing"},
+        {"name": "image grid (12/33313) + Original/1920px download", "status": "missed", "mapsTo": "gallery+media-cart"},
+        {"name": "lightbox on click + per-tile media-cart", "status": "missed", "mapsTo": "gallery-lightbox+media-cart"}
+      ],
+      "notes": "faceted listing with image-tile renderer"
+    },
+    {
+      "n": 17, "bucket": "E", "url": "/en/videos/",
+      "pageType": "videos-listing", "template": "en-videos (unbuilt)", "status": "missed",
+      "blocks": [
+        {"name": "advanced facet bar", "status": "missed", "mapsTo": "faceted-listing"},
+        {"name": "Vimeo-thumb grid (12/913) + play/download/heart", "status": "missed", "mapsTo": "faceted-listing+embed+media-cart"}
+      ],
+      "notes": "faceted listing with video-tile renderer"
+    },
+    {
+      "n": 11, "bucket": "F", "url": "/en/press-kits/skoda-epiq-press-kit-2/",
+      "pageType": "press-kit-hub", "template": "en-press-kit (planned)", "status": "missed",
+      "blocks": [
+        {"name": "hero + intro", "status": "variation", "mapsTo": "cards-overlay/hero"},
+        {"name": "TOC of 8 chapters (thumb buttons)", "status": "missed", "mapsTo": "press-kit-index"},
+        {"name": "resource tabs (Texts/Infographics/Tech/Images/Videos) + ZIP/WhatsApp", "status": "missed", "mapsTo": "press-kit-subnav"}
+      ],
+      "notes": "hub/index, not an article"
+    },
+    {
+      "n": 12, "bucket": "F", "url": "/en/press-kits/skoda-epiq-press-kit-2/infographics/",
+      "pageType": "press-kit-gallery-subpage", "template": "en-press-kit-sub (unbuilt)", "status": "missed",
+      "blocks": [
+        {"name": "persistent chapter sub-nav", "status": "missed", "mapsTo": "press-kit-subnav"},
+        {"name": "9 infographic tiles (PDF+JPG each)", "status": "missed", "mapsTo": "gallery+download"},
+        {"name": "related press-releases + tags", "status": "captured", "mapsTo": "story-rail"}
+      ],
+      "notes": "image-gallery subpage"
+    },
+    {
+      "n": 13, "bucket": "F", "url": "/en/press-kits/skoda-epiq-press-kit-2/exterior-the-first-skoda-production-model-to-fully-incorporatethe-modern-solid-design-language/",
+      "pageType": "press-kit-article-subpage", "template": "en-press-kit-sub (unbuilt)", "status": "variation",
+      "blocks": [
+        {"name": "hero + article body + exec quote", "status": "variation", "mapsTo": "en-stories-like"},
+        {"name": "in-body infographics + photo carousel + video embed", "status": "missed", "mapsTo": "gallery/carousel/embed"},
+        {"name": "technical-spec table", "status": "missed", "mapsTo": "spec-table"},
+        {"name": "Media Box (84 img, 6 PDF)", "status": "missed", "mapsTo": "media-cart"},
+        {"name": "chapter sub-nav + tags", "status": "missed", "mapsTo": "press-kit-subnav"}
+      ],
+      "notes": "article-like but exceeds story template"
+    },
+    {
+      "n": 15, "bucket": "G", "url": "/en/skoda-model/peaq/",
+      "pageType": "model-detail", "template": "en-model (planned)", "status": "variation",
+      "blocks": [
+        {"name": "hero (model name)", "status": "variation", "mapsTo": "hero-image"},
+        {"name": "model description/spec prose", "status": "variation", "mapsTo": "default-content"},
+        {"name": "news rail (tag-driven)", "status": "captured", "mapsTo": "carousel/story-rail"},
+        {"name": "press-kits rail (tag-driven)", "status": "variation", "mapsTo": "carousel"},
+        {"name": "stories rail (tag-driven)", "status": "captured", "mapsTo": "story-rail"},
+        {"name": "images rail (downloads)", "status": "missed", "mapsTo": "gallery+media-cart"},
+        {"name": "videos rail (Vimeo)", "status": "missed", "mapsTo": "carousel+embed"}
+      ],
+      "notes": "mostly assemblable; retrieval rules open (yellow)"
+    },
+    {
+      "n": 18, "bucket": "H", "url": "/en/board-of-management/",
+      "pageType": "board-of-management", "template": "en-board (unbuilt)", "status": "missed",
+      "blocks": [{"name": "exec-bio accordion (2 groups x 4, expandable gallery + CV/photo/press/LinkedIn)", "status": "missed", "mapsTo": "exec-bio-accordion"}],
+      "notes": "net-new; not in M1 plan"
+    },
+    {
+      "n": 19, "bucket": "H", "url": "/en/annual-reports/",
+      "pageType": "annual-reports", "template": "en-annual-reports (unbuilt)", "status": "missed",
+      "blocks": [{"name": "download-list (2025-2000, thumb+PDF+save)", "status": "missed", "mapsTo": "download-list"}],
+      "notes": "net-new; not in M1 plan"
+    },
+    {
+      "n": 20, "bucket": "H", "url": "/en/company-logo/",
+      "pageType": "company-logo", "template": "en-company-logo (unbuilt)", "status": "missed",
+      "blocks": [{"name": "brand-asset grid (3 groups x 6 = 36 assets, PDF+PNG each)", "status": "missed", "mapsTo": "brand-asset-grid"}],
+      "notes": "net-new; not in M1 plan"
+    },
+    {
+      "n": 21, "bucket": "H", "url": "/en/skoda-media-services-application/",
+      "pageType": "app-promo", "template": "en-app (unbuilt)", "status": "missed",
+      "blocks": [{"name": "hero + intro + screenshots + features + QR + app-store badges", "status": "missed", "mapsTo": "app-promo"}],
+      "notes": "net-new marketing page; not in M1 plan"
+    },
+    {
+      "n": 22, "bucket": "H", "url": "/en/contacts/",
+      "pageType": "contacts", "template": "en-contacts (unbuilt)", "status": "missed",
+      "blocks": [{"name": "contact directory (2 dept groups, name/title/email/phone/photo/LinkedIn)", "status": "missed", "mapsTo": "contact-directory"}],
+      "notes": "net-new; not in M1 plan"
+    }
+  ],
+  "assumptionsChecked": [
+    {"assumption": "Series & Podcast are NOT templates (301 redirect) - master §3", "verdict": "OVERTURNED for Series", "evidence": "/series-2/ + /series/125-years-of-motorsport/ render as real 2-level listing pages"},
+    {"assumption": "press-kits = filtered press_release view - master §3", "verdict": "PARTIAL", "evidence": "true for data source; page adds hub TOC, chapter sub-nav, spec tables, 84-img Media Box"},
+    {"assumption": "faceted listing = one High-effort engine - master §4", "verdict": "CONFIRMED & broadened", "evidence": "one template underlies tag/category/news/images/videos"},
+    {"assumption": "gallery+lightbox unbuilt, needed - master §4", "verdict": "CONFIRMED", "evidence": "stories, images listing, press-kit sub-pages"},
+    {"assumption": "all video externally hosted (Vimeo/YouTube) - master §4", "verdict": "CONFIRMED", "evidence": "videos listing & rails are Vimeo thumbs/embeds"},
+    {"assumption": "media-cart per-item actions - master §4/§6.2", "verdict": "CONFIRMED", "evidence": "download/heart on every image & video tile"}
+  ],
+  "netNewPageTypes": ["series-directory", "series-hub", "faceted-listing (tag/category/news)", "images-listing", "videos-listing", "media-room-home", "model-detail", "press-kit-hub", "press-kit-article-subpage", "press-kit-gallery-subpage", "board-of-management", "annual-reports", "company-logo", "app-promo", "contacts"],
+  "netNewBlocks": ["faceted-listing", "gallery+lightbox", "media-tile", "video-tile", "media-cart-action", "series-directory-grid", "series-hub-grid", "press-kit-index", "press-kit-subnav", "technical-spec-table", "exec-bio-accordion", "download-list", "brand-asset-grid", "app-promo", "contact-directory"]
+}

@@ -265,7 +265,7 @@
         <tr><td>EN pages crawled for blocks</td><td><strong>3,496</strong> scanned (3,501 enumerated, 8 dead URLs)</td><td><span class="lvl r-low">Confirmed</span></td></tr>
       </tbody>
     </table>
-    <div class="note"><strong>Templates (EN, from full crawl):</strong> Press release (1,659 · 47.5%), Story (1,312 · 37.5%), Page (334 · 9.6%), Škodapedia (189 · 5.4%), Listing/index (~7 pages). <em>"Series" and "Podcast" are not templates — they redirect into the story/press-release templates.</em></div>
+    <div class="note"><strong>Templates (EN, from full crawl):</strong> Press release (1,659 · 47.5%), Story (1,312 · 37.5%), Page (334 · 9.6%), Škodapedia (189 · 5.4%), Listing/index (~7 pages). <em>"Series" and "Podcast" are not templates — they redirect into the story/press-release templates.</em> <em>⚠️ Corrected 2026-09-14: Series IS a real 2-level template (directory /series-2/ + hub /series/&lt;slug&gt;/) — see SKODA-MASTER §3 / D18; Podcast unverified.</em></div>
   </section>
 
   <!-- 3 -->
@@ -432,7 +432,7 @@
         <li>Newsletter: "form + service" → <strong>subscriber account system</strong>.</li>
         <li>ElasticPress: "powers search" → <strong>powers search <em>and</em> listings</strong> (<code>ep_integrate</code>).</li>
         <li>Škodapedia A–Z filter: earlier 1,866 count was a <strong>false positive</strong> (collision with <code>NewsletterFormWidgetV2</code>); real glossary = <strong>189</strong> Škodapedia pages.</li>
-        <li>"Series"/"Podcast": <strong>not templates</strong> (redirect into story/press-release).</li>
+        <li>"Series"/"Podcast": <strong>not templates</strong> (redirect into story/press-release). <em>⚠️ Corrected 2026-09-14: Series IS a real 2-level template — see SKODA-MASTER §3 / D18; Podcast unverified.</em></li>
         <li>Media: dedicated review now <strong>complete</strong> — CDN confirmed a <strong>pass-through cache</strong>; EDS pipeline is an <em>upgrade</em> for content images; large PDF/MP4/hi-res downloads must be <strong>linked/DAM'd, not optimized</strong>.</li>
       </ul>
       <p style="margin-bottom:0"><strong>Method &amp; limitations:</strong> evidence from public pages, HTTP headers, the WordPress REST API, XML sitemaps, a full EN crawl (3,496 pages), source JS/CSS inspection, live endpoint replay, and CDN header probing. <strong>No headless browser</strong> was available this session, so visual/rendered-layout checks remain <code>[RUNTIME-UNCONFIRMED]</code>. All findings are analysis-only; no Git operations were performed.</p>

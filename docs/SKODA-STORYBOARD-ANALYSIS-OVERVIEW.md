@@ -40,7 +40,7 @@
 | Search / listings | **ElasticPress / Elasticsearch** (`x-elasticpress-search: true`; `ep_integrate` in listing payload) | Confirmed |
 | EN pages crawled for blocks | **3,496** scanned (3,501 enumerated, 8 dead URLs) | Confirmed |
 
-**Templates (EN, from full crawl):** Press release (1,659 · 47.5%), Story (1,312 · 37.5%), Page (334 · 9.6%), Škodapedia (189 · 5.4%), Listing/index (~7 pages). *"Series" and "Podcast" are not templates — they redirect into the story/press-release templates.*
+**Templates (EN, from full crawl):** Press release (1,659 · 47.5%), Story (1,312 · 37.5%), Page (334 · 9.6%), Škodapedia (189 · 5.4%), Listing/index (~7 pages). *"Series" and "Podcast" are not templates — they redirect into the story/press-release templates.* — ⚠️ **CORRECTED 2026-09-14:** Series IS a real 2-level template (directory `/series-2/` + hub `/series/<slug>/`); see SKODA-MASTER §3 / D18. Podcast unverified.
 
 ---
 
@@ -171,7 +171,7 @@ These drive most of the risk. Contracts below were **live-replayed** during the 
 - Newsletter: "form + service" → **subscriber account system**.
 - ElasticPress: "powers search" → **powers search *and* listings** (`ep_integrate`).
 - Škodapedia A–Z filter: earlier 1,866 count was a **false positive** (collision with `NewsletterFormWidgetV2`); real glossary = **189** Škodapedia pages.
-- "Series"/"Podcast": **not templates** (redirect into story/press-release).
+- "Series"/"Podcast": **not templates** (redirect into story/press-release). — ⚠️ **CORRECTED 2026-09-14:** Series IS a real 2-level template (see SKODA-MASTER §3 / D18); Podcast unverified.
 - Media: dedicated review now **complete** — CDN confirmed a **pass-through cache** (no dynamic transforms); EDS pipeline is an *upgrade* for content images; large PDF/MP4/hi-res downloads must be **linked/DAM'd, not optimized**.
 - **Adversarial review corrections:** story pages use **SiteOrigin Page Builder** (import must flatten a nested widget layout); a **gallery lightbox** exists (2nd JS breakpoint); **"speeches" is not a content type** (dropped); **`real-product-manager` = licensing, not commerce** (D8 commerce closed); **translation is uneven per-item** (not a clean 6× multiple).
 - **Media deep-dive (measured):** the "~52k" estimate is replaced by **42,275 attachment pages → ~28,300 distinct logical items** (5 locales) / **~200k+ physical files** with the derivative ladder (**≈80–110 GB**, ≈34 GB masters-only); self-hosted MP4 uses a **signed-S3 download flow**; the CDN has **no CORS**; alt-text coverage is **96%**, `data-caption` **53%** (importer must read it).

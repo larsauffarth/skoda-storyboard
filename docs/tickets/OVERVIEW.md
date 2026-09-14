@@ -1,7 +1,7 @@
 # Škoda Storyboard → Edge Delivery (DA/Experience Workspace) — Delivery Backlog Overview
 
-**What this is:** the master index for the migration backlog — 10 epics, 48 tickets — grounded in the `SKODA-*` analysis set. Pilot epics (E01–E07) are ticket-level; later phases (E08–E10) are epic + high-level tickets so the whole program is visible.
-**Date:** 2026-09-05 (updated 2026-09-07: media-cart re-point — SKODA-505 added to M1, SKODA-902 re-scoped; updated 2026-09-10: build-confirmed — SKODA-506 added, SKODA-401 re-scoped to +3 SP for metadata-normalization, SKODA-801 trending low & browser-confirmed; updated 2026-09-11: Press Kit detail broken out of SKODA-802 into SKODA-805–808 per requirements doc §11)
+**What this is:** the master index for the migration backlog — 10 epics, 51 tickets — grounded in the `SKODA-*` analysis set. Pilot epics (E01–E07) are ticket-level; later phases (E08–E10) are epic + high-level tickets so the whole program is visible.
+**Date:** 2026-09-05 (updated 2026-09-07: media-cart re-point — SKODA-505 added to M1, SKODA-902 re-scoped; updated 2026-09-10: build-confirmed — SKODA-506 added, SKODA-401 re-scoped to +3 SP for metadata-normalization, SKODA-801 trending low & browser-confirmed; updated 2026-09-11: Press Kit detail broken out of SKODA-802 into SKODA-805–808 per requirements doc §11; updated 2026-09-14: 22-URL analysis added SKODA-207 (Series→M1), SKODA-604 (full-fidelity story restore→M1), SKODA-810 (company/Page family→M2) per decision D18)
 **Target:** DA / Experience Workspace + EDS (no AEM Author / UE / JCR) — per `SKODA-EDS-DA-ARCHITECTURE.md`.
 **Estimates:** story points (SP) + AI-assisted / manual day ranges — **planning estimates, not a quote**. "AI-assisted" reflects this environment's import/styling/QA tooling.
 **Files:** `skoda/epics/E##-*.md` · `skoda/tickets/SKODA-<id>.md`.
@@ -28,16 +28,16 @@ Four phases, mapped from `SKODA-EDS-DA-ARCHITECTURE.md` §12:
 | Epic | Goal | Phase | Tickets | Effort (SP) | AI-days | Manual-days |
 |---|---|---|---|--:|--:|--:|
 | **E01 Foundation & Setup** | DA/EW site, repo, Code Sync, config, tokens | A | 6 | 15 | 5–9 | 12–20 |
-| **E02 Core Blocks** | teaser/cards, hero, gallery+lightbox, embeds, tags, Škodapedia glossary | A | 6 | 21 | 8.5–13 | 19–28 |
+| **E02 Core Blocks** | teaser/cards, hero, gallery+lightbox, embeds, tags, Škodapedia glossary, Series template | A | 7 | 24 | 9.5–15 | 21–32 |
 | **E03 Chrome Fragments** | header/mega-menu, mobile ARIA, lang switcher, footer | A | 4 | 12 | 5.5–8 | 8–14 |
 | **E04 Listings & Search** | query-index (15 facets) + metadata-normalization, listing/load-more, search | A | 3 | 19 | 7–12 | 13–21 |
 | **E05 Media Pipeline** | masters-only ingest, downloads block, PDF/MP4, **AEM Assets mapping**, **demo cart + client-side zip**, **media pre-conditioning** | A | 6 | 21 | 7–13 | 14–23 |
-| **E06 Import Pilot Content** | parsers/transformers, DA push, pilot pages | A | 3 | 11 | 4–7 | 8–12 |
+| **E06 Import Pilot Content** | parsers/transformers, DA push, pilot pages, full-fidelity story restore | A | 4 | 13 | 4.5–8 | 9–14 |
 | **E07 QA / Perf / A11y / Launch** | lint, Lighthouse/RUM, a11y, visual QA, sign-off | A | 4 | 11 | 4–7 | 7–12 |
-| **E08 Editorial at Scale** | story flatten, remaining templates, **press-kit template (805–808)**, bulk import | B | 8 | 41 | 16–26 | 31–52 |
+| **E08 Editorial at Scale** | story flatten, remaining templates, **press-kit template (805–808)**, **company/Page family (810)**, bulk import | B | 9 | 49 | 19–31 | 37–62 |
 | **E09 Dynamic Services** | media-cart **prod hardening**, banners, newsletter, hosted search, analytics | C | 5 | 40 | 15–25 | 30–54 |
 | **E10 Localization** | 6 locales, per-locale index, translation, routing | D | 3 | 16 | 6–10 | 10–15+ |
-| **Total** | | | **48** | **207** | **78.5–129** | **152–251** |
+| **Total** | | | **51** | **220** | **83–137** | **161–267** |
 
 *(SP roll-ups are indicative; day ranges are the sum of per-ticket planning ranges — treat as order-of-magnitude, not a commitment.)*
 
@@ -61,6 +61,7 @@ Four phases, mapped from `SKODA-EDS-DA-ARCHITECTURE.md` §12:
 | SKODA-204 | Embeds (4 providers, dnt=1, lazy) | E02 | 3 | 1–2 | 2–4 | 102 | 🟢 |
 | SKODA-205 | Tags / metadata | E02 | 1 | 0.5 | 1 | 102 | 🟢 |
 | SKODA-206 | Škodapedia glossary block (directory + A–Z filter + modal) | E02 | 5 | 2–3 | 4–6 | 102,106 | 🟡 modal a11y `[RUNTIME-UNCONFIRMED]` |
+| SKODA-207 | Series template (2-level: directory + hub) | E02 | 3 | 1–2 | 2–4 | 201,202,402,601 | 🟢 M1 (D18); reuses cards/hero/grid |
 | SKODA-301 | Header + mega-menu (3 panels) | E03 | 5 | 2–3 | 4–6 | 102,106 | 🟡 |
 | SKODA-302 | Mobile nav toggle + ARIA (a11y fix) | E03 | 2 | 1 | 1–2 | 301 | 🟡 fixes source gap |
 | SKODA-303 | Language switcher (6 locales) | E03 | 2 | 1 | 1–2 | 301 | 🟢 |
@@ -77,6 +78,7 @@ Four phases, mapped from `SKODA-EDS-DA-ARCHITECTURE.md` §12:
 | SKODA-601 | Import infra: parsers + transformers | E06 | 5 | 2–3 | 4–6 | 102 | 🟡 content-driven only |
 | SKODA-602 | DA source-API push + bulk-op publish | E06 | 3 | 1–2 | 2–3 | 601 | 🟢 |
 | SKODA-603 | Pilot page set imported + validated | E06 | 3 | 1–2 | 2–3 | 601,602,201,202,203,204,205,501,502 | 🟡 fan-in |
+| SKODA-604 | Full-fidelity restore on 1–2 hero demo stories | E06 | 2 | 0.5–1 | 1–2 | 203,204,502,505,601,602,801 | 🟢 M1 (D18); bounded un-flatten |
 | SKODA-701 | Lint + unit tests | E07 | 2 | 1 | 1–2 | E02,E03,E04 | 🟢 |
 | SKODA-702 | Performance (Lighthouse≈100/RUM) | E07 | 3 | 1–2 | 2–3 | 603 | 🟡 |
 | SKODA-703 | Accessibility audit | E07 | 3 | 1–2 | 2–4 | 603 | 🟠 several `[RUNTIME-UNCONFIRMED]` |
@@ -94,6 +96,7 @@ Four phases, mapped from `SKODA-EDS-DA-ARCHITECTURE.md` §12:
 | SKODA-806 | Press Kit grouped media/download areas + whole-kit ZIP | E08 | B | 5 | 2–3 | 4–6 | 805,502,505 | 🟠 ZIP = D2 reduction service |
 | SKODA-807 | FAQ block (Press Kit) | E08 | B | 2 | 0.5–1 | 1–2 | 805,106 | 🟡 per-kit vs shared pool (§11.10) |
 | SKODA-808 | Press Kit variant subsections + selector + categorization | E08 | B | 3 | 1–2 | 2–3 | 805,806,401 | 🟡 selector interaction (§11.7/11.9) |
+| SKODA-810 | Company/Page family (board/annual-reports/logo/app/contacts) | E08 | B | 8 | 3–5 | 6–10 | 202,304,502,601,602,803 | 🟢 M2 (D18); 5 net-new blocks |
 | SKODA-901 | Hosted body-relevance search (decision-gated) | E09 | C | 8 | 3–5 | 6–10 | 401 | 🟠 |
 | SKODA-902 | Media-cart **prod hardening** (serverless zip + signed access + cross-device) | E09 | C | 8 | 3–5 | 6–12 | 505,502 | 🟠 re-scoped (demo cart = SKODA-505) |
 | SKODA-903 | Banner ad platform (per-market feed + client) | E09 | C | 8 | 3–5 | 6–12 | 106 | 🔴 bespoke ad server |
@@ -138,13 +141,13 @@ Phase D: 401,603─1001 ─ 1002 ; 303,1001─1003
 
 | Scope | SP | AI-assisted days | Manual days |
 |---|--:|--:|--:|
-| **Pilot (Phase A, E01–E07)** | **89** | **~34–57** | **~68–100** |
-| Phase B (E08) | 41 | 16–26 | 31–52 |
+| **Pilot (Phase A, E01–E07)** | **94** | **~35–60** | **~71–106** |
+| Phase B (E08) | 49 | 19–31 | 37–62 |
 | Phase C (E09) | 40 | 15–25 | 30–54 |
 | Phase D (E10) | 16 | 6–10 | 10–15+ |
-| **Full program** | **202** | **~77–128** | **~149–247** |
+| **Full program** | **215** | **~82–136** | **~158–263** |
 
-- **Pilot ≈ 34–57 AI-assisted engineer-days** (vs ~68–100 manual) — **this ticket-derived total is the canonical pilot figure.** It grew from 81→89 SP when the mission-critical **demo media-cart + client-side zip (SKODA-505, +8 SP)** was pulled into M1 per client scope, then **+5 SP (2026-09-10, build-confirmed)** for **SKODA-506 media pre-conditioning (+2)** and **SKODA-401 metadata-normalization (+3)** — offset by **SKODA-801 trending to the low end** of its 8 SP. **Net effect on the pilot day-range is negligible** (the flatten relief roughly funds the metadata+media additions); the change is an **effort-mix shift, not a total increase** — consistent with the delivery-plan addendum. The `SKODA-STORYBOARD-SITE-FACTS.html` deck's earlier ~13–25-day headline covered only the *core build* chunks; this backlog is fuller (explicit foundation + import + QA tickets + the Škodapedia block + the demo cart + pre-conditioning). **The deck should be aligned to this figure** (adversarial-review finding F2).
+- **Pilot ≈ 35–60 AI-assisted engineer-days** (vs ~71–106 manual) — **this ticket-derived total is the canonical pilot figure.** It grew from 81→89 SP when the mission-critical **demo media-cart + client-side zip (SKODA-505, +8 SP)** was pulled into M1 per client scope, then **+5 SP (2026-09-10, build-confirmed)** for **SKODA-506 media pre-conditioning (+2)** and **SKODA-401 metadata-normalization (+3)** — offset by **SKODA-801 trending to the low end** of its 8 SP — then **+5 SP (2026-09-14, D18)** for **SKODA-207 Series template (+3)** and **SKODA-604 full-fidelity story restore (+2)** pulled into M1 from the 22-URL analysis, taking the pilot to **94 SP**. The `SKODA-STORYBOARD-SITE-FACTS.html` deck's earlier ~13–25-day headline covered only the *core build* chunks; this backlog is fuller (explicit foundation + import + QA tickets + the Škodapedia block + the demo cart + pre-conditioning). **The deck should be aligned to this figure** (adversarial-review finding F2).
 - **Full program is a multi-month programme** dominated by Phase C (the 4 bespoke services + analytics) and Phase B story-flattening + Phase D content-ops.
 - *Planning estimates, not a quote; AI-assisted assumes the migration tooling and experienced engineers steering it.*
 
@@ -153,9 +156,9 @@ Phase D: 401,603─1001 ─ 1002 ; 303,1001─1003
 ## 6. Suggested Pilot Sequencing (sprints)
 
 - **Sprint 1 — Foundation:** 101, 102, 105, 106, 103, 104 (unblocks everything; stand up site + tokens + index skeleton).
-- **Sprint 2 — Blocks & chrome:** 201, 202, 203, 204, 205, 206, 301, 302, 303, 304 (parallelizable once 102/106 land).
+- **Sprint 2 — Blocks & chrome:** 201, 202, 203, 204, 205, 206, **207** (Series template), 301, 302, 303, 304 (parallelizable once 102/106 land).
 - **Sprint 3 — Listings/search + media + import infra:** 401, 402, 403, 501, 502, 503, 504, **505** (demo cart + client-side zip), 601, 602.
-- **Sprint 4 — Integrate & harden:** 603 (pilot pages), 701, 702, 703, 704 (QA + sign-off).
+- **Sprint 4 — Integrate & harden:** 603 (pilot pages), **604** (full-fidelity restore on 1–2 stories), 701, 702, 703, 704 (QA + sign-off).
 
 ---
 

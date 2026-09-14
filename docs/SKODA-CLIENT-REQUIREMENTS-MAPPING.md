@@ -17,7 +17,7 @@
 | ✅ **Built** | Implemented & published on the EN test migration (`/en/`) |
 | 🟢 **Solvable** | Clear EDS/DA path, analysed & ticketed; no blocker |
 | 🔵 **Solvable-as-service** | Needs a rebuild-as-service or external integration (analysed, path known) |
-| 🟠 **Open — decision** | Blocked on a client decision / TBD in our decision log (D1–D17) |
+| 🟠 **Open — decision** | Blocked on a client decision / TBD in our decision log (D1–D18) |
 | 🟡 **Open — needs input** | Needs client walkthrough / a live example / spec before we can finalise |
 | 🔴 **Deferred / out-of-scope (this phase)** | Real requirement, explicitly later-phase or candidate for removal |
 
@@ -81,7 +81,7 @@
 
 | ID | Requirement | Identified / built | Ticket(s) | Status |
 |---|---|---|---|---|
-| STO-S01–S03 | Series hero / grid / card | Card + hero + grid components exist; Series page template not assembled; ordering/source TBD | SKODA-201/202 | 🟢 components / 🔴 template later-phase |
+| STO-S01–S03 | Series hero / grid / card | **Series confirmed a real 2-level template** (verified live 2026-09-14, 22-URL analysis): a series *directory* (`/series-2/`, ~20 series cards) → a series *hub* (`/series/<slug>/`, curated story-card grid). Reuses `cards-*` + hero + grid; grouping/hub layout is the only net-new bit. **Pulled into M1** (D18) — cheap, adds demo breadth | SKODA-207 | 🟢 Solvable — **M1 target** (D18) |
 | STO-M01–M05 | Model hero / featured model / model-related stories grid / card / load-more | Components exist; **model page is a named M1 demo target** ("Media Room home + one Model page"); association is metadata-tag-driven (recommendation logic in scope, personalization out) | SKODA-201/402 | 🟢 Solvable (M1 target) |
 
 ### E. Story Detail Page (STO-D01–D10)
@@ -89,14 +89,14 @@
 | ID | Requirement | Identified / built | Ticket(s) | Status |
 |---|---|---|---|---|
 | STO-D01 | Story Hero (title/image/perex/date/category) | 48 story pages imported with this metadata; hero on detail page | SKODA-202/603 | ✅ Built (content imported) |
-| STO-D02 | Rich Text (flexible composition) | Story = SiteOrigin Page Builder → **flatten** (de-risked: 17 widget types, 98.7% simple). Pilot imported stories are flattened | SKODA-801 | 🟢 Solvable (flatten proven) |
-| STO-D03 | Embedded Video (+ consent) | Embed autoblock (Vimeo/YouTube/Buzzsprout/Spotify), `dnt=1`, lazy. Consent relationship TBD (D10 — consent w/ Škoda) | SKODA-204 | 🟢 Solvable |
-| STO-D04 | Image Carousel / Gallery (auto-play) | Gallery + lightbox; auto-play a11y (pause control) flagged | SKODA-203 | 🟢 Solvable (a11y) |
+| STO-D02 | Rich Text (flexible composition) | Story = SiteOrigin Page Builder → **flatten** (de-risked: 17 widget types, 98.7% simple). Pilot's 48 imported stories are flattened (hero+title+body). **Note (2026-09-14):** the flatten deliberately drops in-body galleries, embeds, and the Media Box — fine for the demo's fidelity scope; **1–2 hero demo stories will be restored to full fidelity in M1** (SKODA-604) | SKODA-801/604 | 🟢 Solvable (flatten proven) |
+| STO-D03 | Embedded Video (+ consent) | Embed autoblock (Vimeo/YouTube/Buzzsprout/Spotify), `dnt=1`, lazy. Confirmed live in story bodies (2026-09-14). Currently dropped by flatten; **restored on the 1–2 full-fidelity demo stories** (SKODA-604). Consent relationship TBD (D10 — consent w/ Škoda) | SKODA-204/604 | 🟢 Solvable |
+| STO-D04 | Image Carousel / Gallery (auto-play) | Gallery + lightbox; auto-play a11y (pause control) flagged. Confirmed present in-body on live stories (2026-09-14, incl. lightbox galleries); dropped by flatten, **restored on the 1–2 full-fidelity demo stories** (SKODA-604) | SKODA-203/604 | 🟢 Solvable (a11y) |
 | STO-D05 | Newsletter Widget | `newsletter-stub`; real provider deferred | SKODA-904 | 🔴 Deferred — D4 |
 | STO-D06 | Related Stories (tag-matched) | Tag-based aggregation **in scope** (personalization out); story-rail proves the pattern | SKODA-402 | 🟢 Solvable |
 | STO-D07 | Article Sidebar | Identified (related/promo/subscription); responsive treatment needed | SKODA-201 | 🟢 Solvable |
 | STO-D08 | Side Banner | Bespoke per-market ad server today; **drop/challenge for pilot** | SKODA-903 | 🔴 Deferred — D3 |
-| STO-D09 | Media Box / Gallery (download, add-to-cart single+group, default 8) | Downloads block + media-cart; mediabox source known | SKODA-502/505 | 🔵 Solvable-as-service |
+| STO-D09 | Media Box / Gallery (download, add-to-cart single+group, default 8) | Downloads block + media-cart; mediabox source known. Confirmed live at the foot of story bodies (2026-09-14, 7–14 images per story); dropped by flatten, **restored on the 1–2 full-fidelity demo stories** (SKODA-604) | SKODA-502/505/604 | 🔵 Solvable-as-service |
 | STO-D10 | Social Share | Share channels identified | SKODA-304 | 🟢 Solvable |
 
 ---
@@ -123,8 +123,8 @@
 | ID | Requirement | Identified / built | Ticket(s) | Status |
 |---|---|---|---|---|
 | MR-L01 | Listing Search | query-index search; relationship w/ global search TBD | SKODA-403 | 🟠 Open — D6 / §10 Q9 |
-| MR-L02 | Content-Type Filter (All/Stories/News/Press Kits/Images/Videos) | **Definitive taxonomy confirmed** from live markup (§11.6) — one shared listing component parameterized by type | SKODA-402 | 🟢 Solvable |
-| MR-L03 | Faceted Filters (model, bodywork, category…) | 15 facets enumerated; needs metadata-normalization layer (build-confirmed not clean in markup) | SKODA-401 | 🟢 Solvable — normalization effort (D12 subset) |
+| MR-L02 | Content-Type Filter (All/Stories/News/Press Kits/Images/Videos) | **Definitive taxonomy confirmed** from live markup (§11.6) — one shared listing component parameterized by type. **22-URL analysis (2026-09-14) verified this is one single faceted-listing engine live** across tag listings, category listings, News, Images, and Videos (identical filter bar + "Load more") — build once, reuse everywhere | SKODA-402 | 🟢 Solvable |
+| MR-L03 | Faceted Filters (model, bodywork, category…) | 15 facets enumerated; needs metadata-normalization layer (build-confirmed not clean in markup). Images/Videos listings expose the **advanced facet set** (Model/Derivative/Concept/Bodywork/Year/Topic…) — far richer than the demo subset | SKODA-401 | 🟢 Solvable — normalization effort (D12 subset) |
 | MR-L04 | Result Grid/List | Card + grid components | SKODA-201/402 | 🟢 Solvable |
 | MR-L05 | Result Card (per type) | Card variants; per-type definitions to finalise | SKODA-201 | 🟡 Open — finalise per type |
 | MR-L06 | Pagination / Load More (6-per-click, total count, sort asc/desc) | Load-more built; sort + total-count are §10 Q5 open items | SKODA-402 | 🟢 Solvable (sort UX 🟡) |
@@ -145,7 +145,7 @@
 
 | ID | Requirement | Identified / built | Ticket(s) | Status |
 |---|---|---|---|---|
-| MR-PK01 | Press Kit Header | Press-kits = filtered view of press_release (not a CPT). Structure confirmed on live Peaq kit | SKODA-805 | 🟡 Open — needs walkthrough (§10 Q6) |
+| MR-PK01 | Press Kit Header | Press-kits = filtered view of press_release **for the data source only** (not a CPT); **page composition is a distinct type** (verified live 2026-09-14): a hub landing (TOC of 8 chapters + resource tabs Texts/Infographics/Tech data/Images/Videos + WhatsApp/ZIP download) plus chaptered sub-pages that each carry a **persistent chapter sub-nav**, technical-spec tables, and a large Media Box (84 images / 6 PDFs on the Epiq exterior sub-page). Article sub-pages are `en-stories`-adjacent but exceed it | SKODA-805 | 🟡 Open — needs walkthrough (§10 Q6) |
 | MR-PK02 | Structured Narrative (fixed sections) | Fixed sequence confirmed (Intro/Exterior/Interior/Battery/Safety/Connectivity); required-vs-conditional per product type TBD (§11.8) | SKODA-805 | 🟡 Open — fixed vs conditional |
 | MR-PK03 | Variant / Bodywork Selector | Variant subsection confirmed (§11.9); interaction TBD | SKODA-808 | 🟡 Open |
 | MR-PK04 | Grouped Content (Texts/Infographics/Tech data/Images/Videos) | 5 grouped areas confirmed (§11.11); tabs/accordion/stacked = design detail | SKODA-806 | 🟢 Solvable (presentation TBD) |
@@ -158,8 +158,8 @@
 | Group | Requirement summary | Identified / built | Ticket(s) | Status |
 |---|---|---|---|---|
 | MR-M01–07 | Media Room model page + 5 related-content strips (news/press-kits/stories/images/videos) | Tag-driven aggregation in scope; model page is M1 target; retrieval rules TBD | SKODA-402 | 🟢 Solvable (retrieval rules 🟡) |
-| MR-I01–05 | Image listing / filters / preview / rendition download / add-to-cart | Listing + lightbox + downloads + cart; **Original/1920px dual-rendition** pattern identified; rendition strategy ties to D2 | SKODA-203/402/505 | 🟢 Solvable / 🔵 (cart) |
-| MR-V01–04 | Video listing / filters / playback / download | Embeds + downloadable file; DAM/source-file model TBD | SKODA-204/503 | 🟢 Solvable |
+| MR-I01–05 | Image listing / filters / preview / rendition download / add-to-cart | Listing + lightbox + downloads + cart; **Original/1920px dual-rendition** confirmed live (2026-09-14, "12 of 33,313"); rendition strategy ties to D2. **Full Images listing page pulled into M1** (D18) — depends on gallery-lightbox + per-item media-cart, so **D2/D5 are now M1-blocking** | SKODA-203/402/505 | 🟢 Solvable — **M1** (D18); 🔵 cart / D2·D5 |
+| MR-V01–04 | Video listing / filters / playback / download | Vimeo-thumb grid + embeds + downloadable file confirmed live (2026-09-14, "12 of 913"); DAM/source-file model TBD. **Full Videos listing page pulled into M1** (D18) — depends on the Vimeo embed block + per-item media-cart | SKODA-204/503 | 🟢 Solvable — **M1** (D18) |
 
 ---
 
@@ -168,6 +168,7 @@
 | § | Requirement | Identified | Ticket(s) | Status |
 |---|---|---|---|---|
 | 6.1 | Reusable page structures / templates (10 families) | Template families mapped to EDS fit-scale (press-release 🔵, story 🟠-flatten, page 🟢, Škodapedia 🔵, listing 🔵). "New page w/o dev" = DA/EW authoring | SKODA-801/802 | 🟠 Open — DA vs UE (D13) |
+| 6.1a | **"Company/Page" template family** (5 distinct sub-types surfaced by the 22-URL analysis, 2026-09-14, previously subsumed in the generic "page" family): **board-of-management** (exec-bio accordion — expandable galleries + CV/photo-set/press/LinkedIn), **annual-reports** (reverse-chron download list w/ PDF-cover thumbs), **company-logo** (36-asset brand grid, dual PDF+PNG), **media-services-application** (app-promo: QR + app-store badges + screenshots), **contacts** (department-grouped directory: name/title/email/phone/photo/LinkedIn). Each needs a net-new block; all share only hero + chrome | SKODA-810 | 🔴 Deferred to M2 (D18) |
 | 6.2 | Content creation & config (blocks, variants, sources, metadata) | Controlled component variants built. **Layout-mode editability fix shipped** — `scripts/optimized-picture.js` optimizes images *in place* so featured/carousel/social images stay editable; index-driven blocks (`stories`/`story-rail`) edited via config rows in Content mode (inherently not layout-editable) | SKODA-201 | ✅ editability fix built; model choice 🟠 D13 |
 | 6.3 | Preview & publishing lifecycle (+ update/unpublish/schedule/review/pre-pub) | Preview/publish proven (DA source-API + bulk-op). Scheduled/review/embargo not native → **staged-publish** recommended | SKODA-602 | 🟢 (core) / 🟠 (embargo D9) |
 | 6.4 | Roles & permissions (7 user groups) | Governance layer explicitly **later-phase** (§9); role mapping TBD (RACI = D15) | — | 🔴 Deferred — role mapping open |
@@ -235,8 +236,9 @@
 | # | Decision | Origin | Recommendation | Status |
 |---|---|---|---|---|
 | **D17 (new)** | **Restricted article access for end users via QR-code journey** (§6.6) — model fully undefined: auth required? unique vs shared QR? expiry? subscriber/entitlement validation? access duration? forwarding behaviour? | This doc, §6.6 | Distinct from author-side embargo (D9). No end-user auth exists today; EDS has no native gated delivery. Treat as an M2+ investigation; scope only once the business clarifies the access model. Add to `SKODA-DELIVERY-PLAN.md` §8. | 🟡 Open — needs client input |
+| **D18 (new)** | **Page-type scope split from the 22-URL analysis** (2026-09-14): where do the newly-surfaced/re-classified page types land? (a) **Series** confirmed a real 2-level template; (b) **Images/Videos** are full faceted-listing pages needing gallery/embed/cart; (c) story detail flatten drops in-body galleries/embeds/Media Box; (d) the **5 "company/Page" sub-types**. | `.migration/plans/url-analysis-comparison.md` | **Resolved 2026-09-14:** Series → **M1** (SKODA-207); Images/Videos full listing pages → **M1** (raises D2/D5 to M1-blocking); story full-fidelity → **restore on 1–2 hero demo stories in M1** (SKODA-604); 5 company/Page types → **deferred to M2** (SKODA-810). | 🟢 Resolved (split agreed) |
 
-*(D1–D16 already tracked in `SKODA-DELIVERY-PLAN.md` §8. This doc adds D17.)*
+*(D1–D16 already tracked in `SKODA-DELIVERY-PLAN.md` §8. This doc adds D17, D18.)*
 
 **Press-Kit detail (§11.8–11.14) — broken out into E08 tickets (2026-09-11):** previously rolled into SKODA-802 "remaining templates" as a reuse-only import, the §11 detail confirmed it is a *structured* template. Now split into four dedicated tickets:
 
@@ -248,6 +250,8 @@
 | **SKODA-808** | Variant/bodywork subsections + selector + internal categorization (facet metadata) | §11.7/§11.9/§11.14, MR-PK03 | 3 |
 
 SKODA-802 slimmed 8→5 SP (Škodapedia + generic pages only); E08 grew 29→41 SP; program 190→207 SP. The **fixed-vs-conditional-sections question (§11.8)** is the key modelling decision carried on SKODA-805 (required fields vs optional/conditional) and needs a live press-kit example (§10 Q6 / §11.1) before the template is locked.
+
+**Backlog update (2026-09-14, D18 — 22-URL analysis):** three tickets added — **SKODA-207** (Series 2-level template → M1, E02, +3 SP), **SKODA-604** (full-fidelity restore on 1–2 hero stories → M1, E06, +2 SP), **SKODA-810** (company/Page family of 5 sub-types → M2, E08, +8 SP). Program **207→220 SP** across **48→51 tickets**. *(Note: `docs/tickets/OVERVIEW.md` carries a pre-existing ~5 SP reconciliation gap between its §2 epic-index roll-up (now 220) and §5 effort roll-up (now 215) that predates this change and is unrelated to D18.)*
 
 ---
 
@@ -280,8 +284,9 @@ The client marks the doc a DRAFT baseline at ~90% completeness. The sections **t
 - `SKODA-MASTER.md` — canonical findings (block inventory, complex systems, media, architecture).
 - `SKODA-M1-DEMO-TARGET.md` — tiered M1 demo scope + signable definition-of-done, built on the statuses in this doc.
 - `SKODA-AGENT-HANDOFF-CANDIDATES.md` — which parts can be handed to an autonomous agentic team.
-- `SKODA-DELIVERY-PLAN.md` §8 — decision log D1–D16 (this doc adds **D17**).
-- `docs/tickets/OVERVIEW.md` — 43-ticket / 190-SP backlog referenced in the Ticket(s) columns.
+- `SKODA-DELIVERY-PLAN.md` §8 — decision log D1–D18 (D17 QR-access + D18 page-type split now folded into the plan).
+- `docs/tickets/OVERVIEW.md` — 51-ticket / 220-SP backlog referenced in the Ticket(s) columns (SKODA-207/604/810 added 2026-09-14 per D18).
+- `.migration/plans/url-analysis-comparison.md` + `url-analysis-matrix.json` — the 22-URL block-by-block gap analysis (2026-09-14) that surfaced D18.
 - `SKODA-MEDIA-CART-DOWNLOAD.md` — media-cart / download-reduction options (D2).
 - `SKODA-EDS-DA-ARCHITECTURE.md` §6 — DA/EW Layout-editability (relevant to §6.1/6.2, D13).
 - Source: `docs/CMS-MediaRoomMigration-Requirements-110926-1118-1348.pdf`.

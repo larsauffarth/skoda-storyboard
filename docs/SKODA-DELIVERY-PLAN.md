@@ -50,12 +50,14 @@
 - **Blog posts replicated** — the **story/blog** template. ⚠️ Stories use **SiteOrigin Page Builder** — the importer must flatten it (this was our Phase-B "hardest parser"; **it is now on the M1 critical path** — see §6 R-A).
 - **Media-cart replicated** — device-ID collect + **zip-on-demand download** (no login). Fed by the mediabox asset set; served from **AEM Assets**.
 - **AEM Assets integration** — approved images/assets sourced from AEM Assets (resolves DAM question).
-- **Listings + search** — query-index-backed listing + index search (index-only).
+- **Listings + search** — query-index-backed listing + index search (index-only). **Includes the full Images and Videos faceted-listing pages** (D18, 2026-09-14) — one shared listing engine with per-item gallery-lightbox / Vimeo-embed + media-cart renderers; this **raises D2 (cart download) and D5 (AEM Assets) to M1-blocking dependencies** (see §6 R-C).
+- **Series template** (D18) — the confirmed 2-level Series directory → hub, pulled into M1; cheap (reuses cards/hero/grid), adds demo breadth (SKODA-207).
+- **1–2 full-fidelity story pages** (D18) — most demo stories stay flattened, but 1–2 hero stories are restored to full fidelity (in-body galleries + video embed + Media Box) to show the real article experience (SKODA-604).
 - **Two locales (EN + CS)** — per-locale content + index; language selector shows only languages an article exists in.
 - **OneTrust consent** + **GA / Facebook pixel** tags (delayed phase).
 - **Figma-to-AEM** — showcase agentic component generation from the Figma design system where feasible.
 
-**Out of M1 (→ M2 or later):** full content migration, DE/SK/SR/SL locales, banner ad platform, newsletter, content embargoes (unless a demo stub is wanted), full authoring-workflow rollout.
+**Out of M1 (→ M2 or later):** full content migration, DE/SK/SR/SL locales, banner ad platform, newsletter, content embargoes (unless a demo stub is wanted), full authoring-workflow rollout, **the 5 "company/Page" template sub-types** (board-of-management, annual-reports, company-logo, media-services-app, contacts — each a net-new block, SKODA-810, D18).
 
 **Effort check:** M1 ≈ the capability pilot (~30–50 AI-assisted engineer-days) **plus** media-cart (~5–8) **plus** the story/Page-Builder flatten pulled forward — now **~3–5 AI-days** (re-pointed after the POC + census; reduced-fidelity demo slice ~2–3) — **plus** a 2nd locale (~2–3). Realistic M1 ≈ **~40–66 AI-assisted engineer-days across the team** in ~5.5 weeks → **needs parallelism and early start; this remains the schedule risk, but the hardest single piece (story flatten) is now de-risked.**
 
@@ -63,7 +65,7 @@
 
 ## 3. M2 — Go-Live Scope (02 Jan 2027)
 
-- **Content fully migrated** — all templates at scale (story flatten, press-kits, Škodapedia pre-baked, pages); bulk import via DA source-API + Bulk Operations. **Pipeline has an ordered `publish → reindex` stage per increment** (build-confirmed: the query-index only sees live-published pages, so upload/preview alone leaves listings empty). At ~13,100 pages this is a **throughput/orchestration** concern — batch the live-publish + reindex and account for a few-seconds preview↔live lag; feasibility is not in doubt, but time budgets must include it, not just import. A **media pre-conditioning** pass (strip/replace >~10 MB masters) runs ahead of publish to avoid content-bus 409s at scale.
+- **Content fully migrated** — all templates at scale (story flatten, press-kits, Škodapedia pre-baked, pages, **the 5 "company/Page" sub-types** — board-of-management/annual-reports/company-logo/media-services-app/contacts, SKODA-810/D18); bulk import via DA source-API + Bulk Operations. **Pipeline has an ordered `publish → reindex` stage per increment** (build-confirmed: the query-index only sees live-published pages, so upload/preview alone leaves listings empty). At ~13,100 pages this is a **throughput/orchestration** concern — batch the live-publish + reindex and account for a few-seconds preview↔live lag; feasibility is not in doubt, but time budgets must include it, not just import. A **media pre-conditioning** pass (strip/replace >~10 MB masters) runs ahead of publish to avoid content-bus 409s at scale.
 - **Authoring workflows** — DA/EW authoring set up; authors trained; nav-by-metadata working; author auth via Škoda IDP (or EW equivalent).
 - **Localization** — EN + CS complete; DE/SK/SR/SL supported on-demand (per-locale trees + EW Translation); single-language articles handled by the selector.
 - **Content embargoes** — the confidential-until-date mechanism live for the media room (§4).
@@ -106,7 +108,7 @@
 | **R-A0 (new)** | **Index field-mapping + publish ordering** — taxonomy/date fields aren't clean selectors (category-from-URL, 4-way date fallback), config is an admin-service `query.yaml` PUT, and the indexer only sees **published** pages | 🟠 | Treat 401 as a normalization layer (§8/D10); bake the upload→preview→publish→reindex order into every content increment; keep a repo copy of the submitted `query.yaml` for the record |
 | **R-A′ (new)** | **Heavy masters 409 the content bus on publish** (25–40 MB inline images) | 🟠 | Add a **media pre-conditioning** step to the importer (detect/strip/replace >~10 MB masters with sized derivatives) before publish; proven fix on the shipped slice |
 | R-B | **5.5-week M1 window** with expanded scope (media-cart + 2 locales + stories) | 🔴 | Parallelize (blocks / chrome / import / media-cart as separate tracks); descope non-essentials; daily integration |
-| R-C | Media-cart zip-download service (device-ID) + AEM Assets integration must be demo-ready | 🟠 | Confirmed no-auth simplifies it; build zip-on-demand early; validate AEM Assets delivery |
+| R-C | Media-cart zip-download service (device-ID) + AEM Assets integration must be demo-ready | 🟠→🔴 | Confirmed no-auth simplifies it; build zip-on-demand early; validate AEM Assets delivery. **Escalated (2026-09-14, D18):** pulling the full Images/Videos listing pages into M1 makes **D2 (cart download) and D5 (AEM Assets instance) hard M1 blockers** — the listings need per-item gallery/embed/cart + a real approved asset set. Fallback: serve a curated set from the pipeline/CDN if the AEM Assets instance slips |
 | R-D | Content embargo mechanism (M2) has no native EDS solution | 🟠 | Decide staged-publish approach now (§4); don't discover it late |
 | R-E | Analytics scope ambiguity (bespoke layer vs GA/FB/Yoast) | 🟡 | Confirm with Škoda; likely lighter than flagged |
 | R-F | Figma-to-AEM showcase is a *new* workstream with demo expectations | 🟡 | Scope a contained showcase (1–2 components) rather than the whole library |
@@ -153,6 +155,8 @@ Oct 15 ── M2 build ───────────────────
 | **D14 (new, 2026-09-10)** | **CDN / edge-function host** | **Resolved: Adobe CDN** (Martin) — Adobe-hosted edge/App Builder functions available; no external CloudFront/Azure-Front-Door dependency for delivery |
 | **D15 (new, 2026-09-10)** | **Governance / RACI** across Markus's CMS team, Sara's AEP team, and the new Adobe delivery team | **Open — project-setup blocker** (Jaroslav). Responsibilities + cooperation to be agreed |
 | **D16 (new, 2026-09-10)** | **Non-functional requirements**: security-code review, pentest, licence checks, RTO/RPO, logging/auditing, Azure DevOps | **Open — client-gated.** Jaroslav to draft; subject to Škoda Auto governance; a **top year-end timeline risk** |
+| **D17 (new, 2026-09-11)** | **Restricted article access for end users via QR-code journey** (requirements §6.6) — access model fully undefined (auth? unique vs shared QR? expiry? entitlement validation?) | **Open — needs client input.** Distinct from author-side embargo (D9); no end-user auth today and EDS has no native gated delivery. M2+ investigation; scope once the business clarifies the access model |
+| **D18 (new, 2026-09-14)** | **Page-type scope split from the 22-URL analysis** — Series (now a confirmed 2-level template), full Images/Videos listing pages, story full-fidelity, and the 5 "company/Page" sub-types | **Resolved 2026-09-14:** Series → **M1** (SKODA-207); full Images/Videos faceted-listing pages → **M1** (raises D2/D5 to M1-blocking, §6 R-C); story full-fidelity → **restore on 1–2 hero demo stories in M1** (SKODA-604); the 5 company/Page sub-types → **deferred to M2** (SKODA-810). Source: `.migration/plans/url-analysis-comparison.md` |
 
 > **Resolve these live:** `SKODA-DISCOVERY-SESSION-OCT15.md` is the 60-minute agenda that drives the open D-items above (plus the client-side dependency/access risks) to an **owner + date**. Run it before demo-build start; capture outcomes back into this table. Feasibility + accesses: `SKODA-FEASIBILITY-ASSESSMENT.md`.
 
