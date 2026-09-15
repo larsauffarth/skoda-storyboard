@@ -50,6 +50,19 @@ CART PAGE  body.media-cart  (/en/media-cart/, title "Your downloads")
 └── .empty-cart-message   (when empty; font-size 2em; color #ccc)
 ```
 
+**Selection & download model (verified live 2026-09-15 on `/en/images/`):** there is **no bulk
+multi-select UI**, no per-asset checkbox, no "select all", no "add page/visible/selected". Selecting
+"multiple" assets means **adding them one at a time** from each tile; the aggregation is the cart
+itself. Per tile the actions are: add-to-cart in a chosen rendition (`Original` `data-size=""` /
+`1920px` `data-size="giant"`) **and** a direct per-item download of either rendition
+(`a.media-cart-action[data-action=download]` -> `/direct-download/...`). Downloading "multiple" is then
+either those per-item downloads or the whole cart as one **package/zip** ("Download package",
+`data-action=downloadAll`), capped at **80 photos per package** (larger selections split into several
+packages). Note: the 275+ checkboxes on the listing are the **facet filter** (Search & Filter Pro), not
+asset selection (verified: 275/276 sit inside the filter panel). So the source "mediaboard" is
+add-to-cart + package-download, not a checkbox multi-select gallery. A **select-all / bulk-add** is a
+possible EDS enhancement, not a source feature (flag as an open question, see §8).
+
 **Libraries to retire:** jQuery + WP admin-ajax cart endpoints (replace with an EDS cart service:
 `localStorage` for guest carts + a download/packaging endpoint); icon-font glyphs
 (`\e001` add, `\e034` remove, `\e012` download, `\e02f` cart, `\e01b` link) -> SVG.
@@ -192,6 +205,10 @@ The per-asset affordance is not authored per-card; the `media-cart-action` decor
 - **Limit UX:** source has no visible limit indicator. Recommend "N / limit" next to the badge + a
   disabled add-state at the cap.
 - **Sizes:** default `Original` + `1920px` (measured).
+- **Bulk multi-select (enhancement, not in source):** the source has no select-all / bulk-add; users
+  add assets one by one. If the client wants faster bulk selection (checkbox mode + "add selected"), it
+  is a net-new EDS affordance, confirm as a requirement before building. Default: match source
+  (per-asset add + package download).
 - **New tokens:** `--cart-badge-bg: #ff6666`, `--cart-added-scrim: rgb(0 0 0 /.4)`,
   `--cart-dropdown-shadow: 0 3px 8px rgb(0 0 0 /.15)`; reuse `--pill-radius: 50px`,
   `--dropdown-hover-bg: #f1f1f1`, `--skoda-green-emerald #78faae`, `--btn-bordered-radius: .2em`.
