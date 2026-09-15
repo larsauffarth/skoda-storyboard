@@ -190,8 +190,12 @@ component spec + ticket. Any ID with no UI build is marked with its reason.
   stub exists (`scripts/consent-check.js`). No UI spec.
 - **§6 Editorial/Authoring/DAM, §7 Content Migration, §8 NFR**, process/architecture requirements,
   not UI components. Covered by delivery-plan + architecture docs, not here.
-- **Škodapedia**, client flags it as continuing outside Storyboard (§9); the glossary block
-  (`skodapedia.md` / 206) is specced for completeness but is low-priority for the pilot.
+- **Škodapedia** — ⚠️ *the client §9 "continuing outside Storyboard" flag is in tension with the
+  live site:* the 2026-09-15 nav/footer sweep found Škodapedia **linked from both the Storyboard and
+  Media Room navs and rendering internally** (`/en/skodapedia/`, `post-type-archive` — see
+  `SKODA-POC-COVERAGE-MATRIX.md` #9 and `_TEMPLATES.md`). Open question for the client: is it staying
+  in-platform or moving out? The glossary block (`skodapedia.md` / 206, 802) is specced either way but
+  is low-priority for the pilot.
 
 ## Wave plan
 

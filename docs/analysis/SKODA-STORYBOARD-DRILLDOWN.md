@@ -5,6 +5,7 @@
 **Scope:** Analysis only — no implementation, no import, no code generation. Evidence from public pages, HTTP headers, and the WordPress REST API.
 
 > **Note (2026-09-04):** Corrected by a later adversarial review (`SKODA-ADVERSARIAL-REVIEW.md`): press-kits are a filtered view of `press_release` (not a separate type); 'speeches' is not a public CPT; story pages use SiteOrigin Page Builder.
+> **Further correction (2026-09-15, live DevTools — `../ui-specs/_TEMPLATES.md`):** the "not a separate type" for press-kits is **REST-API-only** (`wp/v2/press_kit` → 404). The *rendered pages ARE a real `press_kit` post type* (`single-press_kit`, `press_kit-template-*`), so they get their own EDS template (SKODA-805–808), not a `press_release` view.
 
 This document answers three follow-up questions:
 1. Is an **EDS index-based search** feasible in place of ElasticPress — is ES doing anything an index can't carry?
@@ -109,7 +110,7 @@ I sampled templates not deeply covered in the original discovery and enumerated 
 |---|---|---|
 | **Homepage hub** | `/en/` 200 | teaser grids, hero, carousel (Series), newsletter, social feed, promo banners, app-download |
 | **News/PR listing** | `/en/news/`, `/en/press-releases/` 200 | **faceted filter bar** (`filter-type-taxonomy`, `filter-label`, `filter-input-options` ×15), teaser grid, media-cart actions, **`pagination-status`** + `ys-ajax-loader` |
-| **Press-kits listing** (filtered view of `press_release`, not a separate type — verified: `wp/v2/press_kit` returns HTTP 404, no such CPT) | `/en/press-kits/` 200 | same filter bar + teasers + media-cart, category chips |
+| **Press-kits listing** (filtered view of `press_release` **in the REST API only** — `wp/v2/press_kit` returns HTTP 404. ⚠️ Corrected 2026-09-15: the *rendered pages* ARE a real `press_kit` post type — body classes `single-press_kit` / `press_kit-template-*`; "not a separate type" is a REST statement only. See `../ui-specs/_TEMPLATES.md`) | `/en/press-kits/` 200 | same filter bar + teasers + media-cart, category chips |
 | **Article / press release** | 200 | body (h/p/ul), Vimeo embed, Buzzsprout podcast iframe, gallery, tags, share, downloads, media-cart, newsletter widget |
 | **Podcast post** | `/en/podcast/` **301 →** `/en/podcast-en/…` | It's a **post variant**, not its own template — audio via embed |
 | **Series** | `/en/series/` **301 →** a press-release | ⚠️ **CORRECTED 2026-09-14:** `/en/series-2/` (directory of ~20 series) and `/en/series/<slug>/` (series hub, e.g. `125-years-of-motorsport`) **render as real 2-level listing pages** — Series IS a template. The `/en/series/` root tested here 301s, but the actual Series pages do not. See `.migration/plans/url-analysis-comparison.md` + SKODA-MASTER §3 (D18 → SKODA-207) |

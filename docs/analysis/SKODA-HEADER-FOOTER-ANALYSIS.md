@@ -37,7 +37,7 @@ The header and footer are **simpler than earlier reports implied** — good news
 
 - **3 mega-menu panels** (Models / Lifestyle / Škoda World), each a nested `<ul class="sub-menu">` of plain links. **No imagery, no descriptions** — contradicts the earlier "rich image-grid megamenu" assumption (correction below).
 - **Topbar:** a `right-section` with a **newsletter dropdown** (`topbar__dropdown__newsletter`, inline mailguide form) + the **language switcher** (`lang-links`).
-- **Language switcher:** all **6 locales** (en/cs/de/sk/sr/sl) present as links.
+- **Language switcher:** up to **6 locales** (en/cs/de/sk/sr/sl). ⚠️ *Corrected 2026-09-15 (live DevTools, `../ui-specs/_TEMPLATES.md`): the switcher shows only the locales a **given page/item** is translated into, NOT a fixed per-side count — observed 6 on the STO home, 4 on Škodapedia (en/cs/de/sk), 2–3 on a press release/model page. Drive it from available translations; do not hardcode a count.*
 - **Brand logo:** inline SVG (per boilerplate `BRAND_LOGO` pattern).
 
 ### Behavior (JS)
@@ -71,7 +71,7 @@ The footer is **content, not code** — authored, locale-resolved, and reused ac
 | Header shell | **Header block** (Block Collection) loaded into `<header>` | boilerplate default |
 | Nav content | **`nav` fragment** (DA document) — 3 sections: brand / menu / tools | `/docs/fragments`, block-collection/header |
 | Mega-menu panels | Nested `<ul>` in the nav doc → CSS/JS megamenu decoration | plain links only → simple to model |
-| Language switcher | Tools section of nav fragment; per-locale links | 6 locales; ties to i18n architecture |
+| Language switcher | Tools section of nav fragment; per-locale links | up to 6 locales, **driven by the page's available translations** (not a fixed count — corrected 2026-09-15); ties to i18n architecture |
 | Newsletter dropdown | Small block/embed in the topbar (ties to newsletter service) | keep out of critical path |
 | Mobile toggle | **Rebuild with real button + `aria-expanded`** (drop the checkbox-hack) | a11y upgrade |
 | Footer shell | **Footer block** loaded into `<footer>` | boilerplate default |

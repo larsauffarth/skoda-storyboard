@@ -74,7 +74,7 @@ The demo is a *win* if only this works:
 | **Series template (directory + hub)** — 22-URL, D18 | 1 | **Low** — reuses cards/hero/grid (SKODA-207) | ordering/source of series 🟡 |
 | **Full Images + Videos listing pages** — 22-URL, D18 | 1 | **Med–High** — needs gallery-lightbox + Vimeo embed + per-item cart | **D2 (cart) + D5 (AEM Assets) now M1-blocking** |
 | **1–2 full-fidelity story pages** — 22-URL, D18 | 1 | **Low** — un-flatten galleries/embed/Media Box on 1–2 stories (SKODA-604) | media pre-conditioning applies |
-| Press Release detail page (structurally = story) | 1–2 | Low–Med | no live example reviewed (§11.1) 🟡 |
+| Press Release detail page (own template — NOT the story shell; corrected 2026-09-15, `../ui-specs/template-press-release.md`) | 1–2 | Low–Med | measured live: no hero, `.column-primary/secondary`, MR side, dark related band; ticket SKODA-607 |
 | Media-cart happy-path | 2 | Med | **D2** approach + CORS asset delivery |
 | AEM Assets curated set | 2 | Med | **D5** instance exists in time? (top schedule risk) |
 | CS locale slice | 2 | Med | **D1** (CS confirmed for demo) — content/translation input |
@@ -147,7 +147,7 @@ Everything in that sentence is either **done** or **assembly of done parts + one
 - [ ] Assemble the **Series template** (directory → hub, Tier 1 #5, SKODA-207) — confirm series ordering/source
 - [ ] Build the **full Images + Videos faceted-listing pages** (Tier 1 #6, SKODA-203/204/402/505) — depends on D2/D5
 - [ ] **Restore 1–2 full-fidelity stories** (galleries + embed + Media Box, SKODA-604)
-- [ ] Build **Press Release detail** page (request a live example first, §11.1)
+- [ ] Build **Press Release detail** template (SKODA-607) — own two-column shell (no hero, MR side, dark related band); measured spec in `../ui-specs/template-press-release.md`
 - [ ] Demo-script the **three "not-OOTB" functions** (exclude / multi-category / manual+tag) — already built
 - [ ] **Media-cart happy-path** (device-ID collect → download) per D2 fallback (Tier 2 #6)
 - [ ] Serve a **curated AEM Assets set** on demo pages, with pipeline fallback if D5 slips (Tier 2 #7)
