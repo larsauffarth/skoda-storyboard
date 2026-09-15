@@ -1,29 +1,29 @@
-# Škoda Storyboard & Media Room — Requirement ↔ Ticket Traceability
+# Škoda Storyboard & Media Room, Requirement ↔ Ticket Traceability
 
 *Single source of truth linking every client requirement ID to the ticket(s) that satisfy it, its milestone (M1 demo / M2 go-live), and any open gap. Built from the client requirements baseline (`../source/CMS-MediaRoomMigration-Requirements-110926-1118-1348.pdf`), the per-ID status in `SKODA-CLIENT-REQUIREMENTS-MAPPING.md`, the 63-ticket backlog in `../tickets/OVERVIEW.md`, and the decision log (`SKODA-DELIVERY-PLAN.md` §8, D1–D19).*
 
 **Date:** 2026-09-14 · **Coverage:** all 97 functional requirement IDs (COM/STO/MR) + Editorial §6.1–6.9 + Migration MIG01–07 + NFR §8.1–8.6 + the §10 open questions.
 
-**Legend** — Milestone: **M1** = 15 Oct demo · **M2** = 02 Jan go-live · **—** = no ticket yet. Build: 🟩 built · 🟦 assembly · 🟧 net-new · ⬜ service/deferred. Gap: **✅ covered** (= has a ticket path — *ticketed, NOT built/verified*; several ✅ items carry "validate capability first" caveats in their ticket, e.g. SKODA-809/812) · **⚠️ closeable (resolved below)** · **🔴 GAP — needs client input**.
+**Legend**, Milestone: **M1** = 15 Oct demo · **M2** = 02 Jan go-live · **, ** = no ticket yet. Build: 🟩 built · 🟦 assembly · 🟧 net-new · ⬜ service/deferred. Gap: **✅ covered** (= has a ticket path, *ticketed, NOT built/verified*; several ✅ items carry "validate capability first" caveats in their ticket, e.g. SKODA-809/812) · **⚠️ closeable (resolved below)** · **🔴 GAP, needs client input**.
 
 ---
 
-## 1. Common — Stories & Media Room (COM01–19)
+## 1. Common, Stories & Media Room (COM01–19)
 
 | Req | Requirement | Ticket(s) | Epic | M | Build | Status / gap |
 |---|---|---|---|:--:|:--:|---|
 | COM01 | Site Header | SKODA-301/302 | E03 | M1 | 🟩 | ✅ built (Stories); MR nav variant assembly |
 | COM02 | Section Switcher (Stories ↔ MR) | SKODA-301 | E03 | M1 | 🟦 | ✅ links built; active-state + MR dest pending |
 | COM03 | Primary Navigation (per-section sets) | SKODA-301 | E03 | M1 | 🟦 | ✅ Stories nav built; MR nav set to add |
-| COM04 | Model / Secondary Navigation | SKODA-301 | E03 | M1 | 🟦 | 🔴 GAP — exact structure TBD (client) |
+| COM04 | Model / Secondary Navigation | SKODA-301 | E03 | M1 | 🟦 | 🔴 GAP, exact structure TBD (client) |
 | COM05 | Language / Country Selector | SKODA-303 / 1003 | E03/E10 | M1 (+M2 locales) | 🟦 | ⚠️ per-page dynamic rule client-confirmed; D1 locale scope open |
-| COM06 | Global Search | SKODA-403 / 901 | E04/E09 | M1 (index) / M2 (hosted) | 🟦 | 🔴 GAP — ranking + searchable types (§10 Q9, D6) |
+| COM06 | Global Search | SKODA-403 / 901 | E04/E09 | M1 (index) / M2 (hosted) | 🟦 | 🔴 GAP, ranking + searchable types (§10 Q9, D6) |
 | COM07 | Listing / Filtering | SKODA-401/402 | E04 | M1 | 🟦 | ✅ facet subset (D12); normalization layer |
 | COM08 | Content Card (variants) | SKODA-201 | E02 | M1 | 🟩 | ✅ built; News/Media variants to add |
 | COM09 | Hero / Page Banner | SKODA-202 | E02 | M1 | 🟩 | ✅ block built; variants identified |
 | COM10 | Carousel / Slider | SKODA-201 | E02 | M1 | 🟩 | ✅ built (reused via buildBlock) |
 | COM11 | Pagination / Load More | SKODA-402 | E04 | M1 | 🟩 | ✅ built (Stories); listing reuse |
-| COM12 | Media Preview — Actions (lightbox) | SKODA-203 | E02 | M1 | 🟦 | ✅ ticketed; a11y focus-trap to verify |
+| COM12 | Media Preview, Actions (lightbox) | SKODA-203 | E02 | M1 | 🟦 | ✅ ticketed; a11y focus-trap to verify |
 | COM13 | Media Download (single/multi) | SKODA-501/502 | E05 | M1 | 🟦 | ✅ downloads block; masters-only ingest |
 | COM14 | Media Cart (retain across browsing) | SKODA-505 (demo) / 902 (prod) | E05/E09 | M1 (happy-path) / M2 (harden) | ⬜ | ✅ D2 = server-side reduction; PoC fallback = unpacked multi-download |
 | COM15 | Social Share | SKODA-304 | E03 | M1 | 🟦 | ✅ footer social built; channels identified |
@@ -36,7 +36,7 @@
 
 ## 2. Storyboard (§5.2)
 
-### A. Homepage (STO-H01–09) — all built on `/en`
+### A. Homepage (STO-H01–09), all built on `/en`
 
 | Req | Requirement | Ticket(s) | Epic | M | Build | Status / gap |
 |---|---|---|---|:--:|:--:|---|
@@ -60,7 +60,7 @@
 | STO-C04 | Pagination Status | SKODA-402 | E04 | M2 | 🟦 | ✅ load-more built; total-count detail |
 | STO-C05 | Load More | SKODA-402 | E04 | M1 | 🟩 | ✅ built (component) |
 
-### C. Series Page (STO-S01–03) — pulled into M1 (D18)
+### C. Series Page (STO-S01–03), pulled into M1 (D18)
 
 | Req | Requirement | Ticket(s) | Epic | M | Build | Status |
 |---|---|---|---|:--:|:--:|---|
@@ -68,7 +68,7 @@
 | STO-S02 | Series Grid | SKODA-207 | E02 | M1 | 🟦 | ✅ directory grid; ordering 🟡 |
 | STO-S03 | Series Card | SKODA-207 | E02 | M1 | 🟦 | ✅ reuses cards |
 
-### D. Model Page (STO-M01–05) — M1 demo target
+### D. Model Page (STO-M01–05), M1 demo target
 
 | Req | Requirement | Ticket(s) | Epic | M | Build | Status |
 |---|---|---|---|:--:|:--:|---|
@@ -89,7 +89,7 @@
 | STO-D05 | Newsletter Widget | SKODA-904 | E09 | M1 (UI) / M2 | ⬜ | ✅ UI-only for PoC |
 | STO-D06 | Related Stories (tag+manual) | SKODA-402 | E04 | M1 | 🟩 | ✅ two mechanisms (auto strip + manual explore-more); the "not-OOTB" fn |
 | STO-D07 | Article Sidebar | SKODA-201 | E02 | M2 | 🟦 | ✅ responsive treatment needed |
-| STO-D08 | Side Banner | SKODA-903 | E09 | M2 | ⬜ | 🔴 deferred — bespoke ad server (D3) |
+| STO-D08 | Side Banner | SKODA-903 | E09 | M2 | ⬜ | 🔴 deferred, bespoke ad server (D3) |
 | STO-D09 | Media Box / Gallery | SKODA-502/505/604 | E05/E06 | M1 | ⬜ | ✅ manual today; tag-autopopulate+delete = target improvement |
 | STO-D10 | Social Share | SKODA-304 | E03 | M1 | 🟦 | ✅ channels identified |
 
@@ -97,7 +97,7 @@
 
 ## 3. Media Room (§5.3)
 
-### A. Homepage (MR-H01–10) — key M1 assembly
+### A. Homepage (MR-H01–10), key M1 assembly
 
 | Req | Requirement | Ticket(s) | Epic | M | Build | Status |
 |---|---|---|---|:--:|:--:|---|
@@ -110,27 +110,27 @@
 | MR-H07 | Latest Stories | SKODA-402 | E04 | M1 | 🟩 | ✅ reusable |
 | MR-H08 | Media Cart | SKODA-505 | E05 | M1 | ⬜ | ✅ device-ID; reduction server-side (D2) |
 | MR-H09 | Media Lightbox | SKODA-203 | E02 | M1 | 🟦 | ✅ lightbox |
-| MR-H10 | Contacts / Company Content | SKODA-201 | E02 | M2 | 🟦 | 🔴 GAP — homepage placement TBD |
+| MR-H10 | Contacts / Company Content | SKODA-201 | E02 | M2 | 🟦 | 🔴 GAP, homepage placement TBD |
 
-### B. Shared Listing (MR-L01–06) — one engine
+### B. Shared Listing (MR-L01–06), one engine
 
 | Req | Requirement | Ticket(s) | Epic | M | Build | Status |
 |---|---|---|---|:--:|:--:|---|
-| MR-L01 | Listing Search | SKODA-403 | E04 | M1 (index) | 🟦 | 🔴 GAP — relationship w/ global search (§10 Q9, D6) |
+| MR-L01 | Listing Search | SKODA-403 | E04 | M1 (index) | 🟦 | 🔴 GAP, relationship w/ global search (§10 Q9, D6) |
 | MR-L02 | Content-Type Filter | SKODA-402 | E04 | M1 | 🟦 | ✅ one shared engine confirmed live (§11.6) |
 | MR-L03 | Faceted Filters | SKODA-401 | E04 | M1 | 🟦 | ✅ D12 subset; 🔴 advanced-filter deep-dive + per-section scoping (§10 Q4) |
 | MR-L04 | Result Grid/List | SKODA-201/402 | E02/E04 | M1 | 🟦 | ✅ card + grid |
-| MR-L05 | Result Card (per type) | SKODA-201 | E02 | M1 | 🟦 | 🔴 GAP — per-type card definitions to finalise |
+| MR-L05 | Result Card (per type) | SKODA-201 | E02 | M1 | 🟦 | 🔴 GAP, per-type card definitions to finalise |
 | MR-L06 | Pagination / Load More | SKODA-402 | E04 | M1 | 🟩 | ✅ 6-per-click + total + sort confirmed |
 
 ### C. Press Release / News (MR-PR01–07)
 
 | Req | Requirement | Ticket(s) | Epic | M | Build | Status |
 |---|---|---|---|:--:|:--:|---|
-| MR-PR01 | Press Release Header | SKODA-603/801 | E06/E08 | M1 | 🟦 | ✅ ≈ story; 🟡 verify vs live (§11.1) |
+| MR-PR01 | Press Release Header | SKODA-607 | E08 | M1 | 🟦 | ✅ own two-column shell (MR side, no hero), SKODA-607, **not** the story shell (corrected 2026-09-15) |
 | MR-PR02 | Structured Article Content | SKODA-802 | E08 | M2 | 🟦 | 🔴 authoring model (DA vs UE, D13) |
-| MR-PR03 | AI-Generated Audio Reading | SKODA-204 | E02 | M1 (embed) | 🟦 | ✅ drop-in vendor JS; must stay (podcast excluded). NB: it's an *arbitrary third-party widget*, not one of 204's 4 named oEmbed providers — 204 now explicitly carries it via the `widget` autoblock / generic-embed branch (F7) |
-| MR-PR04 | PDF Download | SKODA-503 | E05 | M2 | 🟦 | 🔴 GAP — authored vs generated (§11.3) |
+| MR-PR03 | AI-Generated Audio Reading | SKODA-204 | E02 | M1 (embed) | 🟦 | ✅ drop-in vendor JS; must stay (podcast excluded). NB: it's an *arbitrary third-party widget*, not one of 204's 4 named oEmbed providers, 204 now explicitly carries it via the `widget` autoblock / generic-embed branch (F7) |
+| MR-PR04 | PDF Download | SKODA-503 | E05 | M2 | 🟦 | 🔴 GAP, authored vs generated (§11.3) |
 | MR-PR05 | Infographic (preview→PDF) | SKODA-502 | E05 | M2 | 🟦 | ✅ pattern identified |
 | MR-PR06 | Video (playback + download) | SKODA-204/503 | E02/E05 | M2 | 🟦 | ✅ dual path |
 | MR-PR07 | Media Downloads | SKODA-502 | E05 | M2 | 🟦 | ✅ downloads block |
@@ -141,25 +141,25 @@
 |---|---|---|---|:--:|:--:|---|
 | MR-PK01 | Press Kit Header | SKODA-805 | E08 | M2 (Stretch demo) | 🟧 | ✅ hub type; walkthrough 🟡 (§10 Q6) |
 | MR-PK02 | Structured Narrative | SKODA-805 | E08 | M2 | 🟧 | ✅ conditional sections (resolved 2026-09-14) |
-| MR-PK03 | Variant / Bodywork Selector | SKODA-808 | E08 | M2 | 🟧 | 🔴 GAP — interaction TBD (§11.9) |
+| MR-PK03 | Variant / Bodywork Selector | SKODA-808 | E08 | M2 | 🟧 | 🔴 GAP, interaction TBD (§11.9) |
 | MR-PK04 | Grouped Content (5 areas) | SKODA-806 | E08 | M2 | 🟧 | ✅ 5 areas confirmed (+PDF/infographics); conditional |
-| MR-PK05 | FAQ | SKODA-807 | E08 | M2 | 🟧 | 🔴 GAP — per-kit vs shared pool (§11.10) |
+| MR-PK05 | FAQ | SKODA-807 | E08 | M2 | 🟧 | 🔴 GAP, per-kit vs shared pool (§11.10) |
 | MR-PK06 | Individual Asset Download | SKODA-502/806 | E05/E08 | M2 | 🟦 | ✅ downloads block |
 | MR-PK07 | Complete Press Kit ZIP | SKODA-806/902 | E08/E09 | M2 | ⬜ | ✅ PoC fallback = unpacked multi-download (D2) |
 
-### E. Model Page — MR (MR-M01–07)
+### E. Model Page, MR (MR-M01–07)
 
 | Req | Requirement | Ticket(s) | Epic | M | Build | Status |
 |---|---|---|---|:--:|:--:|---|
 | MR-M01 | Model Hero / Header | SKODA-202 | E02 | M1 | 🟦 | ✅ hero reused |
-| MR-M02 | Model / Bodywork Selector | SKODA-808 | E08 | M2 | 🟧 | 🔴 GAP — selector interaction (shared w/ PK03) |
+| MR-M02 | Model / Bodywork Selector | SKODA-808 | E08 | M2 | 🟧 | 🔴 GAP, selector interaction (shared w/ PK03) |
 | MR-M03 | Model-related News | SKODA-402 | E04 | M1 | 🟦 | ✅ tag-driven; retrieval 🟡 |
 | MR-M04 | Model-related Press Kits | SKODA-402 | E04 | M1 | 🟦 | ✅ tag-driven |
 | MR-M05 | Model-related Stories | SKODA-402 | E04 | M1 | 🟦 | ✅ tag-driven |
 | MR-M06 | Model-related Images | SKODA-402/505 | E04/E05 | M1 | 🟦 | ✅ + download |
 | MR-M07 | Model-related Videos | SKODA-402/204 | E04/E02 | M1 | 🟦 | ✅ tag-driven |
 
-### F. Images (MR-I01–05) — full listing pulled into M1 (D18)
+### F. Images (MR-I01–05), full listing pulled into M1 (D18)
 
 | Req | Requirement | Ticket(s) | Epic | M | Build | Status |
 |---|---|---|---|:--:|:--:|---|
@@ -169,14 +169,14 @@
 | MR-I04 | Download Rendition | SKODA-503/505 | E05 | M1 | ⬜ | ✅ Original/1920px dual-rendition; D2 |
 | MR-I05 | Add to Cart | SKODA-505 | E05 | M1 | ⬜ | ✅ per-item cart |
 
-### G. Videos (MR-V01–04) — full listing pulled into M1 (D18)
+### G. Videos (MR-V01–04), full listing pulled into M1 (D18)
 
 | Req | Requirement | Ticket(s) | Epic | M | Build | Status |
 |---|---|---|---|:--:|:--:|---|
 | MR-V01 | Video Listing | SKODA-402 | E04 | M1 | 🟦 | ✅ D18 |
 | MR-V02 | Video Filters | SKODA-401 | E04 | M1 | 🟦 | ✅ facet subset |
 | MR-V03 | Video Preview / Playback | SKODA-204 | E02 | M1 | 🟦 | ✅ Vimeo/YouTube embed |
-| MR-V04 | Video Download | SKODA-503 | E05 | M2 | 🟦 | 🔴 GAP — DAM/source-file model TBD |
+| MR-V04 | Video Download | SKODA-503 | E05 | M2 | 🟦 | 🔴 GAP, DAM/source-file model TBD |
 
 ---
 
@@ -189,17 +189,17 @@
 | 6.2 | Content creation & config (variants) | SKODA-201 | E02 | M1 | ✅ editability fix shipped; model choice D13 |
 | 6.3 | Preview & publishing lifecycle | SKODA-602 | E06 | M1 (core) / M2 (schedule/review) | ✅ core proven; scheduled/review not native |
 | 6.4 | Roles & permissions (7 groups) | SKODA-809 | E08 | M2 | ✅ ticketed (was G2); blocked on RACI (D15) |
-| 6.5 | Restricted pre-publication (embargo) | SKODA-811 | E08 | M2 | ✅ ticketed (was G3); approach agreed (group access + staged-publish, D9). M1-Stretch only in *ungated* form — group-gate depends on SKODA-809 (M2, blocked on D15), so the full §6.5 embargo is M2 (F4) |
-| 6.6 | Restricted article access (QR) | SKODA-906 | E09 | M2+ | ✅ ticketed (was G4); investigation — model undefined (D17) |
+| 6.5 | Restricted pre-publication (embargo) | SKODA-811 | E08 | M2 | ✅ ticketed (was G3); approach agreed (group access + staged-publish, D9). M1-Stretch only in *ungated* form, group-gate depends on SKODA-809 (M2, blocked on D15), so the full §6.5 embargo is M2 (F4) |
+| 6.6 | Restricted article access (QR) | SKODA-906 | E09 | M2+ | ✅ ticketed (was G4); investigation, model undefined (D17) |
 | 6.7 | Auditability (change history) | SKODA-812 | E08 | M2 | ✅ ticketed (was G5); validate EDS/DA capability first |
 | 6.8 | Language & market setup | SKODA-1001/1002/1003 | E10 | M2 | ✅ per-page selector confirmed; manual copy-to-translate; D1 |
 | 6.9 | DAM (renditions/rights/reuse) | SKODA-501/504/506 | E05 | M1/M2 | ✅ AEM Assets (D5); pre-conditioning; Dynamic Media 🟠 |
 
 ---
 
-## 5. Content Migration (§7 — MIG01–07)
+## 5. Content Migration (§7, MIG01–07)
 
-All MIG IDs map to the import infra (SKODA-601/602) for the demo sample and SKODA-803 for bulk at scale. Bulk automated migration is **out of the PoC (§9)** — demo uses a representative hand-carried set.
+All MIG IDs map to the import infra (SKODA-601/602) for the demo sample and SKODA-803 for bulk at scale. Bulk automated migration is **out of the PoC (§9)**, demo uses a representative hand-carried set.
 
 | Req | Requirement | Ticket(s) | Epic | M | Status |
 |---|---|---|---|:--:|---|
@@ -219,28 +219,28 @@ All MIG IDs map to the import infra (SKODA-601/602) for the demo sample and SKOD
 |---|---|---|---|:--:|---|
 | 8.1 | URL & SEO | SKODA-103 | E01 | M1 / M2 | ✅ canonical HTML; 🔴 full redirect map deferred; SEO config to validate |
 | 8.2 | Analytics & tracking | SKODA-804/905 | E08/E09 | M2 | ✅ analytics IN scope (D10); bespoke-layer need to confirm |
-| 8.3 | Cookie consent | **—** | — | — | ✅ OUT of Adobe scope (D10) — stays with Škoda |
+| 8.3 | Cookie consent | **, ** |, |, | ✅ OUT of Adobe scope (D10), stays with Škoda |
 | 8.4 | Newsletter / subscription | SKODA-904 | E09 | M2 | ✅ UI-only PoC; ESP M2 (D4) |
 | 8.5 | Performance (CWV) | SKODA-702 | E07 | M1 | ✅ partial fixes shipped; 🔴 target thresholds TBD (client) |
 | 8.6 | Accessibility | SKODA-302/703 | E03/E07 | M1 | ✅ audit ticketed; 🔴 WCAG level TBD (client) |
 
 ---
 
-## 7. Reverse index — ticket → requirements it satisfies
+## 7. Reverse index, ticket → requirements it satisfies
 
 | Ticket | Milestone | Satisfies (req IDs) |
 |---|:--:|---|
-| SKODA-101–106 | M1 | Foundation (enables all) — 103→MIG06/8.1; 104→COM06/07 |
+| SKODA-101–106 | M1 | Foundation (enables all), 103→MIG06/8.1; 104→COM06/07 |
 | SKODA-201 | M1 | COM08, COM10, STO-H01/03/07/09, STO-C03, STO-M02/04, STO-D07, MR-H01/05, MR-L04, 6.2 |
 | SKODA-202 | M1 | COM09, STO-C01, STO-D01, STO-M01, MR-M01 |
 | SKODA-203 | M1 | COM12, MR-H03/H09, MR-I03, STO-D04 |
 | SKODA-204 | M1 | STO-D03, MR-H04, MR-PR03/PR06, MR-V03 |
-| SKODA-205 | M1 | (tags/metadata — supports STO-D01, listings) |
-| SKODA-206 | M1 | Škodapedia glossary (§9 — likely-excluded; kept per controlled-simplification) |
+| SKODA-205 | M1 | (tags/metadata, supports STO-D01, listings) |
+| SKODA-206 | M1 | Škodapedia glossary (§9, likely-excluded; kept per controlled-simplification) |
 | SKODA-207 | M1 | STO-S01/S02/S03 |
-| SKODA-208 | M2 | STO-M (model page template — `skoda_model` CPT) |
+| SKODA-208 | M2 | STO-M (model page template, `skoda_model` CPT) |
 | SKODA-209 | M2 | STO-C (category/tag archive template) |
-| SKODA-210 | M2 | STO custom microsite (`template-custom-full-width` — event-gallery/campaign, 201 pages; block recount) |
+| SKODA-210 | M2 | STO custom microsite (`template-custom-full-width`, event-gallery/campaign, 201 pages; block recount) |
 | SKODA-301/302 | M1 | COM01/02/03/04, 8.6 (mobile ARIA) |
 | SKODA-303 | M1 | COM05 |
 | SKODA-304 | M1 | COM15/18/19, STO-D10 |
@@ -255,7 +255,7 @@ All MIG IDs map to the import infra (SKODA-601/602) for the demo sample and SKOD
 | SKODA-601/602 | M1 | MIG01/03/04/07, 6.3 |
 | SKODA-603 | M1 | STO-D01, MR-H01, MR-PR01, MIG07 |
 | SKODA-604 | M1 | STO-D02/03/04/09 (full-fidelity restore) |
-| SKODA-607 | M1 | MR-PR (press-release detail template — own two-column shell, MR side) |
+| SKODA-607 | M1 | MR-PR (press-release detail template, own two-column shell, MR side) |
 | SKODA-701–704 | M1 | 8.5, 8.6, consent/analytics stubs (8.2/8.3) |
 | SKODA-706 | M2 | branded 404 template (keeps STO chrome, real HTTP 404) |
 | SKODA-801 | M1 | STO-D02, MR-PR01, 6.1, MIG03 |
@@ -267,8 +267,8 @@ All MIG IDs map to the import infra (SKODA-601/602) for the demo sample and SKOD
 | SKODA-810 | M2 | 6.1a (company/Page family) |
 | SKODA-811 | M2 | 6.5 (content embargo) |
 | SKODA-812 | M2 | 6.7 (auditability) |
-| SKODA-813 | M2 | generic Page base shell (`page-template-default` — copyright/legal/misc STO pages) |
-| SKODA-814 | M2 | SiteOrigin body flatten contract (1,614 pages — feeds 801/208/813; block recount) |
+| SKODA-813 | M2 | generic Page base shell (`page-template-default`, copyright/legal/misc STO pages) |
+| SKODA-814 | M2 | SiteOrigin body flatten contract (1,614 pages, feeds 801/208/813; block recount) |
 | SKODA-901 | M2 | COM06 (hosted search) |
 | SKODA-902 | M2 | COM14/MR-PK07 (prod cart + ZIP hardening) |
 | SKODA-903 | M2 | STO-D08 (banner) |
@@ -283,17 +283,17 @@ All MIG IDs map to the import infra (SKODA-601/602) for the demo sample and SKOD
 
 ## 8. Milestone paths
 
-### M1 — Demo (15 Oct 2026)
+### M1, Demo (15 Oct 2026)
 **Foundation →** 101 → 102 → {103, 104, 105, 106}
 **Blocks & chrome (parallel) →** 201, 202, 203, 204, 205, 206, **207**, 301, 302, 303, 304, **305** (MR footer)
 **Listings/search + media + import →** 401, 402, 403, 501, 502, 503, 504, **505**, 506, 601, 602
-**Content →** 603 (pilot pages), **604** (full-fidelity stories), **607** (press-release detail template — ~47.5% of MR pages), **801** (story flatten — M1 slice)
+**Content →** 603 (pilot pages), **604** (full-fidelity stories), **607** (press-release detail template, ~47.5% of MR pages), **801** (story flatten, M1 slice)
 **Integrate & QA →** 701, 702, 703, 704
 *Delivers: Storyboard home + stories (incl. 1–2 full-fidelity) + Model + Series; Media Room home + Images/Videos listings + cart; EN+CS; the not-OOTB trio.*
 
-### M2 — Go-live (02 Jan 2027)
+### M2, Go-live (02 Jan 2027)
 **Editorial at scale (E08) →** 802 (remaining templates), 803 (bulk import), 804 (consent+analytics), 805/806/807/808 (press-kit), 810 (company/Page family), **813 (generic Page base shell)**, **814 (SiteOrigin body flatten contract)**, **809 (roles), 811 (embargo), 812 (audit)**
-**Templates (E02) →** **208** (model page), **209** (category/tag archive), **210** (custom microsite family) — measured template specs, deferred behind the M1 core
+**Templates (E02) →** **208** (model page), **209** (category/tag archive), **210** (custom microsite family), measured template specs, deferred behind the M1 core
 **Dynamic services (E09) →** 901 (hosted search), 902 (cart hardening), 903 (banners), 904 (newsletter), 905 (analytics rebuild), **906 (QR restricted access)**
 **Integration/QA (E07) →** **706** (branded 404)
 **Localization (E10) →** 1001 (per-locale index), 1002 (translation rollout), 1003 (routing)
@@ -301,15 +301,15 @@ All MIG IDs map to the import infra (SKODA-601/602) for the demo sample and SKOD
 
 ---
 
-## 9. Gap register — what's not fully closed
+## 9. Gap register, what's not fully closed
 
 **Closed this pass (⚠️ → resolved with rationale):**
-- **COM05 / 6.8** — per-page language selector + manual copy-to-translate model confirmed on the 2026-09-14 call; ticket path SKODA-303 (M1) + 1001–1003 (M2). Remaining open = D1 definitive locale list (client).
-- **MR-PK02** — narrative sections confirmed *conditional* (not fixed); SKODA-805 field model resolved.
-- **COM14 / MR-PK07** — download packaging: server-side reduction (D2) with an agreed **unpacked multi-download PoC fallback**; SKODA-505 (demo) / 902 (prod).
-- **MIG06** — redirect *sheet* in SKODA-103 (M1); *execution* correctly deferred to pre-go-live (§9).
+- **COM05 / 6.8**, per-page language selector + manual copy-to-translate model confirmed on the 2026-09-14 call; ticket path SKODA-303 (M1) + 1001–1003 (M2). Remaining open = D1 definitive locale list (client).
+- **MR-PK02**, narrative sections confirmed *conditional* (not fixed); SKODA-805 field model resolved.
+- **COM14 / MR-PK07**, download packaging: server-side reduction (D2) with an agreed **unpacked multi-download PoC fallback**; SKODA-505 (demo) / 902 (prod).
+- **MIG06**, redirect *sheet* in SKODA-103 (M1); *execution* correctly deferred to pre-go-live (§9).
 
-**✅ G1–G5 closed with tickets (2026-09-14) — every requirement now has a ticket path:**
+**✅ G1–G5 closed with tickets (2026-09-14), every requirement now has a ticket path:**
 
 | # | Gap | Where | Ticket created | M |
 |---|---|---|---|:--:|
@@ -319,41 +319,41 @@ All MIG IDs map to the import infra (SKODA-601/602) for the demo sample and SKOD
 | G4 | QR restricted end-user access | §6.6/D17 | **SKODA-906** (E09) | M2+ |
 | G5 | Auditability (author change-history) | §6.7 | **SKODA-812** (E08) | M2 |
 
-Backlog **51 → 56 tickets, 220 → 237 SP** (E03 +2, E08 +10, E09 +5). G1 (SKODA-305) is M1; the rest are the M2 governance layer, each gated on its decision (D15 roles, D9 embargo, D16 audit, D17 QR) — **none blocks the M1 demo**.
+Backlog **51 → 56 tickets, 220 → 237 SP** (E03 +2, E08 +10, E09 +5). G1 (SKODA-305) is M1; the rest are the M2 governance layer, each gated on its decision (D15 roles, D9 embargo, D16 audit, D17 QR), **none blocks the M1 demo**.
 
-**Template-gap tickets (2026-09-15, ui-specs measured-spec initiative):** the live-DevTools template census (`../ui-specs/_TEMPLATES.md`) confirmed five page types lacking a dedicated ticket — **SKODA-607** press-release detail template (own two-column shell, *not* the story shell → M1, E08, +5), **SKODA-208** model page (`skoda_model` CPT: hero + icon nav + 5 rails → M2, E02, +5), **SKODA-209** category/tag archive (hero + card grid, no facets → M2, E02, +3), **SKODA-706** branded 404 (→ M2, E07, +1), **SKODA-813** generic Page base shell (`page-template-default` → M2, E08, +2). Backlog **56 → 61 tickets, 237 → 253 SP**. Only SKODA-607 is M1 (press releases are ~47.5% of MR pages); the rest are M2. See `../ui-specs/README.md` for the per-component coverage matrix these tickets trace to.
+**Template-gap tickets (2026-09-15, ui-specs measured-spec initiative):** the live-DevTools template census (`../ui-specs/_TEMPLATES.md`) confirmed five page types lacking a dedicated ticket, **SKODA-607** press-release detail template (own two-column shell, *not* the story shell → M1, E08, +5), **SKODA-208** model page (`skoda_model` CPT: hero + icon nav + 5 rails → M2, E02, +5), **SKODA-209** category/tag archive (hero + card grid, no facets → M2, E02, +3), **SKODA-706** branded 404 (→ M2, E07, +1), **SKODA-813** generic Page base shell (`page-template-default` → M2, E08, +2). Backlog **56 → 61 tickets, 237 → 253 SP**. Only SKODA-607 is M1 (press releases are ~47.5% of MR pages); the rest are M2. See `../ui-specs/README.md` for the per-component coverage matrix these tickets trace to.
 
-**Block-recount cross-check tickets (2026-09-15):** the full-site block recount (`../analysis/SKODA-BLOCK-RECOUNT.md` — 3,499 EN URLs, both sides) surfaced two high-frequency unspecced regions, now ticketed: **SKODA-210** custom microsite (`template-custom-full-width` event-gallery/campaign, **201 pages** — carries a migrate/fold/drop decision → M2, E02, +3) and **SKODA-814** SiteOrigin body-flatten contract (**1,614 pages** — the flatten machinery SKODA-801 depends on → M2, E08, +5). Backlog **61 → 63 tickets, 253 → 261 SP**. The recount also reconciled (no new ticket) that SKODA-808's variant *selector* has no live source precedent (net-new EDS affordance pending MR-PK03) and SKODA-807's FAQ shares the generic `row_toggle` accordion primitive.
+**Block-recount cross-check tickets (2026-09-15):** the full-site block recount (`../analysis/SKODA-BLOCK-RECOUNT.md`, 3,499 EN URLs, both sides) surfaced two high-frequency unspecced regions, now ticketed: **SKODA-210** custom microsite (`template-custom-full-width` event-gallery/campaign, **201 pages**, carries a migrate/fold/drop decision → M2, E02, +3) and **SKODA-814** SiteOrigin body-flatten contract (**1,614 pages**, the flatten machinery SKODA-801 depends on → M2, E08, +5). Backlog **61 → 63 tickets, 253 → 261 SP**. The recount also reconciled (no new ticket) that SKODA-808's variant *selector* has no live source precedent (net-new EDS affordance pending MR-PK03) and SKODA-807's FAQ shares the generic `row_toggle` accordion primitive.
 
-**🔴 Remaining open gaps — needs client input (not build blockers; resolve at design / Wed 2026-09-16):**
+**🔴 Remaining open gaps, needs client input (not build blockers; resolve at design / Wed 2026-09-16):**
 
 | # | Gap | Where | Recommendation |
 |---|---|---|---|
-| G6 | **§10 open questions (12)** — cart page structure, advanced-filter deep-dive, 2-col/6-card spec, press-kit walkthrough, subscription registration/wording, search ranking, definitive locales, featured curation, Latest-News source, share level, sorting | client §10 | Drive to owner+date on Wed 2026-09-16; several sharpen specs on existing tickets (401/402/505/805/904), none add a new ticket by itself |
+| G6 | **§10 open questions (12)**, cart page structure, advanced-filter deep-dive, 2-col/6-card spec, press-kit walkthrough, subscription registration/wording, search ranking, definitive locales, featured curation, Latest-News source, share level, sorting | client §10 | Drive to owner+date on Wed 2026-09-16; several sharpen specs on existing tickets (401/402/505/805/904), none add a new ticket by itself |
 | G7 | **Per-type Result Card definitions (MR-L05)** + **Contacts placement (MR-H10)** + **Featured Model config (STO-M02)** | listing/MR | Spec-level detail on existing tickets (201/402); confirm during design |
-| G8 | **NFR thresholds** — WCAG level (8.6), CWV targets (8.5), analytics event schema (8.2) | §8 | Client/architecture to set; tickets exist (702/703/804/905) |
+| G8 | **NFR thresholds**, WCAG level (8.6), CWV targets (8.5), analytics event schema (8.2) | §8 | Client/architecture to set; tickets exist (702/703/804/905) |
 
 G6–G8 are **spec/decision clarifications on existing tickets**, not missing tickets.
 
-**QA-discovered follow-up tickets (2026-09-14, agent-team cycle 1 — independent QA pass on the live `localhost:3000/en/` homepage):** the homepage was verified **at demo-grade fidelity** (all query-index rails populate; typography / brand-green #0e3a2f / spacing / responsive all measured as matching source). Three findings became follow-up tickets:
+**QA-discovered follow-up tickets (2026-09-14, agent-team cycle 1, independent QA pass on the live `localhost:3000/en/` homepage):** the homepage was verified **at demo-grade fidelity** (all query-index rails populate; typography / brand-green #0e3a2f / spacing / responsive all measured as matching source). Three findings became follow-up tickets:
 
 | # | Ticket | Finding | Status |
 |---|--------|---------|--------|
 | QA-F1 | **SKODA-605** (E06, M1) | Models/Series rail + "All" links are absolute `skoda-storyboard.com` URLs (leave the demo) → transformer link-rewrite | **Implemented (transformer); QA-blocked** on a clean re-import + publish |
 | QA-F2 | **SKODA-606** (E06, M1) | Stray "Manage Cookies" consent text node in Latest News → transformer strip | **Implemented (transformer); QA-blocked** on re-import |
-| QA-F3 | **SKODA-705** (E07, M1) | "Load more" button = bordered pill vs source white-fill (cosmetic) | **Held — needs design/client confirm** (don't alter brand styling on assumption) |
+| QA-F3 | **SKODA-705** (E07, M1) | "Load more" button = bordered pill vs source white-fill (cosmetic) | **Held, needs design/client confirm** (don't alter brand styling on assumption) |
 
-**Cycle-1 convergence note:** no ticket reached `DONE` this cycle. Every actionable homepage QA finding routes to either **content-regeneration** (605/606 — codeable now, but end-to-end QA is blocked on DA publish credentials + reindex, which aren't available) or a **design decision** (705). This is the honest state: the built `/en` slice is demo-grade, the transformer fixes are written and lint-clean, but they cannot be QA-verified to `DONE` without a live re-import/publish cycle. Per the operating model, tickets stay open until QA verifies the rendered result — they are **not** marked done on an unverified change.
+**Cycle-1 convergence note:** no ticket reached `DONE` this cycle. Every actionable homepage QA finding routes to either **content-regeneration** (605/606, codeable now, but end-to-end QA is blocked on DA publish credentials + reindex, which aren't available) or a **design decision** (705). This is the honest state: the built `/en` slice is demo-grade, the transformer fixes are written and lint-clean, but they cannot be QA-verified to `DONE` without a live re-import/publish cycle. Per the operating model, tickets stay open until QA verifies the rendered result, they are **not** marked done on an unverified change.
 
 ---
 
 ## 10. Cross-references
-- `SKODA-POC-URL-SET.md` + `skoda-poc-urls.json`/`.txt` — the minimal set of live source URLs (24) that exercises every template/variant/functionality across both sites; importer-ready.
-- `SKODA-POC-COVERAGE-MATRIX.md` — three-way join of those 24 URLs × components/blocks × client requirement IDs (this matrix's §7 reverse index is the source for its requirement→URL column); proves the PoC URL set covers the PDF baseline. The 2026-09-15 nav/footer sweep behind it surfaced 6 previously-uncatalogued page types (Škodapedia archive+term, newsletter archive/settings, media-cart page, BGC landing, `/en/documents/`) and corrected two assumptions (Podcast is a live category page, not a 301; Škodapedia is internal — reopening the §9 "external" assumption).
-- `../source/CMS-MediaRoomMigration-Requirements-110926-1118-1348.pdf` — the authoritative requirement baseline (97 IDs + §6/§7/§8/§9/§10/§11).
-- `SKODA-CLIENT-REQUIREMENTS-MAPPING.md` — per-ID build status + narrative (the source for this matrix's ticket links).
-- `../tickets/OVERVIEW.md` — the 63-ticket / 261-SP backlog register.
-- `../ui-specs/README.md` + `../ui-specs/_TEMPLATES.md` — measured component/template spec library (live-DevTools DOM+CSS at 768/992/1080); the source for the 2026-09-15 template-gap tickets (607/208/209/706/813) and the UI-build companion to this requirement→ticket map.
-- `SKODA-DELIVERY-PLAN.md` §8 — decision log D1–D19; §2/§3 — M1/M2 scope.
-- `SKODA-SOLUTION-DESIGN.html` — the Minimum/Target/Stretch PoC tiering that overlays these milestones.
-- `SKODA-M1-DEMO-TARGET.md` — the demo definition-of-done.
+- `SKODA-POC-URL-SET.md` + `skoda-poc-urls.json`/`.txt`, the minimal set of live source URLs (24) that exercises every template/variant/functionality across both sites; importer-ready.
+- `SKODA-POC-COVERAGE-MATRIX.md`, three-way join of those 24 URLs × components/blocks × client requirement IDs (this matrix's §7 reverse index is the source for its requirement→URL column); proves the PoC URL set covers the PDF baseline. The 2026-09-15 nav/footer sweep behind it surfaced 6 previously-uncatalogued page types (Škodapedia archive+term, newsletter archive/settings, media-cart page, BGC landing, `/en/documents/`) and corrected two assumptions (Podcast is a live category page, not a 301; Škodapedia is internal, reopening the §9 "external" assumption).
+- `../source/CMS-MediaRoomMigration-Requirements-110926-1118-1348.pdf`, the authoritative requirement baseline (97 IDs + §6/§7/§8/§9/§10/§11).
+- `SKODA-CLIENT-REQUIREMENTS-MAPPING.md`, per-ID build status + narrative (the source for this matrix's ticket links).
+- `../tickets/OVERVIEW.md`, the 63-ticket / 261-SP backlog register.
+- `../ui-specs/README.md` + `../ui-specs/_TEMPLATES.md`, measured component/template spec library (live-DevTools DOM+CSS at 768/992/1080); the source for the 2026-09-15 template-gap tickets (607/208/209/706/813) and the UI-build companion to this requirement→ticket map.
+- `SKODA-DELIVERY-PLAN.md` §8, decision log D1–D19; §2/§3, M1/M2 scope.
+- `SKODA-SOLUTION-DESIGN.html`, the Minimum/Target/Stretch PoC tiering that overlays these milestones.
+- `SKODA-M1-DEMO-TARGET.md`, the demo definition-of-done.

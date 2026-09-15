@@ -82,7 +82,7 @@
   <p class="kicker">Škoda Auto · Storyboard &amp; Media Room → Adobe Edge Delivery Services</p>
   <h1>PoC Solution Design — where the line sits between a working demo and one that wins</h1>
   <p class="sub">An end-to-end proof-of-concept scope for <b>both Storyboard and Media Room</b> (author → publish → consume), reconciling the client's stated vision against what already runs live on <code>/en</code>. Scope is drawn as three tiers — <b>Minimum</b> (proves the model), <b>Target</b> (the demo the client pictured), <b>Stretch</b> (the differentiators that make it a repeatable VW blueprint). Basis for the upcoming solution-design discussion.</p>
-  <p class="meta">Prepared 2026-09-14 · updated post-walkthrough-call (2026-09-14 transcript reviewed) · Companion to SKODA-M1-DEMO-TARGET.md, SKODA-DELIVERY-PLAN.md (decision log D1–D19), SKODA-CLIENT-REQUIREMENTS-MAPPING.md · Statuses verified against the published <code>/en</code> slice. <b>Feeds the PoC-vs-final solution proposal (Wed 2026-09-16).</b> Client-facing scope walk-through: <code>SKODA-CLIENT-SCOPE-DISCUSSION.html</code> (filterable Demo/Final, no effort/staffing).</p>
+  <p class="meta">Prepared 2026-09-14 · updated 2026-09-16 for the proposal call (DA recommendation stated on D13) · Companion to SKODA-M1-DEMO-TARGET.md, SKODA-DELIVERY-PLAN.md (decision log D1–D19), SKODA-CLIENT-REQUIREMENTS-MAPPING.md · Statuses verified against the published <code>/en</code> slice. <b>Feeds the PoC-vs-final solution proposal (Wed 2026-09-16).</b> Client-facing scope walk-through: <code>SKODA-CLIENT-SCOPE-DISCUSSION.html</code> (filterable Demo/Final, no effort/staffing).</p>
 </header>
 
 <main>
@@ -282,7 +282,7 @@ flowchart LR
         <tr><td class="dep">D1</td><td>Target E5</td><td class="note">EN + CS for the PoC. Needs CS content/translation input. Fallback: structural CS proof.</td><td class="note">Wk 1 — <span class="prov">TBD</span></td></tr>
         <tr><td class="dep">D12</td><td>Minimum/Target listing</td><td class="note">Which of the 15 facets are demo-critical? Facet extraction is a normalization layer, not clean selectors — scope the subset first.</td><td class="note">Wk 2 — <span class="prov">TBD</span></td></tr>
         <tr><td class="dep">D11</td><td>Stretch E6</td><td class="note">Which 1–2 Figma components for the agentic-generation showcase.</td><td class="note">Wk 2 — <span class="prov">TBD</span></td></tr>
-        <tr><td class="dep">D13</td><td>authoring model (both sites)</td><td class="note"><b>Architecture-critical:</b> Document Authoring vs Universal Editor. Changes the author experience + editability model. Decide early.</td><td class="note">Early — <span class="prov">TBD</span></td></tr>
+        <tr><td class="dep">D13</td><td>authoring model (both sites)</td><td class="note"><b>Architecture-critical. Recommendation: Document Authoring (DA/EW)</b> — it's what this whole design assumes. Universal Editor is the alternative (field-level editing, closer to WordPress/Gutenberg) but a different content-source model that re-estimates the E08 template build. Decide early; E08 estimates are held against DA.</td><td class="note">Early — <span class="prov">TBD</span></td></tr>
         <tr><td class="dep">D9</td><td>Stretch embargo</td><td class="note">Content embargo confirmed real ("new-car launch folders"). Recommend staged-publish; no native EDS gate.</td><td class="note">M2 — <span class="prov">TBD</span></td></tr>
         <tr><td class="dep">D16</td><td>go-live, not PoC</td><td class="note">NFRs (security review, pentest, RTO/RPO, logging). Client-gated; top year-end risk — flag now, doesn't block the PoC.</td><td class="note">M2 — <span class="prov">TBD</span></td></tr>
         <tr><td class="dep">D19</td><td>engagement setup</td><td class="note"><b>New (2026-09-14):</b> Škoda must report/monitor AI tools used (EU AI Act). We must formally notify them AI is used in build/migration + share the legal-clearance summary (no data leaves our realm). Compliance, not a blocker.</td><td class="note">Setup — <span class="prov">Lars</span></td></tr>
@@ -308,7 +308,7 @@ flowchart LR
     <h3>Close these in the meeting (owner + date each)</h3>
     <ul class="plain">
       <li><b>D5</b> — is there an AEM Assets instance by build-start? (the #1 threat) · <b>D2</b> — cart download approach · <b>D1</b> — CS scope (full vs structural).</li>
-      <li><b>D12</b> — the demo-critical facet subset · <b>D11</b> — which Figma components · <b>D13</b> — DA vs Universal Editor (architecture-critical).</li>
+      <li><b>D12</b> — the demo-critical facet subset · <b>D11</b> — which Figma components · <b>D13</b> — <b>recommend DA</b> over Universal Editor (architecture-critical; UE would re-estimate the template build).</li>
       <li><b>Demo content set owner</b> + the confirmed demo date (the real critical path is content definition, not code).</li>
     </ul>
     <div class="callout green"><b>One-line pitch for the room:</b> "We're already ~60–70% of the way there on a live system. Minimum is essentially done; Target is assembly of parts we've already built; Stretch is where we show this is a repeatable VW method. The only real risk is on your side — so let's name owners and dates for six decisions today."</div>
