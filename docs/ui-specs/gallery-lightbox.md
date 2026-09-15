@@ -28,7 +28,7 @@ The source ships **two overlapping lightbox systems**; the EDS rebuild retires b
 ```
 .images .items (flickity) / grid
 └── article.article-teaser.gallery-item.image
-    └── a.colorbox[href=fullsize.jpg][data-id][data-caption]  (thumbnail link)
+    └── a.colorbox.cboxElement[href=fullsize.jpg][rel=media-box-1][data-id]  (thumbnail link)
 ... on click, jQuery injects:
 #cboxOverlay          (fixed backdrop, background #161718)
 #colorbox > #cboxWrapper
@@ -61,6 +61,22 @@ body.storyboard-gallery-lightbox-active -> .sb-gallery-overlay{display:block}
        └── .sb-gallery-lightbox-overview[--cols-4|--cols-5]
               └── .sb-gallery-lightbox-overview-item (flex 33.33% | 25% | 20%)
 ```
+
+**Gallery grouping by `rel` (verified live 2026-09-15):** colorbox scopes each gallery by the
+thumbnail link's `rel` attribute, so **one page can run several independent lightbox groups**. On a
+Superb press-kit chapter the same page carried `rel="media-box-1"` (21 images), `rel="info-images"`
+(4), plus 2 ungrouped links. `#cboxCurrent` reads the **per-group** position, verified `1` + `<span
+class="total">21</span>` = image 1 of 21 for the `media-box-1` group, NOT the page's total image
+count. The EDS rebuild must preserve this scoping: each authored gallery block is its own lightbox
+set; prev/next and the counter stay within that set.
+
+**`#cboxTitle` is a full media-detail panel on MR galleries (verified live), not a plain caption:**
+on Media-Room image galleries the colorbox title region carries the image title **plus** two download
+renditions (`Original` + `1920px`), file metadata (`File type: JPG`, `File size: 5 MB`, `Dimensions:
+5095 × 3397 px`, `Published: 1. 7. 2019`), taxonomy tags (year / view / model), and **Related
+article** links. So the lightbox doubles as the MR image-detail view. In EDS this maps to a caption +
+a detail panel (download links + metadata + related links), not a single `<figcaption>` string. On
+Storyboard story galleries the same region is just the plain `data-caption`.
 
 **Column algorithm (confirmed in source CSS):** the overview grid picks its column count by image
 count. `.sb-gallery-lightbox-overview .…-overview-item{flex:0 0 33.3333%}` (**3 cols**, default);
@@ -122,7 +138,10 @@ one accessible vanilla lightbox.
 
 ### Caption source
 `data-caption` on the thumbnail link -> colorbox `#cboxTitle` / lightbox description + title. In EDS,
-`data-caption` -> `<figcaption>` under the thumbnail and the lightbox caption region.
+`data-caption` -> `<figcaption>` under the thumbnail and the lightbox caption region. **MR image
+galleries extend this:** `#cboxTitle` also renders the per-image download renditions + file metadata +
+taxonomy + related-article links (see §2), so on the MR side the lightbox caption region is a detail
+panel, not a one-line caption.
 
 ## 4. Responsive behavior
 
@@ -213,6 +232,11 @@ WHAT / WHERE / viewport / expected / actual.
 - [ ] Thumbnail hover: image scales to `1.02` over ~`.5s`; cursor `pointer`.
 - [ ] Open: click thumbnail -> overlay `position:fixed; z-index:99999`; body scroll-locked; clicked
       image shown; counter shows `"N / total"`.
+- [ ] Grouping: prev/next + counter stay within the clicked image's gallery set only (source scopes by
+      colorbox `rel`); a page with multiple galleries keeps them independent (verified `1 / 21` for the
+      `media-box-1` group on a shared page).
+- [ ] MR image lightbox: caption region shows the detail panel (Original + 1920px download links, file
+      metadata, taxonomy, related-article links); STO story lightbox shows the plain caption.
 - [ ] Backdrop: `.gallery-overlay` / all / `rgba(0,0,0,.95)` (agreed).
 - [ ] Image fit: lightbox `<img>` / all / `max-height:100%; width:auto` (contain, never cropped);
       stage height `calc(100vh - topbar - infobar)`.

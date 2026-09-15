@@ -5,16 +5,16 @@ Foundations: [`_FOUNDATIONS.md`](_FOUNDATIONS.md). Method: [`_CAPTURE-PROTOCOL.m
 
 ## 1. Identity
 
-- **Component:** Media Cart, the add-to-cart affordance on media assets + the header cart badge + the
+- **Component:** Media Cart, the add-to-cart affordance on media assets + the floating cart badge + the
   cart page ("Your downloads": download-all / empty / history). Behavior/architecture live in
   SKODA-505; this spec adds the **measured UI + states**, which the backlog lacks.
 - **EDS block(s):** `media-cart` (the cart page/panel) + a shared `media-cart-action` affordance
   decorated onto card toolbars (works with `cards-toolbar` / `downloads`). No existing block.
 - **Client PDF IDs:** COM-12 / COM-14; MR-H08 (header cart); STO-D09; MR-I05 (image add); MR-V04 (video add).
 - **Ticket:** SKODA-505.
-- **Source references:** `https://www.skoda-storyboard.com/en/media-room/` (asset grid + header badge),
+- **Source references:** `https://www.skoda-storyboard.com/en/media-room/` (asset grid + floating cart badge),
   `https://www.skoda-storyboard.com/en/media-cart/` (the cart page), image/media pages.
-- **Top-level selectors:** `a.media-cart-icon.media-cart-count.round-icon` (header badge),
+- **Top-level selectors:** `a.media-cart-icon.media-cart-count.round-icon` (floating cart badge),
   `a.media-cart-action[data-action=add|remove]` (per-asset affordance), `.media-cart-action-multi` +
   `.media-cart-action-multi-container` (size dropdown), `article.media-cart-item.in-cart` (added card),
   `body.media-cart` (cart page), `.media-cart-sidebar` / `a.mr-media-cart-button[data-action=downloadAll|empty|showHistory]`.
@@ -22,10 +22,14 @@ Foundations: [`_FOUNDATIONS.md`](_FOUNDATIONS.md). Method: [`_CAPTURE-PROTOCOL.m
 ## 2. Source anatomy
 
 ```
-HEADER
-└── a.media-cart-icon.media-cart-count.round-icon.downloads[href="/en/media-cart/"][data-count]
-    :before  \e02f  (download glyph, 58×58 round icon)
-    :after   attr(data-count)  → red count badge, only when data-count != ""
+FLOATING ACTION BAR  div.sticky-buttons  (position:fixed; bottom:8px; right:16px; z-index:1000)
+                     — verified live: NOT in the header DOM. Bundles share + cart + scroll-top.
+├── a.btn.icon.icon-share                    (share toggle)
+├── a.btn.icon.icon-x / -pinterest / -linkedin / -facebook / -whatsapp   (social-share cluster)
+├── a.media-cart-icon.media-cart-count.round-icon.downloads[href="/en/media-cart/"][data-count][data-history]
+│   :before  \e02f  (download glyph, 58×58 round icon)
+│   :after   attr(data-count)  → red count badge, only when data-count != ""
+└── a.round-icon.scroll-top[href="#"]        (scroll-to-top)
 
 ASSET CARD (media room / image page)  — reuses .article-teaser
 article.media-cart-item.image[data-post-id]      (+ .in-cart when added)
@@ -54,10 +58,16 @@ CART PAGE  body.media-cart  (/en/media-cart/, title "Your downloads")
 
 All rows: `measured (source-url · selector · viewport) -> token`.
 
-### Header cart badge (`a.media-cart-icon.round-icon`)
-Source = `/en/media-room/`.
-- round icon `58 x 58`; `:before` content `"\e02f"` (download/cart glyph), color `#161718` -> `--skoda-ink`;
-  `href=/en/media-cart/` (the cart is a **page**, not a drawer).
+### Floating cart button + badge (`a.media-cart-icon.round-icon`)
+Source = `/en/media-room/` + press-kit chapter (verified live 2026-09-15, 1280). **Placement (corrected):**
+the cart trigger is one button inside the **fixed floating `.sticky-buttons` action bar** (bottom-right,
+`position:fixed; bottom:8px; right:16px; z-index:1000`), alongside the social-share cluster and the
+`scroll-top` button, NOT in the header DOM. This is the "global float" noted in `_TEMPLATES.md`, one
+component captured across [`social-share.md`](social-share.md) + this spec + scroll-top.
+- round icon `58 x 58`, background `#fff` -> `--skoda-white`, `border-radius:4px`; `:before` content
+  `"\e02f"` (download/cart glyph) `28px`, color `#161718` -> `--skoda-ink`;
+  `href=/en/media-cart/` (the cart is a **page**, not a drawer). `data-history` attr toggles the
+  "Your packages" history affordance (`false` when no package history yet).
 - count badge `:after` (only when `data-count != ""`): position absolute `right:0` (top-right);
   background `#f66` (**candidate** `--cart-badge-bg: #ff6666`); border `2px solid #fff`; color `#fff`;
   border-radius `50%`; size `2em` = `24 x 24`; font-size `.75em`; weight `400`; content `attr(data-count)`.
@@ -100,7 +110,7 @@ Source = `/en/media-room/`.
 
 ## 4. Responsive behavior
 
-- Header badge is fixed size (`58px` icon, `24px` count) at all bands.
+- Floating cart badge is fixed size (`58px` icon, `24px` count) at all bands.
 - Add affordance is fixed `40x40` at all bands (icon button).
 - Cart page: the `25%` sidebar (panel context) collapses to full-width above the item list on narrow
   viewports (source uses the `.media-cart:not(body)` float rule for the in-page 4-col context; the
@@ -132,7 +142,7 @@ Source = `/en/media-room/`.
   ships only `title="Add/remove this"` (no `aria-pressed`, no per-asset name). Fix in rebuild.
 - "Added" state must not be conveyed by the scrim glyph + color alone; reflect it via `aria-pressed`
   and a text label change.
-- Header badge: `<a aria-label="Downloads cart, N items">`; update the accessible name (not just
+- Floating cart badge: `<a aria-label="Downloads cart, N items">`; update the accessible name (not just
   `data-count`) so screen readers hear the count. `aria-live` region on add/remove.
 - Cart page: item list as `<ul>`; each remove `<button aria-label="Remove {title}">`; "Download
   package" / "Empty package" real `<button>`s; empty state is readable text, not a `2em` grey glyph only.
@@ -143,7 +153,7 @@ Source = `/en/media-room/`.
 
 Block `media-cart` (the cart page) + a shared `media-cart-action` decorator attached to card/download
 toolbars. Cart state in `localStorage` for guests (id + size per item); a small module exposes
-`add/remove/list/clear` + a `cart:change` event that updates the header badge `data-count` and any
+`add/remove/list/clear` + a `cart:change` event that updates the floating cart badge `data-count` and any
 `.in-cart` markers. "Download package" calls the packaging endpoint. Reuse `cards-toolbar` for the
 affordance row and card-teaser markup for cart item rows.
 
@@ -165,7 +175,7 @@ The per-asset affordance is not authored per-card; the `media-cart-action` decor
    (`aria-pressed`, `aria-label`); on click toggle `localStorage` cart + the article's `.in-cart` +
    dispatch `cart:change`. If `data-size` variants exist, render the size dropdown
    (`aria-expanded`, `Original`/`1920px`).
-2. **Header badge:** on `cart:change`, set `data-count` (blank when 0) + update `aria-label`;
+2. **Floating cart badge:** on `cart:change`, set `data-count` (blank when 0) + update `aria-label`;
    red count bubble via CSS `::after`.
 3. **Cart page block:** read cart from `localStorage`; render `<ul>` of item rows (card-teaser markup,
    remove + link stacked); a sidebar with "Download package" / "Empty package" / "Your packages"
@@ -190,7 +200,7 @@ The per-asset affordance is not authored per-card; the `media-cart-action` decor
 
 Compare EDS render to source at each viewport. WHAT / WHERE / viewport / expected / actual.
 
-- [ ] Header badge: `.media-cart-icon` / all / `58px` round, cart glyph; count `::after` red `#f66`
+- [ ] Floating cart badge: `.media-cart-icon` / all / `58px` round, cart glyph; count `::after` red `#f66`
       `24px` circle, white `2px` border, top-right, `attr(data-count)`; hidden at 0.
 - [ ] Add affordance: `a.media-cart-action.add` / all / round `40x40`, radius `50px`, bg `#fff`,
       border `2px #161718`, `+` icon.
@@ -212,6 +222,6 @@ Compare EDS render to source at each viewport. WHAT / WHERE / viewport / expecte
 
 ## 10. Reference screenshots
 
-`assets/media-cart/`: `1280-add-affordance.png` (media-room asset grid + header badge showing "1"),
+`assets/media-cart/`: `1280-add-affordance.png` (media-room asset grid + floating cart badge showing "1"),
 `1280-cart-page.png` (the "Your downloads" page: Download package / Empty package / Your packages +
 item rows). Added-state close-up (`.in-cart` scrim glyph) and 1024/768/mobile captures pending.

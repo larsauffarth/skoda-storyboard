@@ -43,6 +43,14 @@ Related share surfaces (out of this block's scope, cross-referenced): `.sb-galle
 see `embeds.md`). The `.round-icon` / `.sticky-button` scroll-top + downloads buttons share the same
 pill styling.
 
+**Float container varies per template (verified live 2026-09-15):** two implementations exist. Story
+pages use `.btn-group.social` (compact float, `bottom:30px; right:7em` @1280, see §3). Press-kit /
+Media-Room detail pages instead render a single **horizontal `.sticky-buttons` bar**
+(`position:fixed; bottom:8px; right:16px; z-index:1000`, ~`384×70`) that lays the share toggle + 5
+social links + the [`media-cart`](media-cart.md) button + `scroll-top` out in one inline row. The EDS
+rebuild should pick one float model for both; recommend the inline bar (it groups all global page
+actions together and is easier to keep clear of the cookie banner).
+
 **Libraries / patterns to retire:** jQuery toggle; icon-font `skoda-bnr-icons` glyphs
 (`\e02e` share, per-network glyphs); Bootstrap `.btn-group` + jQuery-UI `.ui-dialog-buttonset`
 (both selectors are aliased in source CSS). Replace glyphs with inline SVG (`:name:` →
