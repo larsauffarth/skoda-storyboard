@@ -15,3 +15,8 @@ helix-importer-ui
 # Transient page-analysis scraper output (not deliverables)
 migration-work-*/
 migration-work/
+
+# UI-spec reference screenshots (kept local, too large for git history)
+docs/ui-specs/assets/
+# Playwright MCP session artifacts
+.playwright-mcp/
