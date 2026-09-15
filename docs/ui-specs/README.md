@@ -9,6 +9,9 @@ pixel-perfect acceptance criteria, so a component can be handed to an autonomous
 - **Capture method:** [`_CAPTURE-PROTOCOL.md`](_CAPTURE-PROTOCOL.md) (parallel agents, the 10-section schema).
 - **Templates (page types):** [`_TEMPLATES.md`](_TEMPLATES.md) (the architecture map) + the `template-*.md`
   specs, see the [Template index](#template-index) below.
+- **Tooling:** [`tools/`](tools/README.md) - `measure.mjs` reproduces any spec value (computed styles +
+  rect + inline attrs) across breakpoints in one command; `visual-diff.mjs` pixel-diffs the live source
+  vs an EDS preview and enforces the `<= 2%` gate (exits non-zero for CI). Self-contained deps.
 - **Screenshots:** `assets/<component>/` (`.hlxignore`'d, not served).
 - Specs are per-component (blocks are reused across many tickets), not per-ticket. Tickets link here.
 
