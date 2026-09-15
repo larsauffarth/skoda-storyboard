@@ -11,6 +11,7 @@ Verify the pilot is production-grade and sign it off. Lint + unit-test block log
 - **SKODA-702 — Performance (Lighthouse≈100, RUM, LCP/CLS, 3-phase load).** Lighthouse ≈100, RUM enabled, LCP/CLS in budget, three-phase load verified; all 🟠 integrations + third-party scripts confined to delayed phase. — deps 603 — 3SP — Y
 - **SKODA-703 — Accessibility audit (nav ARIA, modal focus-trap, contrast, keyboard).** Nav ARIA (from SKODA-302), modal focus-trap/Escape/return-focus for gallery + glossary, contrast, keyboard nav; clear the `[RUNTIME-UNCONFIRMED]` items in a browser; backfill empty alts. — deps 603 — 3SP — Y
 - **SKODA-704 — Visual critique vs source + consent/analytics stubs + pilot sign-off.** Visual critique vs source; OneTrust consent + GTM/`skoda-analytics` as delayed-phase, consent-gated stubs; pilot sign-off (proven vs deferred). — deps 702,703 — 3SP — Y
+- **SKODA-706 — Branded 404.** Real HTTP 404 on a branded "dead end" page that keeps the STO chrome (header + footer) + homepage link. Added 2026-09-15 (ui-specs). — deps 301,304 — 1SP — N (M2). Spec `ui-specs/template-404.md`.
 
 ## Effort Roll-up
 | Ticket | Type | SP | AI-assisted | Manual |
@@ -19,7 +20,8 @@ Verify the pilot is production-grade and sign it off. Lint + unit-test block log
 | SKODA-702 | QA | 3 | 1–2d | 2–3d |
 | SKODA-703 | QA | 3 | 1–2d | 2–4d |
 | SKODA-704 | QA | 3 | 1–2d | 2–3d |
-| **Total** | | **11 SP** | **4–7d** | **7–12d** |
+| SKODA-706 | template | 1 | 0.5d | 0.5–1d |
+| **Total** | | **12 SP** | **4.5–7.5d** | **7.5–13d** |
 
 *(Planning estimates, not a quote.)* SKODA-701 runs in parallel (deps E02/E03/E04); SKODA-702 + SKODA-703 depend on SKODA-603; SKODA-704 depends on 702 + 703 → final gate.
 

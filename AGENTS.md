@@ -25,7 +25,7 @@ Edge Delivery Services. Read a block first. Omissions are in the repo or known.
 - `docs/planning/SKODA-CLIENT-REQUIREMENTS-MAPPING.md` — client requirement IDs → build status → tickets.
 - `docs/planning/SKODA-M1-DEMO-TARGET.md` — tiered demo scope; `docs/planning/SKODA-REQUIREMENTS-REPORT.html` — filterable status/split report.
 - `docs/planning/SKODA-AGENT-HANDOFF-CANDIDATES.md` — parts fit for autonomous-agent handoff.
-- `docs/tickets/OVERVIEW.md` — 61-ticket / 253-SP backlog (epics + SKODA-* tickets).
+- `docs/tickets/OVERVIEW.md` — 63-ticket / 261-SP backlog (epics + SKODA-* tickets).
 - `docs/ui-specs/` — measured component + template spec library (live-DevTools DOM/CSS at 768/992/1080); `_TEMPLATES.md` maps every source page type to its blocks + ticket.
 
 ## Remember

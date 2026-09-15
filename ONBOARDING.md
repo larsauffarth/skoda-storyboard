@@ -12,7 +12,7 @@
 2. **[`docs/DEVELOPER-GUIDE.md`](docs/DEVELOPER-GUIDE.md)** — architecture, the 15 blocks, core `scripts/`, the query-index pattern, design tokens, local dev/PR flow, gotchas. **The main read.**
 3. **[`docs/architecture/IMPORT-PIPELINE.md`](docs/architecture/IMPORT-PIPELINE.md)** — how source pages become published content (parsers → transformers → DA push → publish/reindex).
 4. **[`docs/analysis/SKODA-MASTER.md`](docs/analysis/SKODA-MASTER.md)** — the *why*: canonical findings from the source-site analysis. Its §16 indexes every source report.
-5. **[`docs/planning/SKODA-DELIVERY-PLAN.md`](docs/planning/SKODA-DELIVERY-PLAN.md)** + **[`docs/tickets/OVERVIEW.md`](docs/tickets/OVERVIEW.md)** — milestones (M1 demo 15 Oct 2026 / M2 go-live 02 Jan 2027), decision log (D1–D19), and the 61-ticket backlog.
+5. **[`docs/planning/SKODA-DELIVERY-PLAN.md`](docs/planning/SKODA-DELIVERY-PLAN.md)** + **[`docs/tickets/OVERVIEW.md`](docs/tickets/OVERVIEW.md)** — milestones (M1 demo 15 Oct 2026 / M2 go-live 02 Jan 2027), decision log (D1–D19), and the 63-ticket backlog.
 6. **[`docs/README.md`](docs/README.md)** — the full documentation map (topic subfolders) for anything else.
 
 ---

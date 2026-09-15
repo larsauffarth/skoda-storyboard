@@ -41,3 +41,6 @@ Confirmed on the live Peaq press kit (§11.10): a named FAQ section of question/
 ## Risks / Flags
 - **Per-kit vs shared pool (🟡, §11.10):** confirm authoring source before extending beyond the per-kit inline model.
 - Accordion focus/ARIA is `[RUNTIME-UNCONFIRMED]`, verify in a browser (shared concern with SKODA-806 / gallery lightbox a11y).
+
+## Note — 2026-09-15 block recount
+The full-site recount (`docs/analysis/SKODA-BLOCK-RECOUNT.md`) confirms the FAQ is **one instance of a shared `row_toggle` collapsible primitive** (`ys-row-toggle`) that also powers board exec-bio "show more" (SKODA-810) and press-kit content sections — 33 pages carry it site-wide; a standalone Q/A FAQ did **not** render on the sampled press-kit hub/sub-pages (it's a separate `/frequently-asked-questions/` chapter). **Scope implication (simplification):** build **one shared accordion block** and reuse it here + in SKODA-810, rather than a press-kit-specific FAQ block. SP held at 2 pending the press-kit walkthrough (§10 Q6).

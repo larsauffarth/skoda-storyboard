@@ -1,6 +1,6 @@
 # Škoda Storyboard & Media Room — Requirement ↔ Ticket Traceability
 
-*Single source of truth linking every client requirement ID to the ticket(s) that satisfy it, its milestone (M1 demo / M2 go-live), and any open gap. Built from the client requirements baseline (`../source/CMS-MediaRoomMigration-Requirements-110926-1118-1348.pdf`), the per-ID status in `SKODA-CLIENT-REQUIREMENTS-MAPPING.md`, the 61-ticket backlog in `../tickets/OVERVIEW.md`, and the decision log (`SKODA-DELIVERY-PLAN.md` §8, D1–D19).*
+*Single source of truth linking every client requirement ID to the ticket(s) that satisfy it, its milestone (M1 demo / M2 go-live), and any open gap. Built from the client requirements baseline (`../source/CMS-MediaRoomMigration-Requirements-110926-1118-1348.pdf`), the per-ID status in `SKODA-CLIENT-REQUIREMENTS-MAPPING.md`, the 63-ticket backlog in `../tickets/OVERVIEW.md`, and the decision log (`SKODA-DELIVERY-PLAN.md` §8, D1–D19).*
 
 **Date:** 2026-09-14 · **Coverage:** all 97 functional requirement IDs (COM/STO/MR) + Editorial §6.1–6.9 + Migration MIG01–07 + NFR §8.1–8.6 + the §10 open questions.
 
@@ -240,6 +240,7 @@ All MIG IDs map to the import infra (SKODA-601/602) for the demo sample and SKOD
 | SKODA-207 | M1 | STO-S01/S02/S03 |
 | SKODA-208 | M2 | STO-M (model page template — `skoda_model` CPT) |
 | SKODA-209 | M2 | STO-C (category/tag archive template) |
+| SKODA-210 | M2 | STO custom microsite (`template-custom-full-width` — event-gallery/campaign, 201 pages; block recount) |
 | SKODA-301/302 | M1 | COM01/02/03/04, 8.6 (mobile ARIA) |
 | SKODA-303 | M1 | COM05 |
 | SKODA-304 | M1 | COM15/18/19, STO-D10 |
@@ -267,6 +268,7 @@ All MIG IDs map to the import infra (SKODA-601/602) for the demo sample and SKOD
 | SKODA-811 | M2 | 6.5 (content embargo) |
 | SKODA-812 | M2 | 6.7 (auditability) |
 | SKODA-813 | M2 | generic Page base shell (`page-template-default` — copyright/legal/misc STO pages) |
+| SKODA-814 | M2 | SiteOrigin body flatten contract (1,614 pages — feeds 801/208/813; block recount) |
 | SKODA-901 | M2 | COM06 (hosted search) |
 | SKODA-902 | M2 | COM14/MR-PK07 (prod cart + ZIP hardening) |
 | SKODA-903 | M2 | STO-D08 (banner) |
@@ -290,8 +292,8 @@ All MIG IDs map to the import infra (SKODA-601/602) for the demo sample and SKOD
 *Delivers: Storyboard home + stories (incl. 1–2 full-fidelity) + Model + Series; Media Room home + Images/Videos listings + cart; EN+CS; the not-OOTB trio.*
 
 ### M2 — Go-live (02 Jan 2027)
-**Editorial at scale (E08) →** 802 (remaining templates), 803 (bulk import), 804 (consent+analytics), 805/806/807/808 (press-kit), 810 (company/Page family), **813 (generic Page base shell)**, **809 (roles), 811 (embargo), 812 (audit)**
-**Templates (E02) →** **208** (model page), **209** (category/tag archive) — measured template specs, deferred behind the M1 core
+**Editorial at scale (E08) →** 802 (remaining templates), 803 (bulk import), 804 (consent+analytics), 805/806/807/808 (press-kit), 810 (company/Page family), **813 (generic Page base shell)**, **814 (SiteOrigin body flatten contract)**, **809 (roles), 811 (embargo), 812 (audit)**
+**Templates (E02) →** **208** (model page), **209** (category/tag archive), **210** (custom microsite family) — measured template specs, deferred behind the M1 core
 **Dynamic services (E09) →** 901 (hosted search), 902 (cart hardening), 903 (banners), 904 (newsletter), 905 (analytics rebuild), **906 (QR restricted access)**
 **Integration/QA (E07) →** **706** (branded 404)
 **Localization (E10) →** 1001 (per-locale index), 1002 (translation rollout), 1003 (routing)
@@ -321,6 +323,8 @@ Backlog **51 → 56 tickets, 220 → 237 SP** (E03 +2, E08 +10, E09 +5). G1 (SKO
 
 **Template-gap tickets (2026-09-15, ui-specs measured-spec initiative):** the live-DevTools template census (`../ui-specs/_TEMPLATES.md`) confirmed five page types lacking a dedicated ticket — **SKODA-607** press-release detail template (own two-column shell, *not* the story shell → M1, E08, +5), **SKODA-208** model page (`skoda_model` CPT: hero + icon nav + 5 rails → M2, E02, +5), **SKODA-209** category/tag archive (hero + card grid, no facets → M2, E02, +3), **SKODA-706** branded 404 (→ M2, E07, +1), **SKODA-813** generic Page base shell (`page-template-default` → M2, E08, +2). Backlog **56 → 61 tickets, 237 → 253 SP**. Only SKODA-607 is M1 (press releases are ~47.5% of MR pages); the rest are M2. See `../ui-specs/README.md` for the per-component coverage matrix these tickets trace to.
 
+**Block-recount cross-check tickets (2026-09-15):** the full-site block recount (`../analysis/SKODA-BLOCK-RECOUNT.md` — 3,499 EN URLs, both sides) surfaced two high-frequency unspecced regions, now ticketed: **SKODA-210** custom microsite (`template-custom-full-width` event-gallery/campaign, **201 pages** — carries a migrate/fold/drop decision → M2, E02, +3) and **SKODA-814** SiteOrigin body-flatten contract (**1,614 pages** — the flatten machinery SKODA-801 depends on → M2, E08, +5). Backlog **61 → 63 tickets, 253 → 261 SP**. The recount also reconciled (no new ticket) that SKODA-808's variant *selector* has no live source precedent (net-new EDS affordance pending MR-PK03) and SKODA-807's FAQ shares the generic `row_toggle` accordion primitive.
+
 **🔴 Remaining open gaps — needs client input (not build blockers; resolve at design / Wed 2026-09-16):**
 
 | # | Gap | Where | Recommendation |
@@ -348,7 +352,7 @@ G6–G8 are **spec/decision clarifications on existing tickets**, not missing ti
 - `SKODA-POC-COVERAGE-MATRIX.md` — three-way join of those 24 URLs × components/blocks × client requirement IDs (this matrix's §7 reverse index is the source for its requirement→URL column); proves the PoC URL set covers the PDF baseline. The 2026-09-15 nav/footer sweep behind it surfaced 6 previously-uncatalogued page types (Škodapedia archive+term, newsletter archive/settings, media-cart page, BGC landing, `/en/documents/`) and corrected two assumptions (Podcast is a live category page, not a 301; Škodapedia is internal — reopening the §9 "external" assumption).
 - `../source/CMS-MediaRoomMigration-Requirements-110926-1118-1348.pdf` — the authoritative requirement baseline (97 IDs + §6/§7/§8/§9/§10/§11).
 - `SKODA-CLIENT-REQUIREMENTS-MAPPING.md` — per-ID build status + narrative (the source for this matrix's ticket links).
-- `../tickets/OVERVIEW.md` — the 61-ticket / 253-SP backlog register.
+- `../tickets/OVERVIEW.md` — the 63-ticket / 261-SP backlog register.
 - `../ui-specs/README.md` + `../ui-specs/_TEMPLATES.md` — measured component/template spec library (live-DevTools DOM+CSS at 768/992/1080); the source for the 2026-09-15 template-gap tickets (607/208/209/706/813) and the UI-build companion to this requirement→ticket map.
 - `SKODA-DELIVERY-PLAN.md` §8 — decision log D1–D19; §2/§3 — M1/M2 scope.
 - `SKODA-SOLUTION-DESIGN.html` — the Minimum/Target/Stretch PoC tiering that overlays these milestones.
