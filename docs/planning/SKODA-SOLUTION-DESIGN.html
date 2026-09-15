@@ -168,6 +168,45 @@
     </div>
   </section>
 
+  <!-- 3.5 · DIAGRAMS -->
+  <section>
+    <h2>3.5 · Architecture at a glance<span class="sec-note">integration (static ↔ service boundary) · full set in docs/architecture/SKODA-DIAGRAMS.md</span></h2>
+    <h3>Integration — static delivery ↔ external services</h3>
+    <p style="font-size:13px;color:var(--muted);margin:4px 0 8px">Everything on the right is a dependency we don't fully control; red = non-native to EDS (no origin compute) → the D2/D5 risks.</p>
+    <pre class="mermaid">
+flowchart LR
+  USER(["Visitor / journalist"]) --> EDGE
+  subgraph EDGE["EDS static delivery (Adobe CDN)"]
+    PAGES["Published pages + query-index 🟩"]
+    BLOCKS["Client-side blocks 🟩"]
+  end
+  subgraph AUTH["Authoring"]
+    DA["Document Authoring / EW 🟦"]
+    IDP["Škoda IDP ⬜"]
+  end
+  DA -->|publish| PAGES
+  IDP --> DA
+  subgraph SVC["External / non-native"]
+    DAM["AEM Assets / DAM ⬜ (D5)"]
+    REDUCE["Cart reduction / ZIP ⬜ (D2)"]
+    SEARCH["Hosted search ⬜ (D6)"]
+    CONSENT["OneTrust ⬜ (D10)"]
+    ANALYTICS["GA + FB + Yoast ⬜"]
+    VIDEO["Vimeo / YouTube ⬜"]
+    ESP["Newsletter ESP ⬜ (D4)"]
+  end
+  BLOCKS -.images.-> DAM
+  BLOCKS -.download.-> REDUCE
+  BLOCKS -.search.-> SEARCH
+  BLOCKS -.gated.-> CONSENT
+  BLOCKS -.events.-> ANALYTICS
+  BLOCKS -.embed.-> VIDEO
+  BLOCKS -.subscribe.-> ESP
+  REDUCE -.renditions.-> DAM
+    </pre>
+    <div class="callout"><b>The media-cart download crosses three red boundaries at once</b> — AEM Assets (D5), server-side reduction/ZIP (D2), and CORS delivery — which is why it's the #1 M1 risk. Consent (D10) is out of Adobe scope. The content/authoring publish→reindex loop and the migration/import pipeline are diagrammed in <code>docs/architecture/SKODA-DIAGRAMS.md</code>.</div>
+  </section>
+
   <!-- 4 · THE THREE TIERS (centerpiece) -->
   <section>
     <h2>4 · The line — Minimum · Target · Stretch<span class="sec-note">the centerpiece: what must be true at each tier, both sites, with the gating decision and a fallback</span></h2>
@@ -280,5 +319,12 @@
 <footer>
   Škoda Storyboard &amp; Media Room — PoC solution-design basis. Prepared 2026-09-14, updated after the frontend-walkthrough call (2026-09-14 transcript reviewed). Statuses reflect the published <code>/en</code> test migration + the decision log D1–D19. Feeds the PoC-vs-final solution proposal (Wed 2026-09-16). Planning artifact, not a quote. Sources: <code>SKODA-M1-DEMO-TARGET.md</code>, <code>SKODA-DELIVERY-PLAN.md</code>, <code>SKODA-CLIENT-REQUIREMENTS-MAPPING.md</code>, <code>SKODA-REQUIREMENTS-REPORT.html</code>, <code>../analysis/SKODA-MASTER.md</code>.
 </footer>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true, theme: 'base', themeVariables: {
+    primaryColor: '#eef3f0', primaryBorderColor: '#4ba82e', primaryTextColor: '#1a1a1a',
+    lineColor: '#5c6670', fontSize: '13px', fontFamily: '-apple-system, "Segoe UI", Roboto, sans-serif'
+  }});
+</script>
 </body>
 </html>

@@ -14,7 +14,7 @@ its §16 Document Map indexes every source report with its current path.
 | Folder | What's in it |
 |---|---|
 | **`analysis/`** | Canonical findings (`SKODA-MASTER.md` + coverage proof) and the source analysis reports behind them — block/widget inventories + datasets, complex-systems deep-dive, flattener POC, header/footer analysis, discovery & drilldown. |
-| **`architecture/`** | Target-state build & architecture specs (`SKODA-EDS-DA-ARCHITECTURE.md`, `SKODA-SYSTEM-BUILD-SPECS.md`). |
+| **`architecture/`** | Target-state build & architecture specs (`SKODA-EDS-DA-ARCHITECTURE.md`, `SKODA-SYSTEM-BUILD-SPECS.md`), the import-pipeline guide (`IMPORT-PIPELINE.md`), and **`SKODA-DIAGRAMS.md`** (Mermaid: integration / authoring-flow / import-pipeline diagrams; integration diagram also embedded in the client HTML decks). |
 | **`media/`** | Media pipeline, media-cart/download feasibility, asset mapping, media deep-dive & integration review. |
 | **`planning/`** | Delivery plan (milestones + decision log), M1 demo target, **PoC solution design (`SKODA-SOLUTION-DESIGN.html` — Minimum/Target/Stretch tiers, client-discussion basis)**, **exec/leadership briefing (`SKODA-EXEC-BRIEFING.html`)**, client-requirements mapping, **requirement↔ticket traceability (`SKODA-REQUIREMENTS-TRACEABILITY.md` — every req ID → ticket → M1/M2 path + gap register)**, filterable requirements report (HTML), agent-handoff candidates, feasibility, discovery-session agenda, call-prep. |
 | **`reviews/`** | Adversarial reviews, correctness audit, block-implementation review, deck-verification log. |

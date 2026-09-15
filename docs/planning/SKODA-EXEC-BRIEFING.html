@@ -124,6 +124,7 @@
 <nav class="toc"><div class="wrap">
   <a href="#s1">1 · The Ask</a>
   <a href="#s2">2 · The Site</a>
+  <a href="#s2b">2b · Architecture</a>
   <a href="#s3">3 · Scope (Source of Truth)</a>
   <a href="#s4">4 · Confirmed Facts</a>
   <a href="#s5">5 · What's Hard</a>
@@ -172,6 +173,57 @@
         <li><strong>Dynamic features:</strong> mapped the live back-end endpoints (media-cart, media-kit, banners, newsletter, encyclopedia) read-only, to size the rebuild.</li>
       </ul>
     </div>
+  </section>
+
+  <!-- 2b — ARCHITECTURE DIAGRAMS -->
+  <section id="s2b">
+    <h2><span class="num">2b</span> Architecture at a glance</h2>
+    <p class="subtitle">How the two experiences are delivered, and where the dependencies we don't control sit. Full set (functional / integration / authoring flow / import pipeline) in <code>docs/architecture/SKODA-DIAGRAMS.md</code>.</p>
+    <p style="font-size:13px;color:var(--muted);margin:0 0 8px"><strong>Integration — static delivery ↔ external services.</strong> Everything on the right is a client-side/infra dependency; red = non-native to EDS (no origin compute), which drives the top risks (AEM Assets D5, media-cart reduction D2).</p>
+    <pre class="mermaid">
+flowchart LR
+  USER(["Visitor / journalist"]) --> EDGE
+  subgraph EDGE["EDS static delivery (Adobe CDN)"]
+    PAGES["Published pages + query-index"]
+    BLOCKS["Client-side blocks"]
+  end
+  subgraph AUTH["Authoring"]
+    DA["Document Authoring / EW"]
+    IDP["Škoda IDP"]
+  end
+  DA -->|publish| PAGES
+  IDP --> DA
+  subgraph SVC["External / non-native"]
+    DAM["AEM Assets / DAM (D5)"]
+    REDUCE["Cart reduction / ZIP (D2)"]
+    SEARCH["Hosted search (D6)"]
+    CONSENT["OneTrust (D10)"]
+    ANALYTICS["GA + FB + Yoast"]
+    VIDEO["Vimeo / YouTube"]
+    ESP["Newsletter ESP (D4)"]
+  end
+  BLOCKS -.images.-> DAM
+  BLOCKS -.download.-> REDUCE
+  BLOCKS -.search.-> SEARCH
+  BLOCKS -.gated.-> CONSENT
+  BLOCKS -.events.-> ANALYTICS
+  BLOCKS -.embed.-> VIDEO
+  BLOCKS -.subscribe.-> ESP
+  REDUCE -.renditions.-> DAM
+    </pre>
+    <p style="font-size:13px;color:var(--muted);margin:14px 0 8px"><strong>Content / authoring loop.</strong> Code and content publish separately; the query-index only sees <em>published</em> pages, so rails stay empty until publish + reindex complete.</p>
+    <pre class="mermaid">
+flowchart LR
+  A["Author edits (DA/EW)"] --> B["Preview"]
+  B --> C{"Looks right?"}
+  C -->|no| A
+  C -->|yes| D["Publish"]
+  D --> E["Content-bus store<br/>(>~10MB masters → 409)"]
+  E --> F["query-index reindex<br/>(published only)"]
+  F --> G["Rails/listings populate"]
+  G --> H["QA: inspect rendered"]
+  H -->|defect| A
+    </pre>
   </section>
 
   <!-- 3 — VERBATIM SCOPE -->
@@ -534,6 +586,12 @@
   <p style="margin:0 0 8px"><sup>†</sup> Media figures are measured, not estimated: all 55 attachment sitemaps enumerated → 42,275 attachment pages → ~28,300 distinct logical items → ~200k physical files (order-of-magnitude, incl. the derivative ladder); ~280 CDN files probed for byte weight. See "How we know" (§2) for the full evidence basis.</p>
   Škoda Storyboard → AEM Edge Delivery · Leadership Briefing · 2026-09-07 · Based on Škoda's confirmed requirements (§3, verbatim) and a full assessment of the current site. Timeline &amp; effort are planning estimates, not a quote. Tip: <strong>Print → Save as PDF</strong> to share.
 </div></footer>
-
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true, theme: 'base', themeVariables: {
+    primaryColor: '#eef3f0', primaryBorderColor: '#4ba82e', primaryTextColor: '#1a1a1a',
+    lineColor: '#5c6670', fontSize: '13px', fontFamily: '-apple-system, "Segoe UI", Roboto, sans-serif'
+  }});
+</script>
 </body>
 </html>

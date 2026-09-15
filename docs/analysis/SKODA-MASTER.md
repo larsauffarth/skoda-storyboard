@@ -326,5 +326,6 @@
 | Delivery backlog (epics/tickets) | `tickets/OVERVIEW.md` + `tickets/epics/` + `tickets/tickets/` |
 | **Completeness proof for this master** | `analysis/SKODA-MASTER-COVERAGE.md` |
 | **22-URL block-by-block gap analysis** (2026-09-14) — corrected §3 Series claim, refined press-kit claim, named the 5 "Page" sub-types, and surfaced decision D18 | `../.migration/plans/url-analysis-comparison.md` + `url-analysis-matrix.json` |
+| **Architecture diagrams** (integration / authoring-flow / import-pipeline; Mermaid, integration also embedded in the client decks) | `architecture/SKODA-DIAGRAMS.md` |
 
 *This master is canonical going forward; source docs are retained for detail (now under `docs/` topic subfolders), not deleted.*
