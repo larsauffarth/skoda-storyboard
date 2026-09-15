@@ -3,6 +3,7 @@
 Status: **CAPTURED** (measured 2026-09-15 via Chrome DevTools MCP on page id 1; source CSS
 cross-checked against `media-room-515d2d102b.css`; reference screenshot saved).
 Foundations: [`_FOUNDATIONS.md`](_FOUNDATIONS.md). Method: [`_CAPTURE-PROTOCOL.md`](_CAPTURE-PROTOCOL.md).
+Stress-test re-verified live 2026-09-15 (story + press pages, 500/1024/1280): `.label` box `50.66x21`, padding `5px 10px`, radius `2px`, bg `#7c7d7e`, `#fff`, `11px/600/lh 11px/ls 1.1px/uppercase`, plus the desktop `li{display:block;float:left}` / `text-align:start` -> mobile `li{display:inline-block}` / `text-align:center` flip and the archive vs `?filter[...]` hrefs all matched. No corrections.
 
 ## 1. Identity
 

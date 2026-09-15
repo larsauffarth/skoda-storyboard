@@ -86,7 +86,10 @@ All rows: `measured (source-url · selector · viewport) → token`. Source = th
 - **Collapsed (default):** all answers `display:none`; icon = plus.
 - **Expand:** click the trigger → wrapper gains `.active`, answer `display:block`, icon rotates 45°
   over `.2s ease-in`. Source allows **multiple open at once** (independent toggles, no single-open
-  accordion group behavior observed).
+  accordion group behavior observed). Re-verified live 2026-09-15 by scripting clicks: open icon
+  `::after` transform = `matrix(0.707107, 0.707107, -0.707107, 0.707107, 0, -16)` (45° rotate + the
+  `translateY(-16)` centering); first answer panel opens to `812 × 136`; opening a second item leaves
+  the first `.active` (multi-open confirmed).
 - **Icon hover:** subtle tint `rgba(22,23,24,.0588)` on the round icon.
 - **Collapse:** click the open trigger again → `.active` removed, answer hidden, icon rotates back.
 - **Keyboard (rebuild):** Enter/Space on the trigger toggles; the source `h2 > span` click target is not

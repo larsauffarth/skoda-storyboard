@@ -24,7 +24,8 @@ areas on the live Peaq kit and resolves the tabs-vs-accordion-vs-stacked decisio
 - **Top-level selectors:** on the landing, each group is `article.article-teaser` (a tile linking to
   the group sub-page); on a group page, `.search-results-item > article.article-teaser.gallery-item.attachment`
   (a download tile), `a.media-cart-action.download` (download), `.media-cart-action-multi-container`
-  (Original / 1920px size dropdown), `a.media-cart-icon.media-cart-count` (header cart badge).
+  (Original / 1920px size dropdown), `a.media-cart-icon.media-cart-count` (the floating cart badge, in
+  the fixed `.sticky-buttons` bar, see [`media-cart.md`](media-cart.md), not the header).
 
 ## 2. Source anatomy
 
@@ -43,12 +44,20 @@ GROUP SUB-PAGE  (body.press_kit-template-default, e.g. Images postid-445913)
 .chapter-nav ("Chapters")                    persistent sub-nav (press-kit-template.md §3)
 .columns > .column-primary
 └── .search-results-item                     one wrapper per asset
-    └── article.article-teaser.gallery-item.attachment.media-cart-item   a DOWNLOAD tile (~188px)
-        ├── .ratio-container.ratio-16x9 > img       16:9 thumbnail (downloads.md)
-        └── a.media-cart-action.download            round download button (\e012)
-            a.media-cart-action.link                copy/permalink (\e01b)
-            a.media-cart-action-multi + -container   size dropdown: Original / 1920px
+    └── article.article-teaser.gallery-item.attachment.media-cart-item   a DOWNLOAD tile (188×106)
+        ├── .article-teaser-media > .entry-thumbnail.media-cart-image
+        │   └── a.colorbox.file-type > .ratio-container.ratio-16x9 > img   16:9 thumb (downloads.md)
+        └── .article-teaser-toolbar (188×60)
+            └── .entry-buttons (88×40, flex)                two round 40×40 buttons side by side
+                ├── .media-cart-action-multi (add-to-cart) + -container   Original(add,data-size="")/
+                │                                                           1920px(add,data-size="giant")
+                └── .media-cart-action-multi.download + -container         Original(download,href
+                        /direct-download/{path}.jpg) / 1920px(download,href …-1920x1920.jpg)
 ```
+(corrected 2026-09-15: the tile toolbar is `.article-teaser-toolbar > .entry-buttons` holding an **add-to-cart
+multi button** + a **download multi button**, both round `40×40`; there is **no** `a.media-cart-action.link`
+copy/permalink button on these press-kit tiles. Both multi buttons carry the Original/1920px size dropdown;
+the download dropdown rows are **direct-download hrefs** `/direct-download/{path}.jpg` and `…-1920x1920.jpg`.)
 
 - **Images** group: download tiles with the **Original / 1920px** dual-rendition dropdown (measured:
   `data-size=""` → "Original", `data-size="giant"` → "1920px"), identical to [`downloads.md`](downloads.md) §3.
@@ -57,7 +66,8 @@ GROUP SUB-PAGE  (body.press_kit-template-default, e.g. Images postid-445913)
 - **Texts / Technical data:** downloadable document items (title + file link); Technical data is the
   structured spec content for the model/variant.
 - **Videos:** downloadable/embeddable video items.
-- The **header cart badge** (`a.media-cart-icon.media-cart-count`) is present on every group page →
+- The **floating cart badge** (`a.media-cart-icon.media-cart-count`, in the fixed `.sticky-buttons`
+  bar) is present on every group page →
   the media-cart affordance is pervasive (per-item add + Original/1920px), see [`media-cart.md`](media-cart.md).
 
 **Libraries / patterns to retire:** SiteOrigin sub-page tree, jQuery, colorbox, icon-font glyphs
@@ -79,12 +89,16 @@ All rows: `measured (source-url · selector · viewport) → token`. `IMG` = the
   (· IMG · `article.gallery-item` · 1280).
 - Thumbnail `.ratio-container.ratio-16x9`: `padding-bottom:56.25%` (16:9); `<img>` `object-fit:fill`
   (deviation → rebuild `cover`), faint hairline (· IMG · 1280).
-- Download button `a.media-cart-action.download`: rendered `115×48` (icon `63×16` + `padding 10px` +
-  `border 2px`), `border-radius:50px` → `--pill-radius`, `border 2px solid #161718` → `--skoda-ink`,
-  `background #fff` → `--skoda-white` (· IMG · `a.media-cart-action.download` · 1280).
-- Size dropdown `.media-cart-action-multi-container`: rows **"Original"** (`data-size=""`) + **"1920px"**
-  (`data-size="giant"`) (· IMG · measured), reuse downloads.md §3 (bg `#fff`, shadow `0 3px 8px rgb(0 0 0 /.15)`,
-  hover row `#f1f1f1`).
+- Download button `.media-cart-action-multi.download`: rendered **`40×40`** (icon `16×16` + `padding 10px` +
+  `border 2px`, `box-sizing:content-box`), `border-radius:50px` → `--pill-radius`, `border 2px solid #161718`
+  → `--skoda-ink`, `background #fff` → `--skoda-white`, `color #161718` (· IMG · `.media-cart-action-multi.download`
+  · 1280), **identical to [`downloads.md`](downloads.md) §3, not `115×48`** (corrected 2026-09-15; the old
+  `115×48` was wrong). The sibling add-to-cart button `.media-cart-action-multi` is the same `40×40` pill.
+- Size dropdown `.media-cart-action-multi-container`: `position:absolute; top:45px; z-index:15; display:none`
+  until active; rows **"Original"** (`data-size=""`) + **"1920px"** (`data-size="giant"`) (· IMG · measured).
+  The download button's dropdown rows are **direct-download links** (`data-action="download"`,
+  `href=/direct-download/{path}.jpg` and `…-1920x1920.jpg`); the add button's rows are add-to-cart at size
+  (`data-action="add"`). Reuse downloads.md §3 (bg `#fff`, shadow `0 3px 8px rgb(0 0 0 /.15)`, hover row `#f1f1f1`).
 
 ### Group heading / layout
 - Group items flow in the `.column-primary` reading column (`66.66%`, story-detail.md shell); tiles
@@ -94,7 +108,7 @@ All rows: `measured (source-url · selector · viewport) → token`. `IMG` = the
 ### Whole-kit ZIP (MR-PK07)
 - **Not present in the static DOM.** No "download all" / ZIP / "download complete press kit" control was
   found on the kit landing or the Images group page (· LANDING/IMG · `[data-action], a[href*=download|zip]`
-  filtered for download/package/all/zip · 1280 → only app-store badges + the header cart icon). The ZIP is
+  filtered for download/package/all/zip · 1280 → only app-store badges + the floating cart icon). The ZIP is
   a **dynamic/scripted control** (or delivered via the media-cart "Download package" path), consistent with
   §11.12. Mechanism to confirm with the technical team; it rides on the D2 server-side reduction approach,
   see [`media-cart.md`](media-cart.md) §3 (`a.mr-media-cart-button[data-action=downloadAll]` → "Download package").

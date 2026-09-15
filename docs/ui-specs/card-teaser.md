@@ -1,6 +1,11 @@
 # Component Spec: Card / Teaser
 
 Status: **CAPTURED** (measured 2026-09-15 via Chrome DevTools MCP; awaiting screenshots + final QA).
+**Re-verified live 2026-09-15 via Playwright:** radius/shadow, media `object-fit:fill`, overlay scrim,
+standard title `18px/21.6px/400/#fff`, promo-first `29.6px @>=768 -> 18px <768`, pill `50px`, toolbar
+hover `#a8ffcc`, homepage cart hidden, and ratio-container `ratio-16x9` (1.778) all confirmed. **The
+image-zoom system was corrected** (§5): rest `scale` property is `none`, not `1.02`, and generic
+listing/rail/promo cards *do* net-zoom ~2% on hover.
 Foundations: [`_FOUNDATIONS.md`](_FOUNDATIONS.md). Method: [`_CAPTURE-PROTOCOL.md`](_CAPTURE-PROTOCOL.md).
 
 ## 1. Identity
@@ -101,18 +106,33 @@ All values: `measured (source-url · selector · viewport) -> token`. Source URL
 
 - **Card link hover/focus:** the whole card is a link (`href` on the media/title). Add a visible
   `:focus-visible` ring (source relies on browser default; a11y upgrade).
-- **Media hover:** `.article-teaser-media:after` icon (icon-font `\e02f`) fades in from `opacity:0`,
-  transition `all .3s cubic-bezier(.68,-.55,.27,1.55)`. EDS: reproduce with an SVG overlay icon +
-  opacity transition. **This icon-fade is the visible hover affordance on rail/listing/promo-box cards.**
-- **Image zoom system (measured 2026-09-15, matters, easy to get wrong):** every `.image-holder img`
-  carries `scale: 1.02 !important` at rest inside an `overflow:hidden` holder, with
-  `transition: scale .5s cubic-bezier(.165,.85,.45,1)`. On the shared `.items` cards (rails, listings,
-  **and the promo-box**) the `:hover` rule sets the **same `scale:1.02`**, so there is **no net zoom** on
-  those, the `1.02` is a constant overscan to hide sub-pixel edge gaps, and the transition is effectively
-  idle. A real hover **zoom to `scale(1.1)`** exists **only on model-page related cards**
-  (`.single-skoda_model .models .items article:hover .image-holder`). EDS: keep the `1.02` overscan +
-  the `.5s` scale transition on the base card so the zoom variant is a drop-in; apply the `1.1` hover
-  zoom **only** on the model-page card variant, not on generic listing/promo cards.
+- **Media hover:** `.article-teaser-media:after` is a full-cover layer (`background: rgba(0,0,0,.4)` dark
+  tint + centered icon-font `\e02f`, `color:#fff`) that fades in from `opacity:0 -> 1` and shrinks
+  `font-size 4rem -> 3rem`, transition `all .3s cubic-bezier(.68,-.55,.27,1.55)` (transition-property
+  `opacity, font-size`) (· source CSS `.article-teaser-media:after`, verified live 2026-09-15). EDS:
+  reproduce with an SVG overlay icon + dark tint + opacity/scale transition. **This is the visible hover
+  affordance on rail/listing/promo-box cards.**
+- **Image zoom system (re-verified live 2026-09-15, matters, earlier reading corrected):** two separate
+  mechanisms, don't conflate them.
+  1. **Rest overscan via `transform`, not the `scale` property.** The resting `1.02` comes from the
+     cover-width positioning transform, e.g. `transform: translateX(-50%) translateY(-50%) translateZ(0)
+     scale(1.02)` (the `.snap-center`/`.snap-top` centering rules). The individual CSS `scale` property
+     computes to **`none`** at rest (· HP · `.image-holder img` · 1280 -> `getComputedStyle().scale ===
+     "none"`, `transform === matrix(1.02,0,0,1.02,…)`). So the overscan hides sub-pixel edges and is
+     constant; it is *not* the `scale` property.
+  2. **Hover DOES net-zoom generic cards (~2%).** At rest only the transition is set:
+     `.items article … .image-holder img, .search-results-item article … .image-holder img {
+     transition: scale .5s cubic-bezier(.165,.85,.45,1) !important }` (no rest `scale` value). On hover
+     `.items article:hover … .image-holder img, .search-results-item article:hover … .image-holder img {
+     scale: 1.02 !important }` animates the `scale` property `none -> 1.02` over `.5s`, composing on top
+     of the constant `transform` overscan. So rail / listing / **promo-box** cards **do** grow ~2% on
+     hover (· source CSS, verified live). The earlier "no net zoom on those" was wrong: rest `scale` is
+     `none`, only `:hover` sets `1.02`.
+  3. **Model-page related cards zoom `1.1` (via `transform`).**
+     `.single-skoda_model .models .items article:hover .entry-thumbnail .image-holder {
+     transform: scale(1.1) }` (10% zoom on the `.image-holder` container, not the img `scale` property).
+  EDS: reproduce the `.5s` scale transition + a small (~1.02) hover zoom on the base listing/rail/promo
+  card, and the larger `1.1` hover zoom on the model-page card variant.
 - **Toolbar / gallery context:** toolbar transitions `opacity .25s ease`.
 - **Toolbar buttons hover/focus/active:** background `#a8ffcc` (emerald hover tint), `outline:0`,
   `text-decoration:none` (source CSS, shared with `.btn`/media-cart actions). `#a8ffcc` has no token

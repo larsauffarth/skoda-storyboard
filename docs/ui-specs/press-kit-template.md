@@ -80,8 +80,12 @@ All rows: `measured (source-url · selector · viewport) → token`. `LANDING` =
 `SUB` = the Introduction sub-page URL.
 
 ### Header / overlay hero (`.hero`), reuse [`hero.md`](hero.md) Variant C
-- `.hero-image.ratio-16x9.cover-width.snap-center`: `height 632.828px` @1280×1024, `281px` @500×900
-  (· LANDING · `.hero-image` · 1280/500) = **`61.8vh`** → reuse `--hero-vh: 61.8vh`. `position:relative`.
+- `.hero-image.ratio-16x9.cover-width.snap-center`: **height is band-dependent (re-verified live 2026-09-15).**
+  At `≥768` it's **`61.8vh`** (measured `632.828px` @1280×1024 and `632.828px` @768×1024, both = `0.618 × 1024`)
+  → reuse `--hero-vh: 61.8vh`. At `≤767` the `vh` override drops and it falls back to the true **16:9 box**
+  (`padding-bottom:56.25%` of width): measured `431.438px` @767 and `281.25px` @500 (= `0.5625 × width`, not `61.8vh`)
+  (· LANDING · `.hero-image` · 1280/768/767/500). `position:relative`. Breakpoint = **768** (same as the title
+  drop, below). The earlier single `281px @500 = 61.8vh` reading was wrong; @500 the box is 16:9, not `61.8vh`.
 - Scrim: `.hero-image::after` dual gradient (per hero.md) → `--scrim-h`/`--scrim-v`.
 - Title `.hero-caption .heading`: `48px / 52.8px / weight 300 / #fff` @1280 (· LANDING · 1280) →
   `--heading-font-size-hero: 48px`, `--weight-light: 300`, `--skoda-white`. Drops to **`28px`** @768/500.
@@ -98,8 +102,13 @@ All rows: `measured (source-url · selector · viewport) → token`. `LANDING` =
 ### Chapter tile grid (`.content .panel-grid`), reuse [`card-teaser.md`](card-teaser.md) cards-overlay
 - Grid row `.panel-grid.panel-no-style`: `display:flex; justify-content:space-between; width:1248px`
   (· LANDING · `.panel-grid` · 1280) → `--content-max-width: 1248px`.
-- Tile `article.article-teaser`: overlay card (media layer + `.article-teaser-overlay` white title).
-  Measured **3 tiles per row @1280** (mixed widths), tile `479px` wide (· LANDING · 1280).
+- Tile `article.article-teaser`: overlay card (media layer + `.article-teaser-overlay` white title). The row
+  is a **`flex; justify-content:space-between; flex-wrap:wrap`** run, **not a fixed N-per-row grid**
+  (corrected 2026-09-15). Tile widths are **mixed by aspect**: the two `ratio-2x1` feature tiles are `479px`
+  wide, the eleven `ratio-1x1` square tiles are `230px` wide (· LANDING · 1280). Because widths differ, the
+  measured per-row layout @1280 is **3 / 5 / 5**: row 1 = 2 feature + 1 square (Introduction, Exterior,
+  Interior), rows 2-3 = 5 squares each. Same 3/5/5 pattern holds @1024 (feature `390`, square `185`),
+  @900 (`340`), @800 (`300`). The old "3 tiles per row / tile 479px" reading only described row 1.
 - Tile image aspect is **mixed**: Introduction + Exterior = `ratio-container.ratio-2x1` (2:1 wide,
   feature tiles); all other chapters = `ratio-1x1` (1:1 square) (· LANDING · `.ratio-container` · 1280).
 - Tile title `.article-teaser-overlay .heading`: `16px / 18px / weight 500 / #fff`, `position:absolute`
@@ -127,11 +136,14 @@ All rows: `measured (source-url · selector · viewport) → token`. `LANDING` =
 
 ## 4. Responsive behavior
 
-- **Hero:** 16:9 `61.8vh` box at every band; title `48px → 28px` at **≤767** (measured 28px @768 and @500).
-- **Tile grid:** **3 across @≥992** (desktop, with the two `ratio-2x1` feature tiles), collapsing to
-  **1 across (full-width) below 992** (measured `perRow` = 3 @1280, 1 @768, 1 @500; tile `748px` @768,
-  `480px` @500). Source SiteOrigin panels stack to single column under the small-desktop step; for the
-  rebuild adopt the card-teaser grid ladder (`768 / 992`) rather than the SiteOrigin literal.
+- **Hero:** `61.8vh` box at `≥768`; at `≤767` it collapses to a true **16:9 width box** (`56.25%` of width,
+  `431px` @767, `281px` @500), **not** `61.8vh` (corrected 2026-09-15). Title `48px → 28px` at **≤767**
+  (measured 48px @768, 28px @767 and @500). Both switch at the **768** breakpoint.
+- **Tile grid:** multi-column **flex-wrap** (3/5/5 rows, mixed feature/square widths) holds down to `≥800`;
+  it collapses to **1 across (full-width)** at **`≤780`** (the SiteOrigin Panels mobile breakpoint), **not
+  992** (corrected 2026-09-15: measured `perRow` = [3,5,5] @1280/1024/900/800, all-1 @780/768/500; tile
+  `748px` @768/780, `480px` @500). For the rebuild adopt the card-teaser grid ladder (`768 / 992`) rather
+  than porting the SiteOrigin `~780` literal.
 - **Sub-page shell:** two-column `66.66 / 33.33` at `≥768`, stacked below content at `<768` (per
   story-detail.md §4).
 - **Chapter-nav:** full-width 44px bar; affixes to top on scroll (both landing and sub-pages).
@@ -224,13 +236,14 @@ block carries the facets. A `Section Metadata` `Style: press-kit-chapter` marks 
 
 Compare EDS render to source at each viewport. WHAT / WHERE / viewport / expected / actual.
 
-- [ ] Header: overlay hero `.hero-image` = **16:9 `61.8vh`** box, scrim present; title `48px / weight 300 /
-      #fff` @≥1080, `28px` @≤767; perex `20px / weight 600 / #fff`.
+- [ ] Header: overlay hero `.hero-image` = **`61.8vh`** box @≥768 / **16:9 width box** (`56.25%`) @≤767,
+      scrim present; title `48px / weight 300 / #fff` @≥768, `28px` @≤767; perex `20px / weight 600 / #fff`.
 - [ ] Section order: rendered chapters follow **Introduction → Exterior → Interior → Battery/powertrain →
       Safety → Connectivity → [variant] → [FAQ] → [Texts → Infographics → Technical data → Images → Videos]**.
 - [ ] Omission: a missing chapter (e.g. Battery/powertrain) leaves **no empty heading, no layout gap**.
-- [ ] Tile grid: `.press-kit-overview` / ≥992 `3 across` (first two `ratio-2x1`, rest `1:1`) / <992
-      `1 across` full-width; overlay title `16px / 18px / weight 500 / #fff`.
+- [ ] Tile grid: `.press-kit-overview` / multi-column flex-wrap @≥800 (source measured 3/5/5 rows: first
+      two `ratio-2x1` feature tiles, rest `1:1` squares) / `1 across` full-width @≤780; overlay title
+      `16px / 18px / weight 500 / #fff`.
 - [ ] Chapter-nav: full-width `44px` "Chapters" nav; affixes to top on scroll; anchor links reach each
       section; keyboard operable + `aria-expanded`.
 - [ ] Sub-section rich text: `p` = `16px / 24px / weight 400 / #161718`, `margin-bottom 20px`

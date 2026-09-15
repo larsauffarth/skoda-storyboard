@@ -1,6 +1,7 @@
 # Component Spec: Footer (Storyboard)
 
 Status: **CAPTURED** (measured 2026-09-15 via Chrome DevTools MCP; source CSS confirmed by curl; screenshots at 1280 + mobile).
+Stress-test re-verified live 2026-09-15: band, container, social set + hrefs, app badges, 7-col mega-menu, sub-link type, hr, legal row, and 500px stacking all matched. No corrections.
 Foundations: [`_FOUNDATIONS.md`](_FOUNDATIONS.md). Method: [`_CAPTURE-PROTOCOL.md`](_CAPTURE-PROTOCOL.md).
 Companion delta spec: [`footer-mediaroom.md`](footer-mediaroom.md).
 

@@ -73,8 +73,10 @@ All rows: `measured (source-url · selector · viewport) -> token`. Topbar rows 
 the curled `media-room-*.css`.
 
 ### Topbar trigger (`.topbar__newsletter`)
-- font-size `12px` (`.75rem`), weight `600`, color `#161718` (· 1280; source CSS
-  `header .topbar__newsletter`) -> `--skoda-ink`, `12px` -> candidate `--body-font-size-2xs`.
+- font-size `12px` (`.75rem`), weight `600`, color `#7c7d7e` (`rgb(124 125 126)`) (· 1280 ·
+  `.topbar__newsletter`) -> `--skoda-grey-500` (define per `tags.md`), `12px` -> candidate
+  `--body-font-size-2xs`. Correction (verified live 2026-09-15): base text is **grey `#7c7d7e`**, not
+  `#161718`/`--skoda-ink`.
 - margin `0 30px 0 0`; icon `20×16px`; active state adds a `2px` `#161718` underline bar
   (`.newsletter-button__active:after`).
 
@@ -118,8 +120,9 @@ the curled `media-room-*.css`.
 
 ### Inline widget input (`.inputs .input input`)
 - background `#fff`; border-bottom `1px solid #5a5b5c`; border-radius `4px 4px 0 0`;
-  padding `1em` (`14px`); width `100%`; margin `0 0 24px`; font-size `.875em` (`14px`) -> `14px` =
-  `--body-font-size-s` (· 1280; source CSS). `#5a5b5c` -> `--gallery-divider` (reuse).
+  padding `1em` (`14px`); width `100%`; margin `0 0 16px`; font-size `.875em` (`14px`) -> `14px` =
+  `--body-font-size-s` (· 1280 · `.inputs .input input`). `#5a5b5c` -> `--gallery-divider` (reuse).
+  Correction (verified live 2026-09-15): input margin-bottom is **`16px`**, not `24px`.
 - focus: border-bottom `2px solid #419468` (· source CSS) -> `#419468` = `--gallery-accent`/`--facet-active` (reuse).
 
 ### Inline widget button (`.inputs button`)

@@ -107,7 +107,7 @@ All rows: `measured (source-url · selector · viewport) → token`. Source = th
 ### Social share (`.btn-group.social`, STO-D10)
 - a round `.btn.icon.icon-share` (`58×58`, ink glyph) in a `.btn-group.social.color` that expands a
   `.social-container` (network buttons), a **share menu**, not an always-visible inline row (· measured
-  `.btn.icon.icon-share` box `58×58`). Reuse the round-icon sizing from `media-cart.md` header badge.
+  `.btn.icon.icon-share` box `58×58`). Reuse the round-icon sizing from `media-cart.md` floating cart badge.
 
 ## 4. Responsive behavior
 

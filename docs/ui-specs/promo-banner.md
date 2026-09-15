@@ -1,6 +1,11 @@
 # Component Spec: Promo Banner
 
 Status: **CAPTURED** (measured 2026-09-15 via Chrome DevTools MCP; source CSS confirmed by curl; screenshot at 1280).
+**Re-verified live 2026-09-15 via Playwright** at 1280/500: creative img confirmed (`345×345`@1280 /
+`480×480`@500, radius `8px`, margin-top `8px`, `object-fit:fill`, full column width, `<a target=_blank>`
+tracked redirect). **Slot placement corrected** (§3/§4): on the live story template `.sidebar` computes
+`display:block` (not flex/column) and `.side-banner` computes `order:0`/`position:static`, rendering
+**last** in the sidebar, not pulled above the other widgets.
 Foundations: [`_FOUNDATIONS.md`](_FOUNDATIONS.md). Method: [`_CAPTURE-PROTOCOL.md`](_CAPTURE-PROTOCOL.md).
 Scope note: this spec covers the **static presentation only**. The dynamic ad platform is E09, deferred (see §8).
 
@@ -52,11 +57,20 @@ All rows: `measured (source-url · selector · viewport) -> token`. Source URL f
 story above. Source-CSS refs point to the curled `media-room-*.css`.
 
 ### Slot placement (`.sidebar .side-banner`)
-- host: `.sidebar` is `display:flex; flex-direction:column; flex:0 0 33.333%; width:33.333%;
-  max-width:33.333%; padding:2rem 0 2rem 4rem` (`32px 0 32px 64px`) (· 1280; source CSS
-  `body.single-post article .columns .sidebar`).
-- `.side-banner` `order:1` (source CSS) → banner is pulled **above** the sidebar `section` widgets
-  (`order:2`); `position:relative`. Sidebar `section` margin-bottom `1rem`; `.widget` margin-bottom `2rem`.
+- host: `.sidebar` is `flex:0 0 33.333%; width:33.333%; max-width:33.333%; padding:2rem 0 2rem 4rem`
+  (`32px 0 32px 64px`), measured `width 409px` (· 1280; · `.sidebar` · `body.single-post`). **Correction
+  (verified live 2026-09-15):** at desktop `.sidebar` computes `display:block`, **not** `flex`/`column`.
+  The source rule `body.single-post article .columns .sidebar{display:flex;flex-direction:column}` exists
+  but is overridden on the actual story template (`post-template-template-layout-article` +
+  `siteorigin-panels`), so the flex-order rules below never fire. The `flex:0 0 33.333%` still applies
+  because `.sidebar` is a flex *item* of `.columns`.
+- `.side-banner` computes `order:0`, `position:static` (· 1280) and renders **last** in the sidebar,
+  **below** `newsletter-subscribe` / `related` / `tags` (measured stacking top order at 1280), **not**
+  pulled above them. The source `body.single-post … .side-banner{order:1}` / `.sidebar section{order:2}`
+  rules are inert here because the desktop sidebar is not a flex container. Sidebar `section`
+  margin-bottom `1rem`.
+- **Mobile (<768, · 500):** `.sidebar` flips to `display:flex`, full-width `480px`, `padding:0`, stacked
+  below the article body; the banner spans the full content width.
 
 ### Creative image (`.side-banner img`)
 - border-radius `.5rem` (`8px`) -> `--card-radius`; margin-top `.5rem` (`8px`) -> `--spacing-xs`
@@ -73,7 +87,8 @@ story above. Source-CSS refs point to the curled `media-room-*.css`.
 ## 4. Responsive behavior
 
 - **Desktop / small-desktop (≥768):** banner sits in the right sidebar column (`33.333%`,
-  `345px`@1280 / `185px`@768), pinned above the other sidebar widgets. Square `1:1` creative.
+  `345px`@1280 / `185px`@768), rendered **last** in the sidebar (below newsletter / related / tags),
+  in DOM order (the `order:1` "pull above" rule is overridden, see §3). Square `1:1` creative.
 - **Mobile (<768, measured @500):** the sidebar stacks full-width (`480px`) below the article body;
   the banner spans the full content width, radius `8px` retained. `data-mobile=true` gates whether a
   mobile creative renders at all (an ad-platform concern, not CSS).
@@ -165,8 +180,9 @@ Compare EDS render to source at each viewport. Format: WHAT / WHERE / viewport /
 
 - [ ] Box: `.promo-banner img` / all / border-radius `8px` (`--card-radius`), margin-top `8px`
       (`--spacing-xs`), full column width.
-- [ ] Sidebar placement: `.promo-banner` (sidebar variant) / ≥768 / in `33.333%` sidebar column,
-      above other sidebar widgets; / <768 / full-width stacked below the article.
+- [ ] Sidebar placement: `.promo-banner` (sidebar variant) / ≥768 / in `33.333%` sidebar column
+      (source renders it last, below the other sidebar widgets); / <768 / full-width stacked below the
+      article.
 - [ ] Creative: single `<a target=_blank rel=noopener>` wrapping an optimized responsive `<img>`;
       1:1 by default; no distortion at any band.
 - [ ] Link: resolves to the authored destination (static), opens new tab; optional CTA/caption renders.

@@ -44,13 +44,20 @@ VARIANT SUB-PAGE  (body.press_kit-template-default, postid-445845)
 └── h1.entry-title "The Peaq Sportline: dynamic inside and out" + rich text + inline media-box
 ```
 
-**Internal categorization (measured on both the kit and the variant `article`):**
+**Internal categorization (re-measured 2026-09-15; the kit landing article and the variant sub-page article
+DIFFER):**
 ```
-model-peaq  bodywork-suv  category-models  category-peaq(-en)  category-press-kits
-technology-electro-vehicle technology-electromobility technology-emobility technology-meb-2  years-61572
+KIT landing article.press_kit:
+  model-peaq  bodywork-suv  category-peaq-en  category-press-kits
+  technology-electro-vehicle technology-electromobility technology-emobility  years-61572
+VARIANT sub-page article (Sportline) adds:
+  derivative-sportline   category-models   technology-meb-2   media-cart-item
 ```
-These class tokens are the source of the model / bodywork / category / technology / year facets (the
-15-facet set, §11.14) that make the kit discoverable via MR-L03 filters and MR-M04 model strips.
+The **`derivative-sportline`** token is the actual per-variant encoding (absent from the kit landing article);
+it, plus `category-models` and `technology-meb-2`, appear only on the variant sub-page article. These class
+tokens are the source of the model / bodywork / **derivative** / category / technology / year facets (the
+15-facet set, §11.14) that make the kit discoverable via MR-L03 filters and MR-M04 model strips. Map
+`derivative-*` to a `variants`/`derivative` Metadata field (SKODA-401 normalization).
 
 **No dedicated variant/bodywork selector widget exists.** The only `<select>` on the variant page is the
 global `select.search-type-select` (site search), unrelated. Navigation between variants/chapters is the
@@ -78,10 +85,11 @@ All rows: `measured (source-url · selector · viewport) → token`. `SPORT` = t
 - Rich text + inline media-box reuse story-detail.md / press-kit-media.md (delegated).
 
 ### Internal categorization (facet metadata)
-- `article.press_kit` (kit) and the variant `article` both carry `model-peaq bodywork-suv
-  category-press-kits category-models category-peaq-en technology-* years-*` (· LANDING/SPORT ·
-  `article[class]` · 1280). These map to the Metadata block fields `model / bodywork / category` (+
-  technology, year), no new taxonomy invented (§11.14).
+- The kit landing `article.press_kit` carries `model-peaq bodywork-suv category-peaq-en category-press-kits
+  technology-electro-vehicle/-electromobility/-emobility years-61572`; the variant sub-page `article` adds
+  `derivative-sportline category-models technology-meb-2 media-cart-item` (· LANDING/SPORT · `article[class]` ·
+  1280, re-verified 2026-09-15). These map to the Metadata block fields `model / bodywork / derivative /
+  category` (+ technology, year), no new taxonomy invented (§11.14); `derivative-sportline` is the variant key.
 
 ## 4. Responsive behavior
 

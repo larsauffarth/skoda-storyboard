@@ -1,7 +1,12 @@
 # Component Spec: Hero
 
 Status: **CAPTURED** (measured 2026-09-15 via Chrome DevTools MCP on page id 1; source CSS
-cross-checked against `media-room-515d2d102b.css`; reference screenshots saved).
+cross-checked against `media-room-515d2d102b.css`; reference screenshots saved). **Re-verified live
+2026-09-15 via Playwright** at 500/768/1024/1280: all four variants hold (story `40px/44px/600/#161718`
+center, order-swap + `28px` at `≤768`, box 970×546 / 748×421 16:9; series overlay `61.8vh` + white
+`48px/300` H1 + scrim, no CTA; archive `160/200/240` static no-scrim; press-release no hero,
+`h1.entry-title 26px/32.5px/600/#0a0a0a`). Only the story master `width/height` attr changed (now
+`1920×1080`) and the size-drop breakpoint refined to `≤768`.
 Foundations: [`_FOUNDATIONS.md`](_FOUNDATIONS.md). Method: [`_CAPTURE-PROTOCOL.md`](_CAPTURE-PROTOCOL.md).
 
 ## 1. Identity
@@ -55,8 +60,10 @@ All rows: `measured (source-url · selector · viewport) -> token`. Story URL ab
 archive `…/category/emobility/`, series `…/series-2/`, press `…/superb-25-years…/`.
 
 ### Variant A, Story-detail hero (`single-post`)
-- Image element: real `<img width="1920" height="744">`, `object-fit: fill`, `position: absolute`,
-  `fetchpriority="high"`, `loading="eager"`, **not** in `<picture>` (· `…/skoda-epiq…/` · `.hero-image img` · 1280).
+- Image element: real `<img width="1920" height="1080">` (current master; the `width`/`height` attrs
+  track the authored asset, earlier capture was `744`), `object-fit: fill`, `position: absolute`,
+  `fetchpriority="high"`, `loading="eager"`, **not** in `<picture>` (· `…/skoda-epiq…/` · `.hero-image img`
+  · 1280, verified live 2026-09-15).
 - Box ratio: `ratio-container ratio-16x9` → rendered box **16:9** at every band (· `.hero-image` · all).
   Desktop container is capped by `.hero .hero-wrapper .container{max-width:990px}` → box ≈ **970×546**
   at 1280 and 1024; full-width below the cap → **748×421** at 768, **480×270** at 500.
@@ -111,8 +118,9 @@ with archive heights also stepping at **576**.
 - **≤1079 (`@media max-width:1079px`)**, story hero swaps flex order: `.hero-wrapper` (image) → `order:1`
   (top), `.hero-heading` → `order:2` (below image). Title also flips `text-align: center → left` and
   `margin: 16px 0 32px → 16px 0 0` (· `.hero .hero-heading .heading` · measured center@1280, left@1024).
-- **≤767 (tablet→mobile)**, story title drops `40px → 28px` (`30.8px` line-height) (· measured
-  28px@768 and @500). Archive banner height `240 → 200` (≥576) → `160` (base).
+- **≤768 (tablet→mobile)**, story title drops `40px → 28px` (`30.8px` line-height) (· measured
+  28px@768 and @500; 40px still at 1024, so the size step is `max-width:768`, i.e. the drop hits at
+  `≤768`, not `≤767`). Archive banner height `240 → 200` (≥576) → `160` (base).
 - **Ratio box** stays 16:9 at every band on story/landing/series; desktop story box is width-capped at
   ~970px by the `.container{max-width:990px}` wrapper.
 - Capture note: DevTools floored at ~500px; the <768 state was captured at 500. A true 375 check needs

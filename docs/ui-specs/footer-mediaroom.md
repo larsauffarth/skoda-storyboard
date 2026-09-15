@@ -25,7 +25,7 @@ notice, feed-links) is **identical**; the body content differs.
 
 | Aspect | Storyboard (`/en/`) | Media Room (`/en/media-room/`) | Delta |
 |---|---|---|---|
-| `.footer-widgets` children | 2: `app-download` (empty) + `social` | **5**: `app-download`, `social`, `widget_nav_menu`, `skoda-mailguide`, `widget_text` | **material** |
+| `.footer-widgets` blocks | 1 (holds `app-download` empty + `social`) | **2**: block A = `app-download` + `social`; block B = `widget_nav_menu` + `skoda-mailguide` + `widget_text` | **material** |
 | Mega-menu (`.footer-nav`) | **present**, 7-col sitemap, ~32 links repeating site nav | **absent**, no `.footer-nav` at all | **material** |
 | Contacts | none | `widget_nav_menu` heading "Contacts", 2 links (Škoda Corporate Communications `/contacts/#corporate`, Škoda Product Communications `/contacts/#product`) | **material** |
 | Newsletter | hidden nav item | dedicated **"Subscribe"** form widget (`skoda-mailguide`): email input + terms checkbox + submit | **material** |
@@ -44,16 +44,22 @@ container, social icons 40x40 circle, badges 135x40, feed-links, hr) are unchang
 [`footer.md`](footer.md) §3.
 
 ### Content widgets (three new, replacing the mega-menu)
+- **Structure (verified live 2026-09-15):** the Media Room footer renders **two** `.container >
+  .footer-widgets` rows, not one widget set. Row A = `.app-download` + `.social` (then `<hr>`); row B =
+  `widget_nav_menu` (Contacts) + `skoda-mailguide` (Subscribe) + `widget_text` (Company), then
+  `.copyright-text` / `.copyright-notice` / `.feed-links`. So the three content widgets are siblings in
+  a **second** `.footer-widgets`, below the social/app row.
 - Each of `widget_nav_menu` (Contacts), `skoda-mailguide` (Subscribe), `widget_text` (Company):
-  `flex:0 0 33.333%; max-width:33.333%` at >=768 (· 1280; source CSS `.footer-widgets>*`). At <768 all
+  `flex:0 0 33.333%; max-width:33.333%` at >=768 (· 1280 · `.footer-widgets > *`). At <768 all
   stack `flex:0 0 100%` (measured 500).
 - `.social` still `flex:0 0 80%`, right-aligned; `.app-download` `0 0 20%` (measured 1280), so the
   social/app row sits above the three 33% content columns.
 
 ### Widget headings
 - Widget title ("Contacts" / "Subscribe" / "Company"): font-size `26px`, weight `600`, margin-bottom
-  `26px`, color `#fff` (· `.widget_nav_menu .widgettitle` · 1280) -> `--heading-font-size-l` (26px),
-  `--weight-semibold`.
+  `26px`, color `#fff` (· `h3.heading` · 1280) -> `--heading-font-size-l` (26px), `--weight-semibold`.
+  Correction (verified live 2026-09-15): the heading is an **`<h3 class="heading">`**, not a
+  `.widgettitle`; the measured values are unchanged.
 
 ### Subscribe form (`.skoda-mailguide`)
 - email input: `193px × 45px`, padding `10px`, border-radius `4px 4px 0 0`, background

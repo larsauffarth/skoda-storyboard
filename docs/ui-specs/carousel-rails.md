@@ -1,7 +1,11 @@
 # Component Spec: Carousel / Rails
 
 Status: **CAPTURED** (measured 2026-09-15 via Chrome DevTools MCP + source CSS
-`media-room-515d2d102b.css`; screenshots saved).
+`media-room-515d2d102b.css`; screenshots saved). **Re-verified live 2026-09-15 via Playwright** at
+500/768/1024/1280: cells-per-view ladders, both `data-flickity` configs (promo-box autoPlay 10000 /
+watchCSS + `cellAlign:left, groupCells:true, pageDots:false` rails), promo-box static-mosaic-vs-1up
+modes, cover-box `opacity:.3` fade, 32px transparent arrows, and the MR-home `pauseAutoPlayOnHover:false`
+variance all hold. No corrections.
 Foundations: [`_FOUNDATIONS.md`](_FOUNDATIONS.md). Method: [`_CAPTURE-PROTOCOL.md`](_CAPTURE-PROTOCOL.md).
 Card unit reused here: [`card-teaser.md`](card-teaser.md).
 

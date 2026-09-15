@@ -23,19 +23,27 @@ Foundations: [`_FOUNDATIONS.md`](_FOUNDATIONS.md). Method: [`_CAPTURE-PROTOCOL.m
 
 ## 2. Source anatomy
 
+The Octavia press release actually carries **two distinct galleries** (corrected 2026-09-15):
+1. an inline **"Images"** grid `div.items` of `~169px` colorbox-only thumbnails (`a.colorbox` grouped by
+   `rel="info-images"`), **no per-tile download buttons** (lightbox only);
+2. the **"Media Box"** `div.search-results.media-box`, the actual **download** grid (colorbox `rel="media-box-1"`),
+   `~292px` cards **with** the add-to-cart + download toolbar. The download tile below is a Media Box tile.
+
 ```
-h3/h4 "Images" / "Media Box"                section heading
-div.items  (display:flex; flex-wrap:wrap)   the thumbnail GRID
-└── article.article-teaser.gallery-item.media-cart-item.image   a download tile (~169px wide)
+h3/h4 "Media Box"                            section heading (the download grid)
+div.search-results.media-box (4-col @1280)   the download GRID (separate from the inline "Images" .items grid)
+└── article.article-teaser.gallery-item.media-cart-item   a download tile (292px wide; mixed image + video)
     │   data-post-id, data-content-type="Media"
     ├── .article-teaser-media
     │   └── .entry-thumbnail.media-cart-image
-    │       └── a.colorbox.file-type[href=<full jpg>][data-id]   opens lightbox (colorbox)
-    │           └── .image-holder.ratio-container.ratio-16x9.cover-width > img
-    └── (toolbar) a.media-cart-action.download   round download-icon button (\e012)
-        a.media-cart-action.link                 copy/permalink button (\e01b)
-        a.media-cart-action-multi + .media-cart-action-multi-container   size dropdown:
+    │       └── a.colorbox.file-type[href=<full jpg>][rel="media-box-1"]   opens lightbox (colorbox, rel group)
+    │           └── .image-holder.ratio-container.ratio-16x9.cover-width > img   (290×163 rendered)
+    └── (toolbar) .media-cart-action-multi (add-to-cart) + .media-cart-action-multi.download (download)
+        each a round 40×40 pill with a .media-cart-action-multi-container size dropdown:
             → a "Original" (data-size="")   a "1920px" (data-size="giant")
+        download rows are DIRECT-DOWNLOAD links: href=/direct-download/{yyyy}/{mm}/{file}.jpg (Original) and
+            …-1920x1920.jpg (1920px); a video tile downloads a single …-1080p….mp4. No a.media-cart-action.link
+            copy/permalink button was present per-tile (only one on the whole page).
 ```
 
 The tile **reuses the card-teaser** (`.article-teaser`). The download action is
@@ -51,16 +59,17 @@ jQuery; the icon-font glyphs (`\e012` download, `\e01b` link), replace with SVG 
 All rows: `measured (source-url · selector · viewport) -> token`. Source URL for §3 = the Octavia
 press release above.
 
-### Grid (`.items`)
-- display `flex; flex-wrap:wrap` (· `.items` · 1280). Tiles flow left-to-right, wrap. Tile width
-  `~169px` measured -> many-per-row thumbnail grid (press-release inline box). The dedicated
+### Grid (the "Media Box" download grid, corrected 2026-09-15)
+- The **download** grid is `div.search-results.media-box`, `display:flex; flex-wrap:wrap`, **4 columns @1280**
+  (measured per-row [4,2] for 6 tiles) (· `.search-results.media-box` · 1280). The separate inline **"Images"**
+  grid `div.items` (`flex-wrap`, `~169px` colorbox-only thumbs, thumb `169×95` 16:9) has **no download buttons**;
+  the old §3 `.items` / `169px` figures described that lightbox grid, not the download grid. The dedicated
   `/images/` listing uses a 4-col grid at `>=992` (`.images .items .item:nth-child(4n+1){clear:left}`).
 
-### Tile + thumbnail
-- tile `article.gallery-item.media-cart-item` width `~169px`, flex `0 1 auto`, padding `0`, margin `0`
-  (· 1280).
+### Tile + thumbnail (Media Box)
+- tile `article.article-teaser.gallery-item.media-cart-item` width **`~292px`** (· 1280).
 - thumbnail box `.ratio-container.ratio-16x9` -> `padding-bottom:56.25%` (**16:9**) (· source CSS);
-  `.cover-width`. Rendered `169 x 112px` (· 1280).
+  `.cover-width`. Rendered **`290 × 163px`** (· 1280) (not `169×112`; `169×95` is the inline Images thumb).
 - `<img>` object-fit **`fill`**, border-radius `0`, border `1px solid hsl(0 0% 85% / .133)` on
   `.search-results.media-box .media-cart-image` (faint hairline). **Deviation to fix:** use
   `object-fit:cover` on a `16/9` box (same fix as card-teaser).
@@ -74,7 +83,9 @@ press release above.
 - `.disabled`: background `#c4c6c7`, `display:none` (hidden when unavailable).
 
 ### Link/permalink button (`a.media-cart-action.link`)
-- padding `.375em`; `::after` content `"\e01b"`, font-size `1.5em` (copy-link glyph).
+- padding `.375em`; `::after` content `"\e01b"`, font-size `1.5em` (copy-link glyph). **Note (2026-09-15):**
+  this `.link` button was **not present per-tile** on the cited Octavia Media Box (only one `.media-cart-action.link`
+  found on the whole page); each Media Box tile ships an add-to-cart pill + a download pill, no per-tile permalink.
 
 ### Size options (`.media-cart-action-multi-container`)
 - absolute dropdown; background `#fff`; box-shadow `0 3px 8px rgb(0 0 0 /.15)`; z-index `15`;
@@ -102,8 +113,10 @@ press release above.
   (matches `--dropdown-hover-bg` candidate `#f1f1f1`).
 - **Size dropdown:** `.media-cart-action-multi` toggles `.is-active` -> container `display:block`;
   option rows hover bg `#f1f1f1`.
-- **Download action:** navigates to the file URL (`imageUrl`/`link` from the API); a static `<a
-  download>` in the rebuild (no server round-trip, no signed URL).
+- **Download action:** each size row is a **direct-download link** (verified live 2026-09-15):
+  `href=/direct-download/{yyyy}/{mm}/{file}.jpg` for "Original" and `…-1920x1920.jpg` for "1920px"
+  (`data-action="download"`); a video tile downloads a single `…-1080p….mp4`. Rebuild as a static
+  `<a download>` per size (no server round-trip, no signed URL).
 
 ## 6. Accessibility
 
