@@ -335,6 +335,8 @@ G6–G8 are **spec/decision clarifications on existing tickets**, not missing ti
 ---
 
 ## 10. Cross-references
+- `SKODA-POC-URL-SET.md` + `skoda-poc-urls.json`/`.txt` — the minimal set of live source URLs (24) that exercises every template/variant/functionality across both sites; importer-ready.
+- `SKODA-POC-COVERAGE-MATRIX.md` — three-way join of those 24 URLs × components/blocks × client requirement IDs (this matrix's §7 reverse index is the source for its requirement→URL column); proves the PoC URL set covers the PDF baseline. The 2026-09-15 nav/footer sweep behind it surfaced 6 previously-uncatalogued page types (Škodapedia archive+term, newsletter archive/settings, media-cart page, BGC landing, `/en/documents/`) and corrected two assumptions (Podcast is a live category page, not a 301; Škodapedia is internal — reopening the §9 "external" assumption).
 - `../source/CMS-MediaRoomMigration-Requirements-110926-1118-1348.pdf` — the authoritative requirement baseline (97 IDs + §6/§7/§8/§9/§10/§11).
 - `SKODA-CLIENT-REQUIREMENTS-MAPPING.md` — per-ID build status + narrative (the source for this matrix's ticket links).
 - `../tickets/OVERVIEW.md` — the 56-ticket / 237-SP backlog register.
