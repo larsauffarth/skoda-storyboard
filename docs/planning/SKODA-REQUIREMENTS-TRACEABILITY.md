@@ -322,6 +322,16 @@ Backlog **51 → 56 tickets, 220 → 237 SP** (E03 +2, E08 +10, E09 +5). G1 (SKO
 
 G6–G8 are **spec/decision clarifications on existing tickets**, not missing tickets.
 
+**QA-discovered follow-up tickets (2026-09-14, agent-team cycle 1 — independent QA pass on the live `localhost:3000/en/` homepage):** the homepage was verified **at demo-grade fidelity** (all query-index rails populate; typography / brand-green #0e3a2f / spacing / responsive all measured as matching source). Three findings became follow-up tickets:
+
+| # | Ticket | Finding | Status |
+|---|--------|---------|--------|
+| QA-F1 | **SKODA-605** (E06, M1) | Models/Series rail + "All" links are absolute `skoda-storyboard.com` URLs (leave the demo) → transformer link-rewrite | **Implemented (transformer); QA-blocked** on a clean re-import + publish |
+| QA-F2 | **SKODA-606** (E06, M1) | Stray "Manage Cookies" consent text node in Latest News → transformer strip | **Implemented (transformer); QA-blocked** on re-import |
+| QA-F3 | **SKODA-705** (E07, M1) | "Load more" button = bordered pill vs source white-fill (cosmetic) | **Held — needs design/client confirm** (don't alter brand styling on assumption) |
+
+**Cycle-1 convergence note:** no ticket reached `DONE` this cycle. Every actionable homepage QA finding routes to either **content-regeneration** (605/606 — codeable now, but end-to-end QA is blocked on DA publish credentials + reindex, which aren't available) or a **design decision** (705). This is the honest state: the built `/en` slice is demo-grade, the transformer fixes are written and lint-clean, but they cannot be QA-verified to `DONE` without a live re-import/publish cycle. Per the operating model, tickets stay open until QA verifies the rendered result — they are **not** marked done on an unverified change.
+
 ---
 
 ## 10. Cross-references

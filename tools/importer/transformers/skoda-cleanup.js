@@ -107,6 +107,35 @@ export default function transform(hookName, element, payload) {
       img.removeAttribute('sizes');
     });
 
+    // --- SKODA-605 (QA F1): rewrite absolute source-host hrefs to site-relative so
+    //     demo click-through stays on the EDS site. Models/Series rail cards + rail
+    //     "All"/heading links are authored as absolute https://www.skoda-storyboard.com/…
+    //     URLs; the footer model links are already relative, so normalize to match.
+    //     Only the Škoda source host is rewritten — genuinely-external links are kept. ---
+    element.querySelectorAll('a[href]').forEach((a) => {
+      const href = a.getAttribute('href');
+      if (!href) return;
+      // Match http(s)://[www.]skoda-storyboard.com/<path> → /<path> (keep query + hash).
+      const m = href.match(/^https?:\/\/(?:www\.)?skoda-storyboard\.com(\/[^\s]*)?$/i);
+      if (m) a.setAttribute('href', m[1] || '/');
+    });
+
+    // --- SKODA-606 (QA F2): drop stray consent/UI control text left in content.
+    //     The source cookie-consent control ("Manage Cookies") can land as a bare
+    //     paragraph during import; consent is OUT of Adobe scope (D10) so it is not
+    //     reproduced and must not appear as body copy. Remove by known consent-widget
+    //     hooks first (robust), then fall back to the exact leftover text node. ---
+    WebImporter.DOMUtils.remove(element, [
+      '.ot-sdk-show-settings',
+      '#ot-sdk-btn',
+      '.optanon-toggle-display',
+    ]);
+    element.querySelectorAll('p, a, span, button').forEach((el) => {
+      if (el.children.length === 0 && el.textContent.trim() === 'Manage Cookies') {
+        el.remove();
+      }
+    });
+
     // --- Defensive safe-element removal (no-ops if already absent). ---
     WebImporter.DOMUtils.remove(element, [
       'iframe',
