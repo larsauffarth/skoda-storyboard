@@ -52,6 +52,7 @@ site side:
 | `template-search-results` | Search + Images + Videos + News (one engine) | MR | `faceted-listing` (facets + grid + load-more), `card-teaser`, `gallery-lightbox`, `media-cart` | `faceted-listing.md` | SKODA-402, 403 |
 | `template-media-room-page` + siteorigin | Company/utility pages (contacts, board, annual-reports, ...) | MR | `hero`, base page shell + the 5 company sub-type blocks | `company-pages.md` (+ `template-page-base.md` shell) | SKODA-810 |
 | `page-template-default` + siteorigin | Generic Page (copyright, legal, misc) | STO | `hero`, rich text (SiteOrigin) | `template-page-base.md` | **SKODA-813** |
+| `page-template-template-custom-full-width` + siteorigin | Custom microsite (event-gallery / campaign) | STO | `siteorigin-body`, `gallery-lightbox` (big colorbox grid), `card-teaser` | `custom-microsite.md` | **SKODA-210** |
 | `template-tiles` | Series directory | STO | `hero`, `card-teaser` (series cards) grid | `series.md` | SKODA-207 |
 | `single-skoda_series` | Series hub | STO | `hero` (overlay), `card-teaser` (story) grid | `series.md` | SKODA-207 |
 | Škodapedia directory + term | Škodapedia (`post-type-archive`) | MR | `skodapedia` (A-Z nav `.sp__list-nav` 26 letters + term modal `.sp__term-detail`) | `skodapedia.md` | SKODA-206, 802 |
@@ -93,3 +94,7 @@ plugin).
 - Wave T1 (press-release, model-page, category-archive): **done** (measured, spec + screenshots).
 - Wave T2 (page-base, 404, home): **done** (measured, spec + screenshots).
 - Remaining: gap tickets (607/208/209/813/706) + wiring pointers into existing tickets + README/OVERVIEW.
+- **Added post block-recount (2026-09-15):** `custom_microsite` (`template-custom-full-width`, 201 STO
+  pages, `custom-microsite.md` / SKODA-210) and the `siteorigin-body` region (1,614 pages,
+  `siteorigin-body.md` / SKODA-814, feeds the 801 flatten), both surfaced by
+  [`../analysis/SKODA-BLOCK-RECOUNT.md`](../analysis/SKODA-BLOCK-RECOUNT.md) as previously-unspecced.

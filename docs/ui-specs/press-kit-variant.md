@@ -62,7 +62,12 @@ tokens are the source of the model / bodywork / **derivative** / category / tech
 **No dedicated variant/bodywork selector widget exists.** The only `<select>` on the variant page is the
 global `select.search-type-select` (site search), unrelated. Navigation between variants/chapters is the
 tile grid + the "Chapters" sub-nav, i.e. **in-page anchor/link navigation** (· Sportline page ·
-`select, [class*=variant|bodywork|selector]` · 1280 → only the search select).
+`select, [class*=variant|bodywork|selector]` · 1280 → only the search select). **Independently confirmed
+by the 2026-09-15 block recount** ([`../analysis/SKODA-BLOCK-RECOUNT.md`](../analysis/SKODA-BLOCK-RECOUNT.md)
+§6/§8): a full crawl found **no rendered variant/bodywork selector anywhere**, so `press_kit_variant` was
+dropped from the content-block set. The selector below (§7/§8) is therefore a **net-new EDS affordance,
+pending client confirmation of MR-PK03**, not a source port. The nested subsection + Chapters anchor-nav
+is the real, source-backed pattern.
 
 **Libraries / patterns to retire:** SiteOrigin panels/sub-page tree, jQuery, the WP category-class
 taxonomy encoding (replace with a normalized Metadata block, SKODA-401), the icon-font chapter-nav.

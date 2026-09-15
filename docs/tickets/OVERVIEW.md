@@ -1,7 +1,7 @@
 # Škoda Storyboard → Edge Delivery (DA/Experience Workspace), Delivery Backlog Overview
 
 **What this is:** the master index for the migration backlog, 10 epics, 61 tickets, grounded in the `SKODA-*` analysis set. Pilot epics (E01–E07) are ticket-level; later phases (E08–E10) are epic + high-level tickets so the whole program is visible.
-**Date:** 2026-09-05 (updated 2026-09-07: media-cart re-point, SKODA-505 added to M1, SKODA-902 re-scoped; updated 2026-09-10: build-confirmed, SKODA-506 added, SKODA-401 re-scoped to +3 SP for metadata-normalization, SKODA-801 trending low & browser-confirmed; updated 2026-09-11: Press Kit detail broken out of SKODA-802 into SKODA-805–808 per requirements doc §11; updated 2026-09-14: 22-URL analysis added SKODA-207 (Series→M1), SKODA-604 (full-fidelity story restore→M1), SKODA-810 (company/Page family→M2) per decision D18; updated 2026-09-14: traceability gaps closed, added SKODA-305 (MR footer→M1), SKODA-809 (roles), SKODA-811 (embargo), SKODA-812 (audit), SKODA-906 (QR access) → M2 governance layer, 51→56 tickets / 220→237 SP; updated 2026-09-15: ui-specs template-gap tickets added — SKODA-607 (press-release detail→M1), SKODA-208 (model page), SKODA-209 (category/tag archive), SKODA-706 (404), SKODA-813 (Page base shell)→M2, 56→61 tickets / 237→253 SP)
+**Date:** 2026-09-05 (updated 2026-09-07: media-cart re-point, SKODA-505 added to M1, SKODA-902 re-scoped; updated 2026-09-10: build-confirmed, SKODA-506 added, SKODA-401 re-scoped to +3 SP for metadata-normalization, SKODA-801 trending low & browser-confirmed; updated 2026-09-11: Press Kit detail broken out of SKODA-802 into SKODA-805–808 per requirements doc §11; updated 2026-09-14: 22-URL analysis added SKODA-207 (Series→M1), SKODA-604 (full-fidelity story restore→M1), SKODA-810 (company/Page family→M2) per decision D18; updated 2026-09-14: traceability gaps closed, added SKODA-305 (MR footer→M1), SKODA-809 (roles), SKODA-811 (embargo), SKODA-812 (audit), SKODA-906 (QR access) → M2 governance layer, 51→56 tickets / 220→237 SP; updated 2026-09-15: ui-specs template-gap tickets added, SKODA-607 (press-release detail→M1), SKODA-208 (model page), SKODA-209 (category/tag archive), SKODA-706 (404), SKODA-813 (Page base shell)→M2, 56→61 tickets / 237→253 SP; updated 2026-09-15: block-recount cross-check added SKODA-210 (custom microsite, 201 pages) + SKODA-814 (SiteOrigin body flatten, 1,614 pages), 61→63 tickets / 253→261 SP, and reconciled SKODA-808 (no source variant selector, net-new pending MR-PK03))
 **Target:** DA / Experience Workspace + EDS (no AEM Author / UE / JCR), per `SKODA-EDS-DA-ARCHITECTURE.md`.
 **Estimates:** story points (SP) + AI-assisted / manual day ranges, **planning estimates, not a quote**. "AI-assisted" reflects this environment's import/styling/QA tooling.
 **Files:** `docs/tickets/epics/E##-*.md` · `docs/tickets/tickets/SKODA-<id>.md`.
@@ -31,16 +31,16 @@ Four phases, mapped from `SKODA-EDS-DA-ARCHITECTURE.md` §12:
 | Epic | Goal | Phase | Tickets | Effort (SP) | AI-days | Manual-days |
 |---|---|---|---|--:|--:|--:|
 | **E01 Foundation & Setup** | DA/EW site, repo, Code Sync, config, tokens | A | 6 | 15 | 5–9 | 12–20 |
-| **E02 Core Blocks** | teaser/cards, hero, gallery+lightbox, embeds, tags, Škodapedia glossary, Series template, **model-page (208)**, **category/tag archive (209)** | A | 9 | 32 | 12.5–20 | 27–42 |
+| **E02 Core Blocks** | teaser/cards, hero, gallery+lightbox, embeds, tags, Škodapedia glossary, Series template, **model-page (208)**, **category/tag archive (209)**, **custom microsite (210)** | A | 10 | 35 | 13.5–22 | 29–46 |
 | **E03 Chrome Fragments** | header/mega-menu, mobile ARIA, lang switcher, footer, MR footer variant | A | 5 | 14 | 6–8 | 9–16 |
 | **E04 Listings & Search** | query-index (15 facets) + metadata-normalization, listing/load-more, search | A | 3 | 19 | 7–12 | 13–21 |
 | **E05 Media Pipeline** | masters-only ingest, downloads block, PDF/MP4, **AEM Assets mapping**, **demo cart + client-side zip**, **media pre-conditioning** | A | 6 | 21 | 7–13 | 14–23 |
 | **E06 Import Pilot Content** | parsers/transformers, DA push, pilot pages, full-fidelity story restore | A | 4 | 13 | 4.5–8 | 9–14 |
 | **E07 QA / Perf / A11y / Launch** | lint, Lighthouse/RUM, a11y, visual QA, sign-off, **branded 404 (706)** | A | 5 | 12 | 4.5–7.5 | 7.5–13 |
-| **E08 Editorial at Scale** | story flatten, remaining templates, **press-release detail (607)**, **press-kit (805–808)**, **company/Page family (810)**, **Page base shell (813)**, **governance: roles/embargo/audit (809/811/812)**, bulk import | B | 14 | 66 | 24.5–43 | 49–85 |
+| **E08 Editorial at Scale** | story flatten, remaining templates, **press-release detail (607)**, **press-kit (805–808)**, **company/Page family (810)**, **Page base shell (813)**, **SiteOrigin body flatten (814)**, **governance: roles/embargo/audit (809/811/812)**, bulk import | B | 15 | 71 | 26.5–46 | 53–91 |
 | **E09 Dynamic Services** | media-cart **prod hardening**, banners, newsletter, hosted search, analytics, **QR access (906)** | C | 6 | 45 | 17–28 | 34–62 |
 | **E10 Localization** | 6 locales, per-locale index, translation, routing | D | 3 | 16 | 6–10 | 10–15+ |
-| **Total** | | | **61** | **253** | **94–159** | **185–311** |
+| **Total** | | | **63** | **261** | **97–164** | **191–321** |
 
 *(SP roll-ups are indicative; day ranges are the sum of per-ticket planning ranges, treat as order-of-magnitude, not a commitment.)*
 
@@ -95,6 +95,7 @@ Four phases, mapped from `SKODA-EDS-DA-ARCHITECTURE.md` §12:
 |---|---|---|---|--:|--:|--:|---|---|
 | SKODA-208 | Model page template (skoda_model: hero + icon nav + 5 rails) | E02 | B | 5 | 2–3 | 4–6 | 202,402,201 | 🟢 M2; spec `ui-specs/template-model-page.md` |
 | SKODA-209 | Category / Tag archive template (hero + card grid, no facets) | E02 | B | 3 | 1–2 | 2–4 | 202,201,402 | 🟢 M2; spec `ui-specs/template-category-archive.md` |
+| SKODA-210 | Custom microsite (full-width event-gallery/campaign) scope + template | E02 | B | 3 | 1–2 | 2–4 | 203,813,814,601 | 🟡 M2; 201 pages, migrate/fold/drop decision; spec `ui-specs/custom-microsite.md` (recount §2/§8) |
 | SKODA-706 | Branded 404 (keeps chrome, real HTTP 404) | E07 | B | 1 | 0.5 | 0.5–1 | 301,304 | 🟢 M2; spec `ui-specs/template-404.md` |
 | SKODA-801 | Story template, SiteOrigin Page-Builder flatten | E08 | B | 8 | 3–5 | 6–10 | 601,603 | 🟠 re-pointed (POC+census: small closed widget set) |
 | SKODA-802 | Remaining templates (Škodapedia pre-baked, pages) | E08 | B | 5 | 2–3 | 4–7 | 801 | 🟡 (press-kits split to 805–808) |
@@ -106,6 +107,7 @@ Four phases, mapped from `SKODA-EDS-DA-ARCHITECTURE.md` §12:
 | SKODA-808 | Press Kit variant subsections + selector + categorization | E08 | B | 3 | 1–2 | 2–3 | 805,806,401 | 🟡 selector interaction (§11.7/11.9) |
 | SKODA-810 | Company/Page family (board/annual-reports/logo/app/contacts) | E08 | B | 8 | 3–5 | 6–10 | 202,304,502,601,602,803,813 | 🟢 M2 (D18); 5 net-new blocks on the 813 shell |
 | SKODA-813 | Generic Page base shell (STO page + MR media-room-page) | E08 | B | 2 | 0.5–1 | 1–2 | 202,801 | 🟢 M2; shared shell under 810; spec `ui-specs/template-page-base.md` |
+| SKODA-814 | SiteOrigin body flatten contract (1,614 pages) | E08 | B | 5 | 2–3 | 4–6 | 601,203,204 | 🟢 M2; feeds 801/208/813; spec `ui-specs/siteorigin-body.md` (recount §3/§6) |
 | SKODA-809 | Roles & permissions (7 editorial groups) | E08 | B | 5 | 2–3 | 4–8 | 101,602 | 🟠 gap G2 (§6.4); blocked on D15 RACI |
 | SKODA-811 | Content embargo (staged-publish, group access) | E08 | B | 3 | 1–2 | 2–4 | 602,809 | 🟢 gap G3 (§6.5/D9) approach agreed; M1-Stretch only *ungated* (group-gate needs 809/M2/D15, F4) |
 | SKODA-812 | Auditability (author change-history) | E08 | B | 2 | 0.5–1 | 1–3 | 101,602,809 | 🟡 gap G5 (§6.7); validate DA/EW capability |
@@ -154,15 +156,15 @@ Phase D: 401,603─1001 ─ 1002 ; 303,1001─1003
 
 | Scope | SP | AI-assisted days | Manual days |
 |---|--:|--:|--:|
-| **Pilot (Phase A, E01–E07)** | **126** | **~47–77** | **~92–130** |
-| Phase B (E08) | 66 | 24.5–43 | 49–85 |
+| **Pilot (Phase A, E01–E07)** | **129** | **~48–79** | **~94–134** |
+| Phase B (E08) | 71 | 26.5–46 | 53–91 |
 | Phase C (E09) | 45 | 17–28 | 34–62 |
 | Phase D (E10) | 16 | 6–10 | 10–15+ |
-| **Full program** | **253** | **~94–159** | **~185–311** |
+| **Full program** | **261** | **~97–164** | **~191–321** |
 
-*(Reconciled 2026-09-15: adds the ui-specs template-gap tickets. Note SKODA-607 is Pilot:Yes/M1 but sits in epic E08 — the §5 "Pilot (E01–E07)" bucket groups by *epic* (E08 → Phase B), so 607's 5 SP counts under Phase B here while it delivers at M1; see the register for the true M1/M2 tag.)*
+*(Reconciled 2026-09-15: adds the ui-specs template-gap tickets. Note SKODA-607 is Pilot:Yes/M1 but sits in epic E08, the §5 "Pilot (E01–E07)" bucket groups by *epic* (E08 → Phase B), so 607's 5 SP counts under Phase B here while it delivers at M1; see the register for the true M1/M2 tag.)*
 
-*(Reconciled 2026-09-15: this §5 table sums to the §2 epic-index total. Pilot (E01–E07) = 15+32+14+19+21+13+12 = **126 SP**; full program **253 SP** across 61 tickets. Earlier versions understated the roll-up; now corrected. Note the §5 bucketing is by *epic* (E08 → Phase B), so SKODA-607 — Pilot:Yes/M1 but in E08 — counts under Phase B here even though it ships at M1.)*
+*(Reconciled 2026-09-15: this §5 table sums to the §2 epic-index total. Pilot (E01–E07) = 15+35+14+19+21+13+12 = **129 SP**; full program **261 SP** across 63 tickets. Earlier versions understated the roll-up; now corrected. Note the §5 bucketing is by *epic* (E08 → Phase B), so SKODA-607, Pilot:Yes/M1 but in E08, counts under Phase B here even though it ships at M1; likewise SKODA-210 is M2 but sits in E02, so it counts under the Pilot/E01–E07 bucket.)*
 
 - **Pilot ≈ 35–60 AI-assisted engineer-days** (vs ~71–106 manual), **this ticket-derived total is the canonical pilot figure.** It grew from 81→89 SP when the mission-critical **demo media-cart + client-side zip (SKODA-505, +8 SP)** was pulled into M1 per client scope, then **+5 SP (2026-09-10, build-confirmed)** for **SKODA-506 media pre-conditioning (+2)** and **SKODA-401 metadata-normalization (+3)**, offset by **SKODA-801 trending to the low end** of its 8 SP, then **+5 SP (2026-09-14, D18)** for **SKODA-207 Series template (+3)** and **SKODA-604 full-fidelity story restore (+2)**, and **+2 SP** for **SKODA-305 MR-footer variant**, all pulled into M1 from the 22-URL analysis + gap pass. The **canonical pilot total is 117 SP** (E01–E07, per the §5 table above); the "81→89→94" figures above track only the incremental *additions* discussed on those dates, not the full E01–E07 sum. The `SKODA-STORYBOARD-SITE-FACTS.html` deck's earlier ~13–25-day headline covered only the *core build* chunks; this backlog is fuller (explicit foundation + import + QA tickets + the Škodapedia block + the demo cart + pre-conditioning). **The deck should be aligned to this figure** (adversarial-review finding F2).
 - **Full program is a multi-month programme** dominated by Phase C (the 4 bespoke services + analytics) and Phase B story-flattening + Phase D content-ops.

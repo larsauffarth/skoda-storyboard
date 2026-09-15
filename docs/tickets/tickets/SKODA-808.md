@@ -10,10 +10,12 @@
 Key facts from capture (resolves §11.7/9/14):
 - The variant ("Škoda Peaq Sportline") appears as a **nested tile + chapter-nav entry + sub-page** under the same kit path, after the core narrative. **No dedicated selector widget exists** in source.
 - **Decision resolved → in-page anchor/toggle** (reuse the Chapters sub-nav pattern), not a separate variant-kit.
-- Facets live as classes on the article (`model-peaq bodywork-suv category-* technology-* years-*`) → feed the 15-facet listing (SKODA-401/402).
+- Facets live as classes on the article (`model-peaq bodywork-suv derivative-sportline category-* technology-* years-*`) → feed the 15-facet listing (SKODA-401/402). `derivative-*` is the variant key.
+
+**Reconciled with the 2026-09-15 block recount ([`../../analysis/SKODA-BLOCK-RECOUNT.md`](../../analysis/SKODA-BLOCK-RECOUNT.md) §6/§8):** an independent full crawl confirms **no rendered variant/bodywork *selector* control exists anywhere** (the `bodywork-*`/`derivative-*` classes are taxonomy metadata on teasers, not a UI widget). So the **core deliverable is the nested variant subsection + the existing Chapters anchor-nav**, which is a real source pattern. A standalone variant/bodywork *selector widget* (MR-PK03) is a **net-new EDS affordance, not a source port**, and is **pending client confirmation** that it's a target requirement, do not build it speculatively.
 
 ## Summary
-Support one or more variant-specific subsections nested within a Press Kit (e.g. "Škoda Peaq Sportline" after the core narrative), plus a variant/bodywork selector, and carry the internal categorization/filtering metadata that ties kits back to the listing facets.
+Support one or more variant-specific subsections nested within a Press Kit (e.g. "Škoda Peaq Sportline" after the core narrative), reachable via the existing Chapters anchor-nav, and carry the internal categorization/filtering metadata that ties kits back to the listing facets. A standalone variant/bodywork *selector widget* is an optional net-new affordance, pending client confirmation of MR-PK03 (source has none).
 
 ## Description
 Confirmed on the live Peaq kit (§11.9): a dedicated subsection for a specific model variant appears **after** the core narrative sections, so the press-kit template must support **nested variant-specific subsections**, not just a flat section list. Alongside this:
@@ -29,8 +31,9 @@ Confirmed on the live Peaq kit (§11.9): a dedicated subsection for a specific m
 
 ## Acceptance Criteria
 - [ ] A press kit renders one or more variant subsections nested after the core narrative, in source order.
-- [ ] The variant/bodywork selector switches/navigates between variants accessibly (keyboard + ARIA).
-- [ ] Kit Metadata carries model/bodywork/category facets and the kit surfaces correctly under the relevant listing facets (MR-L03) and model-page strips (MR-M04).
+- [ ] The variant is reachable via the Chapters anchor-nav (in-page anchor/link), accessibly (keyboard + ARIA); this is the required navigation.
+- [ ] *Conditional (only if MR-PK03 is confirmed as a requirement):* a standalone variant/bodywork selector switches between variants accessibly (keyboard + `aria-current`/`aria-selected`). Not required to close this ticket if the client does not want a net-new selector.
+- [ ] Kit Metadata carries model/bodywork/derivative/category facets and the kit surfaces correctly under the relevant listing facets (MR-L03) and model-page strips (MR-M04).
 - [ ] Output passes lint and matches source structure in local preview.
 - [ ] Variant renders as a nested sub-page + Chapters-nav anchor (per [`press-kit-variant.md`](../../ui-specs/press-kit-variant.md)); visual diff vs source ≤ 2% per-pixel.
 
@@ -39,6 +42,6 @@ Confirmed on the live Peaq kit (§11.9): a dedicated subsection for a specific m
 - Downstream: SKODA-402 (listing facets consume the metadata), SKODA-1001 (per-locale trees)
 
 ## Risks / Flags
-- **Selector interaction TBD (🟡, §11.7/§11.9):** in-page toggle vs separate variant kits, design decision.
+- **Standalone selector widget is unconfirmed (🟡, §11.7 / MR-PK03):** source has no such control (verified by capture + the block recount). The nested subsection + Chapters anchor-nav is the confirmed build; a separate selector widget is a net-new affordance to confirm with the client before building. Don't build speculatively.
 - Facet extraction is a **normalization layer, not clean selectors** (build-confirmed, SKODA-401), variant/bodywork/category may need derivation, not direct read.
 - Which facets are demo/priority-critical is scoped by decision **D12**.

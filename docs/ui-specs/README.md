@@ -28,6 +28,7 @@ Whole page types = shell + ordered sections composed from the components above. 
 | Generic Page base shell | [`template-page-base.md`](template-page-base.md) | SKODA-813 | STO `page-template-default` + MR `template-media-room-page` |
 | 404 | [`template-404.md`](template-404.md) | SKODA-706 | branded, keeps chrome, real HTTP 404 |
 | Home (Storyboard + Media Room) | [`template-home.md`](template-home.md) | SKODA-604 / home | `.cover-box` section stack; promo-box lead |
+| Custom microsite (event-gallery / campaign) | [`custom-microsite.md`](custom-microsite.md) | SKODA-210 | STO `template-custom-full-width`, full-bleed + big gallery; 201 pages, scope decision |
 | Story detail | [`story-detail.md`](story-detail.md) | SKODA-604 / 801 | STO, hero + `.content`/`.sidebar` |
 | Series (dir + hub) | [`series.md`](series.md) | SKODA-207 | STO `template-tiles` / `single-skoda_series` |
 | Faceted listing (Search/Images/Videos/News) | [`faceted-listing.md`](faceted-listing.md) | SKODA-402 / 403 | MR `template-search-results`, one engine |
@@ -41,7 +42,7 @@ Status legend: `DRAFT` (skeleton, awaiting capture) · `CAPTURED` (measured, in 
 
 > **Live usage counts:** how many pages each of these blocks actually renders on (EN, both sides,
 > split STO/MR) is measured in [`../analysis/SKODA-BLOCK-RECOUNT.md`](../analysis/SKODA-BLOCK-RECOUNT.md)
-> (2026-09-15 full crawl). Use it to prioritise build order — e.g. `card_teaser` 3,175 pages,
+> (2026-09-15 full crawl). Use it to prioritise build order, e.g. `card_teaser` 3,175 pages,
 > `two_column` 1,654 (100% MR), `hero` 1,399 (99.6% STO), `faceted_listing` 6.
 
 | Component spec | EDS block(s) | Primary ticket(s) | Source reference | Status |
@@ -63,6 +64,7 @@ Status legend: `DRAFT` (skeleton, awaiting capture) · `CAPTURED` (measured, in 
 | `skodapedia.md` | skodapedia (new) | 206 | `/en/skodapedia/` | CAPTURED |
 | `series.md` | cards reuse + hero | 207 | `/en/series-2/`, `/en/series/<slug>/` | CAPTURED |
 | `story-detail.md` | composition | 604 / 801 | `/en/<story>` | CAPTURED |
+| `siteorigin-body.md` | default content (import flatten) | 814 (feeds 801/208/813) | `/en/<story>` SiteOrigin body | DRAFT+MEASURED |
 | `newsletter.md` | newsletter-stub | STO-D05 / COM-16 (prod E09) | `/en/` topbar + inline | CAPTURED |
 | `social-share.md` | share (chrome) | COM-15 / STO-D10 | story detail | CAPTURED |
 | `promo-banner.md` | banner (E09/903) | COM-09 side / STO-D08 | flagged E09 | CAPTURED |
@@ -195,9 +197,9 @@ component spec + ticket. Any ID with no UI build is marked with its reason.
   stub exists (`scripts/consent-check.js`). No UI spec.
 - **§6 Editorial/Authoring/DAM, §7 Content Migration, §8 NFR**, process/architecture requirements,
   not UI components. Covered by delivery-plan + architecture docs, not here.
-- **Škodapedia** — ⚠️ *the client §9 "continuing outside Storyboard" flag is in tension with the
+- **Škodapedia**, ⚠️ *the client §9 "continuing outside Storyboard" flag is in tension with the
   live site:* the 2026-09-15 nav/footer sweep found Škodapedia **linked from both the Storyboard and
-  Media Room navs and rendering internally** (`/en/skodapedia/`, `post-type-archive` — see
+  Media Room navs and rendering internally** (`/en/skodapedia/`, `post-type-archive`, see
   `SKODA-POC-COVERAGE-MATRIX.md` #9 and `_TEMPLATES.md`). Open question for the client: is it staying
   in-platform or moving out? The glossary block (`skodapedia.md` / 206, 802) is specced either way but
   is low-priority for the pilot.
