@@ -1,0 +1,7 @@
+__pycache__/
+_*.html
+_*.txt
+_*.csv
+*.log
+all-urls-raw.txt
+dataset-nonrest.csv

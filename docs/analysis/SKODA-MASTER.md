@@ -306,6 +306,7 @@
 | Site shape, backend, scale, first risks | `analysis/SKODA-STORYBOARD-DISCOVERY.md` |
 | Search feasibility, EN scope, template gaps | `analysis/SKODA-STORYBOARD-DRILLDOWN.md` |
 | Full block audit + variants + matrix + responsive | `analysis/SKODA-EN-BLOCK-INVENTORY.md` (+ `analysis/SKODA-EN-BLOCK-DATASET.csv`/`-AGGREGATE.json`) |
+| **Block universe recount** (2026-09-15) — appearance counts per block vs the ui-specs universe, **split STO/MR**, signatures Explore-validated; supersedes the inventory's counts | `analysis/SKODA-BLOCK-RECOUNT.md` (+ `analysis/SKODA-BLOCK-RECOUNT-DATASET.csv` 3,499 rows / `-AGGREGATE.json`) |
 | Per-block critical review + live contracts + debt | `reviews/SKODA-BLOCK-IMPLEMENTATION-REVIEW.md` |
 | Media integration strategy | `media/SKODA-MEDIA-INTEGRATION-REVIEW.md` |
 | Measured media (counts, footprint, CDN/CORS) | `media/SKODA-MEDIA-DEEP-DIVE.md` |

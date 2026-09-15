@@ -39,6 +39,11 @@ Status legend: `DRAFT` (skeleton, awaiting capture) · `CAPTURED` (measured, in 
 
 ## Component index
 
+> **Live usage counts:** how many pages each of these blocks actually renders on (EN, both sides,
+> split STO/MR) is measured in [`../analysis/SKODA-BLOCK-RECOUNT.md`](../analysis/SKODA-BLOCK-RECOUNT.md)
+> (2026-09-15 full crawl). Use it to prioritise build order — e.g. `card_teaser` 3,175 pages,
+> `two_column` 1,654 (100% MR), `hero` 1,399 (99.6% STO), `faceted_listing` 6.
+
 | Component spec | EDS block(s) | Primary ticket(s) | Source reference | Status |
 |---|---|---|---|---|
 | `card-teaser.md` | cards-overlay / cards-media / cards-toolbar | 201 (reused 207/402/stories/story-rail/810) | `/en/` article-teaser | CAPTURED |

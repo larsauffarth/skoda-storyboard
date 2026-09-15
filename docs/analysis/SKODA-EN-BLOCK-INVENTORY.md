@@ -1,5 +1,11 @@
 # Škoda Storyboard — EN Block Inventory (Full-Crawl Audit)
 
+> **⚠️ Counts superseded (2026-09-15):** the block appearance counts below were re-run against the
+> measured `docs/ui-specs/` block universe, split **STO vs Media Room**, with signatures validated live
+> by Explore agents. See **`SKODA-BLOCK-RECOUNT.md`** (canonical for counts) + its raw artifacts
+> `SKODA-BLOCK-RECOUNT-DATASET.csv` / `-AGGREGATE.json`. This doc is retained for its per-block
+> responsive/JS behaviour detail (§8) and narrative, which the recount does not repeat.
+
 **Companion to:** `SKODA-STORYBOARD-DISCOVERY.md`, `SKODA-STORYBOARD-DRILLDOWN.md`
 **Date:** 2026-09-04
 **Method:** Signature-based block discovery run against **every English page**, plus Tier-2 exemplar verification, plus a **responsive-behavior analysis** of block JS/CSS (§8). Analysis only — no import, no code generation, no Git operations.
