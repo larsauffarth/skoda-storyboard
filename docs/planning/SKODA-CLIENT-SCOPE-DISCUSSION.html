@@ -148,14 +148,15 @@
       <div class="cap" data-tier="demo"><div class="top"><span class="name">Media cart <span class="site both">both</span></span><span class="tag demo">Demo</span></div><div class="desc">Collect assets across pages and download them, no login needed.</div></div>
       <div class="cap" data-tier="demo"><div class="top"><span class="name">English + Czech <span class="site both">both</span></span><span class="tag demo">Demo</span></div><div class="desc">Two languages, with the switcher showing only the languages a page actually exists in.</div></div>
       <div class="cap" data-tier="demo"><div class="top"><span class="name">Design-to-code showcase <span class="site both">both</span></span><span class="tag demo">Demo</span></div><div class="desc">One or two components taken from Figma and generated into live components.</div></div>
+      <div class="cap" data-tier="demo"><div class="top"><span class="name">Embargoed content <span class="site mr">MR</span></span><span class="tag demo">Demo</span></div><div class="desc">A native platform feature: restrict a page to a group, preview it privately, then publish on schedule. Shown in the demo; the full role rollout comes at go-live.</div></div>
+      <div class="cap" data-tier="demo"><div class="top"><span class="name">Press kit (one) <span class="site mr">MR</span></span><span class="tag demo">Demo</span></div><div class="desc">One press kit shown end to end: chaptered hub, a sub-page, spec table, grouped media and downloads.</div></div>
       <!-- FINAL -->
       <div class="cap" data-tier="final"><div class="top"><span class="name">Full content migration <span class="site both">both</span></span><span class="tag final">Go-live</span></div><div class="desc">All content brought across and published; the current site retired.</div></div>
       <div class="cap" data-tier="final"><div class="top"><span class="name">All six languages <span class="site both">both</span></span><span class="tag final">Go-live</span></div><div class="desc">EN, CS, DE, SK, SR, SL, per-language content with the copy-and-translate workflow.</div></div>
-      <div class="cap" data-tier="final"><div class="top"><span class="name">Press kits <span class="site mr">MR</span></span><span class="tag final">Go-live</span></div><div class="desc">Press-kit hubs with chaptered sub-pages, spec tables and grouped media downloads.</div></div>
+      <div class="cap" data-tier="final"><div class="top"><span class="name">All press kits <span class="site mr">MR</span></span><span class="tag final">Go-live</span></div><div class="desc">Every press-kit hub at full scale, with the variant selector and FAQ once those are confirmed.</div></div>
       <div class="cap" data-tier="final"><div class="top"><span class="name">Company &amp; utility pages <span class="site mr">MR</span></span><span class="tag final">Go-live</span></div><div class="desc">Board of management, annual reports, brand logos, contacts, and the other company pages.</div></div>
       <div class="cap" data-tier="final"><div class="top"><span class="name">Category &amp; tag listings <span class="site sb">SB</span></span><span class="tag final">Go-live</span></div><div class="desc">The remaining archive and listing page types.</div></div>
-      <div class="cap" data-tier="final"><div class="top"><span class="name">Authoring roles &amp; permissions <span class="site both">both</span></span><span class="tag final">Go-live</span></div><div class="desc">The editorial groups (HQ, editorial, PR, agencies, local markets, approvers, admins) with the right access.</div></div>
-      <div class="cap" data-tier="final"><div class="top"><span class="name">Embargoed content <span class="site mr">MR</span></span><span class="tag final">Go-live</span></div><div class="desc">Confidential launch material kept private until its release date, then published on schedule.</div></div>
+      <div class="cap" data-tier="final"><div class="top"><span class="name">Authoring roles &amp; permissions <span class="site both">both</span></span><span class="tag final">Go-live</span></div><div class="desc">The full set of editorial groups (HQ, editorial, PR, agencies, local markets, approvers, admins) rolled out with the right access.</div></div>
       <div class="cap" data-tier="final"><div class="top"><span class="name">Search at full scale <span class="site both">both</span></span><span class="tag final">Go-live</span></div><div class="desc">Search across the full media and content library (the demo proves the experience on a sample).</div></div>
       <div class="cap" data-tier="final"><div class="top"><span class="name">Media cart at production scale <span class="site both">both</span></span><span class="tag final">Go-live</span></div><div class="desc">Size-reduced downloads and packaging, hardened for everyday use.</div></div>
       <div class="cap" data-tier="final"><div class="top"><span class="name">Banners &amp; newsletter <span class="site both">both</span></span><span class="tag final">Go-live</span></div><div class="desc">The promotional banner platform and newsletter sign-up, if kept in scope.</div></div>
@@ -259,13 +260,13 @@
         <table class="req">
           <thead><tr><th class="hid">ID</th><th>Requirement</th><th>When</th><th>Note</th></tr></thead>
           <tbody>
-            <tr data-tier="final"><td class="rid">MR-PK01</td><td class="rname">Press-kit hub</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Chapter table of contents plus resource tabs. Needs a live walkthrough with you.</td></tr>
-            <tr data-tier="final"><td class="rid">MR-PK02</td><td class="rname">Structured narrative</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Conditional sections; the UI degrades gracefully when one is absent.</td></tr>
+            <tr data-tier="demo"><td class="rid">MR-PK01</td><td class="rname">Press-kit hub</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Chapter table of contents plus resource tabs. One kit shown in the demo; all kits at go-live.</td></tr>
+            <tr data-tier="demo"><td class="rid">MR-PK02</td><td class="rname">Structured narrative</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Conditional sections; the UI degrades gracefully when one is absent.</td></tr>
             <tr data-tier="final"><td class="rid">MR-PK03</td><td class="rname">Variant / bodywork selector</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Confirm whether this control is wanted.</td></tr>
-            <tr data-tier="final"><td class="rid">MR-PK04</td><td class="rname">Grouped media areas</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Texts, infographics, tech data, images, videos; shown only where content exists.</td></tr>
+            <tr data-tier="demo"><td class="rid">MR-PK04</td><td class="rname">Grouped media areas</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Texts, infographics, tech data, images, videos; shown only where content exists.</td></tr>
             <tr data-tier="final"><td class="rid">MR-PK05</td><td class="rname">FAQ</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Per-kit vs shared pool to confirm.</td></tr>
-            <tr data-tier="final"><td class="rid">MR-PK06</td><td class="rname">Individual asset download</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Per-item download.</td></tr>
-            <tr data-tier="final"><td class="rid">MR-PK07</td><td class="rname">Whole-kit ZIP</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Complete press-kit download.</td></tr>
+            <tr data-tier="demo"><td class="rid">MR-PK06</td><td class="rname">Individual asset download</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Per-item download.</td></tr>
+            <tr data-tier="demo"><td class="rid">MR-PK07</td><td class="rname">Whole-kit ZIP</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">A pre-built file, so this one is easy (unlike an arbitrary cart selection, see section 5).</td></tr>
           </tbody>
         </table>
       </div>
@@ -279,8 +280,8 @@
             <tr data-tier="final"><td class="rid">6.1a</td><td class="rname">Company &amp; utility pages</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Board of management, annual reports, brand logos, media-services, contacts.</td></tr>
             <tr data-tier="demo"><td class="rid">6.2</td><td class="rname">Content creation &amp; configuration</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">The authoring model shown in the demo (blocks, variants, metadata).</td></tr>
             <tr data-tier="demo"><td class="rid">6.3</td><td class="rname">Preview &amp; publishing lifecycle</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Core preview/publish in the demo; scheduling, review and embargo at go-live.</td></tr>
-            <tr data-tier="final"><td class="rid">6.4</td><td class="rname">Roles &amp; permissions</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">The seven editorial groups.</td></tr>
-            <tr data-tier="final"><td class="rid">6.5</td><td class="rname">Restricted pre-publication (embargo)</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Group-restricted access plus staged publish. Approach agreed with you.</td></tr>
+            <tr data-tier="final"><td class="rid">6.4</td><td class="rname">Roles &amp; permissions</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Group-based access is native to the platform; the effort is rolling out all seven editorial groups, which lands at go-live.</td></tr>
+            <tr data-tier="demo"><td class="rid">6.5</td><td class="rname">Restricted pre-publication (embargo)</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Native: group-restricted access, preview before publish, and scheduled publish. Shown in the demo; approach agreed with you.</td></tr>
             <tr data-tier="final"><td class="rid">6.6</td><td class="rname">Restricted end-user access (QR)</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Access model still to define together.</td></tr>
             <tr data-tier="final"><td class="rid">6.7</td><td class="rname">Change history / audit</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">A firm requirement; per-user history of authoring changes.</td></tr>
             <tr data-tier="final"><td class="rid">6.8</td><td class="rname">Language &amp; market setup</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">EN+CS proven in the demo; full locale model, fallbacks and copy-and-translate at go-live.</td></tr>
@@ -309,15 +310,42 @@
     <p class="lead" style="margin-top:14px">Source: your <i>Media Room Migration — Requirements</i> brief. Wording simplified for the walk-through; nothing dropped.</p>
   </section>
 
-  <!-- 5 -->
+  <!-- 5 · What isn't native to EDS (honesty) -->
   <section>
-    <h2>5 · What the 15 October demo will show<span class="sec-note">a working Škoda Storyboard &amp; Media Room on the new platform</span></h2>
-    <p class="lead">A live walk-through across both sites: the Storyboard homepage with its self-populating rails, real story pages including one or two in full richness, the Media Room homepage and a model page, the Series experience, the Images and Videos listings with the media cart collecting and downloading assets, a press-release page, and the site in English and Czech. Plus a short "designed in Figma, generated into live components" moment, and a five-minute view of how this becomes a repeatable method for other VW sites.</p>
+    <h2>5 · What Edge Delivery doesn't do out of the box<span class="sec-note">the few non-native pieces, and how we cover each</span></h2>
+    <p class="lead">Edge Delivery is a static platform, which is what makes it fast. A handful of things sit outside that model and need a small companion service or one of your existing systems. We'd rather name them up front than have them surface late.</p>
+    <div class="cols2">
+      <div class="panel">
+        <h3>Needs a small companion service</h3>
+        <ul class="plain">
+          <li><b>Zipping an arbitrary cart selection</b> — a static site can't package a journalist's ad-hoc pick into one ZIP on the fly. A small service (App Builder + AEM Assets) does the size-reduction and packaging. Demo fallback: the selected files download separately. A whole press-kit ZIP is different, it's a pre-built file, so that one is easy.</li>
+          <li><b>Search &amp; filtering at full library scale</b> — the content index handles listings and index-based search well for a representative set; true search and faceting across tens of thousands of assets, with ranking, wants a hosted search service. The demo proves the experience on a sample.</li>
+          <li><b>Download size-reduction</b> — serving a smaller rendition on download comes from AEM Assets / the same service, not from EDS itself.</li>
+          <li><b>Gated end-user access (the QR journey)</b> — there's no built-in per-visitor gating; this needs a defined access model and likely a small service. One to design together.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Stays with your existing systems</h3>
+        <ul class="plain">
+          <li><b>Cookie consent</b> — your OneTrust setup stays; we integrate with it rather than rebuild it.</li>
+          <li><b>Newsletter / subscription</b> — no built-in mail platform; we wire your provider to the sign-up form.</li>
+          <li><b>Analytics</b> — the event layer connects to your analytics platform.</li>
+          <li><b>Third-party embeds</b> — the AI audio reading and video players are kept as the embeds they already are, not rebuilt.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout"><b>None of these is a surprise or a blocker.</b> They're the known edges of a static platform, each with a clear plan. The demo shows the cart working end to end; production-grade packaging and full-scale search are part of the go-live build.</div>
   </section>
 
   <!-- 6 -->
   <section>
-    <h2>6 · What we need from Škoda<span class="sec-note">a few inputs from your side so the demo lands on time</span></h2>
+    <h2>6 · What the 15 October demo will show<span class="sec-note">a working Škoda Storyboard &amp; Media Room on the new platform</span></h2>
+    <p class="lead">A live walk-through across both sites: the Storyboard homepage with its self-populating rails, real story pages including one or two in full richness, the Media Room homepage and a model page, the Series experience, the Images and Videos listings with the media cart collecting and downloading assets, a press-release page, and one press kit shown end to end. A restricted page previewed privately then published on schedule, and the site in English and Czech. Plus a short "designed in Figma, generated into live components" moment, and a five-minute view of how this becomes a repeatable method for other VW sites.</p>
+  </section>
+
+  <!-- 7 -->
+  <section>
+    <h2>7 · What we need from Škoda<span class="sec-note">a few inputs from your side so the demo lands on time</span></h2>
     <p class="lead">The build is straightforward and under our control. The main things that keep the date on track sit on your side, and they're all quick to settle:</p>
     <div class="ask">
       <div class="panel">
