@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Škoda Storyboard &amp; Media Room → Adobe Edge Delivery — Solution &amp; Scope</title>
+<style>
+  :root {
+    --green: #0e3a2f; --green-bright: #4ba82e; --ink: #1a1a1a; --muted: #5c6670;
+    --line: #e2e6e9; --bg: #f6f8f9; --card: #fff; --blue: #2b7bb9; --purple: #7a3d95;
+    --shadow: 0 1px 3px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.05);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--ink); background: var(--bg); font-size: 16px; line-height: 1.55; }
+  header.hero { background: linear-gradient(135deg, var(--green) 0%, #14513f 60%, #1c6b4f 100%); color: #fff; padding: 44px 32px 36px; }
+  header.hero .kicker { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--green-bright); margin: 0 0 8px; }
+  header.hero h1 { font-size: 30px; font-weight: 800; margin: 0 0 12px; line-height: 1.18; max-width: 900px; }
+  header.hero p.sub { margin: 0; color: #d6e4dd; max-width: 880px; font-size: 15.5px; }
+  header.hero .dates { margin-top: 18px; display: flex; gap: 12px; flex-wrap: wrap; }
+  header.hero .date { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18); border-radius: 10px; padding: 10px 16px; }
+  header.hero .date .d { font-size: 18px; font-weight: 800; }
+  header.hero .date .l { font-size: 11.5px; color: #b9cdc4; text-transform: uppercase; letter-spacing: .05em; }
+  main { max-width: 1120px; margin: 0 auto; padding: 30px 24px 64px; }
+  section { margin: 40px 0 0; }
+  h2 { font-size: 21px; margin: 0 0 8px; color: var(--green); border-left: 4px solid var(--green-bright); padding-left: 12px; }
+  h2 .sec-note { font-size: 13px; font-weight: 400; color: var(--muted); display: block; margin-top: 3px; }
+  h3 { font-size: 15px; margin: 20px 0 8px; color: var(--ink); }
+  p.lead { color: var(--muted); font-size: 14.5px; max-width: 860px; }
+
+  .cols2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 12px; }
+  @media (max-width: 820px) { .cols2 { grid-template-columns: 1fr; } }
+  .panel { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; box-shadow: var(--shadow); }
+  .panel h3 { margin-top: 0; }
+  ul.plain { margin: 8px 0 0; padding-left: 18px; } ul.plain li { margin: 6px 0; font-size: 14px; }
+  ul.plain li b { color: var(--ink); }
+
+  .callout { background: #eef7ee; border: 1px solid #c4e2c4; border-left: 4px solid var(--green-bright); border-radius: 10px; padding: 16px 18px; margin: 16px 0; font-size: 14.5px; }
+  .callout b { color: #1e6b1e; }
+
+  .filter { display: flex; gap: 8px; align-items: center; margin: 14px 0 6px; flex-wrap: wrap; }
+  .filter .flabel { font-size: 12.5px; color: var(--muted); font-weight: 600; margin-right: 4px; }
+  .filter button { font: inherit; font-size: 13px; font-weight: 700; padding: 7px 16px; border-radius: 20px; border: 1px solid var(--line); background: #fff; color: var(--muted); cursor: pointer; }
+  .filter button.active { background: var(--green); color: #fff; border-color: var(--green); }
+  .filter button[data-f="demo"].active { background: var(--blue); border-color: var(--blue); }
+  .filter button[data-f="final"].active { background: var(--purple); border-color: var(--purple); }
+
+  .caps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 10px; }
+  @media (max-width: 820px) { .caps { grid-template-columns: 1fr; } }
+  .cap { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 13px 15px; box-shadow: var(--shadow); }
+  .cap .top { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+  .cap .name { font-weight: 700; font-size: 14px; }
+  .cap .desc { color: var(--muted); font-size: 12.5px; margin-top: 4px; }
+  .tag { font-size: 10.5px; font-weight: 800; padding: 2px 9px; border-radius: 20px; white-space: nowrap; text-transform: uppercase; letter-spacing: .04em; }
+  .tag.demo { background: #e7f1fa; color: #1c5a86; }
+  .tag.final { background: #f3e9f7; color: #7a3d95; }
+  .site { font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 4px; margin-left: 6px; }
+  .site.sb { background: #e6f0ee; color: #0e3a2f; } .site.mr { background: #efe7f4; color: #7a3d95; } .site.both { background: #eef1f4; color: #445; }
+
+  .ask { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 12px; }
+  @media (max-width: 820px) { .ask { grid-template-columns: 1fr; } }
+  .ask .panel h3 { font-size: 14px; color: var(--green); }
+  footer { max-width: 1120px; margin: 0 auto; padding: 24px; color: var(--muted); font-size: 12px; border-top: 1px solid var(--line); }
+</style>
+</head>
+<body>
+<header class="hero">
+  <p class="kicker">Škoda Auto · Storyboard &amp; Media Room → Adobe Edge Delivery Services</p>
+  <h1>A faster, simpler Storyboard &amp; Media Room — and most of it is already running</h1>
+  <p class="sub">Both sites, rebuilt on Adobe's Edge Delivery platform: fast static pages, a modern authoring experience, and the media, listings and search rebuilt cleanly. This walk-through shows what the <b>15 October demo</b> will prove, what the <b>go-live</b> delivers, and the few things we need from your side to get there.</p>
+  <div class="dates">
+    <div class="date"><div class="d">15 Oct 2026</div><div class="l">Demo</div></div>
+    <div class="date"><div class="d">02 Jan 2027</div><div class="l">Go-live</div></div>
+  </div>
+</header>
+
+<main>
+
+  <!-- 1 -->
+  <section>
+    <h2>1 · The approach, in plain terms<span class="sec-note">what we're building and why it's a good fit</span></h2>
+    <div class="cols2">
+      <div class="panel">
+        <h3>What changes</h3>
+        <ul class="plain">
+          <li><b>Both sites move to Edge Delivery Services</b> — Storyboard (editorial) and Media Room (pressroom), one platform.</li>
+          <li><b>Authored in Document Authoring</b> — editors work in a familiar document-style tool; no heavy CMS to run.</li>
+          <li><b>Pages are static and fast</b> — served from Adobe's CDN, built for strong Core Web Vitals.</li>
+          <li><b>Media comes from AEM Assets</b> — one approved source of images; the site generates the right sizes automatically.</li>
+          <li><b>Listings &amp; search from a content index</b> — homepage rails, filters and listings populate themselves from your tags.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Why it helps</h3>
+        <ul class="plain">
+          <li><b>No plugin sprawl</b> — the current site carries a large custom WordPress + jQuery stack; the rebuild is clean and maintainable.</li>
+          <li><b>Fast by default</b> — static delivery, images optimised at request time, no server rendering to wait on.</li>
+          <li><b>Author once, reuse everywhere</b> — the same building blocks serve every page type on both sites.</li>
+          <li><b>A repeatable method</b> — the pipeline and patterns here become the blueprint for future VW Edge Delivery sites.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout"><b>We're not starting from a blank page.</b> A working English version already runs live, so this is about closing the remaining gaps and assembling the parts, not building from zero.</div>
+  </section>
+
+  <!-- 2 -->
+  <section>
+    <h2>2 · What's already running<span class="sec-note">live today on the English site</span></h2>
+    <ul class="plain">
+      <li><b>The full site frame</b> — header, mega-menu, footer, language switcher, section switcher.</li>
+      <li><b>The Storyboard homepage</b> — hero, featured promo, Latest Stories with load-more, and topic rails (eMobility, Lifestyle, Škoda World, Latest News) that populate themselves from tags.</li>
+      <li><b>Story pages</b> — a set of real articles imported and published.</li>
+      <li><b>The engines underneath</b> — the content index that drives the rails and listings, tag-based inclusion/exclusion, image optimisation, and the import pipeline that brings content across.</li>
+    </ul>
+    <div class="callout"><b>The three functions flagged as tricky are already working.</b> Excluding items from listings, placing a story in more than one category, and mixing manual picks with tag-based recommendations, all live on the English site today.</div>
+  </section>
+
+  <!-- 3 · DEMO vs FINAL (filterable centerpiece) -->
+  <section>
+    <h2>3 · What the demo shows vs what go-live delivers<span class="sec-note">filter the list, everything is a capability on one of the two sites</span></h2>
+    <div class="filter">
+      <span class="flabel">Show:</span>
+      <button data-f="all" class="active">All</button>
+      <button data-f="demo">Demo · 15 Oct</button>
+      <button data-f="final">Go-live · 02 Jan</button>
+    </div>
+    <div class="caps" id="caps">
+      <!-- DEMO -->
+      <div class="cap" data-tier="demo"><div class="top"><span class="name">Storyboard homepage <span class="site sb">SB</span></span><span class="tag demo">Demo</span></div><div class="desc">Hero, featured promo, Latest Stories, self-populating topic rails. Live today.</div></div>
+      <div class="cap" data-tier="demo"><div class="top"><span class="name">Story pages <span class="site sb">SB</span></span><span class="tag demo">Demo</span></div><div class="desc">Imported articles, with 1–2 hero stories restored to full richness (in-body galleries, video, media box).</div></div>
+      <div class="cap" data-tier="demo"><div class="top"><span class="name">Media Room homepage <span class="site mr">MR</span></span><span class="tag demo">Demo</span></div><div class="desc">The pressroom front page, assembled from the same building blocks.</div></div>
+      <div class="cap" data-tier="demo"><div class="top"><span class="name">Model page <span class="site both">both</span></span><span class="tag demo">Demo</span></div><div class="desc">A model page with its description and related-content rails.</div></div>
+      <div class="cap" data-tier="demo"><div class="top"><span class="name">Series <span class="site sb">SB</span></span><span class="tag demo">Demo</span></div><div class="desc">The two-level Series experience: directory into a curated series hub.</div></div>
+      <div class="cap" data-tier="demo"><div class="top"><span class="name">Images &amp; Videos listings <span class="site mr">MR</span></span><span class="tag demo">Demo</span></div><div class="desc">Filterable media listings with lightbox and video, plus add-to-cart, over a representative approved set.</div></div>
+      <div class="cap" data-tier="demo"><div class="top"><span class="name">Press release pages <span class="site mr">MR</span></span><span class="tag demo">Demo</span></div><div class="desc">The press-release layout (about half of all pages), with its own two-column structure.</div></div>
+      <div class="cap" data-tier="demo"><div class="top"><span class="name">Media cart <span class="site both">both</span></span><span class="tag demo">Demo</span></div><div class="desc">Collect assets across pages and download them, no login needed.</div></div>
+      <div class="cap" data-tier="demo"><div class="top"><span class="name">English + Czech <span class="site both">both</span></span><span class="tag demo">Demo</span></div><div class="desc">Two languages, with the switcher showing only the languages a page actually exists in.</div></div>
+      <div class="cap" data-tier="demo"><div class="top"><span class="name">Design-to-code showcase <span class="site both">both</span></span><span class="tag demo">Demo</span></div><div class="desc">One or two components taken from Figma and generated into live components.</div></div>
+      <!-- FINAL -->
+      <div class="cap" data-tier="final"><div class="top"><span class="name">Full content migration <span class="site both">both</span></span><span class="tag final">Go-live</span></div><div class="desc">All content brought across and published; the current site retired.</div></div>
+      <div class="cap" data-tier="final"><div class="top"><span class="name">All six languages <span class="site both">both</span></span><span class="tag final">Go-live</span></div><div class="desc">EN, CS, DE, SK, SR, SL, per-language content with the copy-and-translate workflow.</div></div>
+      <div class="cap" data-tier="final"><div class="top"><span class="name">Press kits <span class="site mr">MR</span></span><span class="tag final">Go-live</span></div><div class="desc">Press-kit hubs with chaptered sub-pages, spec tables and grouped media downloads.</div></div>
+      <div class="cap" data-tier="final"><div class="top"><span class="name">Company &amp; utility pages <span class="site mr">MR</span></span><span class="tag final">Go-live</span></div><div class="desc">Board of management, annual reports, brand logos, contacts, and the other company pages.</div></div>
+      <div class="cap" data-tier="final"><div class="top"><span class="name">Category &amp; tag listings <span class="site sb">SB</span></span><span class="tag final">Go-live</span></div><div class="desc">The remaining archive and listing page types.</div></div>
+      <div class="cap" data-tier="final"><div class="top"><span class="name">Authoring roles &amp; permissions <span class="site both">both</span></span><span class="tag final">Go-live</span></div><div class="desc">The editorial groups (HQ, editorial, PR, agencies, local markets, approvers, admins) with the right access.</div></div>
+      <div class="cap" data-tier="final"><div class="top"><span class="name">Embargoed content <span class="site mr">MR</span></span><span class="tag final">Go-live</span></div><div class="desc">Confidential launch material kept private until its release date, then published on schedule.</div></div>
+      <div class="cap" data-tier="final"><div class="top"><span class="name">Search at full scale <span class="site both">both</span></span><span class="tag final">Go-live</span></div><div class="desc">Search across the full media and content library (the demo proves the experience on a sample).</div></div>
+      <div class="cap" data-tier="final"><div class="top"><span class="name">Media cart at production scale <span class="site both">both</span></span><span class="tag final">Go-live</span></div><div class="desc">Size-reduced downloads and packaging, hardened for everyday use.</div></div>
+      <div class="cap" data-tier="final"><div class="top"><span class="name">Banners &amp; newsletter <span class="site both">both</span></span><span class="tag final">Go-live</span></div><div class="desc">The promotional banner platform and newsletter sign-up, if kept in scope.</div></div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section>
+    <h2>4 · What the 15 October demo will show<span class="sec-note">a live Škoda Storyboard &amp; Media Room on the new platform</span></h2>
+    <p class="lead">A working walk-through across both sites: the Storyboard homepage with its self-populating rails, real story pages including one or two in full richness, the Media Room homepage and a model page, the Series experience, the Images and Videos listings with the media cart collecting and downloading assets, a press-release page, and the site in English and Czech. Plus a short "designed in Figma, generated into live components" moment, and a five-minute view of how this becomes a repeatable method for other VW sites.</p>
+  </section>
+
+  <!-- 5 -->
+  <section>
+    <h2>5 · What we need from Škoda<span class="sec-note">a few inputs from your side so the demo lands on time</span></h2>
+    <p class="lead">The build is well in hand. The main things that keep the date on track sit on your side, and they're straightforward:</p>
+    <div class="ask">
+      <div class="panel">
+        <h3>To prepare</h3>
+        <ul class="plain">
+          <li><b>Choose the demo content</b> — the stories, model, images and press release we feature. This is the single most useful thing to settle early.</li>
+          <li><b>AEM Assets</b> — access to the instance and the approved image set (or confirmation of where those images live today).</li>
+          <li><b>A technical counterpart + access</b> — a named contact on your side, plus repository and environment access, so setup can start.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>A few decisions to confirm</h3>
+        <ul class="plain">
+          <li><b>Downloads</b> — the sizes/renditions offered when a journalist downloads from the cart.</li>
+          <li><b>Languages</b> — English + Czech for the demo; the full set for go-live.</li>
+          <li><b>Design showcase</b> — which one or two components to feature in the Figma-to-live demo.</li>
+          <li><b>Authoring approach</b> — we recommend Document Authoring; happy to walk through the options.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout"><b>What we'd love to agree today:</b> the demo scope above as the target for 15 October, and an owner on your side for each of the inputs, so nothing waits.</div>
+  </section>
+
+</main>
+
+<footer>
+  Škoda Storyboard &amp; Media Room → Adobe Edge Delivery Services. Client scope walk-through, prepared for the 2026-09-16 solution discussion. Dates: demo 15 October 2026, go-live 02 January 2027.
+</footer>
+
+<script>
+  const caps = document.getElementById('caps');
+  document.querySelectorAll('.filter button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.f;
+      caps.querySelectorAll('.cap').forEach(c => {
+        c.style.display = (f === 'all' || c.dataset.tier === f) ? '' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>

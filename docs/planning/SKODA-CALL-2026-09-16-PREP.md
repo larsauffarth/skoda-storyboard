@@ -4,8 +4,12 @@
 done**, close (or assign owner+date to) the **six gating decisions**, and lock the **M1 hard-blocker
 asks**. This is the "blueprint for future VW EDS projects" conversation.
 **Presenter:** Lars. **Škoda working group:** Pushkar, Markus, Martin, Jaroslav, Sara, Jagan.
-**Backing:** `SKODA-SOLUTION-DESIGN.html` (the deck), `SKODA-M1-DEMO-TARGET.md` (tiers + definition of
-done), `SKODA-DELIVERY-PLAN.md` §8 (D1–D19), `docs/tickets/OVERVIEW.md` (63 tickets / 261 SP).
+**Screen-share (client-facing):** `SKODA-CLIENT-SCOPE-DISCUSSION.html`, the clean walk-through to
+present (approach, what's live, a filterable Demo/Final split, what we need from Škoda; no effort,
+staffing, ticket IDs, or risk board). Open it in a browser and drive from it.
+**Internal backing (do NOT share):** `SKODA-SOLUTION-DESIGN.html` (tiers + decision board),
+`SKODA-M1-DEMO-TARGET.md` (definition of done), `SKODA-DELIVERY-PLAN.md` §8 (D1–D19),
+`docs/tickets/OVERVIEW.md` (63 tickets / 261 SP), and this kit.
 
 ## The one thing to keep front of mind
 The build is green and largely under our control. **Every real threat to 15 Oct and 02 Jan is on
