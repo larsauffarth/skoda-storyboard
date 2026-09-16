@@ -317,6 +317,7 @@
 | Media-cart **bulk zip-download** feasibility + options (A–F) + demo/prod recommendation | `media/SKODA-MEDIA-CART-DOWNLOAD.md` |
 | Header/footer structure | `analysis/SKODA-HEADER-FOOTER-ANALYSIS.md` |
 | DA/EW target architecture (doc-cited) | `architecture/SKODA-EDS-DA-ARCHITECTURE.md` |
+| **Custom authoring UI in DA/EW** (build any bespoke authoring control without App Builder; decision framework + cookbook) | **`architecture/SKODA-DA-EW-EXTENSIBILITY.md`** |
 | Build specs for 5 systems | `architecture/SKODA-SYSTEM-BUILD-SPECS.md` |
 | Red-team of findings / of docs / consistency | `reviews/SKODA-ADVERSARIAL-REVIEW.md`, `reviews/SKODA-ADVERSARIAL-REVIEW-2.md`, `reviews/SKODA-CORRECTNESS-AUDIT.md` |
 | Prior consolidated overview (superseded by this master) | `archive/SKODA-STORYBOARD-ANALYSIS-OVERVIEW.md` (+ `archive/…-OVERVIEW.html`, `archive/SKODA-STORYBOARD-SITE-FACTS.html`) |
