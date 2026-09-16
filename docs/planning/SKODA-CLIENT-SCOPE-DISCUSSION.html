@@ -320,7 +320,7 @@
         <ul class="plain">
           <li><b>Zipping an arbitrary cart selection</b> — a static site can't package a journalist's ad-hoc pick into one ZIP on the fly. A small service (App Builder + AEM Assets) does the size-reduction and packaging. Demo fallback: the selected files download separately. A whole press-kit ZIP is different, it's a pre-built file, so that one is easy.</li>
           <li><b>Search &amp; filtering at full library scale</b> — the content index handles listings and index-based search well for a representative set; true search and faceting across tens of thousands of assets, with ranking, wants a hosted search service. The demo proves the experience on a sample.</li>
-          <li><b>Download size-reduction</b> — serving a smaller rendition on download comes from AEM Assets / the same service, not from EDS itself.</li>
+          <li><b>Transcoding non-image originals</b> — the platform resizes and reformats <i>images</i> natively (it already serves smaller web renditions on the fly), but it doesn't process PDFs or video files; those are referenced from the DAM as-is.</li>
           <li><b>Gated end-user access (the QR journey)</b> — there's no built-in per-visitor gating; this needs a defined access model and likely a small service. One to design together.</li>
         </ul>
       </div>
