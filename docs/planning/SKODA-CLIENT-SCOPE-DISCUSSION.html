@@ -56,6 +56,18 @@
   .site { font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 4px; margin-left: 6px; }
   .site.sb { background: #e6f0ee; color: #0e3a2f; } .site.mr { background: #efe7f4; color: #7a3d95; } .site.both { background: #eef1f4; color: #445; }
 
+  /* requirement table */
+  .reqgroup { margin-top: 20px; }
+  .reqgroup h3 { color: var(--green); border-left: 3px solid var(--green-bright); padding-left: 10px; margin: 0 0 4px; font-size: 14px; }
+  table.req { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 6px; }
+  table.req th { text-align: left; font-size: 10.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); border-bottom: 1px solid var(--line); padding: 6px 10px; font-weight: 700; }
+  table.req td { border-bottom: 1px solid var(--line); padding: 7px 10px; vertical-align: top; }
+  table.req td.rid { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; color: var(--muted); white-space: nowrap; }
+  table.req td.rname { font-weight: 600; min-width: 160px; }
+  table.req td.rnote { color: var(--muted); font-size: 12.5px; }
+  table.req td.rphase { white-space: nowrap; }
+  @media (max-width: 820px) { table.req td.rid { display: none; } table.req th.hid { display: none; } }
+
   .ask { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 12px; }
   @media (max-width: 820px) { .ask { grid-template-columns: 1fr; } }
   .ask .panel h3 { font-size: 14px; color: var(--green); }
@@ -65,8 +77,8 @@
 <body>
 <header class="hero">
   <p class="kicker">Škoda Auto · Storyboard &amp; Media Room → Adobe Edge Delivery Services</p>
-  <h1>A faster, simpler Storyboard &amp; Media Room — and most of it is already running</h1>
-  <p class="sub">Both sites, rebuilt on Adobe's Edge Delivery platform: fast static pages, a modern authoring experience, and the media, listings and search rebuilt cleanly. This walk-through shows what the <b>15 October demo</b> will prove, what the <b>go-live</b> delivers, and the few things we need from your side to get there.</p>
+  <h1>A faster, simpler Storyboard &amp; Media Room, rebuilt on Adobe Edge Delivery</h1>
+  <p class="sub">Both sites, rebuilt on Adobe's Edge Delivery platform: fast static pages, a modern authoring experience, and the media, listings and search rebuilt cleanly. This walk-through shows what we'll build, what the <b>15 October demo</b> proves, what <b>go-live</b> delivers, and the few things we need from your side to get there.</p>
   <div class="dates">
     <div class="date"><div class="d">15 Oct 2026</div><div class="l">Demo</div></div>
     <div class="date"><div class="d">02 Jan 2027</div><div class="l">Go-live</div></div>
@@ -99,25 +111,26 @@
         </ul>
       </div>
     </div>
-    <div class="callout"><b>We're not starting from a blank page.</b> A working English version already runs live, so this is about closing the remaining gaps and assembling the parts, not building from zero.</div>
+    <div class="callout"><b>This is a fresh build of both sites.</b> Before proposing dates, we ran a rapid proof with real Škoda content to measure the two things that usually decide a migration's schedule: how fast content imports, and how fast pages come together. Both are fast, which is why the plan below is realistic.</div>
   </section>
 
   <!-- 2 -->
   <section>
-    <h2>2 · What's already running<span class="sec-note">live today on the English site</span></h2>
+    <h2>2 · Why the timeline is realistic<span class="sec-note">what the rapid proof measured, before committing to dates</span></h2>
+    <p class="lead">We didn't estimate on paper. We took real Škoda stories and media through the pipeline and assembled sample pages, to measure speed and confirm the harder functions are achievable on the new platform.</p>
     <ul class="plain">
-      <li><b>The full site frame</b> — header, mega-menu, footer, language switcher, section switcher.</li>
-      <li><b>The Storyboard homepage</b> — hero, featured promo, Latest Stories with load-more, and topic rails (eMobility, Lifestyle, Škoda World, Latest News) that populate themselves from tags.</li>
-      <li><b>Story pages</b> — a set of real articles imported and published.</li>
-      <li><b>The engines underneath</b> — the content index that drives the rails and listings, tag-based inclusion/exclusion, image optimisation, and the import pipeline that brings content across.</li>
+      <li><b>Import is fast</b> — real stories and images pulled through an automated pipeline and published, so bulk migration is a measured quantity, not a guess.</li>
+      <li><b>The build is quick</b> — page types assemble from a small set of reusable blocks, so most new pages are configuration, not custom development.</li>
+      <li><b>The tricky parts are feasible</b> — the three functions flagged as not off-the-shelf (excluding items from listings, placing a story in more than one category, and mixing manual picks with tag-based recommendations) all work cleanly here.</li>
+      <li><b>Performance holds up</b> — static delivery plus request-time image optimisation give the Core Web Vitals headroom the current site lacks.</li>
     </ul>
-    <div class="callout"><b>The three functions flagged as tricky are already working.</b> Excluding items from listings, placing a story in more than one category, and mixing manual picks with tag-based recommendations, all live on the English site today.</div>
+    <div class="callout"><b>The takeaway:</b> there's no research risk left in the approach. The demo and go-live below are an assembly-and-migration exercise on proven foundations, which is what makes 15 October and 02 January achievable.</div>
   </section>
 
-  <!-- 3 · DEMO vs FINAL (filterable centerpiece) -->
+  <!-- 3 · DEMO vs FINAL (filterable capability grid) -->
   <section>
     <h2>3 · What the demo shows vs what go-live delivers<span class="sec-note">filter the list, everything is a capability on one of the two sites</span></h2>
-    <div class="filter">
+    <div class="filter" data-target="caps">
       <span class="flabel">Show:</span>
       <button data-f="all" class="active">All</button>
       <button data-f="demo">Demo · 15 Oct</button>
@@ -125,8 +138,8 @@
     </div>
     <div class="caps" id="caps">
       <!-- DEMO -->
-      <div class="cap" data-tier="demo"><div class="top"><span class="name">Storyboard homepage <span class="site sb">SB</span></span><span class="tag demo">Demo</span></div><div class="desc">Hero, featured promo, Latest Stories, self-populating topic rails. Live today.</div></div>
-      <div class="cap" data-tier="demo"><div class="top"><span class="name">Story pages <span class="site sb">SB</span></span><span class="tag demo">Demo</span></div><div class="desc">Imported articles, with 1–2 hero stories restored to full richness (in-body galleries, video, media box).</div></div>
+      <div class="cap" data-tier="demo"><div class="top"><span class="name">Storyboard homepage <span class="site sb">SB</span></span><span class="tag demo">Demo</span></div><div class="desc">Hero, featured promo, Latest Stories, and self-populating topic rails.</div></div>
+      <div class="cap" data-tier="demo"><div class="top"><span class="name">Story pages <span class="site sb">SB</span></span><span class="tag demo">Demo</span></div><div class="desc">Imported articles, with 1–2 hero stories in full richness (in-body galleries, video, media box).</div></div>
       <div class="cap" data-tier="demo"><div class="top"><span class="name">Media Room homepage <span class="site mr">MR</span></span><span class="tag demo">Demo</span></div><div class="desc">The pressroom front page, assembled from the same building blocks.</div></div>
       <div class="cap" data-tier="demo"><div class="top"><span class="name">Model page <span class="site both">both</span></span><span class="tag demo">Demo</span></div><div class="desc">A model page with its description and related-content rails.</div></div>
       <div class="cap" data-tier="demo"><div class="top"><span class="name">Series <span class="site sb">SB</span></span><span class="tag demo">Demo</span></div><div class="desc">The two-level Series experience: directory into a curated series hub.</div></div>
@@ -149,16 +162,163 @@
     </div>
   </section>
 
-  <!-- 4 -->
+  <!-- 4 · Škoda's own requirement list, filterable -->
   <section>
-    <h2>4 · What the 15 October demo will show<span class="sec-note">a live Škoda Storyboard &amp; Media Room on the new platform</span></h2>
-    <p class="lead">A working walk-through across both sites: the Storyboard homepage with its self-populating rails, real story pages including one or two in full richness, the Media Room homepage and a model page, the Series experience, the Images and Videos listings with the media cart collecting and downloading assets, a press-release page, and the site in English and Czech. Plus a short "designed in Figma, generated into live components" moment, and a five-minute view of how this becomes a repeatable method for other VW sites.</p>
+    <h2>4 · Your requirements, mapped to demo or go-live<span class="sec-note">every requirement from your Media Room migration brief, with when we deliver it and a short note</span></h2>
+    <p class="lead">This is your own requirements list, using your IDs. Filter it to see what the 15 October demo covers versus what lands at go-live. A "demo" item is proven live in the demo; a "go-live" item is planned and understood, delivered for the 02 January launch.</p>
+    <div class="filter" data-target="reqs">
+      <span class="flabel">Show:</span>
+      <button data-f="all" class="active">All</button>
+      <button data-f="demo">Demo · 15 Oct</button>
+      <button data-f="final">Go-live · 02 Jan</button>
+    </div>
+    <div id="reqs">
+
+      <div class="reqgroup">
+        <h3>Common — shared by Stories &amp; Media Room</h3>
+        <table class="req">
+          <thead><tr><th class="hid">ID</th><th>Requirement</th><th>When</th><th>Note</th></tr></thead>
+          <tbody>
+            <tr data-tier="demo"><td class="rid">COM01</td><td class="rname">Site header</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Full site frame across both sections.</td></tr>
+            <tr data-tier="demo"><td class="rid">COM02</td><td class="rname">Section switcher</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Switch between Stories and Media Room.</td></tr>
+            <tr data-tier="demo"><td class="rid">COM03</td><td class="rname">Primary navigation</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Different nav sets per section.</td></tr>
+            <tr data-tier="demo"><td class="rid">COM04</td><td class="rname">Model / secondary navigation</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Exact structure to confirm with you.</td></tr>
+            <tr data-tier="demo"><td class="rid">COM05</td><td class="rname">Language / country selector</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Shows only the languages a page exists in. EN+CS in the demo, full set at go-live.</td></tr>
+            <tr data-tier="final"><td class="rid">COM06</td><td class="rname">Global search</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Demo proves the search experience on a sample; full-library search at go-live.</td></tr>
+            <tr data-tier="demo"><td class="rid">COM07</td><td class="rname">Listing / filtering</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Facets vary by type; a demo-critical subset first, the rest at go-live.</td></tr>
+            <tr data-tier="demo"><td class="rid">COM08</td><td class="rname">Content card (all variants)</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Story, news, series, model and media variants.</td></tr>
+            <tr data-tier="demo"><td class="rid">COM09</td><td class="rname">Hero / page banner</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Multiple variants.</td></tr>
+            <tr data-tier="demo"><td class="rid">COM10</td><td class="rname">Carousel / slider</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Reused across homepage rails.</td></tr>
+            <tr data-tier="demo"><td class="rid">COM11</td><td class="rname">Pagination / load more</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Six-per-click pattern.</td></tr>
+            <tr data-tier="demo"><td class="rid">COM12</td><td class="rname">Media preview actions</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Lightbox and accessibility actions.</td></tr>
+            <tr data-tier="demo"><td class="rid">COM13</td><td class="rname">Media download</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Single, multi, and renditions.</td></tr>
+            <tr data-tier="demo"><td class="rid">COM14</td><td class="rname">Media cart</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Collect and download in the demo; size-reduction and packaging hardened at go-live.</td></tr>
+            <tr data-tier="demo"><td class="rid">COM15</td><td class="rname">Social share</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Configurable channels, page and footer.</td></tr>
+            <tr data-tier="final"><td class="rid">COM16</td><td class="rname">Subscription / newsletter</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Sign-up UI can show in the demo; provider wired at go-live.</td></tr>
+            <tr data-tier="final"><td class="rid">COM17</td><td class="rname">Cookie / consent</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Stays on your OneTrust setup; integrated at go-live.</td></tr>
+            <tr data-tier="demo"><td class="rid">COM18</td><td class="rname">Footer</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Storyboard footer in the demo; Media Room variant at go-live.</td></tr>
+            <tr data-tier="demo"><td class="rid">COM19</td><td class="rname">App-download badges</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Mobile app links / desktop link.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="reqgroup">
+        <h3>Storyboard</h3>
+        <table class="req">
+          <thead><tr><th class="hid">ID</th><th>Requirement</th><th>When</th><th>Note</th></tr></thead>
+          <tbody>
+            <tr data-tier="demo"><td class="rid">STO-H01</td><td class="rname">Featured / promo carousel</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Homepage. Curated-vs-most-recent to confirm.</td></tr>
+            <tr data-tier="demo"><td class="rid">STO-H02</td><td class="rname">Latest stories</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Newest first, with load-more.</td></tr>
+            <tr data-tier="demo"><td class="rid">STO-H03</td><td class="rname">Models slider</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Source and order to confirm.</td></tr>
+            <tr data-tier="demo"><td class="rid">STO-H04</td><td class="rname">eMobility stories rail</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Self-populating by tag.</td></tr>
+            <tr data-tier="demo"><td class="rid">STO-H05</td><td class="rname">Lifestyle stories rail</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Self-populating by tag.</td></tr>
+            <tr data-tier="demo"><td class="rid">STO-H06</td><td class="rname">Škoda World stories rail</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Self-populating by tag.</td></tr>
+            <tr data-tier="demo"><td class="rid">STO-H07</td><td class="rname">Series slider</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Image-only cards; sort logic to confirm.</td></tr>
+            <tr data-tier="demo"><td class="rid">STO-H08</td><td class="rname">Latest news rail</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Source / continued scope to confirm.</td></tr>
+            <tr data-tier="demo"><td class="rid">STO-H09</td><td class="rname">Social media strip</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Approved channels.</td></tr>
+            <tr data-tier="final"><td class="rid">STO-C01–C05</td><td class="rname">Category / subcategory pages</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">The archive template lands at go-live; the underlying parts are demoed on the homepage.</td></tr>
+            <tr data-tier="demo"><td class="rid">STO-S01–S03</td><td class="rname">Series pages (directory → hub)</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Two-level Series experience.</td></tr>
+            <tr data-tier="demo"><td class="rid">STO-M01–M05</td><td class="rname">Model page</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Hero, description and related-content rails.</td></tr>
+            <tr data-tier="demo"><td class="rid">STO-D01</td><td class="rname">Story hero</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Title, image, perex, date, category.</td></tr>
+            <tr data-tier="demo"><td class="rid">STO-D02</td><td class="rname">Rich-text body</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Imported; 1–2 hero stories restored to full richness.</td></tr>
+            <tr data-tier="demo"><td class="rid">STO-D03</td><td class="rname">Embedded video</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">On the full-richness demo stories.</td></tr>
+            <tr data-tier="demo"><td class="rid">STO-D04</td><td class="rname">Image gallery / carousel</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">On the full-richness demo stories.</td></tr>
+            <tr data-tier="final"><td class="rid">STO-D05</td><td class="rname">Newsletter widget</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">UI can show in the demo; provider wired at go-live.</td></tr>
+            <tr data-tier="demo"><td class="rid">STO-D06</td><td class="rname">Related stories</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Manual picks plus tag-based fallback.</td></tr>
+            <tr data-tier="demo"><td class="rid">STO-D07</td><td class="rname">Article sidebar</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Related / promo / subscription.</td></tr>
+            <tr data-tier="final"><td class="rid">STO-D08</td><td class="rname">Side banner</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Per-market ad server today; under review with you.</td></tr>
+            <tr data-tier="demo"><td class="rid">STO-D09</td><td class="rname">Media box</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Download and add-to-cart; on the full-richness demo stories.</td></tr>
+            <tr data-tier="demo"><td class="rid">STO-D10</td><td class="rname">Social share</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Story detail.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="reqgroup">
+        <h3>Media Room</h3>
+        <table class="req">
+          <thead><tr><th class="hid">ID</th><th>Requirement</th><th>When</th><th>Note</th></tr></thead>
+          <tbody>
+            <tr data-tier="demo"><td class="rid">MR-H01–H10</td><td class="rname">Media Room homepage</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Featured, news, images, videos, models, press kits, cart, contacts.</td></tr>
+            <tr data-tier="demo"><td class="rid">MR-L01–L06</td><td class="rname">Shared listing pattern</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">One engine: search, filters, grid, load-more, sort, count. Built once, reused.</td></tr>
+            <tr data-tier="demo"><td class="rid">MR-PR01</td><td class="rname">Press-release header / layout</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Its own two-column structure (about half of all pages).</td></tr>
+            <tr data-tier="final"><td class="rid">MR-PR02</td><td class="rname">Structured article content</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Final authoring model settled toward go-live.</td></tr>
+            <tr data-tier="demo"><td class="rid">MR-PR03</td><td class="rname">AI audio reading</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Kept as the existing third-party embed, per language.</td></tr>
+            <tr data-tier="demo"><td class="rid">MR-PR04</td><td class="rname">PDF download</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Citation-ready.</td></tr>
+            <tr data-tier="demo"><td class="rid">MR-PR05</td><td class="rname">Infographic (preview → PDF)</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Preview image to downloadable PDF.</td></tr>
+            <tr data-tier="demo"><td class="rid">MR-PR06</td><td class="rname">Video (play + download)</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Playback plus source download.</td></tr>
+            <tr data-tier="demo"><td class="rid">MR-PR07</td><td class="rname">Media downloads</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">From AEM Assets.</td></tr>
+            <tr data-tier="demo"><td class="rid">MR-M01–07</td><td class="rname">Media Room model page</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Model page plus related-content strips.</td></tr>
+            <tr data-tier="demo"><td class="rid">MR-I01–05</td><td class="rname">Image listing</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Filters, preview, rendition download, add-to-cart. Representative approved set in the demo; full library at go-live.</td></tr>
+            <tr data-tier="demo"><td class="rid">MR-V01–04</td><td class="rname">Video listing</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Filters, playback, download. Representative set in the demo; full library at go-live.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="reqgroup">
+        <h3>Press kits</h3>
+        <table class="req">
+          <thead><tr><th class="hid">ID</th><th>Requirement</th><th>When</th><th>Note</th></tr></thead>
+          <tbody>
+            <tr data-tier="final"><td class="rid">MR-PK01</td><td class="rname">Press-kit hub</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Chapter table of contents plus resource tabs. Needs a live walkthrough with you.</td></tr>
+            <tr data-tier="final"><td class="rid">MR-PK02</td><td class="rname">Structured narrative</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Conditional sections; the UI degrades gracefully when one is absent.</td></tr>
+            <tr data-tier="final"><td class="rid">MR-PK03</td><td class="rname">Variant / bodywork selector</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Confirm whether this control is wanted.</td></tr>
+            <tr data-tier="final"><td class="rid">MR-PK04</td><td class="rname">Grouped media areas</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Texts, infographics, tech data, images, videos; shown only where content exists.</td></tr>
+            <tr data-tier="final"><td class="rid">MR-PK05</td><td class="rname">FAQ</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Per-kit vs shared pool to confirm.</td></tr>
+            <tr data-tier="final"><td class="rid">MR-PK06</td><td class="rname">Individual asset download</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Per-item download.</td></tr>
+            <tr data-tier="final"><td class="rid">MR-PK07</td><td class="rname">Whole-kit ZIP</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Complete press-kit download.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="reqgroup">
+        <h3>Editorial, authoring &amp; content</h3>
+        <table class="req">
+          <thead><tr><th class="hid">§</th><th>Requirement</th><th>When</th><th>Note</th></tr></thead>
+          <tbody>
+            <tr data-tier="final"><td class="rid">6.1</td><td class="rname">Reusable templates</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">New page without developer help; the authoring model is Document Authoring.</td></tr>
+            <tr data-tier="final"><td class="rid">6.1a</td><td class="rname">Company &amp; utility pages</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Board of management, annual reports, brand logos, media-services, contacts.</td></tr>
+            <tr data-tier="demo"><td class="rid">6.2</td><td class="rname">Content creation &amp; configuration</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">The authoring model shown in the demo (blocks, variants, metadata).</td></tr>
+            <tr data-tier="demo"><td class="rid">6.3</td><td class="rname">Preview &amp; publishing lifecycle</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Core preview/publish in the demo; scheduling, review and embargo at go-live.</td></tr>
+            <tr data-tier="final"><td class="rid">6.4</td><td class="rname">Roles &amp; permissions</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">The seven editorial groups.</td></tr>
+            <tr data-tier="final"><td class="rid">6.5</td><td class="rname">Restricted pre-publication (embargo)</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Group-restricted access plus staged publish. Approach agreed with you.</td></tr>
+            <tr data-tier="final"><td class="rid">6.6</td><td class="rname">Restricted end-user access (QR)</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Access model still to define together.</td></tr>
+            <tr data-tier="final"><td class="rid">6.7</td><td class="rname">Change history / audit</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">A firm requirement; per-user history of authoring changes.</td></tr>
+            <tr data-tier="final"><td class="rid">6.8</td><td class="rname">Language &amp; market setup</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">EN+CS proven in the demo; full locale model, fallbacks and copy-and-translate at go-live.</td></tr>
+            <tr data-tier="demo"><td class="rid">6.9</td><td class="rname">Digital asset management</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">AEM Assets as the approved source in the demo; renditions and rights at go-live.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="reqgroup">
+        <h3>Migration &amp; non-functional</h3>
+        <table class="req">
+          <thead><tr><th class="hid">§</th><th>Requirement</th><th>When</th><th>Note</th></tr></thead>
+          <tbody>
+            <tr data-tier="final"><td class="rid">MIG01–07</td><td class="rname">Content migration</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Sample migrated for the demo; full inventory, migration and URL preservation at go-live.</td></tr>
+            <tr data-tier="final"><td class="rid">8.1</td><td class="rname">URL &amp; SEO</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Redirects, canonical, sitemap; the full redirect map is a pre-launch task.</td></tr>
+            <tr data-tier="final"><td class="rid">8.2</td><td class="rname">Analytics &amp; tracking</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Event tracking; hooks stubbed from the demo on.</td></tr>
+            <tr data-tier="final"><td class="rid">8.3</td><td class="rname">Cookie consent</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Stays on your OneTrust.</td></tr>
+            <tr data-tier="final"><td class="rid">8.4</td><td class="rname">Newsletter / subscription</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Provider integration at go-live.</td></tr>
+            <tr data-tier="demo"><td class="rid">8.5</td><td class="rname">Performance (Core Web Vitals)</td><td class="rphase"><span class="tag demo">Demo</span></td><td class="rnote">Measured and tuned from the demo on; the platform gives real headroom here.</td></tr>
+            <tr data-tier="final"><td class="rid">8.6</td><td class="rname">Accessibility</td><td class="rphase"><span class="tag final">Go-live</span></td><td class="rnote">Audited toward go-live; target level to confirm.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+    <p class="lead" style="margin-top:14px">Source: your <i>Media Room Migration — Requirements</i> brief. Wording simplified for the walk-through; nothing dropped.</p>
   </section>
 
   <!-- 5 -->
   <section>
-    <h2>5 · What we need from Škoda<span class="sec-note">a few inputs from your side so the demo lands on time</span></h2>
-    <p class="lead">The build is well in hand. The main things that keep the date on track sit on your side, and they're straightforward:</p>
+    <h2>5 · What the 15 October demo will show<span class="sec-note">a working Škoda Storyboard &amp; Media Room on the new platform</span></h2>
+    <p class="lead">A live walk-through across both sites: the Storyboard homepage with its self-populating rails, real story pages including one or two in full richness, the Media Room homepage and a model page, the Series experience, the Images and Videos listings with the media cart collecting and downloading assets, a press-release page, and the site in English and Czech. Plus a short "designed in Figma, generated into live components" moment, and a five-minute view of how this becomes a repeatable method for other VW sites.</p>
+  </section>
+
+  <!-- 6 -->
+  <section>
+    <h2>6 · What we need from Škoda<span class="sec-note">a few inputs from your side so the demo lands on time</span></h2>
+    <p class="lead">The build is straightforward and under our control. The main things that keep the date on track sit on your side, and they're all quick to settle:</p>
     <div class="ask">
       <div class="panel">
         <h3>To prepare</h3>
@@ -188,14 +348,22 @@
 </footer>
 
 <script>
-  const caps = document.getElementById('caps');
-  document.querySelectorAll('.filter button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.filter button').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const f = btn.dataset.f;
-      caps.querySelectorAll('.cap').forEach(c => {
-        c.style.display = (f === 'all' || c.dataset.tier === f) ? '' : 'none';
+  document.querySelectorAll('.filter').forEach(filter => {
+    const target = document.getElementById(filter.dataset.target);
+    if (!target) return;
+    filter.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        filter.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.f;
+        target.querySelectorAll('[data-tier]').forEach(el => {
+          el.style.display = (f === 'all' || el.dataset.tier === f) ? '' : 'none';
+        });
+        // hide any requirement group left with no visible rows
+        target.querySelectorAll('.reqgroup').forEach(g => {
+          const anyVisible = [...g.querySelectorAll('tr[data-tier]')].some(r => r.style.display !== 'none');
+          g.style.display = anyVisible ? '' : 'none';
+        });
       });
     });
   });
