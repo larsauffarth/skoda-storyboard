@@ -15,7 +15,7 @@ header .nav-topbar {
   font-size: var(--body-font-size-s);
 }
 
-@media (width >= 900px) {
+@media (width >= 992px) {
   /* the grey bar spans the full viewport width; only its inner content is
      constrained (source treatment). */
   header .nav-topbar {
@@ -62,7 +62,7 @@ header nav[aria-expanded='true'] {
   min-height: 100dvh;
 }
 
-@media (width >= 900px) {
+@media (width >= 992px) {
   header .nav-wrapper {
     position: relative;
   }
@@ -104,7 +104,7 @@ header .nav-topbar p:last-child {
 
 /* topbar links are semibold; inactive grey, hover/active ink (source treatment) */
 header .nav-topbar a:any-link {
-  color: var(--skoda-grey-500, #7c7d7e);
+  color: var(--skoda-grey-500);
   font-weight: var(--weight-semibold);
 }
 
@@ -192,7 +192,7 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
   transform: rotate(-45deg);
 }
 
-@media (width >= 900px) {
+@media (width >= 992px) {
   header nav .nav-hamburger {
     display: none;
     visibility: hidden;
@@ -256,7 +256,7 @@ header nav .nav-sections ul > li > ul > li {
   font-weight: var(--weight-regular);
 }
 
-@media (width >= 900px) {
+@media (width >= 992px) {
   header nav .nav-sections {
     display: block;
     visibility: visible;

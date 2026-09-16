@@ -1,7 +1,7 @@
 .newsletter-stub {
   padding: 40px 24px;
   text-align: center;
-  background-color: var(--light-color, #f2f2f2);
+  background-color: var(--light-color);
 }
 
 .newsletter-stub h2,
@@ -18,8 +18,8 @@
   display: inline-block;
   padding: 12px 28px;
   border-radius: 4px;
-  background-color: var(--dark-color, #0e3a2f);
-  color: #fff;
+  background-color: var(--dark-color);
+  color: var(--skoda-white);
   text-decoration: none;
   font-weight: 700;
 }

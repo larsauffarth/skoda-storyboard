@@ -117,6 +117,8 @@ Tokens live in **`styles/brand.css`** (not `styles.css`) — start there for any
 
 `fonts.css` (SKODA Next `@font-face`) loads **lazily** — never eagerly (render-blocking). Section styles (e.g. dark) are applied via the `Section Metadata` mechanism, not ad-hoc classes.
 
+For the full CSS layering model, breakpoint ladder, naming convention, and lint-enforced guardrails (especially relevant since most block CSS is now AI-authored), see [`docs/architecture/CSS-ARCHITECTURE.md`](architecture/CSS-ARCHITECTURE.md).
+
 ---
 
 ## 7. Critical gotchas (read before you touch anything)

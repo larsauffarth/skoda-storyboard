@@ -97,7 +97,7 @@
 }
 
 /* Latest Stories featured grid: 2 large (top) + 3 medium (bottom). */
-@media (width >= 900px) {
+@media (width >= 992px) {
   .stories > ul {
     grid-template-columns: repeat(6, 1fr);
     gap: 24px;
@@ -167,7 +167,7 @@
   display: none;
 }
 
-@media (width >= 900px) {
+@media (width >= 992px) {
   /* Static 1-big + 2-small grid (carousel disabled by JS at this width). */
   .stories.cards-overlay-promo > ul {
     display: grid;
