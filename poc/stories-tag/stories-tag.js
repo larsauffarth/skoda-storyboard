@@ -92,10 +92,13 @@ function render(root, list, state) {
     const n = selectedValues(root).length;
     count.textContent = n ? `${n} selected` : 'None selected';
     help.textContent = state.sdk
-      ? 'Pick one or more categories, then Insert a Stories feed filtered to them.'
+      ? 'Pick one or more categories, then insert them as a value (at the cursor) or as a filtered Stories block.'
       : 'Preview only — open this inside da.live / Experience Workspace to insert.';
+    const disabled = !state.sdk || n === 0;
     // eslint-disable-next-line no-use-before-define
-    insert.disabled = !state.sdk || n === 0;
+    insert.disabled = disabled;
+    // eslint-disable-next-line no-use-before-define
+    insertValue.disabled = disabled;
   };
   fieldset.addEventListener('change', refresh);
 
@@ -106,6 +109,19 @@ function render(root, list, state) {
   clear.addEventListener('click', () => {
     fieldset.querySelectorAll('input').forEach((cb) => { cb.checked = false; });
     refresh();
+  });
+
+  // Insert just the comma-joined values as plain text at the cursor (sendText),
+  // e.g. to drop them into a Metadata cell or prose, rather than a whole block.
+  const insertValue = document.createElement('button');
+  insertValue.type = 'button';
+  insertValue.className = 'tp-btn';
+  insertValue.textContent = 'Insert value';
+  insertValue.addEventListener('click', async () => {
+    const values = selectedValues(root);
+    if (!state.sdk || !values.length) return;
+    await state.sdk.actions.sendText(values.join(', '));
+    state.sdk.actions.closeLibrary?.();
   });
 
   const insert = document.createElement('button');
@@ -119,7 +135,7 @@ function render(root, list, state) {
     state.sdk.actions.closeLibrary?.();
   });
 
-  bar.append(clear, count, insert);
+  bar.append(clear, count, insertValue, insert);
   root.append(bar);
   refresh();
 
