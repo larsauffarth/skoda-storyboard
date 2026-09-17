@@ -46,7 +46,7 @@ const DEFAULTS = {
 // static 1-big + 2-small grid. Matches the grid breakpoint in stories.css
 // (and mirrors the source's Flickity watchCSS: rotate on mobile, static grid on
 // desktop).
-const PROMO_CAROUSEL_QUERY = '(width < 992px)';
+const PROMO_CAROUSEL_QUERY = '(width < 900px)';
 const PROMO_ROTATE_MS = 10000;
 
 /** Read simple key/value config rows from the block, falling back to defaults. */

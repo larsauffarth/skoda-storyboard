@@ -15,7 +15,8 @@ header .nav-topbar {
   font-size: var(--body-font-size-s);
 }
 
-@media (width >= 992px) {
+/* stylelint-disable-next-line media-feature-name-value-allowed-list -- legacy literal, tracked for SKODA-106 canonical-ladder migration (docs/architecture/CSS-ARCHITECTURE.md §2) */
+@media (width >= 900px) {
   /* the grey bar spans the full viewport width; only its inner content is
      constrained (source treatment). */
   header .nav-topbar {
@@ -62,7 +63,8 @@ header nav[aria-expanded='true'] {
   min-height: 100dvh;
 }
 
-@media (width >= 992px) {
+/* stylelint-disable-next-line media-feature-name-value-allowed-list -- legacy literal, tracked for SKODA-106 canonical-ladder migration (docs/architecture/CSS-ARCHITECTURE.md §2) */
+@media (width >= 900px) {
   header .nav-wrapper {
     position: relative;
   }
@@ -192,7 +194,8 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
   transform: rotate(-45deg);
 }
 
-@media (width >= 992px) {
+/* stylelint-disable-next-line media-feature-name-value-allowed-list -- legacy literal, tracked for SKODA-106 canonical-ladder migration (docs/architecture/CSS-ARCHITECTURE.md §2) */
+@media (width >= 900px) {
   header nav .nav-hamburger {
     display: none;
     visibility: hidden;
@@ -256,7 +259,8 @@ header nav .nav-sections ul > li > ul > li {
   font-weight: var(--weight-regular);
 }
 
-@media (width >= 992px) {
+/* stylelint-disable-next-line media-feature-name-value-allowed-list -- legacy literal, tracked for SKODA-106 canonical-ladder migration (docs/architecture/CSS-ARCHITECTURE.md §2) */
+@media (width >= 900px) {
   header nav .nav-sections {
     display: block;
     visibility: visible;

@@ -97,7 +97,8 @@
 }
 
 /* Latest Stories featured grid: 2 large (top) + 3 medium (bottom). */
-@media (width >= 992px) {
+/* stylelint-disable-next-line media-feature-name-value-allowed-list -- legacy literal, tracked for SKODA-106 canonical-ladder migration (docs/architecture/CSS-ARCHITECTURE.md §2) */
+@media (width >= 900px) {
   .stories > ul {
     grid-template-columns: repeat(6, 1fr);
     gap: 24px;
@@ -167,7 +168,8 @@
   display: none;
 }
 
-@media (width >= 992px) {
+/* stylelint-disable-next-line media-feature-name-value-allowed-list -- legacy literal, tracked for SKODA-106 canonical-ladder migration (docs/architecture/CSS-ARCHITECTURE.md §2) */
+@media (width >= 900px) {
   /* Static 1-big + 2-small grid (carousel disabled by JS at this width). */
   .stories.cards-overlay-promo > ul {
     display: grid;

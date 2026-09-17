@@ -173,7 +173,8 @@ main .section:not(.dark) .carousel-caption .carousel-track > ul > li img {
 }
 
 /* responsive cards-per-view */
-@media (width < 992px) {
+/* stylelint-disable-next-line media-feature-name-value-allowed-list -- legacy literal, tracked for SKODA-106 canonical-ladder migration (docs/architecture/CSS-ARCHITECTURE.md §2) */
+@media (width < 900px) {
   .carousel .carousel-track > ul > li {
     width: calc((100% - 24px) / 2); /* 2 per view on tablet */
   }

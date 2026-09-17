@@ -39,7 +39,8 @@ header {
   height: var(--nav-main-height); /* mobile: topbar hidden, only the main nav row */
 }
 
-@media (width >= 992px) {
+/* stylelint-disable-next-line media-feature-name-value-allowed-list -- legacy literal, tracked for SKODA-106 canonical-ladder migration (docs/architecture/CSS-ARCHITECTURE.md §2) */
+@media (width >= 900px) {
   header {
     height: var(--nav-height); /* desktop: topbar + main nav */
   }
@@ -318,7 +319,8 @@ main > .section.dark > .default-content-wrapper > h3 > a:hover {
   color: var(--dark-color);
 }
 
-@media (width >= 992px) {
+/* stylelint-disable-next-line media-feature-name-value-allowed-list -- legacy literal, tracked for SKODA-106 canonical-ladder migration (docs/architecture/CSS-ARCHITECTURE.md §2) */
+@media (width >= 900px) {
   main > .section > div {
     padding: 0 32px;
   }
