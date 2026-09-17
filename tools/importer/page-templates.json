@@ -8,7 +8,7 @@
       "urls": [
         "https://www.skoda-storyboard.com/en/"
       ],
-      "description": "Škoda Storyboard English landing/home page (WordPress front page). Hero/featured promo grid + thematic teaser rails (Latest Stories, Social media, Models, eMobility, Lifestyle, Škoda World, Series, Latest News). Dynamic systems (media-cart add hooks, promo banners, newsletter, social feed, load-more) are omitted or rendered as static stubs.",
+      "description": "TIER1 T1. Škoda Storyboard English landing/home page (WordPress front page). Hero/featured promo grid + thematic teaser rails (Latest Stories, Social media, Models, eMobility, Lifestyle, Škoda World, Series, Latest News). Dynamic systems (media-cart add hooks, promo banners, newsletter, social feed, load-more) are omitted or rendered as static stubs. DONE + live; polish only.",
       "blocks": [
         {
           "name": "cards-overlay",
@@ -60,7 +60,168 @@
         "https://www.skoda-storyboard.com/en/skoda-world/the-new-skoda-slavia-features-a-refreshed-look-and-an-exclusive-colour/",
         "https://www.skoda-storyboard.com/en/emobility/practical-fun-stylish-5-reasons-to-choose-the-epiq/"
       ],
-      "description": "Škoda Storyboard English story articles (8: 3 featured promo + 5 Latest Stories). Imported as lightweight pages (hero image + title + intro/body) under /en/stories/<slug>, each carrying metadata (title, description, image, publisheddate ISO, category, template=story) so a published query-index can auto-populate the Latest Stories block. Visual fidelity of the article body is intentionally out of scope.",
+      "description": "TIER1 T2 (flattened slice). Škoda Storyboard English story articles imported as lightweight pages (hero image + title + intro/body) under /en/stories/<slug>, each carrying metadata (title, description, image, publisheddate ISO, category, template=story) so a published query-index auto-populates the Latest Stories block. Full-fidelity story shell (gallery/embed/media-box, two-column) is T2 build.",
+      "blocks": []
+    },
+    {
+      "name": "story-detail",
+      "urls": [
+        "https://www.skoda-storyboard.com/en/lifestyle/people/the-story-of-olive-oil-from-andalusia-to-the-czech-republic/"
+      ],
+      "description": "TIER1 T2. Full-fidelity story detail — Shell A two-column (66.6/33.3): hero + rich text + in-body gallery-lightbox + embeds (YouTube) + foot press-kit-media (Media Box); secondary column tags + newsletter + social-share; related story-rail. Meta template=story with category/tags/model. Spec: story-detail.md.",
+      "blocks": []
+    },
+    {
+      "name": "storyboard-model",
+      "urls": [
+        "https://www.skoda-storyboard.com/en/skoda-model/peaq/"
+      ],
+      "description": "TIER1 T3. Storyboard model page (skoda_model CPT). Hero overlay carousel + icon section-nav + Model Description rich text + key-facts + 5 tag-driven story-rail rails (News/Press Kits/Stories/Images/Videos filtered by the model tag). Meta template=skoda_model, model+tags=<slug>. Spec: template-model-page.md.",
+      "blocks": []
+    },
+    {
+      "name": "series-directory",
+      "urls": [
+        "https://www.skoda-storyboard.com/en/series-2/"
+      ],
+      "description": "TIER1 T4. Series directory — Shell B template-tiles: hero overlay + cards-overlay grid of series cards. series block variant=directory. Spec: series.md.",
+      "blocks": []
+    },
+    {
+      "name": "series-hub",
+      "urls": [
+        "https://www.skoda-storyboard.com/en/series/125-years-of-motorsport/"
+      ],
+      "description": "TIER1 T5. Series hub (single-skoda_series). Hero overlay + curated cards-overlay story grid (FIXED count, no load-more). series block variant=hub. Meta template=skoda_series. Spec: series.md.",
+      "blocks": []
+    },
+    {
+      "name": "media-room-home",
+      "urls": [
+        "https://www.skoda-storyboard.com/en/media-room/"
+      ],
+      "description": "TIER1 T6. Media Room home. Featured promo + News feed (stories template=press_release, load-more) + Models (dark) + Latest Stories + Images + Videos + Press Kits rails (story-rail by template). footer-mediaroom. Meta template=page. Spec: template-home.md.",
+      "blocks": []
+    },
+    {
+      "name": "category-listing",
+      "urls": [
+        "https://www.skoda-storyboard.com/en/category/emobility/",
+        "https://www.skoda-storyboard.com/en/category/podcast-en/"
+      ],
+      "description": "TIER1 T7. Category listing (category archive). Hero + card-teaser grid (stories filtered category=<slug>) + load-more. No facets. Meta template=page. Spec: template-category-archive.md.",
+      "blocks": []
+    },
+    {
+      "name": "tag-model-listing",
+      "urls": [
+        "https://www.skoda-storyboard.com/en/tag/model/elroq/"
+      ],
+      "description": "TIER1 T8. Tag/model listing. CTA hero (Discover/Configure/Images/Videos) + filtered card-teaser grid (tags=<slug>) + load-more. Meta template=page. Spec: template-category-archive.md.",
+      "blocks": []
+    },
+    {
+      "name": "faceted-listing-news",
+      "urls": [
+        "https://www.skoda-storyboard.com/en/news/"
+      ],
+      "description": "TIER2 T9. Faceted listing (News) — Shell C listing engine: facet pill bar + card-teaser grid + load-more (6/page) + newest/oldest sort. template=press_release, columns=3. Spec: faceted-listing.md.",
+      "blocks": []
+    },
+    {
+      "name": "images-listing",
+      "urls": [
+        "https://www.skoda-storyboard.com/en/images/"
+      ],
+      "description": "TIER2 T10. Images listing — listing engine columns=4 + gallery-lightbox + media-cart (add-to-cart, dual-rendition download). template=image. Spec: faceted-listing.md + gallery-lightbox.md + media-cart.md.",
+      "blocks": []
+    },
+    {
+      "name": "videos-listing",
+      "urls": [
+        "https://www.skoda-storyboard.com/en/videos/"
+      ],
+      "description": "TIER2 T11. Videos listing — listing engine + embeds (Vimeo thumb/embed) + media-cart (MP4 download). template=video, columns=3. Spec: faceted-listing.md + embeds.md + media-cart.md.",
+      "blocks": []
+    },
+    {
+      "name": "press-kit-hub",
+      "urls": [
+        "https://www.skoda-storyboard.com/en/press-kits/skoda-epiq-press-kit-2/"
+      ],
+      "description": "TIER2 T12. Press-kit hub — Shell B template-tiles: hero + chapter-nav + cards-overlay chapter tiles + downloads (whole-kit ZIP) + faq-accordion. Meta template=press_kit, tags=<model>. Spec: press-kit-template.md.",
+      "blocks": []
+    },
+    {
+      "name": "press-kit-chapter",
+      "urls": [
+        "https://www.skoda-storyboard.com/en/press-kits/skoda-epiq-press-kit-2/exterior-the-first-skoda-production-model-to-fully-incorporatethe-modern-solid-design-language/"
+      ],
+      "description": "TIER2 T13. Press-kit chapter — Shell A two-column (no top hero): chapter-nav + article body + gallery-lightbox + press-kit-media (large Media Box); secondary downloads + tags. Meta template=page. Spec: press-kit-template.md.",
+      "blocks": []
+    },
+    {
+      "name": "press-kit-resource",
+      "urls": [
+        "https://www.skoda-storyboard.com/en/press-kits/skoda-epiq-press-kit-2/infographics/"
+      ],
+      "description": "TIER2 T14. Press-kit resource (infographics) — press-kit-variant: preview→PDF/JPG dual-format grid. Meta template=page. Spec: press-kit-variant.md.",
+      "blocks": []
+    },
+    {
+      "name": "press-release-detail",
+      "urls": [
+        "https://www.skoda-storyboard.com/en/press-releases/skoda-superb-25-years-of-comfort-space-and-technical-excellence/"
+      ],
+      "description": "TIER2 T15. Press release detail — Shell A two-column, MR side, NO top hero: text title + lead teaser + bullets + rich text; secondary downloads + tags + newsletter; embeds (Buzzsprout AI-audio) + press-kit-media + full-bleed dark related band. Meta template=press_release, category=press-releases. Spec: template-press-release.md.",
+      "blocks": []
+    },
+    {
+      "name": "company-board-of-management",
+      "urls": [
+        "https://www.skoda-storyboard.com/en/board-of-management/"
+      ],
+      "description": "TIER2 T16. Company: board-of-management — hero + exec-bio accordion rows (expandable gallery + CV/photo-ZIP/press/LinkedIn). Meta template=page. Spec: company-pages.md.",
+      "blocks": []
+    },
+    {
+      "name": "company-annual-reports",
+      "urls": [
+        "https://www.skoda-storyboard.com/en/annual-reports/"
+      ],
+      "description": "TIER2 T17. Company: annual-reports — hero + reverse-chron downloads list (PDF-cover thumbs). Meta template=page. Spec: company-pages.md + downloads.md.",
+      "blocks": []
+    },
+    {
+      "name": "company-company-logo",
+      "urls": [
+        "https://www.skoda-storyboard.com/en/company-logo/"
+      ],
+      "description": "TIER2 T18. Company: company-logo — hero + brand-asset grid (cards-media, dual PDF+PNG download per variant). Meta template=page. Spec: company-pages.md.",
+      "blocks": []
+    },
+    {
+      "name": "company-media-services-app",
+      "urls": [
+        "https://www.skoda-storyboard.com/en/skoda-media-services-application/"
+      ],
+      "description": "TIER2 T19. Company: media-services-app — hero + screenshots + QR + app-store badges (app-promo). Meta template=page. Spec: company-pages.md.",
+      "blocks": []
+    },
+    {
+      "name": "company-contacts",
+      "urls": [
+        "https://www.skoda-storyboard.com/en/contacts/"
+      ],
+      "description": "TIER2 T20. Company: contacts — hero + dept-grouped contact-directory cards (cards-media: photo/title/email/phone/LinkedIn). Meta template=page. Spec: company-pages.md.",
+      "blocks": []
+    },
+    {
+      "name": "newsletter-archive-signup",
+      "urls": [
+        "https://www.skoda-storyboard.com/en/newsletter/"
+      ],
+      "description": "TIER2 T21. Newsletter archive + signup — hero + date-listed archive + GDPR-consent signup form (newsletter block, upgrade from newsletter-stub). Meta template=page. Spec: newsletter.md.",
       "blocks": []
     }
   ]

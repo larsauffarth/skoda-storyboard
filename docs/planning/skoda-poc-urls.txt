@@ -1,8 +1,9 @@
-# Škoda PoC minimal coverage URL set — 2026-09-15. Importer-ready (one URL per line).
+# Škoda PoC minimal coverage URL set — 2026-09-15 (Škodapedia removed on demo-scope decision).
 # Full rationale + coverage matrix: SKODA-POC-URL-SET.md · machine-readable: skoda-poc-urls.json
-# NOTE: item 10 (Škodapedia term-detail) needs a concrete term URL from /en/skodapedia/ before import.
+# Working set = 22 coverage URLs / 23 templates. The rail-feed corpus (extra tagged stories/
+# news/images/videos to prove rails + load-more) is maintained separately, see the demo plan.
 
-# --- Minimal set (24) ---
+# --- Minimal set (22) ---
 https://www.skoda-storyboard.com/en/
 https://www.skoda-storyboard.com/en/lifestyle/people/the-story-of-olive-oil-from-andalusia-to-the-czech-republic/
 https://www.skoda-storyboard.com/en/category/emobility/
@@ -11,8 +12,6 @@ https://www.skoda-storyboard.com/en/series-2/
 https://www.skoda-storyboard.com/en/series/125-years-of-motorsport/
 https://www.skoda-storyboard.com/en/skoda-model/peaq/
 https://www.skoda-storyboard.com/en/category/podcast-en/
-https://www.skoda-storyboard.com/en/skodapedia/
-# https://www.skoda-storyboard.com/en/skodapedia/<TERM-SLUG>/   <-- item 10: pick a term-detail page
 https://www.skoda-storyboard.com/en/media-room/
 https://www.skoda-storyboard.com/en/news/
 https://www.skoda-storyboard.com/en/images/
