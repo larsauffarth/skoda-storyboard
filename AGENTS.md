@@ -6,6 +6,23 @@ Edge Delivery Services. Read a block first. Omissions are in the repo or known.
 
 **Operating model (durable — reread on every execution cycle + after any context compaction/reset):** the migration runs as an Architect → Developer → QA team loop defined in [`AGENTS-TEAM.md`](AGENTS-TEAM.md). Do not rely on conversation history for the team structure, parallelism/collision rules, QA/visual-fidelity requirements, or the convergence/termination conditions — reread `AGENTS-TEAM.md` before continuing work. It defines *how the team operates*; project knowledge stays under `docs/*` and the ticket backlog under `docs/tickets/`.
 
+# Frontend Engineering Rules
+
+For any frontend CSS, styling, responsive-layout, or UI-component work:
+
+- Read and follow `docs/architecture/css-responsive-guidelines.md`.
+- Treat those guidelines as mandatory engineering constraints.
+- Prefer fluid CSS, intrinsic layout, and container queries before viewport breakpoints.
+- Use the three-layer CSS architecture:
+  1. Fluid
+  2. Intrinsic/adaptive
+  3. Breakpoint/behavioral
+- Use CSS variables/design tokens for reusable dimensions, spacing, typography, colors, etc.
+- Keep global CSS limited to genuinely global concerns.
+- Keep component-specific CSS with the component.
+- Do not introduce a breakpoint without a concrete layout/behavior reason.
+- Perform the guardrail self-check before returning CSS changes.
+
 ## Avoid
 - `scripts/aem.js` is vendored. Never edit.
 - Markup comes from the backend. `curl localhost:3000/x.plain.html` first.
