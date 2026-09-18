@@ -89,10 +89,26 @@ Reuse existing project tokens before introducing new ones. Hierarchy:
 
 Components should consume semantic tokens over hard-coded values.
 
-Use variables for reusable dimensions, spacing, typography, colors, radii,
-borders, shadows, z-index, and animation/transition timing — but don't
-create a variable mechanically for a meaningless one-off value. Avoid
-magic numbers and near-duplicate tokens.
+Any `font-size`, `line-height`, `margin`, `padding`, `gap`, `border-width`,
+`border-radius`, `width`, `height`, or other dimension that represents a
+design-scale decision (a spacing step, type size, radius, border weight,
+or component dimension meant to stay consistent project-wide) must come
+from a token:
+
+- Token exists → use it.
+- No matching token exists → define a new semantic token for it, then use
+  that token. Do not hardcode a scale-relevant value just because its
+  token doesn't exist yet.
+
+A bare number is still fine for values that aren't a design-scale
+decision: structural/intrinsic sizing (`100%`, `auto`, `1fr`, content-based
+sizing), a value already derived from another property (an icon at `1em`
+tied to `font-size`), `calc()` offsets against an existing token, and
+genuine one-off values with no design significance and no chance of
+reuse (e.g. an optical-alignment nudge). Don't create a token just to
+satisfy this rule when the value isn't actually a design decision.
+
+Avoid magic numbers and near-duplicate tokens.
 
 ## 6. Global vs. Component CSS
 
@@ -157,7 +173,10 @@ that component, not in global stylesheets.
 - Component CSS in global stylesheets.
 - JavaScript-driven viewport layout.
 - Hiding functionality just because the viewport is narrow.
-- Hard-coded theme values where a semantic token already exists.
+- Hard-coding a design-scale value (spacing step, type size, radius,
+  border weight, recurring component dimension) instead of using or
+  creating a token — for that class of value, "no token exists yet" is
+  not an excuse to hardcode.
 - Ignoring localization/RTL/text-expansion, reduced-motion, or
   font-scaling preferences.
 - Hover-only interaction behavior.
@@ -170,6 +189,10 @@ Before returning CSS changes, verify:
   minimal, and consider intermediate widths — not just named device sizes.
 - Container queries considered for reusable components.
 - Existing tokens reused; new ones only where meaningful.
+- Every design-scale value (spacing, type size, radius, border weight,
+  recurring dimension) uses a token — a new semantic one was created if
+  none existed. Structural, intrinsic, and genuine one-off values were
+  left as bare numbers rather than forced into a token.
 - Global CSS holds only global concerns; component CSS stays local.
 - Fixed dimensions are justified; specificity low; no unjustified
   `!important`; no JS solving a CSS-solvable problem.
