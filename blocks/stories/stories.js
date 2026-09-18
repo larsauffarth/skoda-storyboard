@@ -21,8 +21,14 @@ import loadQueryIndex from '../../scripts/query-index.js';
 //   | path     | /en/stories/         |
 //   | limit    | 3                    |
 //   | offset   | 0                    |
+//   | category | emobility, lifestyle |
 //   | exclude  | some-slug, other-slug |
 //   | excludecategory | press-releases |
+//
+// `category` is an optional positive include: when set, only stories whose
+// `category` matches one of the (comma-separated) values are kept. Empty = keep
+// all (path-scoped). This mirrors story-rail's single-category filter but accepts
+// a list, so a picker can select one or several categories.
 //
 // `offset` skips the first N matching stories — so the featured promo (offset 0,
 // limit 3) and Latest Stories (offset 3) draw from the SAME sorted index without
@@ -38,6 +44,7 @@ const DEFAULTS = {
   path: '/en/stories/',
   limit: 5,
   offset: 0,
+  category: '',
   exclude: '',
   excludecategory: '',
 };
@@ -66,6 +73,11 @@ function readConfig(block) {
   config.excludeList = config.exclude
     .split(',')
     .map((s) => s.trim())
+    .filter(Boolean);
+  // Positive category include (empty = keep all). Comma-separated = OR match.
+  config.categoryList = config.category
+    .split(',')
+    .map((s) => s.trim().toLowerCase())
     .filter(Boolean);
   // Categories to drop entirely (e.g. press-releases belong only in Latest News).
   config.excludeCategoryList = config.excludecategory
@@ -224,6 +236,9 @@ export default async function decorate(block) {
       // one-off drop-list (substring match on path) — usually empty now that
       // featured/latest split by `offset` from the same sorted list.
       .filter((e) => !config.excludeList.some((frag) => (e.path || '').includes(frag)))
+      // positive category include: keep only selected categories (empty = keep all)
+      .filter((e) => !config.categoryList.length
+        || config.categoryList.includes((e.category || '').toLowerCase()))
       // drop whole categories that belong to a dedicated rail (e.g. press-releases)
       .filter((e) => !config.excludeCategoryList.includes((e.category || '').toLowerCase()))
       .sort((a, b) => toTime(b) - toTime(a));

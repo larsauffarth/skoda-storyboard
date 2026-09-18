@@ -47,6 +47,7 @@
 **DA-specific callouts vs AEM-authored EDS:**
 - ❌ No spreadsheet-based indexing — selector-based index config is **submitted to the admin config service** (`PUT admin.hlx.page/config/{org}/sites/{site}/content/query.yaml`), **not** a repo `helix-query.yaml` (retired). — `/developer/indexing`, §6.
 - ❌ No Universal Editor / component-model / JCR content packages — `/developer/component-model-definitions` is out of scope.
+- ✅ **Custom authoring controls are still available without UE/App Builder** (build-confirmed 2026-09-16): a **DA library plugin** (hosted HTML/JS registered in a `library` config sheet, talking to the editor via `DA_SDK`) gives authors real multi-select pickers, dynamic/governed dropdowns, asset/reference choosers, and validated inputs, surfacing in both the classic DA editor and the EW canvas panel. This is the answer to "can the WYSIWYG editor do complex config"; UE is only needed for per-field in-canvas editing or an AEM-CS `aem-tag` picker. Full guide + decision framework + cookbook: **`SKODA-DA-EW-EXTENSIBILITY.md`**. PoCs: `poc/tag-multiselect/`, `poc/stories-tag/`.
 - ✅ Media can be uploaded **directly into DA** (saved to a per-doc dotfolder) *or* served from **AEM Assets/Dynamic Media** if the integration is enabled — `/docs/ew/authoring/adding-media`. (For this site's scale, see §7.)
 
 ---
