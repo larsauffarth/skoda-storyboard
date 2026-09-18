@@ -1,18 +1,23 @@
-# Query-index configuration for the Škoda Storyboard EN stories index.
+# Query-index configuration for the Škoda Storyboard EN index.
 #
 # NOTE: for this DA/markup project the indexer config is NOT read from the repo
 # (helix-query.yaml is retired — see AGENTS.md). It is submitted to the admin
 # config service at:
-#   PUT https://admin.hlx.page/config/larsauffarth/sites/skoda-storyboard/content/query.yaml
-# This file is kept only as the source-of-truth record of what was submitted.
+#   https://admin.hlx.page/config/larsauffarth/sites/skoda-storyboard/content/query.yaml
+# GOTCHA: PUT = CREATE-ONLY (409 AEM_BACKEND_CONFIG_EXISTS if it already exists);
+# to UPDATE an existing config use POST (204). Source-of-truth record below.
 #
-# The `stories` block fetches /en/query-index.json and keeps entries whose
-# `template` == "story", then sorts by `publisheddate` descending.
+# One index at /en/query-index.json feeds every rail/listing. Blocks filter it
+# client-side by `template` (story | press_release | skoda_model | image | video
+# | press_kit | series) and, where relevant, `category`, `tags`, and `series`.
+#
+# The include scope widened from /en/stories/** to /en/** so the rail-feed corpus
+# (models, series, press releases/kits, images, videos, tagged stories) is indexed.
 version: 1
 indices:
   stories:
     include:
-      - /en/stories/**
+      - /en/**
     target: /en/query-index.json
     properties:
       title:
@@ -37,6 +42,16 @@ indices:
           attribute(el, 'content')
       template:
         select: head > meta[name="template"]
+        value: |
+          attribute(el, 'content')
+      tags:
+        # `tags` is a reserved EDS metadata key (not emitted as <meta>); the
+        # importer writes the model/topic tags under `modeltags` instead.
+        select: head > meta[name="modeltags"]
+        value: |
+          attribute(el, 'content')
+      series:
+        select: head > meta[name="series"]
         value: |
           attribute(el, 'content')
       lastModified:
