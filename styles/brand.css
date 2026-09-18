@@ -14,7 +14,9 @@
   --skoda-white: #fff;
   --skoda-grey-100: #f5f5f5;
   --skoda-grey-200: #e6e6e6;
+  --skoda-grey-500: #7c7d7e;         /* tag/label pill (measured) */
   --skoda-grey-border: #dadada;
+  --skoda-green-emerald-hover: #a8ffcc; /* emerald chip/toolbar hover */
 
   /* fonts */
   --body-font-family: 'SKODA Next', helvetica, arial, sans-serif;
@@ -42,6 +44,7 @@
   --heading-font-size-xs: 16px;
 
   /* weights */
+  --weight-light: 300;
   --weight-regular: 400;
   --weight-medium: 500;
   --weight-semibold: 600;
@@ -65,4 +68,24 @@
   --content-max-width: 1248px;
   --nav-height: 108px;      /* total header: topbar (44) + main nav (64) */
   --nav-main-height: 64px;  /* main nav row only */
+
+  /* tags / label pill (measured — tags.md) */
+  --tag-radius: 2px;
+  --tag-padding: 5px 10px;
+  --tag-font-size: 11px;
+  --tag-letter-spacing: 0.1em;
+  --tag-gap: 5px;
+
+  /* hero (series hub — hero.md Variant C) */
+  --heading-font-size-hero: 48px;
+
+  /* social share (page-level — social-share.md) */
+  --icon-btn-radius: 4px;
+  --social-share-size-desktop: 58px;
+  --social-share-size-compact: 40px;
+  --social-x: #000;
+  --social-pinterest: #cb2027;
+  --social-linkedin: #0a66c2;
+  --social-facebook: #3b5998;
+  --social-whatsapp: #43d854;
 }
