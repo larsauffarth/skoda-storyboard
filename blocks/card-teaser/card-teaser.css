@@ -1,0 +1,86 @@
+/* card-teaser — category / tag archive grid (spec: docs/ui-specs/template-category-archive.md).
+   3 → 2 → 1 responsive grid of 16:9 overlay cards + a Load-more button. Reuses
+   the .cards-overlay overlay-card look; tokens only. */
+
+.card-teaser > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-l);
+}
+
+@media (width >= 768px) {
+  .card-teaser > ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (width >= 1080px) {
+  .card-teaser > ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card-teaser > ul > li {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--card-radius);
+}
+
+.card-teaser .cards-overlay-card-image {
+  line-height: 0;
+}
+
+.card-teaser .cards-overlay-card-image img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.card-teaser .cards-overlay-card-body {
+  position: absolute;
+  inset: auto 0 0;
+  margin: 0;
+  padding: var(--spacing-m);
+  color: var(--skoda-white);
+  background: linear-gradient(rgb(0 0 0 / 0%) 0%, rgb(0 0 0 / 20%) 40%, rgb(0 0 0 / 75%) 100%);
+}
+
+.card-teaser .cards-overlay-card-date {
+  margin: 0 0 4px;
+  font-size: var(--body-font-size-s);
+}
+
+.card-teaser .cards-overlay-card-body h2,
+.card-teaser .cards-overlay-card-body h3 {
+  margin: 0;
+  color: var(--skoda-white);
+  font-size: var(--heading-font-size-s); /* 18px standard teaser title */
+  font-weight: var(--weight-regular);
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Load more — same treatment as the stories block */
+.card-teaser-load-more {
+  display: block;
+  margin: var(--spacing-l) auto 0;
+  padding: 12px 28px;
+  border: 1px solid var(--skoda-ink);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--skoda-ink);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+}
+
+.card-teaser-load-more:hover,
+.card-teaser-load-more:focus-visible {
+  background: var(--skoda-ink);
+  color: var(--skoda-white);
+}
