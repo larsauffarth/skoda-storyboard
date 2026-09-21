@@ -1,0 +1,65 @@
+/* tags — per-article tag/category row (spec: docs/ui-specs/tags.md).
+   Default: grey `.label` pills (measured), flex-wrap layout (retires float+clearfix).
+   Variant `.chips`: green emerald filter chip for facet reuse. Tokens only. */
+
+.tags .tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tag-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tags .tag-label {
+  display: inline-block;
+  padding: var(--tag-padding);
+  border: 0;
+  border-radius: var(--tag-radius);
+  background-color: var(--skoda-grey-500);
+  color: var(--skoda-white);
+  font-size: var(--tag-font-size);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  letter-spacing: var(--tag-letter-spacing);
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+a.tag-label:hover,
+a.tag-label:focus-visible {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+a.tag-label:focus-visible {
+  outline: 2px solid var(--skoda-ink);
+  outline-offset: 2px;
+}
+
+/* mobile: source centers the row below 768 */
+@media (width < 768px) {
+  .tags .tags-list {
+    justify-content: center;
+  }
+}
+
+/* ---- chips variant (green emerald filter chip, facet reuse — spec §5) ---- */
+.tags.chips .tag-label {
+  padding: 0.875rem 1.5rem;
+  border-radius: 2em;
+  background-color: var(--skoda-green-emerald);
+  color: var(--skoda-ink);
+  font-size: var(--body-font-size-m);
+  font-weight: var(--weight-regular);
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.tags.chips a.tag-label:hover,
+.tags.chips a.tag-label:focus-visible,
+.tags.chips .tag-label.active {
+  background-color: var(--skoda-green-emerald-hover);
+  text-decoration: none;
+}

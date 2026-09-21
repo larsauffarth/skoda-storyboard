@@ -1,0 +1,140 @@
+/* social-share — page-level share control (spec: docs/ui-specs/social-share.md).
+   Floating white pill trigger that expands (upward) into per-network share links.
+   `inline` variant renders in-flow. Tokens only. */
+
+.social-share-floating {
+  position: fixed;
+  right: 7em;
+  bottom: 30px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+@media (width < 992px) {
+  .social-share-floating {
+    right: 4.9em;
+    bottom: 20px;
+  }
+}
+
+/* trigger — measured white pill */
+.social-share-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--social-share-size-desktop);
+  height: var(--social-share-size-desktop);
+  padding: 0;
+  border: 0;
+  border-radius: var(--icon-btn-radius);
+  background: var(--skoda-white);
+  color: var(--skoda-ink);
+  box-shadow: 0 3px 8px rgb(0 0 0 / 15%);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.social-share-trigger:focus-visible {
+  outline: 2px solid var(--skoda-ink);
+  outline-offset: 2px;
+}
+
+/* expandable menu (collapsed by default) — floating variant only */
+.social-share-floating .social-share-menu {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateX(15%);
+  transition: all 0.4s cubic-bezier(0.55, -0.59, 0.2, 0.37) 0.2s;
+}
+
+.social-share-floating.expanded .social-share-menu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+  transform: translateX(0);
+  transition: all 0.2s ease-out 0.2s;
+}
+
+/* per-network buttons — brand colours, white glyphs */
+.social-share-x a { background: var(--social-x); }
+.social-share-pinterest a { background: var(--social-pinterest); }
+.social-share-linkedin a { background: var(--social-linkedin); }
+.social-share-facebook a { background: var(--social-facebook); }
+.social-share-whatsapp a { background: var(--social-whatsapp); }
+
+.social-share-item a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--social-share-size-desktop);
+  height: var(--social-share-size-desktop);
+  border-radius: var(--icon-btn-radius);
+  color: var(--skoda-white);
+}
+
+.social-share-item a:hover {
+  color: rgb(255 255 255 / 70%);
+}
+
+.social-share-x a:hover { color: #ccc; }
+
+.social-share-item a:focus-visible {
+  outline: 2px solid var(--skoda-ink);
+  outline-offset: 2px;
+}
+
+.social-share .icon {
+  width: 24px;
+  height: 24px;
+}
+
+.social-share .icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentcolor;
+}
+
+/* WhatsApp only on coarse-pointer / mobile (the whatsapp:// scheme) */
+@media (pointer: fine) {
+  .social-share-whatsapp { display: none; }
+}
+
+@media (width < 992px) {
+  .social-share-trigger,
+  .social-share-item a {
+    width: var(--social-share-size-compact);
+    height: var(--social-share-size-compact);
+  }
+}
+
+/* inline variant — in-flow row under the article header */
+.social-share-inline {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.social-share-inline .social-share-menu {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.social-share-inline .social-share-trigger {
+  display: none; /* inline always-open: no toggle needed */
+}

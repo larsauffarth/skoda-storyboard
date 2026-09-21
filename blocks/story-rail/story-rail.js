@@ -28,9 +28,12 @@ import loadQueryIndex from '../../scripts/query-index.js';
 
 const DEFAULTS = {
   index: '/en/query-index.json',
-  category: '',
+  template: 'story', // which content type fills the rail (story | skoda_model | image | video | press_kit | press_release …)
+  category: '', // optional secondary filter within the template (e.g. emobility)
+  tags: '', // optional substring match on the tags column
   limit: 10,
   exclude: '',
+  dropshown: '', // storyboard-home only: 'true' drops stories already shown in Featured/Latest above
 };
 
 /** Read simple key/value config rows from the block, falling back to defaults. */
@@ -44,7 +47,15 @@ function readConfig(block) {
     if (key in config && value) config[key] = value;
   });
   config.limit = parseInt(config.limit, 10) || DEFAULTS.limit;
+  config.template = config.template.trim().toLowerCase();
   config.category = config.category.toLowerCase();
+  config.tagList = config.tags.split(',').map((s) => s.trim().toLowerCase()).filter(Boolean);
+  // De-dup against Featured/Latest above defaults ON for the storyboard-home
+  // story rails (their source behaviour) and OFF for other content types
+  // (Models/Images/Videos/Press Kits on the Media Room home). An explicit
+  // `dropshown = true|false` row overrides.
+  const ds = config.dropshown.trim().toLowerCase();
+  config.dropShown = ds ? ds === 'true' : config.template === 'story';
   config.excludeList = config.exclude
     .split(',')
     .map((s) => s.trim())
@@ -144,19 +155,26 @@ export default async function decorate(block) {
   const config = readConfig(block);
   block.textContent = '';
 
-  // A rail with no pre-selected tag is a config error — degrade silently.
-  if (!config.category) return;
+  // A rail needs at least one positive selector (template, category, or tags);
+  // otherwise it is a config error — degrade silently.
+  if (!config.template && !config.category && !config.tagList.length) return;
 
-  // Stories already shown in the Featured promo + Latest Stories above the rails
-  // are dropped here so each story appears once on the page (source behaviour).
-  const shownSlugs = await collectShownSlugs();
+  // Storyboard-home only: drop stories already shown in the Featured promo +
+  // Latest Stories above these rails, so each story appears once (source
+  // behaviour). Opt-in via `dropshown = true`; off elsewhere (e.g. Media Room).
+  const shownSlugs = config.dropShown ? await collectShownSlugs() : new Set();
 
   let entries = [];
   try {
     const all = await loadQueryIndex(config.index);
     entries = all
-      .filter((e) => (e.template ? e.template === 'story' : true))
-      .filter((e) => (e.category || '').toLowerCase() === config.category)
+      // template filter (default 'story'); empty template row = any type
+      .filter((e) => !config.template || (e.template || '').toLowerCase() === config.template)
+      // optional category filter within the template
+      .filter((e) => !config.category || (e.category || '').toLowerCase() === config.category)
+      // optional tag substring match (OR across the list)
+      .filter((e) => !config.tagList.length
+        || config.tagList.some((t) => (e.tags || '').toLowerCase().includes(t)))
       .filter((e) => !config.excludeList.some((frag) => (e.path || '').includes(frag)))
       // drop stories already rendered above (featured promo / Latest Stories)
       .filter((e) => !shownSlugs.has(slugOf(e.path)))

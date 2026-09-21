@@ -93,6 +93,43 @@ WEEKS = [
             "as we scale up.",
         ],
     },
+    {
+        "week": "Week 3",
+        "dates": "14–19 Sep 2026",
+        "phase": "Scope locked · access unblocked",
+        "headline": "Locked the demo scope with the client, unblocked asset-library access, and mapped the few pieces that need a small companion service.",
+        "notes": [
+            "Full front-end walkthrough with the client's business analyst (14 Sep): a guided tour of both "
+            "Storyboard and Media Room, confirming we rebuild the experience essentially as it is today "
+            "rather than redesigning it.",
+            "Captured the editorial and back-end behaviours that matter for the build — articles can sit in "
+            "several categories at once, each article shows only the languages it's actually written in, "
+            "translation is a manual copy-into-a-new-language step, image carousels are a mix of autoplay "
+            "and manual, and press kits quietly hide sections when the content for them is missing.",
+            "Nailed down scope simplifications that reduce demo effort: the podcast area is dropped, the "
+            "newsletter is UI-only for now, the audio player is a drop-in embed from an external vendor, "
+            "and translation stays manual.",
+            "Presented the scope deliverable to the client to fix exactly what the demo will cover (16 Sep): "
+            "accepted, pending their review. The AI-tooling information note they'd asked for is not urgent "
+            "and can wait.",
+            "Alignment call (17 Sep): access to the asset library (DAM) has been granted — an important "
+            "dependency now cleared.",
+            "Follow-up questions confirmed nothing here is impossible on the new platform. A few pieces need "
+            "a small companion service: packaging a journalist's ad-hoc cart selection into one ZIP (demo "
+            "fallback — the files download separately), search and faceting across the full asset library, "
+            "and gated per-visitor access for the QR journey. Whole press-kit ZIPs are pre-built so those "
+            "stay easy; PDFs and video are referenced as-is while images are resized and reformatted "
+            "automatically.",
+            "Client flagged three items to fold into go-live scope (the demo itself stays as-is): desktop "
+            "and mobile variants both in scope, newsletter subscription across header, footer and article "
+            "sidebar with consent capture, and embargo protection covering both images and videos.",
+            "Internal read — from the client-side conversation that continued after we left the 14 Sep "
+            "call: strong enthusiasm for our approach on their side, but their own formal go-ahead and "
+            "governance sign-off is still pending — their leadership hasn't yet confirmed we are the ones "
+            "to implement, and they're actively chasing that internally. Keep managing approval and "
+            "ownership as the main organisational risk, not the technology.",
+        ],
+    },
 ]
 
 
