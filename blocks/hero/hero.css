@@ -30,6 +30,7 @@
   height: 100%;
 }
 
+/* stylelint-disable-next-line media-feature-name-value-allowed-list -- legacy literal, tracked for SKODA-106 canonical-ladder migration (docs/architecture/CSS-ARCHITECTURE.md §2) */
 @media (width >= 900px) {
   .hero {
     padding: 40px 32px;

@@ -87,7 +87,7 @@
   color: rgb(255 255 255 / 70%);
 }
 
-.social-share-x a:hover { color: #ccc; }
+.social-share-x a:hover { color: var(--skoda-grey-80); }
 
 .social-share-item a:focus-visible {
   outline: 2px solid var(--skoda-ink);

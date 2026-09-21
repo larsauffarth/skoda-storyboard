@@ -83,6 +83,7 @@
    Scope this to mobile only — on desktop the grid rows (below) define card
    height, and adding an aspect-ratio here overflows the grid cell and overlaps
    the following section. */
+/* stylelint-disable-next-line media-feature-name-value-allowed-list -- legacy literal, tracked for SKODA-106 canonical-ladder migration (docs/architecture/CSS-ARCHITECTURE.md §2) */
 @media (width < 900px) {
   .cards-overlay-featured > ul > li {
     aspect-ratio: 3 / 2;
@@ -102,6 +103,7 @@
 
 /* Promo box: 1 large (left, ~67%) + 2 stacked (right). Container ≈ 467px tall.
    Source at 1248px: large 812 + 20 gap + small 400 → large ≈ 812/1212. */
+/* stylelint-disable-next-line media-feature-name-value-allowed-list -- legacy literal, tracked for SKODA-106 canonical-ladder migration (docs/architecture/CSS-ARCHITECTURE.md §2) */
 @media (width >= 900px) {
   .cards-overlay-promo > ul {
     grid-template:
@@ -128,6 +130,7 @@
 }
 
 /* Latest Stories: 2 large (top) + 3 medium (bottom). */
+/* stylelint-disable-next-line media-feature-name-value-allowed-list -- legacy literal, tracked for SKODA-106 canonical-ladder migration (docs/architecture/CSS-ARCHITECTURE.md §2) */
 @media (width >= 900px) {
   .cards-overlay-latest > ul {
     grid-template-columns: repeat(6, 1fr);

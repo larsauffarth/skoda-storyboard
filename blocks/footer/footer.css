@@ -30,6 +30,7 @@ footer a:hover {
   text-decoration: underline;
 }
 
+/* stylelint-disable-next-line media-feature-name-value-allowed-list -- legacy literal, tracked for SKODA-106 canonical-ladder migration (docs/architecture/CSS-ARCHITECTURE.md §2) */
 @media (width >= 900px) {
   footer .footer > div {
     padding: 0 32px;
@@ -118,12 +119,14 @@ footer .footer-nav .default-content-wrapper > ul {
   gap: 32px 24px;
 }
 
+/* stylelint-disable-next-line media-feature-name-value-allowed-list -- legacy literal, tracked for SKODA-106 canonical-ladder migration (docs/architecture/CSS-ARCHITECTURE.md §2) */
 @media (width >= 700px) {
   footer .footer-nav .default-content-wrapper > ul {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
+/* stylelint-disable-next-line media-feature-name-value-allowed-list -- legacy literal, tracked for SKODA-106 canonical-ladder migration (docs/architecture/CSS-ARCHITECTURE.md §2) */
 @media (width >= 1000px) {
   footer .footer-nav .default-content-wrapper > ul {
     grid-template-columns: repeat(7, 1fr);
